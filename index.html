@@ -288,6 +288,14 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 #mm-out h4{margin:10px 0 4px}
 .cmdtag{display:inline-block;font-size:12px;padding:2px 8px;border-radius:4px;background:var(--lapis-soft);color:var(--lapis);margin:0 4px 4px 0}
 @media (max-width:900px){ .topbar .tabs{order:3;width:100%;overflow-x:auto;flex-wrap:nowrap} .gamebar .fld select,.gamebar .fld input{min-width:80px} }
+
+.oinfo{margin:-2px 0 10px}
+.oi{border:1px solid var(--line);border-left:3px solid var(--lapis);border-radius:6px;padding:8px 10px;background:var(--paper);margin-bottom:6px;font-size:13.5px}
+.oi p{margin:4px 0 0}
+.oi-h{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.oi-t,.oi-c{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:1px 7px;border-radius:999px;background:var(--lapis-soft);color:var(--lapis)}
+.oi-t.t-turbo{background:var(--bad-soft);color:var(--bad)}.oi-t.t-stax{background:var(--gold-soft);color:var(--gold)}
+.oi-c{font-family:var(--f-mono);background:var(--bg);color:var(--muted)}
 /* ---- v2 ---- */
 .gamebar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:end;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:18px}
 .gamebar .fld{flex:0 1 auto;min-width:0}
@@ -1304,6 +1312,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 </div>
 
 <datalist id="cards"></datalist>
+<datalist id="cmdrs"></datalist>
 
 <script>
 /* ===================== Utilidades ===================== */
@@ -1550,6 +1559,7 @@ function canon(raw){
   const inc = names.filter(c => norm(c).includes(n)); if (inc.length === 1) return inc[0];
   return raw.trim();
 }
+function fillCmdrList(){ const dl = document.getElementById("cmdrs"); if (dl) dl.innerHTML = CMDR_DB.map(e=>`<option value="${esc(e.n)}">`).join(""); }
 function fillDatalist(){ $("#cards").innerHTML = Object.keys(D().cards).map(c => `<option value="${esc(c)}">`).join(""); }
 
 function renderZone(zone){
@@ -1592,23 +1602,34 @@ function renderOpps(){
     d.innerHTML = `
       <div class="ohead">
         <span class="stag">Seat ${seats[i]}</span>
-        <div class="fld"><label for="on${i}">Comandante o nombre</label><input id="on${i}" placeholder="ej: Kinnan" value="${esc(o.name)}"></div>
+        <div class="fld"><label for="on${i}">Comandante o nombre</label><input id="on${i}" list="cmdrs" placeholder="Escribe: kinnan, najeela, tymna…" value="${esc(o.name)}" autocomplete="off"></div>
         <div class="fld life"><label for="ol${i}">Vida</label><input id="ol${i}" type="number" inputmode="numeric" value="${esc(o.life)}"></div>
       </div>
+      <div class="oinfo" id="oi${i}"></div>
       <label class="chk" style="margin:0 0 8px"><input type="checkbox" id="oa${i}" ${o.alive?"checked":""}> Sigue en la partida</label>
       <div class="fld"><label for="ot${i}">Su mesa ahora</label><textarea id="ot${i}" placeholder="Campo, maná abierto, cartas en mano, qué jugó…">${esc(o.text)}</textarea></div>
       <details ${o.list?"":""}><summary>Lista de Moxfield <span class="cnt">${n?`· ${n} líneas cargadas`:"· opcional"}</span></summary>
         <div class="fld" style="margin-top:6px"><label for="ox${i}">Pega el texto exportado</label><textarea id="ox${i}" placeholder="1 Sol Ring&#10;1 Kinnan, Bonder Prodigy&#10;…" style="min-height:120px">${esc(o.list||"")}</textarea><div class="hint">Moxfield bloquea que la página lo lea directo: usa Export → Copy as plain text.</div></div>
       </details>
       <div class="shot"><label for="of${i}">Captura:</label><input id="of${i}" type="file" accept="image/*"><span id="op${i}"></span></div>`;
-    d.querySelector(`#on${i}`).addEventListener("input", e => { o.name = e.target.value; renderSeatline(); fillWho(); update(); });
+    d.querySelector(`#on${i}`).addEventListener("input", e => { o.name = e.target.value; renderOppInfo(i); renderSeatline(); fillWho(); update(); });
     d.querySelector(`#ol${i}`).addEventListener("input", e => { o.life = parseInt(e.target.value,10)||0; update(); });
     d.querySelector(`#oa${i}`).addEventListener("change", e => { o.alive = e.target.checked; d.classList.toggle("deadopp",!o.alive); renderSeatline(); update(); });
     d.querySelector(`#ot${i}`).addEventListener("input", e => { o.text = e.target.value; update(); });
     d.querySelector(`#ox${i}`).addEventListener("input", e => { o.list = e.target.value; const c=countCards(o.list); d.querySelector(".cnt").textContent = c?`· ${c} líneas cargadas`:"· opcional"; update(); });
     d.querySelector(`#of${i}`).addEventListener("change", e => { shots[i] = e.target.files[0] || null; showShot(i); });
-    wrap.appendChild(d); showShot(i);
+    wrap.appendChild(d); showShot(i); renderOppInfo(i);
   });
+}
+function renderOppInfo(i){
+  const box = document.getElementById("oi"+i); if (!box) return;
+  const o = S.opps[i]; const hits = cmdrLookup(o.name);
+  if (!o.name.trim()) { box.innerHTML = ""; return; }
+  if (!hits.length) { box.innerHTML = `<p class="small">No tengo a "${esc(o.name)}" en la base. Pega su lista o describe su plan abajo y Claude lo considera.</p>`; return; }
+  const cols = [...new Set(hits.flatMap(h=>h.c.split("")))];
+  box.innerHTML = hits.map(h => `<div class="oi"><div class="oi-h"><b>${esc(h.n)}</b><span class="oi-t t-${esc(h.t)}">${esc(h.t)}</span><span class="oi-c">${esc(h.c)}</span></div>
+    <p><b>Cómo gana:</b> ${esc(h.plan)}</p><p><b>Cómo frenarlo:</b> ${esc(h.stop)}</p></div>`).join("")
+    + `<p class="small"><b>Por colores espera:</b> ${cols.map(c=>esc(COLOR_THREAT[c]||c)).join(" · ")}.</p>`;
 }
 function showShot(i){
   const holder = document.getElementById("op"+i); if (!holder) return;
@@ -1748,7 +1769,7 @@ function update(){
 function loadAll(){
   syncGamebar(); $("#mana").value = S.mana||""; $("#life").value = S.life;
   $("#mesa-eyebrow").textContent = D().short+" · asistente de partida";
-  fillDatalist(); ZONES.forEach(renderZone); renderOpps(); renderSeatline(); fillWho(); renderLog(); update();
+  fillDatalist(); fillCmdrList(); ZONES.forEach(renderZone); renderOpps(); renderSeatline(); fillWho(); renderLog(); update();
 }
 $("#btn-clear").addEventListener("click", () => { const deck=S.deck, seat=S.seat; S = blank(); S.deck=deck; S.seat=seat; S.active=1; shots.fill(null); $("#ai-out").innerHTML=""; $("#ai-meta").textContent=""; convo=[]; loadAll(); });
 $("#btn-example").addEventListener("click", () => {
@@ -1811,6 +1832,7 @@ function stateText(){
   const order = [1,2,3,4].map(s => `S${s}=${seatName(s)}${s===S.seat?" (YO)":""}${seatAlive(s)?"":" (eliminado)"}`).join(", ");
   const opp = S.opps.map((o,i) => {
     let s = `Seat ${seats[i]}${o.name?" ("+o.name+")":""}${o.alive?"":" [ELIMINADO]"} · vida ${o.life}: ${o.text||"(sin datos)"}${shots[i]?" [captura adjunta]":""}`;
+    cmdrLookup(o.name).forEach(h => { s += `\n  Ficha ${h.n} (${h.c}, ${h.t}): ${h.plan} Cómo frenarlo: ${h.stop}`; });
     if (o.list) s += `\n  Lista pegada (puede estar recortada):\n  ${o.list.replace(/\n+/g," | ").slice(0,3500)}`;
     return s;
   }).join("\n");
@@ -1962,38 +1984,120 @@ function planHTML(lines){
 }
 
 /* ===================== Mulligan en la mesa ===================== */
-const CMDRS = [
-  ["kinnan","Kinnan","turbo","Combo rápido con dorks y artefactos. La remoción barata de criaturas gana tiempo."],
-  ["najeela","Najeela","turbo","Combo de combate: puede ganar en turno 2–3. Guarda remoción o Silence para su combate."],
-  ["rograkh","Rograkh","turbo","Partner turbo (Thoracle o Breach). Espera un intento muy temprano."],
-  ["magda","Magda","turbo","Turbo con tesoros; gana rápido si no lo frenas."],
-  ["malcolm","Malcolm","turbo","Turbo con tesoros."],
-  ["breeches","Breeches/Dargo","turbo","Turbo de un solo turno."],["dargo","Dargo","turbo","Turbo de un solo turno."],
-  ["dack fayden","Dack Fayden","turbo","Gana con un solo hechizo: contrarresta a Dack o su trigger."],
-  ["hashaton","Hashaton","turbo","Dack secreto: guarda Stifle o counter para el trigger de Dack."],
-  ["thrasios","Thrasios","midrange","Partner con mucho counter y Thoracle. Juega lento y reactivo."],
-  ["tymna","Tymna","midrange","Counters gratis y Thoracle."],
-  ["kraum","Kraum","midrange","Roba cuando un rival lanza su segundo hechizo del turno: castiga encadenar."],
-  ["blue farm","Blue Farm","midrange","Tymna/Kraum: counters y Thoracle, castiga encadenar hechizos."],
-  ["silas","Silas Renn","midrange","Valor de artefactos y Thoracle."],
-  ["tivit","Tivit","combo","Combo con Thoracle y tesoros; mucho counter."],
-  ["sisay","Sisay","combo","Toolbox de criaturas: busca piezas de combo y hate."],
-  ["urza","Urza","combo","Artefactos; el Cursed Totem no lo frena, Null Rod sí."],
-  ["crystal","Crystal","combo","Storm con Curiosity: rebota o mata a Crystal."],
-  ["vivi","Vivi","combo","Storm con Curiosity."],
-  ["kenrith","Kenrith","combo","Combo con su habilidad; necesita maná."],
-  ["korvold","Korvold","midrange","Valor y combo con sacrificio."],
-  ["yuriko","Yuriko","tempo","Presión temprana con ninjas; castiga manos lentas."],
-  ["zur","Zur","midrange","Encantamientos con Necro y counters."],
-  ["winota","Winota","stax","Stax y combate. Ten remoción para Winota."],
-  ["derevi","Derevi","stax","Stax con untaps y Stasis. Ten forma de sacar stax."],
-  ["grand arbiter","Grand Arbiter","stax","Encarece tus hechizos no criatura: Crystal sufre mucho."],
-  ["lavinia","Lavinia","stax","Contrarresta hechizos lanzados sin pagar maná: tus counters gratis sufren."],
-  ["talion","Talion","control","Castiga lanzar muchas cartas del mismo valor; control con counters."],
-  ["sami","Sami","stax","Stax de artefactos."],
-  ["ketramose","Ketramose","midrange","Valor y combo."],
-  ["aang","Aang","combo","Combo de criaturas al entrar."]
+const CMDR_DB = [
+  {k:["kinnan"], n:"Kinnan, Bonder Prodigy", c:"GU", t:"turbo",
+   plan:"Rampa con dorks y artefactos; cada permanente no tierra que gira para maná da uno extra. Gana con maná infinito (Basalt Monolith, Freed from the Real / Pemmin's Aura en un dork) y lo gasta en la habilidad de Kinnan o en Thassa's Oracle.",
+   stop:"Mata a Kinnan o sus dorks temprano. Counter para Basalt Monolith, Freed from the Real o Pemmin's Aura. Cursed Totem apaga la habilidad activada de Kinnan."},
+  {k:["najeela"], n:"Najeela, the Blade-Blossom", c:"WUBRG", t:"turbo",
+   plan:"Ataca con guerreros y combina con Derevi, Nature's Will o Druids' Repository para enderezar tierras y pagar la habilidad: combates infinitos. También corre Thassa's Oracle.",
+   stop:"Saca a Najeela antes de su combate (en su upkeep o al inicio del combate). Remoción instantánea y bloqueadores. Silence en su turno corta la cadena."},
+  {k:["thrasios"], n:"Thrasios, Triton Hero", c:"GU", t:"midrange",
+   plan:"Partner de valor: la habilidad de Thrasios es salida para maná infinito. Gana con Thassa's Oracle + Consultation/Tainted Pact o con Underworld Breach. Mucho counter.",
+   stop:"Respeta su maná abierto. Guarda un counter para Thoracle o Consultation. Stifle/Tidebinder contra el trigger de Thassa."},
+  {k:["tymna"], n:"Tymna the Weaver", c:"WB", t:"midrange",
+   plan:"Robo por daño de combate con criaturas chicas. Con Kraum o Thrasios: Thoracle + Consultation/Pact y Breach. Juega lento con counters gratis.",
+   stop:"Bloqueadores o remoción a sus atacantes. Interacción para Thoracle. No dejes que acumule cartas sin presión."},
+  {k:["kraum"], n:"Kraum, Ludevic's Opus", c:"UR", t:"midrange",
+   plan:"Roba cada vez que un rival lanza su segundo hechizo del turno. Normalmente con Tymna (Blue Farm): Thoracle y Breach.",
+   stop:"Cuidado al encadenar: cada turno tuyo con 2+ hechizos le da cartas. Matarlo con Pyrokinesis o Snuff Out (es rojo/azul) es valioso."},
+  {k:["blue farm"], n:"Blue Farm (Tymna + Kraum)", c:"WUBR", t:"midrange",
+   plan:"Control con counters gratis, robo de Tymna y Kraum, y win con Thassa's Oracle + Consultation/Pact o Breach.",
+   stop:"Haz tus jugadas importantes cuando estén girados. Guarda un counter para su Thoracle."},
+  {k:["rograkh"], n:"Rograkh, Son of Rohgahh", c:"R", t:"turbo",
+   plan:"Partner de 0 maná para turbo (con Silas Renn, Thrasios, Ishai…). Gana rápido con Underworld Breach + LED + Brain Freeze o Thoracle.",
+   stop:"Espera un intento en turno 1–3. Counter para Breach o Thoracle, Silence en su turno."},
+  {k:["silas"], n:"Silas Renn, Seeker Adept", c:"UB", t:"turbo",
+   plan:"Lanza artefactos del cementerio con daño de combate. Con Rograkh: turbo de Breach/LED/Thoracle.",
+   stop:"Interacción para Breach y Thoracle. Bojuka Bog o exilio de cementerio frena sus loops."},
+  {k:["malcolm"], n:"Malcolm, Keen-Eyed Navigator", c:"U", t:"turbo",
+   plan:"Partner que genera Tesoros al hacer daño. En turbo con otros partners para Thoracle o Breach.",
+   stop:"Bloquea o mata a los voladores tempranos. Interacción para su win."},
+  {k:["vial smasher"], n:"Vial Smasher the Fierce", c:"BR", t:"turbo",
+   plan:"Partner agresivo; daño por cada hechizo. Suele ir con Malcolm o Thrasios en turbo.",
+   stop:"Guarda counter para su intento de combo."},
+  {k:["sisay"], n:"Sisay, Weatherlight Captain", c:"WUBRG", t:"combo",
+   plan:"Busca permanentes legendarios desde la biblioteca con su habilidad: arma combos de criaturas y saca hate (Drannith, Grand Abolisher…).",
+   stop:"Mata a Sisay antes de que la active varias veces. Cursed Totem apaga su habilidad."},
+  {k:["tivit"], n:"Tivit, Seller of Secrets", c:"WUB", t:"combo",
+   plan:"Votos que dan Tesoros y cartas. Combo con Deadeye Navigator u otros parpadeos, y Thassa's Oracle.",
+   stop:"Rebote o remoción a Tivit; counter para su pieza de parpadeo o Thoracle."},
+  {k:["urza"], n:"Urza, Lord High Artificer", c:"U", t:"combo",
+   plan:"Artefactos dan azul con Urza. Gana con Isochron Scepter + Dramatic Reversal, Paradox Engine, o el loop de Sensei's Top.",
+   stop:"Counter o rebote a Urza. Null Rod / Collector Ouphe lo apagan. Cursed Totem no lo frena."},
+  {k:["korvold"], n:"Korvold, Fae-Cursed King", c:"BRG", t:"midrange",
+   plan:"Sacrifica permanentes para robar y crecer. Combos de sacrificio y Food Chain, o daño con Korvold gigante.",
+   stop:"Remoción a Korvold. Corta sus outlets de sacrificio."},
+  {k:["yuriko"], n:"Yuriko, the Tiger's Shadow", c:"UB", t:"tempo",
+   plan:"Ninjas que entran sin bloquear; Yuriko pega por el valor de la carta del tope. Gana por daño y castiga manos lentas.",
+   stop:"Bloqueadores voladores y dorks para chump. Remoción a Yuriko. No te quedes sin defensa en los primeros turnos."},
+  {k:["winota"], n:"Winota, Joiner of Forces", c:"RW", t:"stax",
+   plan:"Ataca con no Humanos para poner Humanos de la biblioteca (Drannith, Grand Abolisher, Thalia…). Stax y presión de combate.",
+   stop:"Mata a Winota antes de atacar. Barridas chicas (Cave-In, Pyrokinesis) contra su ejército."},
+  {k:["derevi"], n:"Derevi, Empyrial Tactician", c:"WUG", t:"stax",
+   plan:"Stax de Stasis, Winter Orb y tierras, enderezando con Derevi. Gana lento con criaturas.",
+   stop:"Rebote/destrucción a la pieza de stax. Derevi cuesta cada vez más al volver."},
+  {k:["grand arbiter"], n:"Grand Arbiter Augustin IV", c:"WU", t:"stax",
+   plan:"Encarece los hechizos de los rivales y abarata los suyos. Stax con counters.",
+   stop:"Mátalo o rebótalo: sin él tus hechizos vuelven a costar normal. Muy malo para Crystal y Hashaton."},
+  {k:["lavinia"], n:"Lavinia, Azorius Renegade", c:"WU", t:"stax",
+   plan:"Contrarresta hechizos lanzados sin pagar maná y frena no criaturas con valor alto. Stax con counters.",
+   stop:"Tus counters gratis y LED/Petal sufren. Rebota o mata a Lavinia."},
+  {k:["talion"], n:"Talion, the Kindly Lord", c:"UB", t:"control",
+   plan:"Elige un número: cada vez que un rival lanza un hechizo de ese valor, Talion roba y te hace perder vida. Control con Thoracle.",
+   stop:"Varía el valor de tus hechizos. Remoción a Talion antes de encadenar."},
+  {k:["zur"], n:"Zur the Enchanter", c:"WUB", t:"midrange",
+   plan:"Al atacar busca encantamientos de valor 3 o menos (Necropotence, Doomsday, Mystic Remora). Gana con Thoracle.",
+   stop:"Bloquea a Zur o mátalo. Counter para Doomsday/Thoracle."},
+  {k:["krark"], n:"Krark, the Thumbless", c:"R", t:"combo",
+   plan:"Con Sakashima: cada instantáneo o conjuro se copia o vuelve a la mano por monedas. Storm con Underworld Breach o rituales.",
+   stop:"Mata a Krark o Sakashima antes de su turno. Rule of Law y similares lo matan."},
+  {k:["sakashima"], n:"Sakashima of a Thousand Faces", c:"U", t:"combo",
+   plan:"Copia a su partner (Krark u otro) y suma su efecto. Base de combos de partner.",
+   stop:"Remoción a cualquiera de los dos partners rompe el combo."},
+  {k:["godo"], n:"Godo, Bandit Warlord", c:"R", t:"combo",
+   plan:"Busca Helm of the Hosts al entrar: copias de Godo con combates extra infinitos.",
+   stop:"Counter a Godo o al Helm. Remoción al Helm (Boseiju, Into the Flood Maw)."},
+  {k:["selvala"], n:"Selvala, Heart of the Wilds", c:"G", t:"turbo",
+   plan:"Genera maná enorme con su habilidad y criaturas grandes. Gana con salidas de maná infinito.",
+   stop:"Mata a Selvala; Cursed Totem apaga su habilidad."},
+  {k:["glarb"], n:"Glarb, Calamity's Augur", c:"BUG", t:"midrange",
+   plan:"Juega tierras y lanza hechizos grandes desde el tope. Valor con Thoracle de cierre.",
+   stop:"Interacción a su win; no lo dejes acumular ventaja libre."},
+  {k:["old stickfingers"], n:"Old Stickfingers", c:"B", t:"turbo",
+   plan:"Muele hasta encontrar criaturas y llena el cementerio para reanimación turbo.",
+   stop:"Exilio de cementerio (Bojuka Bog, Extirpate) y counters a la reanimación."},
+  {k:["magda"], n:"Magda, Brazen Outlaw", c:"RW", t:"turbo",
+   plan:"Tesoros al girar Dwarves; combos de maná y combate rápido.",
+   stop:"Remoción a Magda y a sus dwarves clave."},
+  {k:["aang"], n:"Aang, at the Crossroads", c:"WUG", t:"combo",
+   plan:"Al entrar pone una criatura de valor 4 o menos del tope: cadena de Clones hasta ganar.",
+   stop:"Counter a Aang o Stifle a su trigger."},
+  {k:["dack fayden"], n:"Dack Fayden, Helping Hand", c:"W", t:"turbo",
+   plan:"Gana lanzando a Dack: sus triggers sacan las pocas criaturas del mazo y combinan (loops de flicker o Leveler + Thassa). Mucho stax blanco.",
+   stop:"Counter a Dack o Stifle/Tidebinder a su trigger. Hushbringer o Torpor Orb lo apagan."},
+  {k:["hashaton"], n:"Hashaton, Scarab's Fist", c:"WUB", t:"turbo",
+   plan:"Descarta criaturas para copiarlas; la versión con Dack gana descartando a Dack (token) con Leveler + Thassa.",
+   stop:"Stifle al trigger de Hashaton o de Dack; exilio de cementerio contra Entomb + Reanimate."},
+  {k:["crystal"], n:"Crystal, Inhuman Princess", c:"RGWU", t:"combo",
+   plan:"Cada hechizo no criatura pega a todos; con Curiosity roba. Gana con Sewer-veillance Cam + Retraction Helix o Breach + LED + Brain Freeze.",
+   stop:"Mata o rebota a Crystal antes de su turno. Rule of Law y Cursed Totem la apagan."},
+  {k:["vivi"], n:"Vivi Ornitier", c:"UR", t:"combo",
+   plan:"Cada hechizo no criatura le da +1/+1 y pega 1 a cada rival; maná U/R igual a su fuerza. Storm con Curiosity.",
+   stop:"Remoción a Vivi antes de que crezca. Rule of Law la apaga."}
 ];
+const COLOR_THREAT = {
+  U:"Azul: counters gratis (Force of Will, Fierce Guardianship, Pact)",
+  W:"Blanco: Silence / Orim's Chant, Swords, stax",
+  B:"Negro: tutores y Thoracle, Snuff Out gratis",
+  R:"Rojo: Pyroblast/REB contra azul, Deflecting Swat, Pyrokinesis",
+  G:"Verde: Veil of Summer, Boseiju, dorks rápidos"
+};
+function cmdrLookup(name){
+  const t = norm(name||""); if (!t) return [];
+  return CMDR_DB.filter(e => e.k.some(k => t.includes(k)) || t.includes(norm(e.n)));
+}
+const CMDRS = CMDR_DB.map(e => [e.k[0], e.n, e.t, e.plan]);
+
 const REMOVAL = {
   crystal:["Pyrokinesis","Cave-In","Firestorm","Gut Shot","Into the Flood Maw","Sink into Stupor","Snap","Snapback","Claim the Firstborn","Sigil of Sleep","Boseiju, Who Endures","Otawara, Soaring City"],
   hashaton:["Swords to Plowshares","Snuff Out","Deadly Rollick","Snapback","Into the Flood Maw","Chain of Vapor","Toxic Deluge","Otawara, Soaring City"]
@@ -2002,7 +2106,7 @@ function readTable(){
   const seats = oppSeats();
   return S.opps.map((o,i)=>({o, seat:seats[i]})).filter(x=>x.o.alive).map(x => {
     const t = norm(x.o.name);
-    const hit = CMDRS.filter(([k]) => t.includes(k));
+    const hit = cmdrLookup(x.o.name).map(e => [e.k[0], e.n, e.t, e.stop]);
     return {seat:x.seat, name:x.o.name, hits:hit};
   });
 }
