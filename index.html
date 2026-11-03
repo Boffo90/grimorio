@@ -734,7 +734,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <p>Hard cast en turno 2: Tomb, Vault, Cavern nombrando Human, Ritual. Cuenta tu maná antes de comprometerte y usa Misstep contra el Mental Misstep o Swords rival.</p>
     </div>
   </div>
-  <div class="tip"><strong>Imprints y Gemstone:</strong> nunca imprintes Dack, Thassa ni un tutor en Chrome Mox. Imprinta remoción o un counter repetido. Lo mismo con Gemstone Caverns (solo sirve si no eres el primer jugador).</div>
+  <div class="tip"><strong>Imprints y Gemstone:</strong> Chrome Mox solo acepta cartas que no sean tierra ni artefacto, y nunca imprintes Dack, Thassa ni un tutor. Imprinta remoción o un counter repetido. Lo mismo con Gemstone Caverns (solo sirve si no eres el primer jugador).</div>
 </section>
 
 <section id="temprano">
@@ -1050,7 +1050,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <div class="hand ok"><span class="verdict">Quédate · motor</span><ul><li>Volcanic Island</li><li>Sol Ring</li><li>Mystic Remora</li><li>Rhystic Study</li><li>Swan Song</li><li>Pact of Negation</li><li>Plateau</li></ul><p>Sin Crystal temprano, pero mucha carta. Remora en turno 1, Crystal + Rhystic en turno 2.</p></div>
     <div class="hand mull"><span class="verdict">Mulligan</span><ul><li>Underworld Breach</li><li>Brain Freeze</li><li>Jeskai Ascendancy</li><li>Final Fortune</li><li>Cave-In</li><li>Sink into Stupor</li><li>Tundra</li></ul><p>Una tierra, nada de aceleración, piezas que no se conectan. No baja a Crystal antes del turno 3.</p></div>
   </div>
-  <div class="tip"><strong>Imprints:</strong> en Chrome Mox imprinta una interacción repetida o una carta de dos colores que no vayas a usar. Nunca una pieza de combo. Mox Diamond pide descartar una tierra: no descartes tu único Volcanic si tus colores dependen de él.</div>
+  <div class="tip"><strong>Imprints:</strong> Chrome Mox solo acepta una carta que no sea tierra ni artefacto: imprinta una interacción repetida o una carta que no vayas a usar. Nunca una pieza de combo. Mox Diamond pide descartar una tierra: no descartes tu único Volcanic si tus colores dependen de él.</div>
 </section>
 
 <section id="c-temprano">
@@ -1633,7 +1633,7 @@ function renderOppInfo(i){
   if (!hits.length) { box.innerHTML = `<p class="small">No tengo a "${esc(o.name)}" en la base. Pega su lista o describe su plan abajo y Claude lo considera.</p>`; return; }
   const cols = [...new Set(hits.flatMap(h=>h.c.split("")))];
   box.innerHTML = hits.map(h => `<div class="oi"><div class="oi-h"><b>${esc(h.n)}</b><span class="oi-t t-${esc(h.t)}">${esc(h.t)}</span><span class="oi-c">${esc(h.c)}</span></div>
-    <p><b>Cómo gana:</b> ${esc(h.plan)}</p><p><b>Cómo frenarlo:</b> ${esc(h.stop)}</p></div>`).join("")
+    <p><b>Cómo gana:</b> ${esc(h.plan)}</p><p><b>Stax:</b> ${esc(h.s||"sin datos")}</p><p><b>Cómo frenarlo:</b> ${esc(h.stop)}</p></div>`).join("")
     + `<p class="small"><b>Por colores espera:</b> ${cols.map(c=>esc(COLOR_THREAT[c]||c)).join(" · ")}.</p>`;
 }
 function showShot(i){
@@ -1850,7 +1850,7 @@ function stateText(){
   const order = [1,2,3,4].map(s => `S${s}=${seatName(s)}${s===S.seat?" (YO)":""}${seatAlive(s)?"":" (eliminado)"}`).join(", ");
   const opp = S.opps.map((o,i) => {
     let s = `Seat ${seats[i]}${o.name?" ("+o.name+")":""}${o.alive?"":" [ELIMINADO]"} · vida ${o.life}: ${o.text||"(sin datos)"}${shots[i]?" [captura adjunta]":""}`;
-    cmdrLookup(o.name).forEach(h => { s += `\n  Ficha ${h.n} (${h.c}, ${h.t}): ${h.plan} Cómo frenarlo: ${h.stop}`; });
+    cmdrLookup(o.name).forEach(h => { s += `\n  Ficha ${h.n} (${h.c}, ${h.t}): ${h.plan} Stax: ${h.s||"?"} Cómo frenarlo: ${h.stop}`; });
     if (o.list) s += `\n  Lista pegada (puede estar recortada):\n  ${o.list.replace(/\n+/g," | ").slice(0,3500)}`;
     return s;
   }).join("\n");
@@ -1880,7 +1880,7 @@ function md(s){
 async function ask(question){
   if (!aiReady()) return;
   const d = D();
-  const rules = `Eres un coach experto de cEDH ayudando a Seba en una partida online en vivo. Responde en español de Chile, directo y concreto, máximo ~200 palabras salvo que la jugada exija más. Nombres de cartas en inglés. No inventes cartas que no estén en su mano o campo; asume que lo no listado de su mazo está en la biblioteca. Ten en cuenta el orden de asientos: quién juega después de él (más maná abierto al responder), quién antes, y qué anotó en la bitácora. Si hay listas de rivales, úsalas para estimar sus respuestas y win cons.
+  const rules = `Eres un coach experto de cEDH ayudando a Seba en una partida online en vivo. Responde en español de Chile, directo y concreto, máximo ~200 palabras salvo que la jugada exija más. Nombres de cartas en inglés. Reglas a respetar: usa siempre el nombre Oracle de las cartas. Chrome Mox solo puede imprintar una carta que no sea tierra ni artefacto (y da maná de sus colores); Mox Diamond pide descartar una carta de tierra; Mox Opal necesita metalcraft; Gemstone Caverns solo empieza en mesa si no eres el primer jugador; Lotus Petal y LED son de un solo uso. No propongas jugadas ilegales. No inventes cartas que no estén en su mano o campo; asume que lo no listado de su mazo está en la biblioteca. Ten en cuenta el orden de asientos: quién juega después de él (más maná abierto al responder), quién antes, y qué anotó en la bitácora. Si hay listas de rivales, úsalas para estimar sus respuestas y win cons.
 Formato: **Jugada:** pasos numerados. **Riesgos:** qué puede hacer cada rival (por seat) y cómo cubrirlo. **Si no ganas ahora:** qué tutorear, qué guardar y a quién frenar. Si no hay victoria segura, dilo y propone la mejor jugada.
 
 ${d.summary}
@@ -2003,105 +2003,210 @@ function planHTML(lines){
 
 /* ===================== Mulligan en la mesa ===================== */
 const CMDR_DB = [
-  {k:["kinnan"], n:"Kinnan, Bonder Prodigy", c:"GU", t:"turbo",
-   plan:"Rampa con dorks y artefactos; cada permanente no tierra que gira para maná da uno extra. Gana con maná infinito (Basalt Monolith, Freed from the Real / Pemmin's Aura en un dork) y lo gasta en la habilidad de Kinnan o en Thassa's Oracle.",
-   stop:"Mata a Kinnan o sus dorks temprano. Counter para Basalt Monolith, Freed from the Real o Pemmin's Aura. Cursed Totem apaga la habilidad activada de Kinnan."},
-  {k:["najeela"], n:"Najeela, the Blade-Blossom", c:"WUBRG", t:"turbo",
-   plan:"Ataca con guerreros y combina con Derevi, Nature's Will o Druids' Repository para enderezar tierras y pagar la habilidad: combates infinitos. También corre Thassa's Oracle.",
-   stop:"Saca a Najeela antes de su combate (en su upkeep o al inicio del combate). Remoción instantánea y bloqueadores. Silence en su turno corta la cadena."},
-  {k:["thrasios"], n:"Thrasios, Triton Hero", c:"GU", t:"midrange",
-   plan:"Partner de valor: la habilidad de Thrasios es salida para maná infinito. Gana con Thassa's Oracle + Consultation/Tainted Pact o con Underworld Breach. Mucho counter.",
-   stop:"Respeta su maná abierto. Guarda un counter para Thoracle o Consultation. Stifle/Tidebinder contra el trigger de Thassa."},
-  {k:["tymna"], n:"Tymna the Weaver", c:"WB", t:"midrange",
-   plan:"Robo por daño de combate con criaturas chicas. Con Kraum o Thrasios: Thoracle + Consultation/Pact y Breach. Juega lento con counters gratis.",
-   stop:"Bloqueadores o remoción a sus atacantes. Interacción para Thoracle. No dejes que acumule cartas sin presión."},
-  {k:["kraum"], n:"Kraum, Ludevic's Opus", c:"UR", t:"midrange",
-   plan:"Roba cada vez que un rival lanza su segundo hechizo del turno. Normalmente con Tymna (Blue Farm): Thoracle y Breach.",
-   stop:"Cuidado al encadenar: cada turno tuyo con 2+ hechizos le da cartas. Matarlo con Pyrokinesis o Snuff Out (es rojo/azul) es valioso."},
-  {k:["blue farm"], n:"Blue Farm (Tymna + Kraum)", c:"WUBR", t:"midrange",
-   plan:"Control con counters gratis, robo de Tymna y Kraum, y win con Thassa's Oracle + Consultation/Pact o Breach.",
-   stop:"Haz tus jugadas importantes cuando estén girados. Guarda un counter para su Thoracle."},
-  {k:["rograkh"], n:"Rograkh, Son of Rohgahh", c:"R", t:"turbo",
-   plan:"Partner de 0 maná para turbo (con Silas Renn, Thrasios, Ishai…). Gana rápido con Underworld Breach + LED + Brain Freeze o Thoracle.",
-   stop:"Espera un intento en turno 1–3. Counter para Breach o Thoracle, Silence en su turno."},
-  {k:["silas"], n:"Silas Renn, Seeker Adept", c:"UB", t:"turbo",
-   plan:"Lanza artefactos del cementerio con daño de combate. Con Rograkh: turbo de Breach/LED/Thoracle.",
-   stop:"Interacción para Breach y Thoracle. Bojuka Bog o exilio de cementerio frena sus loops."},
-  {k:["malcolm"], n:"Malcolm, Keen-Eyed Navigator", c:"U", t:"turbo",
-   plan:"Partner que genera Tesoros al hacer daño. En turbo con otros partners para Thoracle o Breach.",
-   stop:"Bloquea o mata a los voladores tempranos. Interacción para su win."},
+  // ---- Top del meta (EDHTop16, últimos 6 meses) ----
+  {k:["kraum","blue farm"], n:"Kraum, Ludevic's Opus", c:"UR", t:"midrange", top:1,
+   plan:"Casi siempre con Tymna (Blue Farm, el mazo más jugado). Roba cada vez que un rival lanza su segundo hechizo del turno. Gana con Thassa's Oracle + Demonic Consultation/Tainted Pact, o Underworld Breach + LED + Brain Freeze.",
+   stop:"Cada turno tuyo con 2+ hechizos le da cartas. Guarda un counter para Thoracle o Consultation; Stifle contra el trigger de Thassa.",
+   s:"Poco: algún Drannith Magistrate o Esper Sentinel; su fuerza es la interacción gratis."},
+  {k:["tymna"], n:"Tymna the Weaver", c:"WB", t:"midrange", top:1,
+   plan:"Roba por cada rival al que le hacen daño de combate. Con Kraum, Thrasios o Dargo: Thassa's Oracle + Consultation/Pact, Underworld Breach y mucho counter gratis.",
+   stop:"Bloqueadores o remoción a los atacantes chicos. Interacción para Thoracle. No le dejes acumular cartas gratis.",
+   s:"Poco, según el partner: Esper Sentinel, Drannith, Silence."},
+  {k:["kinnan"], n:"Kinnan, Bonder Prodigy", c:"GU", t:"turbo", top:2,
+   plan:"Cada permanente no tierra que gira para maná da uno extra. Gana con maná infinito (Basalt Monolith; Freed from the Real o Pemmin's Aura sobre un dork) y lo gasta en la habilidad de Kinnan para sacar criaturas, o en Thassa's Oracle.",
+   stop:"Mata a Kinnan o sus dorks temprano. Counter para Basalt Monolith, Freed from the Real o Pemmin's Aura. Cursed Totem apaga la habilidad de Kinnan.",
+   s:"Poco: algún Opposition Agent o Collector Ouphe."},
+  {k:["rograkh"], n:"Rograkh, Son of Rohgahh", c:"R", t:"turbo", top:3,
+   plan:"Partner de 0 maná que abre turbo. Con Thrasios (Rog/Thras), Silas Renn (Rog/Silas) o Ishai. Gana temprano con Underworld Breach + LED + Brain Freeze o Thassa's Oracle + Consultation/Pact.",
+   stop:"Espera un intento en los turnos 1–3. Counter para Breach o Thoracle, Silence en su turno, exilio de cementerio contra Breach.",
+   s:"No. Es turbo puro con counters."},
+  {k:["thrasios"], n:"Thrasios, Triton Hero", c:"GU", t:"midrange", top:3,
+   plan:"Su habilidad es salida para maná infinito (roba y rampa). Con Rograkh es turbo; con Tymna o Yoshimaru es midrange. Thoracle + Consultation/Pact, Breach, o maná infinito con Kinnan-style dorks.",
+   stop:"Respeta su maná abierto. Counter para Thoracle o Consultation; Stifle/Tidebinder al trigger de Thassa.",
+   s:"Poco."},
+  {k:["silas"], n:"Silas Renn, Seeker Adept", c:"UB", t:"turbo", top:4,
+   plan:"Con Rograkh: turbo de Underworld Breach + LED + Brain Freeze y Thassa's Oracle. Silas lanza artefactos del cementerio con daño de combate.",
+   stop:"Interacción para Breach y Thoracle. Bojuka Bog o exilio de cementerio frena los loops.",
+   s:"No."},
+  {k:["sisay"], n:"Sisay, Weatherlight Captain", c:"WUBRG", t:"combo", top:5,
+   plan:"Su habilidad pone permanentes legendarios de la biblioteca al campo: arma combos de criaturas (Kiki-Jiki, Thassa's Oracle, Najeela-style) y saca hate a pedido.",
+   stop:"Mata a Sisay antes de que la active varias veces. Cursed Totem apaga su habilidad. Counter a la pieza clave.",
+   s:"A pedido: Drannith Magistrate, Grand Abolisher, Opposition Agent desde la biblioteca."},
+  {k:["ishai"], n:"Ishai, Ojutai Dragonspeaker", c:"WU", t:"turbo", top:7,
+   plan:"Partner de Rograkh para un turbo Jeskai con Thassa's Oracle, Breach y Silence. Ishai crece cuando los rivales lanzan hechizos.",
+   stop:"Counter para Thoracle o Breach. Respeta su Silence en su turno.",
+   s:"Poco: Silence/Orim's Chant, Drannith."},
+  {k:["dargo"], n:"Dargo, the Shipwrecker", c:"R", t:"turbo", top:8,
+   plan:"Casi siempre con Tymna (Mardu). Turbo con rituales de sacrificio (Culling the Weak, Burnt Offering, Dark Ritual), Underworld Breach + LED, reanimación (Entomb, Reanimate, Animate Dead) y Ad Nauseam. Dargo sale barato sacrificando.",
+   stop:"Exilio de cementerio contra Breach y reanimación. No tiene azul: sus counters son pocos, pero corre mucho Silence.",
+   s:"Poco: Esper Sentinel, Silence, Drannith."},
+  {k:["ral"], n:"Ral, Monsoon Mage", c:"UR", t:"turbo", top:9,
+   plan:"Storm: abarata instantáneos y conjuros; con 6 en un turno se transforma y su ultimate lanza gratis los del top 8. También Underworld Breach + LED + Brain Freeze, Grapeshot y Bribery por Thassa's Oracle.",
+   stop:"Rule of Law, Drannith y Deafening Silence lo apagan. Counter a Breach o a Ral; Mindbreak Trap contra la cadena.",
+   s:"No."},
+  {k:["vivi"], n:"Vivi Ornitier", c:"UR", t:"combo", top:10,
+   plan:"Cada hechizo no criatura le da +1/+1 y pega 1 a cada rival; da maná U/R igual a su fuerza. Storm con Curiosity y Breach + LED + Brain Freeze.",
+   stop:"Remoción a Vivi antes de que crezca. Rule of Law y Deafening Silence la apagan.",
+   s:"No."},
+  {k:["etali"], n:"Etali, Primal Conqueror", c:"R", t:"combo", top:11,
+   plan:"Rampa a 7 y lanza Etali: lanza gratis lo que exilia del tope de cada biblioteca. Food Chain + Squee da maná para Etali; Dualcaster Mage + Heat Shimmer/Molten Duplication da tokens infinitos con prisa.",
+   stop:"Counter a Etali o a Food Chain. Rule of Law lo frena. Sin azul: depende de Deflecting Swat y Pyroblast.",
+   s:"No."},
+  {k:["magda"], n:"Magda, Brazen Outlaw", c:"RW", t:"turbo", top:12,
+   plan:"Tesoros al girar Dwarves; combos de maná y combate rápido.",
+   stop:"Remoción a Magda y a sus dwarves clave.",
+   s:"Poco: algún Silence o pieza blanca."},
+  {k:["yoshimaru"], n:"Yoshimaru, Ever Faithful", c:"W", t:"midrange", top:13,
+   plan:"Partner blanco de Thrasios: midrange Bant con Thoracle, Breach y mucho counter.",
+   stop:"Igual que Thrasios: interacción para Thoracle.",
+   s:"Poco."},
+  {k:["nick fury"], n:"Nick Fury, Agent of S.H.I.E.L.D.", c:"WUBRG", t:"combo", top:14,
+   plan:"Comandante 5 colores de 1 maná: el mazo es 'lo mejor del formato' (tutores, Mystic Remora, Underworld Breach, Borne Upon a Wind). Su habilidad pone cartas transformadas del top 7.",
+   stop:"Counter a Breach y Thoracle. Silence suyo en su turno es frecuente.",
+   s:"Poco: Silence y piezas sueltas."},
+  {k:["tayam"], n:"Tayam, Luminous Enigma", c:"WBG", t:"combo", top:15,
+   plan:"Abzan de criaturas: Devoted Druid con Tyvar o Vizier of Remedies da maná infinito; Tayam recupera piezas del cementerio. Carrion Feeder, Ranger-Captain of Eos, Orcish Bowmasters.",
+   stop:"Remoción a Devoted Druid y dorks. Cursed Totem apaga Devoted Druid y Tayam.",
+   s:"Sí, algo: Deafening Silence y piezas blancas."},
+  {k:["crystal"], n:"Crystal, Inhuman Princess", c:"RGWU", t:"combo", top:16,
+   plan:"Cada hechizo no criatura pega a todos; con Curiosity roba. Gana con Sewer-veillance Cam + Retraction Helix o Breach + LED + Brain Freeze.",
+   stop:"Mata o rebota a Crystal antes de su turno. Rule of Law y Cursed Totem la apagan.",
+   s:"No."},
+  {k:["ob nixilis"], n:"Ob Nixilis, Captive Kingpin", c:"BR", t:"combo", top:17,
+   plan:"Roba cuando los rivales pierden 1 vida. Combos: Birgi o Prosper + pinger + Sensei's Top, All Will Be One, Dualcaster Mage + Twinflame/Saw in Half, Breach + LED + Wheel of Fortune, Walking Ballista + Agatha's Soul Cauldron.",
+   stop:"Remoción a Ob Nixilis y a los pingers. Exilio de cementerio contra Breach.",
+   s:"No: usa daño de combate o combos que esquivan stax."},
+  {k:["kefka"], n:"Kefka, Court Mage", c:"UBR", t:"combo", top:18,
+   plan:"Grixis de descarte y counters. Gana con Thassa's Oracle + Consultation/Pact, Worldgorger Dragon + Animate Dead, o Underworld Breach + Brain Freeze.",
+   stop:"Counter a Thoracle o Animate Dead; exilio de cementerio contra Worldgorger y Breach.",
+   s:"No."},
+  {k:["tivit"], n:"Tivit, Seller of Secrets", c:"WUB", t:"combo", top:19,
+   plan:"Votos que dan Tesoros y cartas. Combos de parpadeo (Deadeye Navigator) y Thassa's Oracle.",
+   stop:"Rebote o remoción a Tivit; counter para su pieza de parpadeo o Thoracle.",
+   s:"Poco."},
+  {k:["malcolm"], n:"Malcolm, Keen-Eyed Navigator", c:"U", t:"turbo", top:20,
+   plan:"Partner que da Tesoros al hacer daño. Con Vial Smasher, Tana o Kediss: turbo de Thoracle o Breach.",
+   stop:"Bloquea o mata a los voladores tempranos. Interacción para su win.",
+   s:"No."},
   {k:["vial smasher"], n:"Vial Smasher the Fierce", c:"BR", t:"turbo",
-   plan:"Partner agresivo; daño por cada hechizo. Suele ir con Malcolm o Thrasios en turbo.",
-   stop:"Guarda counter para su intento de combo."},
-  {k:["sisay"], n:"Sisay, Weatherlight Captain", c:"WUBRG", t:"combo",
-   plan:"Busca permanentes legendarios desde la biblioteca con su habilidad: arma combos de criaturas y saca hate (Drannith, Grand Abolisher…).",
-   stop:"Mata a Sisay antes de que la active varias veces. Cursed Totem apaga su habilidad."},
-  {k:["tivit"], n:"Tivit, Seller of Secrets", c:"WUB", t:"combo",
-   plan:"Votos que dan Tesoros y cartas. Combo con Deadeye Navigator u otros parpadeos, y Thassa's Oracle.",
-   stop:"Rebote o remoción a Tivit; counter para su pieza de parpadeo o Thoracle."},
-  {k:["urza"], n:"Urza, Lord High Artificer", c:"U", t:"combo",
-   plan:"Artefactos dan azul con Urza. Gana con Isochron Scepter + Dramatic Reversal, Paradox Engine, o el loop de Sensei's Top.",
-   stop:"Counter o rebote a Urza. Null Rod / Collector Ouphe lo apagan. Cursed Totem no lo frena."},
-  {k:["korvold"], n:"Korvold, Fae-Cursed King", c:"BRG", t:"midrange",
-   plan:"Sacrifica permanentes para robar y crecer. Combos de sacrificio y Food Chain, o daño con Korvold gigante.",
-   stop:"Remoción a Korvold. Corta sus outlets de sacrificio."},
-  {k:["yuriko"], n:"Yuriko, the Tiger's Shadow", c:"UB", t:"tempo",
-   plan:"Ninjas que entran sin bloquear; Yuriko pega por el valor de la carta del tope. Gana por daño y castiga manos lentas.",
-   stop:"Bloqueadores voladores y dorks para chump. Remoción a Yuriko. No te quedes sin defensa en los primeros turnos."},
-  {k:["winota"], n:"Winota, Joiner of Forces", c:"RW", t:"stax",
+   plan:"Partner agresivo; daño por cada hechizo. Con Malcolm o Thrasios en turbo.",
+   stop:"Counter para su intento de combo.", s:"No."},
+  {k:["winota"], n:"Winota, Joiner of Forces", c:"RW", t:"stax", top:21,
    plan:"Ataca con no Humanos para poner Humanos de la biblioteca (Drannith, Grand Abolisher, Thalia…). Stax y presión de combate.",
-   stop:"Mata a Winota antes de atacar. Barridas chicas (Cave-In, Pyrokinesis) contra su ejército."},
-  {k:["derevi"], n:"Derevi, Empyrial Tactician", c:"WUG", t:"stax",
+   stop:"Mata a Winota antes de atacar. Barridas chicas contra su ejército.",
+   s:"Sí: Drannith, Thalia, Archon of Emeria y similares sacados con Winota."},
+  {k:["lumra"], n:"Lumra, Bellow of the Woods", c:"G", t:"combo", top:22,
+   plan:"Muele y recupera tierras: landfall con Lotus Cobra, Springheart Nantuko, Six, Spelunking y Zuran Orb para loops de tierras.",
+   stop:"Exilio de cementerio (contra el reciclaje de tierras). Remoción a Lotus Cobra y Springheart.",
+   s:"Poco."},
+  {k:["arcum"], n:"Arcum Dagsson", c:"U", t:"combo", top:23,
+   plan:"Sacrifica criaturas artefacto para buscar artefactos no criatura. Combos de artefactos como Isochron Scepter + Dramatic Reversal o Paradox Engine, con stax de artefactos.",
+   stop:"Mata a Arcum: es su tutor. Null Rod / Collector Ouphe le apaga muchas piezas.",
+   s:"Sí, de artefactos según la lista."},
+  {k:["k'rrik","krrik"], n:"K'rrik, Son of Yawgmoth", c:"B", t:"combo", top:24,
+   plan:"Storm mono negro pagando vida por el negro: Ad Nauseam, Bolas's Citadel, rituales y Aetherflux Reservoir o Tendrils of Agony para cerrar.",
+   stop:"Remoción a K'rrik o a Citadel. Rule of Law lo frena. Mindbreak Trap contra la cadena.",
+   s:"No."},
+  {k:["brigid"], n:"Brigid, Clachan's Heart", c:"GW", t:"combo", top:26,
+   plan:"Dorks (Birds, Halfling, Pilgrim, Llanowar) y combos de maná infinito con criaturas (Staff of Domination, Gauntlets of Light, Halo Fountain + Formidable Speaker); cierra con Walking Ballista o Finale of Devastation.",
+   stop:"Barridas chicas contra los dorks. Cursed Totem es muy fuerte acá.",
+   s:"Algo: Esper Sentinel y Voice of Victory (no lanzan hechizos en su turno)."},
+  {k:["cabbage merchant"], n:"The Cabbage Merchant", c:"G", t:"combo", top:27,
+   plan:"Mono verde de Food: hace Comida cuando los rivales lanzan no-criaturas y la usa como maná. Gana con Peregrin Took + Nuka-Cola Vending Machine, Academy Manufactor o Clock of Omens + Transmutation Font, y cierra con Krark-Clan Ironworks + Walking Ballista.",
+   stop:"Remoción a Cabbage Merchant y a sus piezas de artefacto. No tiene counters: puedes resolver tu combo frente a él.",
+   s:"No: algo de remoción de artefactos/encantamientos."},
+  {k:["zirda"], n:"Zirda, the Dawnwaker", c:"RW", t:"stax", top:28,
+   plan:"Abarata habilidades activadas: Zirda + Basalt Monolith da maná incoloro infinito. Mucho stax de artefactos y tierras.",
+   stop:"Mata a Zirda: sin él no hay combo. Remoción a sus piezas de stax.",
+   s:"Sí: mucho stax (Trinisphere, Blood Moon, Rule of Law y similares)."},
+  {k:["inalla"], n:"Inalla, Archmage Ritualist", c:"UB", t:"combo", top:29,
+   plan:"Copia Wizards que entran. Combos de criaturas Wizard y Thassa's Oracle (es Wizard).",
+   stop:"Remoción a Inalla antes de que copie. Stifle a su trigger.",
+   s:"Poco."},
+  {k:["glarb"], n:"Glarb, Calamity's Augur", c:"BUG", t:"midrange", top:30,
+   plan:"Juega tierras y lanza hechizos grandes desde el tope. Valor con Thoracle de cierre.",
+   stop:"Interacción a su win; no lo dejes acumular ventaja libre.", s:"Poco."},
+  {k:["scion of the ur-dragon","ur-dragon"], n:"Scion of the Ur-Dragon", c:"WUBRG", t:"combo", top:31,
+   plan:"Busca un Dragon y se convierte en copia: combos de dragones desde el cementerio.",
+   stop:"Remoción a Scion en respuesta a su habilidad; exilio de cementerio.", s:"No."},
+  {k:["kenrith"], n:"Kenrith, the Returned King", c:"WUBRG", t:"combo", top:32,
+   plan:"5 colores con maná infinito que gasta en las habilidades de Kenrith (robar, reanimar). Thassa's Oracle.",
+   stop:"Counter a la pieza de maná infinito; remoción a Kenrith.", s:"Poco."},
+  {k:["marneus"], n:"Marneus Calgar", c:"WUB", t:"combo", top:33,
+   plan:"Roba al crear tokens: combos de tokens y Thassa's Oracle.",
+   stop:"Remoción a Marneus; counter a sus piezas.", s:"Poco."},
+  {k:["rocco"], n:"Rocco, Cabaretti Caterer", c:"RGW", t:"combo", top:35,
+   plan:"Toolbox de criaturas: Rocco las busca. Food Chain + Squee, Kiki-Jiki + Felidar Guardian, Birthing Pod, Karmic Guide. Protección con Grand Abolisher y Silence.",
+   stop:"Remoción a Rocco y a Kiki-Jiki. Cursed Totem frena varios combos.",
+   s:"Algo: Grand Abolisher, Silence, Esper Sentinel."},
+  {k:["aang"], n:"Aang, at the Crossroads", c:"WUG", t:"combo", top:37,
+   plan:"Al entrar pone una criatura de valor 4 o menos del tope: cadena de Clones hasta ganar.",
+   stop:"Counter a Aang o Stifle a su trigger.", s:"No."},
+  {k:["raph","mikey"], n:"Raph & Mikey, Troublemakers", c:"RG", t:"tempo", top:38,
+   plan:"Pone criaturas giradas y atacando. Combates extra (Hellkite Charger + Old Gnawbone es infinito, Moraug, Port Razer). Protege con Deflecting Swat y Bolt Bend.",
+   stop:"Remoción a Raph & Mikey antes del combate; bloqueadores y fogs.", s:"No."},
+  {k:["yuriko"], n:"Yuriko, the Tiger's Shadow", c:"UB", t:"tempo", top:39,
+   plan:"Ninjas que entran sin bloquear; Yuriko pega por el valor de la carta del tope. Gana por daño y castiga manos lentas.",
+   stop:"Bloqueadores voladores y dorks para chump. Remoción a Yuriko.", s:"No."},
+  {k:["derevi"], n:"Derevi, Empyrial Tactician", c:"WUG", t:"stax", top:40,
    plan:"Stax de Stasis, Winter Orb y tierras, enderezando con Derevi. Gana lento con criaturas.",
-   stop:"Rebote/destrucción a la pieza de stax. Derevi cuesta cada vez más al volver."},
-  {k:["grand arbiter"], n:"Grand Arbiter Augustin IV", c:"WU", t:"stax",
-   plan:"Encarece los hechizos de los rivales y abarata los suyos. Stax con counters.",
-   stop:"Mátalo o rebótalo: sin él tus hechizos vuelven a costar normal. Muy malo para Crystal y Hashaton."},
-  {k:["lavinia"], n:"Lavinia, Azorius Renegade", c:"WU", t:"stax",
-   plan:"Contrarresta hechizos lanzados sin pagar maná y frena no criaturas con valor alto. Stax con counters.",
-   stop:"Tus counters gratis y LED/Petal sufren. Rebota o mata a Lavinia."},
-  {k:["talion"], n:"Talion, the Kindly Lord", c:"UB", t:"control",
-   plan:"Elige un número: cada vez que un rival lanza un hechizo de ese valor, Talion roba y te hace perder vida. Control con Thoracle.",
-   stop:"Varía el valor de tus hechizos. Remoción a Talion antes de encadenar."},
+   stop:"Rebote/destrucción a la pieza de stax. Derevi cuesta cada vez más al volver.",
+   s:"Sí: es un mazo de stax (Stasis, Winter Orb, Static Orb)."},
+  {k:["wandering minstrel","minstrel"], n:"The Wandering Minstrel", c:"WUBRG", t:"combo", top:41,
+   plan:"5 colores de combo: Underworld Breach + Brain Freeze, Thassa's Oracle, Crop Rotation por tierras clave, Mystic Remora y tutores.",
+   stop:"Counter a Breach o Thoracle; exilio de cementerio.", s:"Poco: Silence."},
+  {k:["urza"], n:"Urza, Lord High Artificer", c:"U", t:"combo", top:42,
+   plan:"Artefactos dan azul con Urza. Gana con Isochron Scepter + Dramatic Reversal, Paradox Engine o el loop de Sensei's Top.",
+   stop:"Counter o rebote a Urza. Null Rod / Collector Ouphe lo apagan. Cursed Totem no lo frena.",
+   s:"A veces: Winter Orb, Static Orb."},
+  {k:["atraxa, grand"], n:"Atraxa, Grand Unifier", c:"WUBG", t:"combo", top:44,
+   plan:"Reanimator: tira a Atraxa u otras criaturas al cementerio y las reanima temprano.",
+   stop:"Exilio de cementerio y counters a la reanimación.", s:"No."},
+  {k:["gitrog"], n:"The Gitrog Monster", c:"BG", t:"combo", top:47,
+   plan:"Dakmor Salvage + outlet de descarte + Gitrog: dredge y robo infinitos hasta encontrar la salida.",
+   stop:"Remoción a Gitrog; exilio de cementerio (Dakmor Salvage).", s:"No."},
+  // ---- Otros comunes ----
+  {k:["najeela"], n:"Najeela, the Blade-Blossom", c:"WUBRG", t:"turbo",
+   plan:"Ataca con guerreros y combina con Derevi, Nature's Will o Druids' Repository: combates infinitos. También Thassa's Oracle.",
+   stop:"Saca a Najeela antes de su combate. Remoción instantánea y bloqueadores. Silence en su turno corta la cadena.",
+   s:"Poco."},
+  {k:["korvold"], n:"Korvold, Fae-Cursed King", c:"BRG", t:"midrange",
+   plan:"Sacrifica permanentes para robar y crecer. Combos de sacrificio y Food Chain.",
+   stop:"Remoción a Korvold. Corta sus outlets de sacrificio.", s:"No."},
   {k:["zur"], n:"Zur the Enchanter", c:"WUB", t:"midrange",
    plan:"Al atacar busca encantamientos de valor 3 o menos (Necropotence, Doomsday, Mystic Remora). Gana con Thoracle.",
-   stop:"Bloquea a Zur o mátalo. Counter para Doomsday/Thoracle."},
+   stop:"Bloquea o mata a Zur. Counter para Doomsday/Thoracle.", s:"Poco."},
+  {k:["grand arbiter"], n:"Grand Arbiter Augustin IV", c:"WU", t:"stax",
+   plan:"Encarece los hechizos de los rivales y abarata los suyos. Stax con counters.",
+   stop:"Mátalo o rebótalo: sin él tus hechizos vuelven a costar normal.", s:"Sí: es stax."},
+  {k:["lavinia"], n:"Lavinia, Azorius Renegade", c:"WU", t:"stax",
+   plan:"Contrarresta hechizos lanzados sin pagar maná. Stax con counters.",
+   stop:"Tus counters gratis y LED/Petal sufren. Rebota o mata a Lavinia.", s:"Sí."},
+  {k:["talion"], n:"Talion, the Kindly Lord", c:"UB", t:"control",
+   plan:"Elige un número: cada hechizo rival de ese valor le roba carta y te hace perder vida. Control con Thoracle.",
+   stop:"Varía el valor de tus hechizos. Remoción a Talion antes de encadenar.", s:"No."},
   {k:["krark"], n:"Krark, the Thumbless", c:"R", t:"combo",
-   plan:"Con Sakashima: cada instantáneo o conjuro se copia o vuelve a la mano por monedas. Storm con Underworld Breach o rituales.",
-   stop:"Mata a Krark o Sakashima antes de su turno. Rule of Law y similares lo matan."},
+   plan:"Con Sakashima: los instantáneos y conjuros se copian o vuelven a la mano. Storm con Underworld Breach o rituales.",
+   stop:"Mata a Krark o Sakashima antes de su turno. Rule of Law lo mata.", s:"No."},
   {k:["sakashima"], n:"Sakashima of a Thousand Faces", c:"U", t:"combo",
-   plan:"Copia a su partner (Krark u otro) y suma su efecto. Base de combos de partner.",
-   stop:"Remoción a cualquiera de los dos partners rompe el combo."},
+   plan:"Copia a su partner y suma su efecto.", stop:"Remoción a cualquiera de los dos partners.", s:"No."},
   {k:["godo"], n:"Godo, Bandit Warlord", c:"R", t:"combo",
-   plan:"Busca Helm of the Hosts al entrar: copias de Godo con combates extra infinitos.",
-   stop:"Counter a Godo o al Helm. Remoción al Helm (Boseiju, Into the Flood Maw)."},
+   plan:"Busca Helm of the Host al entrar: copias de Godo con combates extra infinitos.",
+   stop:"Counter a Godo o al Helm. Remoción al Helm.", s:"Algo de stax rojo."},
   {k:["selvala"], n:"Selvala, Heart of the Wilds", c:"G", t:"turbo",
-   plan:"Genera maná enorme con su habilidad y criaturas grandes. Gana con salidas de maná infinito.",
-   stop:"Mata a Selvala; Cursed Totem apaga su habilidad."},
-  {k:["glarb"], n:"Glarb, Calamity's Augur", c:"BUG", t:"midrange",
-   plan:"Juega tierras y lanza hechizos grandes desde el tope. Valor con Thoracle de cierre.",
-   stop:"Interacción a su win; no lo dejes acumular ventaja libre."},
+   plan:"Maná enorme con su habilidad y criaturas grandes; salidas de maná infinito.",
+   stop:"Mata a Selvala; Cursed Totem apaga su habilidad.", s:"No."},
   {k:["old stickfingers"], n:"Old Stickfingers", c:"B", t:"turbo",
    plan:"Muele hasta encontrar criaturas y llena el cementerio para reanimación turbo.",
-   stop:"Exilio de cementerio (Bojuka Bog, Extirpate) y counters a la reanimación."},
-  {k:["magda"], n:"Magda, Brazen Outlaw", c:"RW", t:"turbo",
-   plan:"Tesoros al girar Dwarves; combos de maná y combate rápido.",
-   stop:"Remoción a Magda y a sus dwarves clave."},
-  {k:["aang"], n:"Aang, at the Crossroads", c:"WUG", t:"combo",
-   plan:"Al entrar pone una criatura de valor 4 o menos del tope: cadena de Clones hasta ganar.",
-   stop:"Counter a Aang o Stifle a su trigger."},
+   stop:"Exilio de cementerio y counters a la reanimación.", s:"No."},
   {k:["dack fayden"], n:"Dack Fayden, Helping Hand", c:"W", t:"turbo",
    plan:"Gana lanzando a Dack: sus triggers sacan las pocas criaturas del mazo y combinan (loops de flicker o Leveler + Thassa). Mucho stax blanco.",
-   stop:"Counter a Dack o Stifle/Tidebinder a su trigger. Hushbringer o Torpor Orb lo apagan."},
+   stop:"Counter a Dack o Stifle/Tidebinder a su trigger. Hushbringer o Torpor Orb lo apagan.",
+   s:"Sí: Rule of Law, Blind Obedience, Deafening Silence, Trinisphere."},
   {k:["hashaton"], n:"Hashaton, Scarab's Fist", c:"WUB", t:"turbo",
    plan:"Descarta criaturas para copiarlas; la versión con Dack gana descartando a Dack (token) con Leveler + Thassa.",
-   stop:"Stifle al trigger de Hashaton o de Dack; exilio de cementerio contra Entomb + Reanimate."},
-  {k:["crystal"], n:"Crystal, Inhuman Princess", c:"RGWU", t:"combo",
-   plan:"Cada hechizo no criatura pega a todos; con Curiosity roba. Gana con Sewer-veillance Cam + Retraction Helix o Breach + LED + Brain Freeze.",
-   stop:"Mata o rebota a Crystal antes de su turno. Rule of Law y Cursed Totem la apagan."},
-  {k:["vivi"], n:"Vivi Ornitier", c:"UR", t:"combo",
-   plan:"Cada hechizo no criatura le da +1/+1 y pega 1 a cada rival; maná U/R igual a su fuerza. Storm con Curiosity.",
-   stop:"Remoción a Vivi antes de que crezca. Rule of Law la apaga."}
+   stop:"Stifle al trigger de Hashaton o de Dack; exilio de cementerio contra Entomb + Reanimate.",
+   s:"Poco: Cursed Totem, Damping Sphere."}
 ];
 const COLOR_THREAT = {
   U:"Azul: counters gratis (Force of Will, Fierce Guardianship, Pact)",
@@ -2112,7 +2217,8 @@ const COLOR_THREAT = {
 };
 function cmdrLookup(name){
   const t = norm(name||""); if (!t) return [];
-  return CMDR_DB.filter(e => e.k.some(k => t.includes(k)) || t.includes(norm(e.n)));
+  const seen = new Set();
+  return CMDR_DB.filter(e => (e.k.some(k => t.includes(k)) || t.includes(norm(e.n))) && !seen.has(e.n) && seen.add(e.n));
 }
 const CMDRS = CMDR_DB.map(e => [e.k[0], e.n, e.t, e.plan]);
 
@@ -2124,7 +2230,7 @@ function readTable(){
   const seats = oppSeats();
   return S.opps.map((o,i)=>({o, seat:seats[i]})).filter(x=>x.o.alive).map(x => {
     const t = norm(x.o.name);
-    const hit = cmdrLookup(x.o.name).map(e => [e.k[0], e.n, e.t, e.stop]);
+    const hit = cmdrLookup(x.o.name).map(e => [e.k[0], e.n, (e.s && /^Sí/.test(e.s) && e.t!=="stax") ? e.t : e.t, e.stop, e.s]);
     return {seat:x.seat, name:x.o.name, hits:hit};
   });
 }
@@ -2134,7 +2240,7 @@ function mesaMullAnalysis(){
   const a = analyze(S.deck, hand, S.seat);
   const tbl = readTable();
   const types = tbl.flatMap(t=>t.hits.map(h=>h[2]));
-  const fast = types.filter(t=>t==="turbo").length, stax = types.filter(t=>t==="stax").length, tempo = types.filter(t=>t==="tempo").length;
+  const fast = types.filter(t=>t==="turbo").length, stax = tbl.flatMap(t=>t.hits).filter(h=>h[2]==="stax"||/^Sí/.test(h[4]||"")).length, tempo = types.filter(t=>t==="tempo").length;
   const inter = hand.filter(c => d.freeProtection.includes(c)||d.cheapProtection.includes(c)||REMOVAL[S.deck].includes(c));
   const removal = hand.filter(c => REMOVAL[S.deck].includes(c));
   const winSoon = a.plans.some(p=>/^Win/.test(p));
@@ -2174,7 +2280,7 @@ $("#mm-ai").addEventListener("click", async () => {
   if (hand.length < 5) { out.innerHTML = "<p class='small'>Carga tu mano primero.</p>"; return; }
   const seats = oppSeats();
   const opp = S.opps.map((o,i)=>`Seat ${seats[i]}: ${o.name||"(sin nombre)"}${o.text?" — "+o.text:""}${o.list?"\n  Lista: "+o.list.replace(/\n+/g," | ").slice(0,2500):""}`).join("\n");
-  const prompt = `Eres un coach de cEDH. Seba está decidiendo mulligan en una mesa de 4 por SpellTable. Responde en español de Chile, máximo 170 palabras: **Veredicto** (keep o mulligan), **Por qué** contra estos rivales concretos, **Plan** de los turnos 1–3 y qué tutorear primero. Si hay mulligans pagados, di qué mandar al fondo. Nombres de cartas en inglés.
+  const prompt = `Eres un coach de cEDH. Seba está decidiendo mulligan en una mesa de 4 por SpellTable. Responde en español de Chile, máximo 170 palabras: **Veredicto** (keep o mulligan), **Por qué** contra estos rivales concretos, **Plan** de los turnos 1–3 y qué tutorear primero. Si hay mulligans pagados, di qué mandar al fondo. Nombres de cartas en inglés. Reglas a respetar: usa siempre el nombre Oracle de las cartas. Chrome Mox solo puede imprintar una carta que no sea tierra ni artefacto (y da maná de sus colores); Mox Diamond pide descartar una carta de tierra; Mox Opal necesita metalcraft; Gemstone Caverns solo empieza en mesa si no eres el primer jugador; Lotus Petal y LED son de un solo uso. No propongas jugadas ilegales.
 
 ${d.summary}
 
@@ -2255,7 +2361,11 @@ function analyze(deckId, cards, seat){
   const lands = cards.filter(c => (d.cards[c]||[])[0]==="l");
   const usable = lands.filter(c => c!=="Gemstone Caverns" || seat>1);
   const gem = has("Gemstone Caverns") && seat>1;
-  const fast = cards.filter(c => R.accelFast.includes(c) && c!=="Lion's Eye Diamond");
+  const imprintable = cards.filter(c => c!=="Chrome Mox" && !["l","a"].includes((d.cards[c]||[])[0]) && !R.piece.includes(c) && !R.tutor.includes(c));
+  imprintable.sort((x,y)=> (R.engine.includes(x)?1:0) - (R.engine.includes(y)?1:0));
+  const fast = cards.filter(c => R.accelFast.includes(c) && c!=="Lion's Eye Diamond"
+    && !(c==="Chrome Mox" && !imprintable.length)
+    && !(c==="Mox Diamond" && lands.filter(x=>x!=="Gemstone Caverns").length < 2));
   const slow = cards.filter(c => R.accelSlow.includes(c));
   const pieces = cards.filter(c => R.piece.includes(c));
   const tutors = cards.filter(c => R.tutor.includes(c));
@@ -2270,7 +2380,7 @@ function analyze(deckId, cards, seat){
   const colorSet = new Set();
   lands.forEach(c => { if (c==="Gemstone Caverns" && !gem) return; if (R.anyLand.includes(c)) "WUBRG".split("").forEach(x=>colorSet.add(x)); else (R.landColors[c]||"").split("").forEach(x=>colorSet.add(x)); });
   cards.forEach(c => { if (R.colorAccel && R.colorAccel[c]) R.colorAccel[c].split("").forEach(x=>colorSet.add(x)); });
-  if (has("Chrome Mox")||has("Mox Diamond")) "WUBRG".split("").forEach(x=>colorSet.add(x));
+  if (has("Mox Diamond") && fast.includes("Mox Diamond")) lands.forEach(c => { if (R.anyLand.includes(c)) "WUBRG".split("").forEach(x=>colorSet.add(x)); else (R.landColors[c]||"").split("").forEach(x=>colorSet.add(x)); });
   if (gem) "WUBRG".split("").forEach(x=>colorSet.add(x));
   const cmdOk = R.cmdColors.split("").every(x=>colorSet.has(x));
   const missingCol = R.cmdColors.split("").filter(x=>!colorSet.has(x));
@@ -2302,6 +2412,9 @@ function analyze(deckId, cards, seat){
   reasons.push(`Combo/tutores: ${planCount}${planCount?` (${pieces.concat(tutors).join(", ")})`:""}. Motores: ${engines.length}. Protección: ${prot.length}.`);
   if (has("Gemstone Caverns") && seat===1) risks.push("Gemstone Caverns no sirve en Seat 1: es una tierra que solo da incoloro.");
   if (has("Mox Opal") && fast.concat(slow).filter(c=>ROLES.hashaton.accelFast.concat(ROLES.hashaton.accelSlow).includes(c)).length < 3) risks.push("Mox Opal probablemente sin metalcraft.");
+  if (has("Chrome Mox") && !imprintable.length) risks.push("Chrome Mox sin nada que imprintar: solo acepta una carta que no sea tierra ni artefacto, y no conviene una pieza de combo.");
+  else if (has("Chrome Mox")) risks.push(R.engine.includes(imprintable[0]) ? `Chrome Mox: la única carta imprintable es ${imprintable[0]}, que es tu motor. Piensa si vale la pena el maná.` : `Chrome Mox: imprinta ${imprintable[0]} (nunca una tierra ni un artefacto). Da maná de sus colores.`);
+  if (has("Mox Diamond") && !fast.includes("Mox Diamond")) risks.push("Mox Diamond pide descartar una tierra: con una sola tierra pierdes tu land drop.");
   if (has("Pact of Negation") && !plans.length) risks.push("Pact of Negation sin plan de win es casi una carta muerta.");
 
   // veredicto
@@ -2418,7 +2531,7 @@ $("#m-ai").addEventListener("click", async () => {
   if (!aiReady() || !H) return;
   const d = DECKS[M.deck], cards = finalHand(), last = H.choices[H.choices.length-1];
   const out = $("#m-ai-out"); out.innerHTML = "<p class='small'>Pensando…</p>"; $("#m-ai").disabled = true;
-  const prompt = `Eres un coach de cEDH. Evalúa esta mano inicial para un mazo de Commander en mesa de 4. Responde en español de Chile, máximo 150 palabras: veredicto (keep o mulligan), plan de los primeros 2–3 turnos y qué buscar con los tutores. Nombres de cartas en inglés.
+  const prompt = `Eres un coach de cEDH. Evalúa esta mano inicial para un mazo de Commander en mesa de 4. Responde en español de Chile, máximo 150 palabras: veredicto (keep o mulligan), plan de los primeros 2–3 turnos y qué buscar con los tutores. Nombres de cartas en inglés. Reglas a respetar: usa siempre el nombre Oracle de las cartas. Chrome Mox solo puede imprintar una carta que no sea tierra ni artefacto (y da maná de sus colores); Mox Diamond pide descartar una carta de tierra; Mox Opal necesita metalcraft; Gemstone Caverns solo empieza en mesa si no eres el primer jugador; Lotus Petal y LED son de un solo uso. No propongas jugadas ilegales.
 
 ${d.summary}
 
