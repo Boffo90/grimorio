@@ -1,0 +1,2322 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#131b31">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Grimorio">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/icon.svg">
+<title>Grimorio de Seba</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,"Segoe UI",sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<style>
+
+/* Layout: columna de lectura de ~70ch con índice lateral en desktop; "pilas" del stack dibujadas como tablillas apiladas */
+:root{
+  --bg:#eef0f3;
+  --paper:#f9fafb;
+  --ink:#16203a;
+  --muted:#59627a;
+  --line:#cfd4de;
+  --lapis:#1f4fa3;
+  --lapis-soft:#e1e9f7;
+  --gold:#a8730d;
+  --gold-soft:#f5ead2;
+  --good:#1d7a4c;
+  --good-soft:#dff1e7;
+  --bad:#a8322a;
+  --bad-soft:#f6e1df;
+  --f-display:"Marcellus","Trajan Pro",Georgia,serif;
+  --f-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0c1224;--paper:#131b31;--ink:#e6e9f2;--muted:#9aa3bb;--line:#2a3554;
+    --lapis:#8fb0f0;--lapis-soft:#1b2747;--gold:#e3b04f;--gold-soft:#2e2615;
+    --good:#6fd3a0;--good-soft:#14301f;--bad:#f0938a;--bad-soft:#3a1a18;color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0c1224;--paper:#131b31;--ink:#e6e9f2;--muted:#9aa3bb;--line:#2a3554;
+  --lapis:#8fb0f0;--lapis-soft:#1b2747;--gold:#e3b04f;--gold-soft:#2e2615;
+  --good:#6fd3a0;--good-soft:#14301f;--bad:#f0938a;--bad-soft:#3a1a18;color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
+a{color:var(--lapis)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:220px minmax(0,1fr);gap:48px}
+@media (max-width:860px){.wrap{grid-template-columns:minmax(0,1fr);gap:0}.toc{display:none}}
+
+header.hero{max-width:1120px;margin:0 auto;padding-block:48px 32px;border-bottom:1px solid var(--line);margin-bottom:32px}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700}
+h1{font-family:var(--f-display);font-weight:400;font-size:clamp(34px,6vw,58px);line-height:1.05;margin:10px 0 14px;text-wrap:balance}
+h1 .amp{color:var(--gold)}
+.lede{font-size:18px;color:var(--muted);max-width:68ch;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{font-size:13px;border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:4px 12px}
+.chip b{color:var(--lapis)}
+
+.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;font-size:14px;padding-top:4px}
+.toc ol{list-style:none;padding:0;margin:0;display:grid;gap:4px;counter-reset:t}
+.toc li{counter-increment:t}
+.toc a{color:var(--muted);text-decoration:none;display:block;padding:3px 0 3px 10px;border-left:2px solid var(--line)}
+.toc a::before{content:counter(t,decimal-leading-zero) "  ";font-family:var(--f-mono);font-size:11px;color:var(--gold)}
+.toc a:hover{color:var(--ink);border-left-color:var(--gold)}
+
+main{min-width:0}
+section{padding-block:8px 36px;border-bottom:1px solid var(--line);margin-bottom:36px;scroll-margin-top:16px}
+section:last-child{border-bottom:0}
+h2{font-family:var(--f-display);font-weight:400;font-size:32px;line-height:1.15;margin:0 0 6px;text-wrap:balance}
+h2 .n{font-family:var(--f-mono);font-size:14px;color:var(--gold);vertical-align:middle;margin-right:10px}
+h3{font-size:19px;margin:28px 0 8px;font-weight:700;text-wrap:balance}
+h4{font-size:15px;margin:18px 0 6px;font-weight:700;color:var(--lapis);text-transform:uppercase;letter-spacing:.06em}
+p,li{max-width:72ch}
+p{margin:0 0 12px}
+ul,ol{padding-left:22px;margin:0 0 12px}
+li{margin-bottom:5px}
+.card{font-weight:600;color:var(--ink);border-bottom:1px dotted var(--gold);white-space:nowrap}
+.m{font-family:var(--f-mono);font-size:.86em;background:var(--lapis-soft);color:var(--lapis);padding:1px 6px;border-radius:4px;white-space:nowrap}
+.muted{color:var(--muted)}
+
+.thesis{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--gold);padding:20px 22px;border-radius:6px;margin:16px 0}
+.thesis p:last-child{margin:0}
+.note{background:var(--lapis-soft);padding:14px 18px;border-radius:6px;margin:14px 0;font-size:15px}
+.note p:last-child{margin:0}
+.warn{background:var(--bad-soft);padding:14px 18px;border-radius:6px;margin:14px 0;font-size:15px}
+.warn strong{color:var(--bad)}
+.tip{background:var(--good-soft);padding:14px 18px;border-radius:6px;margin:14px 0;font-size:15px}
+.tip strong{color:var(--good)}
+
+.pieces{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:16px 0}
+.piece{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:16px 18px;min-width:0}
+.piece .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.piece h4{margin:0;color:var(--ink);text-transform:none;letter-spacing:0;font-size:16px}
+.piece .cost{font-family:var(--f-mono);font-size:13px;color:var(--gold)}
+.piece .role{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--lapis);font-weight:700;margin:4px 0 8px}
+.piece p{font-size:14.5px;margin:0}
+
+/* Stack */
+.stackwrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin:16px 0}
+.stack{min-width:0}
+.stack .cap{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:700;margin-bottom:8px}
+.stack ol{list-style:none;padding:0;margin:0;display:grid;gap:6px}
+.stack li{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:9px 12px;font-size:14px;max-width:none;margin:0;position:relative}
+.stack li .lbl{font-family:var(--f-mono);font-size:11px;color:var(--gold);display:block;margin-bottom:1px}
+.stack li.ss{border-color:var(--gold);background:var(--gold-soft)}
+.stack li.win{border-color:var(--good);background:var(--good-soft)}
+
+/* Lines */
+.line{border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:18px 20px;margin:16px 0}
+.line .head{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:baseline;margin-bottom:10px}
+.line .id{font-family:var(--f-display);font-size:22px;color:var(--gold)}
+.line .name{font-weight:700;font-size:17px}
+.line .tags{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+.tag{font-size:12px;border-radius:4px;padding:2px 8px;background:var(--lapis-soft);color:var(--lapis);font-weight:600;white-space:nowrap}
+.tag.g{background:var(--gold-soft);color:var(--gold)}
+.line ol{margin-bottom:8px}
+.line p:last-child{margin-bottom:0}
+
+/* Tables */
+.tbl{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:8px;background:var(--paper)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:560px}
+th,td{text-align:left;vertical-align:top;padding:10px 14px;border-bottom:1px solid var(--line)}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700;background:var(--bg)}
+tr:last-child td{border-bottom:0}
+td:first-child{font-weight:600;white-space:nowrap}
+
+/* Hands */
+.hands{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:16px 0}
+.hand{border:1px solid var(--line);border-radius:8px;padding:16px 18px;background:var(--paper);min-width:0}
+.hand .verdict{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+.hand.keep .verdict{background:var(--good-soft);color:var(--good)}
+.hand.mull .verdict{background:var(--bad-soft);color:var(--bad)}
+.hand.ok .verdict{background:var(--gold-soft);color:var(--gold)}
+.hand ul{font-size:14px;padding-left:18px;margin-bottom:8px}
+.hand p{font-size:14px;margin:0}
+
+.decklist{columns:3 220px;column-gap:28px;font-size:14px}
+.decklist .grp{break-inside:avoid;margin-bottom:16px}
+.decklist h4{margin:0 0 4px}
+.decklist ul{list-style:none;padding:0;margin:0}
+.decklist li{margin:0;padding:1px 0}
+
+footer{max-width:1120px;margin:0 auto;font-size:13px;color:var(--muted);padding-top:24px;border-top:1px solid var(--line)}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+
+/* ---- Hub ---- */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--line);
+  margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)));
+  padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px))}
+.topbar .in{max-width:1120px;margin:0 auto;display:flex;gap:10px 18px;align-items:center;flex-wrap:wrap}
+.brand{font-family:var(--f-display);font-size:20px;color:var(--ink);text-decoration:none;white-space:nowrap}
+.brand span{color:var(--gold)}
+.tabs{display:flex;gap:4px;flex-wrap:wrap}
+.tabs a{font-size:14px;font-weight:600;color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:6px}
+.tabs a[aria-current="page"]{background:var(--lapis-soft);color:var(--lapis)}
+.search{flex:1 1 220px;min-width:0;position:relative}
+.search input{width:100%;font:inherit;font-size:15px;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.search input:focus{outline:2px solid var(--lapis);outline-offset:0}
+.results{position:absolute;left:0;right:0;top:calc(100% + 6px);background:var(--paper);border:1px solid var(--line);border-radius:8px;
+  box-shadow:0 10px 30px rgba(0,0,0,.18);max-height:60vh;overflow:auto;z-index:20}
+.results a{display:block;padding:10px 14px;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--line)}
+.results a:last-child{border-bottom:0}
+.results a:hover,.results a:focus{background:var(--lapis-soft)}
+.results .rt{font-weight:700;font-size:14px}
+.results .rd{font-size:12px;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.results .rs{font-size:13px;color:var(--muted)}
+.results mark{background:var(--gold-soft);color:var(--ink);padding:0 2px;border-radius:2px}
+.results .empty{padding:12px 14px;color:var(--muted);font-size:14px}
+
+.view{padding-top:8px}
+.home{max-width:1120px;margin:0 auto;padding-block:40px 24px}
+.home h1{margin-top:6px}
+.decks{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:28px}
+.deck{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.deck .cmd{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);font-weight:700}
+.deck h3{margin:0;font-family:var(--f-display);font-weight:400;font-size:24px}
+.deck p{font-size:14.5px;color:var(--muted);margin:0}
+.deck .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:6px}
+.btn{font:inherit;font-size:14px;font-weight:600;border-radius:8px;padding:8px 14px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{border-color:var(--lapis)}
+.btn.primary{background:var(--lapis);border-color:var(--lapis);color:var(--paper)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.deck.add{border-style:dashed;background:transparent;justify-content:center}
+.howto{margin-top:28px;font-size:14.5px;color:var(--muted);max-width:72ch}
+
+/* ---- Mesa ---- */
+.mesa{max-width:1120px;margin:0 auto;padding-block:24px}
+.mesa-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:end;margin-bottom:18px}
+.mesa-head h2{margin:0}
+.mesa-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:900px){.mesa-grid{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 18px;min-width:0}
+.panel + .panel{margin-top:16px}
+.panel h3{margin:0 0 10px;font-size:16px}
+.zone{margin-bottom:14px}
+.zone:last-child{margin-bottom:0}
+.zone label,.fld label{display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:5px}
+.chipbox{display:flex;flex-wrap:wrap;gap:6px;border:1px solid var(--line);border-radius:8px;padding:6px;background:var(--bg);min-height:42px}
+.chipbox:focus-within{outline:2px solid var(--lapis)}
+.cchip{display:inline-flex;align-items:center;gap:4px;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:3px 4px 3px 9px;font-size:13.5px;font-weight:600}
+.cchip button{border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:15px;line-height:1;padding:2px 5px;border-radius:4px}
+.cchip button:hover{color:var(--bad);background:var(--bad-soft)}
+.chipbox input{flex:1 1 140px;min-width:0;border:0;background:transparent;font:inherit;font-size:14px;color:var(--ink);padding:4px}
+.chipbox input:focus{outline:none}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.row > .fld{flex:1 1 140px;min-width:0}
+.fld input,.fld select,.fld textarea{width:100%;font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.fld textarea{min-height:72px;resize:vertical}
+.fld .hint{font-size:12px;color:var(--muted);margin-top:4px}
+.opps{display:grid;gap:12px}
+.opp{border:1px solid var(--line);border-radius:8px;padding:12px;background:var(--bg)}
+.opp .row{margin-bottom:8px}
+.shot{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.shot img{max-height:64px;border-radius:6px;border:1px solid var(--line)}
+.shot input[type=file]{font-size:13px;max-width:100%}
+
+.status{display:grid;gap:8px}
+.ln{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--bg);display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 10px;align-items:start}
+.ln .pill{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:2px 9px;white-space:nowrap;margin-top:2px}
+.ln.ready{border-color:var(--good);background:var(--good-soft)}
+.ln.ready .pill{background:var(--good);color:var(--paper)}
+.ln.one .pill{background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold)}
+.ln.far .pill{background:var(--paper);color:var(--muted);border:1px solid var(--line)}
+.ln.far{opacity:.8}
+.ln .t{font-weight:700;font-size:14px}
+.ln .d{grid-column:2;font-size:13px;color:var(--muted)}
+.ln .d b{color:var(--ink)}
+.flags{display:grid;gap:6px;margin-top:10px}
+.flag{font-size:13.5px;padding:8px 12px;border-radius:6px;background:var(--bad-soft)}
+.flag.okf{background:var(--good-soft)}
+.flag.info{background:var(--lapis-soft)}
+.ai-out{font-size:14.5px;line-height:1.6;white-space:normal}
+.ai-out p{margin:0 0 8px}
+.ai-out ul{margin:0 0 8px;padding-left:20px}
+.ai-out h4{margin:10px 0 4px}
+.ai-meta{font-size:12px;color:var(--muted);margin-top:8px}
+.ai-actions{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.qa{display:flex;gap:8px;margin-top:10px}
+.qa input{flex:1;min-width:0;font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.small{font-size:13px;color:var(--muted)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+
+/* ---- Mulligan ---- */
+.mstats{display:flex;gap:6px;flex-wrap:wrap}
+.mhand{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:14px}
+.mcard{font:inherit;text-align:left;display:flex;flex-direction:column;gap:6px;min-height:118px;padding:10px 11px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:default;position:relative;border-top:4px solid var(--line)}
+.mcard .mrole{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.mcard .mname{font-weight:700;font-size:14px;line-height:1.3}
+.mcard .mbot{position:absolute;right:8px;bottom:8px;font-size:11px;font-weight:700;color:var(--bad)}
+.mcard.r-land{border-top-color:var(--muted)}
+.mcard.r-accel{border-top-color:var(--good)}
+.mcard.r-piece{border-top-color:var(--gold)}
+.mcard.r-tutor{border-top-color:var(--lapis)}
+.mcard.r-engine{border-top-color:var(--lapis)}
+.mcard.r-prot{border-top-color:var(--bad)}
+.mcard.sel{opacity:.55;outline:2px dashed var(--bad);outline-offset:-2px}
+#view-mulligan .mcard[aria-pressed]{cursor:pointer}
+#m-result h4{margin:12px 0 4px}
+#m-result ul{font-size:14px}
+
+/* ---- Mesa v3 ---- */
+.mnav{display:flex;gap:6px;overflow-x:auto;margin:-6px 0 14px;padding-bottom:4px;scrollbar-width:none}
+.mnav a{flex:0 0 auto;font-size:13px;font-weight:600;text-decoration:none;color:var(--lapis);background:var(--lapis-soft);padding:6px 12px;border-radius:999px}
+@media (min-width:901px){.mnav{display:none}}
+.planbox{border-radius:8px;padding:12px 14px;font-size:14.5px;border:1px solid var(--line);background:var(--bg)}
+.planbox.go{border-color:var(--good);background:var(--good-soft)}
+.planbox.tut{border-color:var(--gold);background:var(--gold-soft)}
+.planbox b{display:block;font-size:15px;margin-bottom:2px}
+.planbox + .planbox{margin-top:8px}
+.vpill{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 10px;border-radius:999px;margin-bottom:6px}
+.vpill.keep{background:var(--good-soft);color:var(--good)}.vpill.mull{background:var(--bad-soft);color:var(--bad)}.vpill.ok{background:var(--gold-soft);color:var(--gold)}
+#mm-out ul{font-size:14px;margin-bottom:6px}
+#mm-out h4{margin:10px 0 4px}
+.cmdtag{display:inline-block;font-size:12px;padding:2px 8px;border-radius:4px;background:var(--lapis-soft);color:var(--lapis);margin:0 4px 4px 0}
+@media (max-width:900px){ .topbar .tabs{order:3;width:100%;overflow-x:auto;flex-wrap:nowrap} .gamebar .fld select,.gamebar .fld input{min-width:80px} }
+/* ---- v2 ---- */
+.gamebar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:end;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:18px}
+.gamebar .fld{flex:0 1 auto;min-width:0}
+.gamebar .fld select,.gamebar .fld input{width:auto;min-width:96px}
+.gamebar .now{flex:1 1 220px;min-width:0;font-size:14px}
+.gamebar .now b{font-family:var(--f-display);font-size:20px;font-weight:400;color:var(--gold);display:block;line-height:1.2}
+.seatline{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.seat{font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--muted);white-space:nowrap}
+.seat.me{border-color:var(--lapis);color:var(--lapis)}
+.seat.active{background:var(--gold);border-color:var(--gold);color:var(--paper)}
+.seat.dead{text-decoration:line-through;opacity:.55}
+.chk{display:flex;align-items:center;gap:8px;font-size:14px;margin-top:6px}
+.chk input{width:18px;height:18px;accent-color:var(--lapis)}
+.opp .ohead{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:end;margin-bottom:8px}
+.opp .ohead .fld{flex:1 1 160px}
+.opp .ohead .fld.life{flex:0 0 90px}
+.opp .stag{font-family:var(--f-mono);font-size:12px;font-weight:600;color:var(--gold);background:var(--gold-soft);padding:3px 8px;border-radius:4px;align-self:center}
+.opp details{margin:8px 0}
+.opp summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--lapis)}
+.opp summary .cnt{color:var(--muted);font-weight:400}
+.opp.deadopp{opacity:.6}
+.log{display:grid;gap:4px;max-height:260px;overflow:auto;margin-top:10px;font-size:13.5px}
+.log .e{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:8px;align-items:start;padding:5px 8px;border-radius:6px;background:var(--bg)}
+.log .e.sys{background:transparent;color:var(--muted);font-style:italic}
+.log .e .k{font-family:var(--f-mono);font-size:11.5px;color:var(--gold);white-space:nowrap;padding-top:2px}
+.log .e button{border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:14px;padding:0 4px}
+.log .e button:hover{color:var(--bad)}
+.logform{display:flex;gap:8px;flex-wrap:wrap}
+.logform select{font:inherit;font-size:14px;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.logform input{flex:1 1 180px;min-width:0;font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.empty-log{font-size:13px;color:var(--muted);padding:6px 2px}
+</style>
+
+<div class="topbar">
+  <div class="in">
+    <a class="brand" href="#inicio">Grimorio<span>.</span></a>
+    <nav class="tabs" aria-label="Secciones">
+      <a href="#inicio" data-tab="inicio">Mazos</a>
+      <a href="#hashaton" data-tab="hashaton">Hashaton</a>
+      <a href="#crystal" data-tab="crystal">Crystal</a>
+      <a href="#mesa" data-tab="mesa">Mesa</a>
+      <a href="#mulligan" data-tab="mulligan">Mulligan</a>
+    </nav>
+    <div class="search">
+      <label class="sr" for="q">Buscar en los primers</label>
+      <input id="q" type="search" placeholder="Buscar: split second, Cam, Hushbringer…" autocomplete="off">
+      <div class="results" id="results" hidden></div>
+    </div>
+  </div>
+</div>
+
+<div class="view" id="view-inicio">
+  <div class="home">
+    <div class="eyebrow">Primers y asistente de mesa</div>
+    <h1>Mis mazos</h1>
+    <p class="lede">Busca cualquier regla o línea desde la barra de arriba mientras juegas (tecla /). En Mesa cargas tu asiento, tus zonas, los turnos y lo que tienen los rivales, y te digo qué falta para ganar.</p>
+    <div class="decks">
+      <div class="deck">
+        <div class="cmd">Hashaton, Scarab's Fist · Esper</div>
+        <h3>Hashaton &amp; el Dack secreto</h3>
+        <p>Combo de una carta: Dack Fayden saca Leveler + Thassa's Oracle. Descarte con Hashaton, reanimación o hard cast.</p>
+        <div class="acts"><a class="btn primary" href="#hashaton">Leer primer</a><a class="btn" href="#mesa" data-deck="hashaton">Jugar con este</a></div>
+      </div>
+      <div class="deck">
+        <div class="cmd">Crystal, Inhuman Princess · Naya + U</div>
+        <h3>Crystal &amp; la tormenta de Curiosity</h3>
+        <p>Cada hechizo no criatura le pega a cada rival. Gana con Sewer-veillance Cam + Retraction Helix o con Breach + LED + Brain Freeze.</p>
+        <div class="acts"><a class="btn primary" href="#crystal">Leer primer</a><a class="btn" href="#mesa" data-deck="crystal">Jugar con este</a></div>
+      </div>
+      <div class="deck add">
+        <div class="cmd">Próximo mazo</div>
+        <p>Pásame la lista en el chat y lo agrego aquí con su primer y su chequeo de líneas.</p>
+      </div>
+    </div>
+    <p class="howto">En la pestaña Mulligan practicas manos de cualquiera de los dos mazos y te digo si coincidimos. Tu partida se guarda solo en este navegador. Para actualizar o agregar un mazo, pídemelo en el chat y publico la nueva versión en este mismo link.</p>
+  </div>
+</div>
+
+<div class="view" id="view-hashaton" hidden>
+<header class="hero">
+  <div class="eyebrow">cEDH · Esper · Primer</div>
+  <h1>Hashaton <span class="amp">&amp;</span> el Dack secreto</h1>
+  <p class="lede">Hashaton, Scarab's Fist en la zona de mando y Dack Fayden, Helping Hand escondido en el 99 como el verdadero comandante. Un mazo de combo rápido con interacción completa de azul y negro, que gana con una sola carta en cuanto Dack entra al campo.</p>
+  <div class="chips">
+    <span class="chip"><b>Comandante:</b> Hashaton {W}{B}</span>
+    <span class="chip"><b>Win con:</b> Dack → Leveler + Thassa's Oracle</span>
+    <span class="chip"><b>Criaturas en el 99:</b> 4</span>
+    <span class="chip"><b>Plan B:</b> Thoracle / Consultation / Tainted Pact</span>
+  </div>
+</header>
+
+<div class="wrap">
+<nav class="toc" aria-label="Índice">
+  <ol>
+    <li><a href="#idea">La idea</a></li>
+    <li><a href="#piezas">Las piezas</a></li>
+    <li><a href="#trigger">El trigger de Dack</a></li>
+    <li><a href="#lineas">Líneas de victoria</a></li>
+    <li><a href="#split">Split second</a></li>
+    <li><a href="#tutores">Qué tutorear</a></li>
+    <li><a href="#intuition">Pilas de Intuition</a></li>
+    <li><a href="#manos">Manos y mulligan</a></li>
+    <li><a href="#temprano">Wins tempranos</a></li>
+    <li><a href="#interaccion">Interacción</a></li>
+    <li><a href="#hate">Hate y respuestas</a></li>
+    <li><a href="#reglas">Reglas finas</a></li>
+    <li><a href="#lista">Lista por función</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<section id="idea">
+  <h2><span class="n">01</span>La idea</h2>
+  <div class="thesis">
+    <p><strong>Dack Fayden, Helping Hand</strong> dice: al entrar, revela cartas hasta revelar X criaturas (X = número de oponentes), ponlas en el campo, quedan goaded y le regalas una a cada oponente. El mazo corre <strong>solo tres criaturas más en el 99</strong>: <span class="card">Grand Abolisher</span>, <span class="card">Leveler</span> y <span class="card">Thassa's Oracle</span>. En una mesa de 4, Dack las encuentra a las tres sin falta.</p>
+    <p>Los triggers de entrada de esas criaturas los controlas <strong>tú</strong>, aunque las criaturas terminen en manos de tus oponentes. Apilas Leveler arriba y Thassa abajo: Leveler exilia tu biblioteca, Thassa resuelve con biblioteca vacía y ganas.</p>
+    <p>Hashaton es el motor de velocidad: cada vez que descartas una criatura puedes pagar {2}{U} para crear un token copia. Descartar Dack con Hashaton en mesa = <strong>ganar por 3 maná a velocidad instantánea</strong>, sin lanzar un hechizo de criatura que se pueda contrarrestar.</p>
+  </div>
+  <p>Por eso Dack es el "comandante secreto". Hashaton da los colores (Esper: todos los tutores negros, los counters gratis azules, el blanco para Dack y Silence), da la mecánica de descarte para meter a Dack barato, y habilita <span class="card">Fierce Guardianship</span> y <span class="card">Deadly Rollick</span> gratis.</p>
+  <p>El mazo tiene <strong>tres formas independientes</strong> de poner a Dack (o sus piezas) en el campo:</p>
+  <ul>
+    <li><strong>Hashaton + descarte:</strong> LED, Careful Study, The Underworld Cookbook, descartar en la cleanup con Necropotence o por tamaño de mano.</li>
+    <li><strong>Reanimación:</strong> Entomb + Reanimate o Shallow Grave. Dos o tres manás, a veces en el turno 1.</li>
+    <li><strong>Hard cast:</strong> 6 manás con fast mana y rituales, ideal con Cavern of Souls nombrando Human.</li>
+  </ul>
+  <p>Y si Dack no está disponible, sigue siendo un mazo con <span class="card">Thassa's Oracle</span> + <span class="card">Demonic Consultation</span> / <span class="card">Tainted Pact</span>.</p>
+  <p class="muted">Sobre el origen: la MTG Wiki japonesa describe exactamente este arquetipo (Hashaton al mando, Dack sacado temprano con el descarte y los tutores negros, Leveler + Thassa con Grand Abolisher de protección). No pude encontrar la página del resultado 8-0 en God of Commander, así que este primer se arma desde la lista y las reglas de las cartas, no desde un reporte del piloto.</p>
+</section>
+
+<section id="piezas">
+  <h2><span class="n">02</span>Las piezas</h2>
+  <div class="pieces">
+    <div class="piece">
+      <div class="top"><h4>Hashaton, Scarab's Fist</h4><span class="cost">{W}{B} · 1/3</span></div>
+      <div class="role">Comandante · motor</div>
+      <p>Cuando descartas una carta de criatura, puedes pagar {2}{U}: token copia girado, 4/4 Zombie negro. La copia conserva el trigger de entrada. Es un trigger, no un hechizo: los counters normales no lo detienen.</p>
+    </div>
+    <div class="piece">
+      <div class="top"><h4>Dack Fayden, Helping Hand</h4><span class="cost">{4}{W}{W} · 4/6</span></div>
+      <div class="role">El combo en una carta</div>
+      <p>Al entrar encuentra X criaturas de tu biblioteca y las pone en juego. Con solo Abolisher, Leveler y Thassa en el mazo, es un tutor + combo determinista.</p>
+    </div>
+    <div class="piece">
+      <div class="top"><h4>Leveler</h4><span class="cost">{5} · 10/10</span></div>
+      <div class="role">Vacía la biblioteca</div>
+      <p>Al entrar exilia toda tu biblioteca. Va arriba en el stack. También sirve sola con Hashaton: descártala y luego juega Thassa.</p>
+    </div>
+    <div class="piece">
+      <div class="top"><h4>Thassa's Oracle</h4><span class="cost">{U}{U} · 1/3</span></div>
+      <div class="role">El que gana</div>
+      <p>Con la biblioteca vacía al resolver su trigger, ganas. Además cubre todo el plan B con Consultation y Tainted Pact.</p>
+    </div>
+    <div class="piece">
+      <div class="top"><h4>Grand Abolisher</h4><span class="cost">{W}{W} · 2/2</span></div>
+      <div class="role">Protección</div>
+      <p>En tu turno los oponentes no lanzan hechizos ni activan habilidades de artefactos, criaturas y encantamientos. Si ya está en tu mesa antes de Dack, no se regala y protege todo el combo.</p>
+    </div>
+  </div>
+</section>
+
+<section id="trigger">
+  <h2><span class="n">03</span>Cómo resuelve el trigger de Dack</h2>
+  <p>Este es el corazón del mazo, así que vale la pena entender el orden exacto:</p>
+  <ol>
+    <li>Dack entra. Su trigger va al stack. <strong>Este es el momento en que te pueden responder</strong> (Stifle, Tishana's Tidebinder, remoción a Dack no sirve: el trigger ya está).</li>
+    <li>Al resolver: revelas hasta encontrar 3 criaturas. Entran al campo <strong>bajo tu control</strong>, se barajan las cartas reveladas, quedan goaded y cambias su control a cada oponente. Todo eso pasa dentro de la misma resolución.</li>
+    <li>Recién después, los triggers de Leveler y Thassa van al stack. <strong>Los controlas tú</strong> porque controlabas las criaturas al entrar, y tú eliges el orden.</li>
+  </ol>
+  <div class="stackwrap">
+    <div class="stack">
+      <div class="cap">Stack tras resolver Dack (arriba primero)</div>
+      <ol>
+        <li><span class="lbl">ARRIBA</span>Trigger de Leveler: exilia tu biblioteca</li>
+        <li class="win"><span class="lbl">ABAJO</span>Trigger de Thassa's Oracle: biblioteca 0 → ganas</li>
+      </ol>
+    </div>
+    <div class="stack">
+      <div class="cap">Si te stiflean Leveler</div>
+      <ol>
+        <li class="ss"><span class="lbl">RESPONDES</span>Tainted Pact o Demonic Consultation (nombrando una carta que no esté en el mazo) → biblioteca exiliada</li>
+        <li class="win"><span class="lbl">ABAJO</span>Thassa sigue en el stack → ganas</li>
+      </ol>
+    </div>
+  </div>
+  <div class="warn"><strong>Si te stiflean el trigger de Thassa</strong> después de que Leveler resuelva, quedas con biblioteca vacía y pierdes en tu próximo robo. Por eso, con Stifle o Tidebinder visibles, juega primero Abolisher, usa la ventana de split second o guarda un counter para el stifle.</div>
+  <h3>Casos especiales</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Situación</th><th>Qué pasa</th><th>Cómo cerrar</th></tr></thead>
+    <tbody>
+      <tr><td>Abolisher ya en tu mesa</td><td>En la biblioteca quedan 2 criaturas. Dack revela toda la biblioteca, encuentra Leveler y Thassa.</td><td>Gana igual, y Abolisher se queda contigo protegiendo el turno.</td></tr>
+      <tr><td>Thassa en tu mano</td><td>Dack saca Abolisher + Leveler. Leveler vacía la biblioteca.</td><td>Lanza Thassa por {U}{U} con la biblioteca ya vacía.</td></tr>
+      <tr><td>Leveler en mano o cementerio</td><td>Dack saca Abolisher + Thassa. Thassa trigger con biblioteca llena.</td><td>En respuesta: Tainted Pact o Demonic Consultation. Sin eso, no lances Dack todavía.</td></tr>
+      <tr><td>Thassa exiliada o perdida</td><td>No hay ganador. Leveler solo te mata.</td><td>No lances Dack. Cambia de plan (ver líneas H).</td></tr>
+      <tr><td>Quedan 2 oponentes</td><td>X = 2. Dack para en la segunda criatura y puede saltarse Leveler o Thassa.</td><td>Ten Abolisher en mesa o en mano primero, o un Pact/Consultation de respaldo. Ver <a href="#reglas">Reglas finas</a>.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="lineas">
+  <h2><span class="n">04</span>Líneas de victoria</h2>
+  <p>Ordenadas de la más barata a la más cara. Los costos asumen que ya tienes las cartas listadas.</p>
+
+  <div class="line">
+    <div class="head"><span class="id">A</span><span class="name">Hashaton + LED + Dack</span><div class="tags"><span class="tag">3 maná tras Hashaton</span><span class="tag g">instantánea</span></div></div>
+    <ol>
+      <li>Hashaton en mesa. Lion's Eye Diamond en mesa. Dack en mano.</li>
+      <li>Sacrifica LED, descarta tu mano (con Dack), toma {U}{U}{U}.</li>
+      <li>Trigger de Hashaton: pagas {2}{U} con esa misma maná. Token de Dack → Leveler + Thassa → ganas.</li>
+    </ol>
+    <p>Es la línea estrella. LED es una habilidad de maná, así que la puedes activar en cualquier momento, incluso con un hechizo de split second en el stack (sección 05). Te sobra {U} si quieres.</p>
+  </div>
+
+  <div class="line">
+    <div class="head"><span class="id">B</span><span class="name">Entomb + Reanimate</span><div class="tags"><span class="tag">2 maná</span><span class="tag g">turno 1 posible</span></div></div>
+    <ol>
+      <li>Entomb ({B}, instantáneo): Dack al cementerio.</li>
+      <li>Reanimate ({B}): Dack vuelve. Pierdes 6 vidas.</li>
+      <li>Trigger de Dack → ganas.</li>
+    </ol>
+    <p>No necesita a Hashaton. Ideal para turno 1 con una tierra negra y Lotus Petal o un Mox. Truco: haz Entomb en el end step del oponente anterior y Reanimate en tu turno con Abolisher o counter de respaldo.</p>
+  </div>
+
+  <div class="line">
+    <div class="head"><span class="id">C</span><span class="name">Entomb + Shallow Grave</span><div class="tags"><span class="tag">3 maná</span><span class="tag g">todo instantáneo</span></div></div>
+    <ol>
+      <li>Entomb Dack.</li>
+      <li>Shallow Grave ({1}{B}): devuelve la criatura de más arriba de tu cementerio, que es Dack.</li>
+    </ol>
+    <p>Ganas en el turno de un oponente, por ejemplo en su end step cuando ya se gastó el maná, o en respuesta a su win attempt si tienes counter que no te deja ganar a ti. Asegúrate de que Dack sea la criatura de más arriba: nada de descartar otra criatura después de Entomb.</p>
+  </div>
+
+  <div class="line">
+    <div class="head"><span class="id">D</span><span class="name">Hashaton + Careful Study / Cookbook</span><div class="tags"><span class="tag">4 maná tras Hashaton</span></div></div>
+    <ol>
+      <li><strong>Careful Study</strong> ({U}, conjuro): roba 2, descarta 2. Descarta Dack (de tu mano o el que robaste). Paga {2}{U}.</li>
+      <li><strong>The Underworld Cookbook</strong>: {T}, descarta una carta: ficha de Comida. Es un descarte repetible a velocidad instantánea. Paga {2}{U}.</li>
+    </ol>
+    <p>El Cookbook es un descarte permanente. Con él en mesa, cualquier Dack que robes o tutorees se convierte en victoria. Su segunda habilidad ({4}, {T}, sacrificar) devuelve una criatura del cementerio a la mano si te descartaron o contrarrestaron algo.</p>
+  </div>
+
+  <div class="line">
+    <div class="head"><span class="id">E</span><span class="name">Necropotence / tamaño de mano</span><div class="tags"><span class="tag">{2}{U} en cleanup</span></div></div>
+    <ol>
+      <li>Con Hashaton en mesa, termina tu turno con más de 7 cartas y Dack en mano. Con Necropotence en mesa robas muchas cartas, así que esto pasa fácil.</li>
+      <li>En la cleanup descartas Dack. Hashaton dispara: deja {2}{U} sin usar. Ganas.</li>
+    </ol>
+    <p>Con Necropotence hay dos triggers (Hashaton y el exilio de Necro). Pon <strong>el de Hashaton arriba</strong> para que resuelva antes de que Necro exilie la carta.</p>
+  </div>
+
+  <div class="line">
+    <div class="head"><span class="id">F</span><span class="name">Hard cast de Dack</span><div class="tags"><span class="tag">6 maná</span></div></div>
+    <ol>
+      <li>Junta {4}{W}{W}: Sol Ring, Mana Vault, Ancient Tomb, Dark Ritual + Cabal Ritual, LED, moxes, Lotus Petal.</li>
+      <li>Ideal: Cavern of Souls nombrando <strong>Human</strong> (Dack es Human Advisor) para que no lo contrarresten, o Grand Abolisher antes.</li>
+    </ol>
+  </div>
+
+  <div class="line">
+    <div class="head"><span class="id">G</span><span class="name">Thassa clásico</span><div class="tags"><span class="tag">3–4 maná</span><span class="tag g">plan B</span></div></div>
+    <ol>
+      <li>Thassa's Oracle en el stack, o su trigger en el stack.</li>
+      <li>En respuesta: Demonic Consultation ({B}, nombra una carta que no esté en tu mazo) o Tainted Pact ({1}{B}, en singleton exilia todo).</li>
+    </ol>
+    <p>También funciona al revés: Consultation/Pact primero y Thassa después, pero te expone a que te contrarresten Thassa con la biblioteca ya exiliada. Mejor hacer la exiliación en respuesta al trigger.</p>
+  </div>
+
+  <div class="line">
+    <div class="head"><span class="id">H</span><span class="name">Hashaton + Leveler y Thassa sin Dack</span><div class="tags"><span class="tag">6+ maná</span></div></div>
+    <ol>
+      <li>Descarta Leveler con Hashaton ({2}{U}) → token exilia tu biblioteca.</li>
+      <li>Lanza Thassa ({U}{U}) o descártala también con Hashaton ({2}{U}).</li>
+    </ol>
+    <p>Útil si Dack fue exiliado. Con LED puedes descartar ambas a la vez: ordena los triggers de Hashaton para que el token de Leveler entre primero.</p>
+  </div>
+</section>
+
+<section id="split">
+  <h2><span class="n">05</span>La ventana de split second</h2>
+  <p>El mazo trae tres hechizos de split second: <span class="card">Angel's Grace</span> ({W}), <span class="card">Slimed</span> ({1}{U}, la versión de Trickbind: contrarresta una habilidad activada o disparada) y <span class="card">Extirpate</span> ({B}, objetivo una carta en un cementerio).</p>
+  <div class="thesis">
+    <p><strong>La regla:</strong> mientras un hechizo con split second está en el stack, nadie puede lanzar hechizos ni activar habilidades que no sean de maná. Pero los triggers sí se disparan y se ponen <em>encima</em> del hechizo, y LED es una habilidad de maná.</p>
+    <p>Entonces: lanzas el split second, mantienes prioridad, sacrificas LED descartando Dack, y todo el combo (trigger de Hashaton, token de Dack, Leveler, Thassa) resuelve encima del split second. <strong>Nadie puede responder a ningún paso.</strong></p>
+  </div>
+  <div class="stackwrap">
+    <div class="stack">
+      <div class="cap">Paso 1 · lanzas Angel's Grace y mantienes prioridad</div>
+      <ol>
+        <li class="ss"><span class="lbl">SPLIT SECOND</span>Angel's Grace</li>
+      </ol>
+    </div>
+    <div class="stack">
+      <div class="cap">Paso 2 · LED por {U}{U}{U}, descartas Dack</div>
+      <ol>
+        <li><span class="lbl">ARRIBA</span>Trigger de Hashaton (pagas {2}{U})</li>
+        <li class="ss"><span class="lbl">ABAJO</span>Angel's Grace: todavía bloquea respuestas</li>
+      </ol>
+    </div>
+    <div class="stack">
+      <div class="cap">Paso 3 · token de Dack resuelve</div>
+      <ol>
+        <li><span class="lbl">ARRIBA</span>Trigger de Leveler</li>
+        <li class="win">Trigger de Thassa → ganas</li>
+        <li class="ss"><span class="lbl">ABAJO</span>Angel's Grace (nunca alcanza a resolver)</li>
+      </ol>
+    </div>
+  </div>
+  <h3>Qué necesitas</h3>
+  <ul>
+    <li>Hashaton en el campo, LED en el campo, Dack en la mano.</li>
+    <li>El hechizo de split second y maná para lanzarlo, aparte de LED.</li>
+    <li>El {2}{U} sale del propio LED. El maná se queda en tu reserva mientras el stack resuelve, dentro del mismo paso.</li>
+  </ul>
+  <h3>Cuál split second usar</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Carta</th><th>Objetivo que necesita</th><th>Notas</th></tr></thead>
+    <tbody>
+      <tr><td>Angel's Grace</td><td>Ninguno</td><td>La mejor: siempre se puede lanzar. De bonus no puedes perder este turno (Ancient Tomb, Confluence, Reanimate).</td></tr>
+      <tr><td>Slimed</td><td>Una habilidad activada o disparada en el stack</td><td>Activa tu fetchland y apunta a esa habilidad (pierdes la tierra, no importa). O apunta a un trigger rival real: Rhystic Study, Mystic Remora, un upkeep trigger. Además puede contrarrestar un trigger de Thassa ajeno.</td></tr>
+      <tr><td>Extirpate</td><td>Una carta en un cementerio (no tierra básica)</td><td>Casi siempre hay algo: una fetch usada (no es básica), un hechizo jugado. Si puedes, elige algo del rival que valga la pena: su Thassa, su Underworld Breach.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="warn"><strong>El orden importa.</strong> El descarte tiene que pasar <em>después</em> de lanzar el split second y tiene que ser una habilidad de maná. The Underworld Cookbook no sirve aquí: su habilidad no es de maná y no se puede activar con split second en el stack. Careful Study tampoco. Solo LED.</div>
+  <h3>Lo que el split second no frena</h3>
+  <ul>
+    <li><strong>Efectos estáticos:</strong> Hushbringer, Torpor Orb, Hushwing Gryff (los triggers de entrada no se disparan), Grafdigger's Cage (impide que Dack ponga criaturas de la biblioteca).</li>
+    <li><strong>Triggers rivales</strong> que se disparen en el proceso.</li>
+    <li>Habilidades de maná y acciones especiales de los rivales, que no te afectan.</li>
+  </ul>
+  <div class="tip"><strong>Versión sin LED.</strong> Si el rival tiene un Stifle cantado y no tienes LED, la alternativa es Grand Abolisher en tu turno: no podrán lanzar Stifle ni Tidebinder. El Abolisher no frena habilidades de tierras (Otawara, Boseiju) ni de cartas en mano (channel), mientras que el split second sí las frena.</div>
+</section>
+
+<section id="tutores">
+  <h2><span class="n">06</span>Qué tutorear</h2>
+  <p>La pregunta siempre es: ¿qué me falta para ganar <em>este</em> turno, o el próximo con protección? Busca la pieza que falta, no la más vistosa.</p>
+  <h3>Por situación</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Tienes</th><th>Te falta</th><th>Busca</th></tr></thead>
+    <tbody>
+      <tr><td>Hashaton + LED</td><td>Dack</td><td>Dack con Demonic / Vampiric / Imperial Seal / Grim / Wishclaw</td></tr>
+      <tr><td>Hashaton + Dack en mano</td><td>Un descarte</td><td>LED (Enlightened, Tezzeret −3, Urza's Saga, Tolaria West), Cookbook, Careful Study (Mystical)</td></tr>
+      <tr><td>Dack en mano, sin Hashaton</td><td>Ponerlo en juego</td><td>Entomb (Mystical) si tienes Reanimate o Shallow Grave</td></tr>
+      <tr><td>Reanimate o Shallow Grave</td><td>Dack en el cementerio</td><td>Entomb (Mystical), o un tutor general por Dack + descarte</td></tr>
+      <tr><td>Entomb</td><td>Reanimación</td><td>Reanimate (Mystical)</td></tr>
+      <tr><td>Thassa en mano</td><td>Vaciar biblioteca</td><td>Tainted Pact o Demonic Consultation (Mystical)</td></tr>
+      <tr><td>El combo completo</td><td>Protección</td><td>Angel's Grace (Mystical, para split second), Silence u Orim's Chant (Mystical), Grand Abolisher</td></tr>
+      <tr><td>Mano lenta, sin presión</td><td>Motor</td><td>Necropotence o Rhystic Study (Enlightened o Demonic)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Por tutor</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Tutor</th><th>Mejores objetivos</th><th>Notas</th></tr></thead>
+    <tbody>
+      <tr><td>Demonic Tutor</td><td>Dack, Entomb, LED</td><td>Conjuro, a la mano. El tutor más limpio.</td></tr>
+      <tr><td>Vampiric Tutor</td><td>Dack, Necropotence</td><td>Instantáneo, al tope. Hazlo en el end step anterior a tu turno. Combínalo con Brainstorm o Careful Study para usar la carta el mismo turno.</td></tr>
+      <tr><td>Imperial Seal</td><td>Dack o LED</td><td>Al tope, conjuro. Juégalo en turno 1 y busca la pieza que te deje ganar en turno 2.</td></tr>
+      <tr><td>Grim Tutor</td><td>Dack</td><td>A la mano, 3 maná y 3 vidas. El más caro.</td></tr>
+      <tr><td>Mystical Tutor</td><td>Entomb, Reanimate, Tainted Pact, Consultation, Angel's Grace, Careful Study, Silence</td><td>Solo instantáneos y conjuros, al tope.</td></tr>
+      <tr><td>Enlightened Tutor</td><td>LED, The Underworld Cookbook, Necropotence, Rhystic Study, Wishclaw</td><td>Artefactos y encantamientos, al tope.</td></tr>
+      <tr><td>Wishclaw Talisman</td><td>Dack o la pieza que falta</td><td>Úsalo solo si ganas ese turno: después el Talisman pasa a un oponente.</td></tr>
+      <tr><td>Tezzeret, Cruel Captain −3</td><td>LED, Cookbook, Wishclaw, Sol Ring, Mana Vault</td><td>Artefacto de valor 1 o menos, a la mano. Tezzeret también activa Mox Amber.</td></tr>
+      <tr><td>Urza's Saga (capítulo III)</td><td>LED, Cookbook, Wishclaw</td><td>Artefacto con costo 0 o 1, al campo. LED en el campo, listo para la línea A.</td></tr>
+      <tr><td>Tolaria West (transmute)</td><td>LED, Lotus Petal, moxes, Pact of Negation, Urza's Saga, Cavern of Souls</td><td>Busca cartas de valor 0, incluidas tierras.</td></tr>
+      <tr><td>Lim-Dûl's Vault</td><td>Dack o la pieza que falta</td><td>Instantáneo, al tope. Más lento pero flexible.</td></tr>
+      <tr><td>Scheming Symmetry</td><td>Dack</td><td>{B}, pero también busca un oponente. Apunta al que menos puede usar su carta.</td></tr>
+      <tr><td>Intuition</td><td>Ver sección 07</td><td>Instantáneo. Llena el cementerio para la reanimación.</td></tr>
+      <tr><td>Unseat the Usurper</td><td>Su Thassa, su tutor, su fast mana</td><td>Robas una carta de la biblioteca de un oponente y la puedes jugar.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="tip"><strong>Regla general:</strong> tutorea Dack solo si ya tienes cómo meterlo (Hashaton + descarte, Entomb + reanimación, o 6 maná). Si no, tutorea la pieza que convierte un Dack futuro en victoria inmediata: LED o Cookbook con Hashaton en mesa.</div>
+</section>
+
+<section id="intuition">
+  <h2><span class="n">07</span>Pilas de Intuition</h2>
+  <p>Intuition busca 3 cartas, un oponente elige una para tu mano y las otras van al cementerio. La gracia es armar pilas donde cualquier elección te gane.</p>
+  <div class="line">
+    <div class="head"><span class="id">I-1</span><span class="name">Dack + Reanimate + Shallow Grave</span><div class="tags"><span class="tag">necesitas {B} o {1}{B} extra</span></div></div>
+    <ul>
+      <li>Te dan Reanimate: Dack está en el cementerio → Reanimate → ganas.</li>
+      <li>Te dan Shallow Grave: Dack es la única criatura en el cementerio → Shallow Grave → ganas.</li>
+      <li>Te dan Dack: necesitas Hashaton + descarte (LED, Cookbook) o 6 maná. Arma esta pila cuando tengas eso listo.</li>
+    </ul>
+  </div>
+  <div class="line">
+    <div class="head"><span class="id">I-2</span><span class="name">Con Hashaton + LED en mesa</span></div>
+    <p>Dack + Reanimate + Shallow Grave, igual que I-1, pero ahora la rama "te dan Dack" también gana: lo descartas con LED y pagas {2}{U}. Las tres ramas ganan. Deja {1}{B} libre por si te dan Shallow Grave.</p>
+  </div>
+  <div class="line">
+    <div class="head"><span class="id">I-3</span><span class="name">Plan Thassa</span></div>
+    <p>Thassa's Oracle + Demonic Consultation + Tainted Pact cuando tienes Shallow Grave o Reanimate a mano. Si te dan Thassa, falta una exiliación: menos determinista. Úsala solo si las otras líneas están cerradas.</p>
+  </div>
+  <div class="warn"><strong>Cuidado:</strong> después de Intuition hay cartas en el cementerio que lo hacen vulnerable a Bojuka Bog, Soul-Guide Lantern o Extirpate rival. Ejecuta la reanimación en el mismo turno.</div>
+</section>
+
+<section id="manos">
+  <h2><span class="n">08</span>Manos y mulligan</h2>
+  <p>Una mano buena tiene <strong>maná para actuar en los turnos 1–2</strong>, <strong>una pieza o tutor del combo</strong>, y de preferencia <strong>una interacción gratis</strong>. El mazo tiene 27 tierras más 12 fuentes de fast mana y rituales, así que manos de 1 tierra + fast mana se pueden quedar.</p>
+  <h3>Qué valorar</h3>
+  <ul>
+    <li><strong>Piezas de victoria que se cuentan como medio combo:</strong> Dack, LED, Entomb, Reanimate, Thassa, Cookbook, cualquier tutor negro.</li>
+    <li><strong>Interacción gratis:</strong> Force of Will, Force of Negation, Pact of Negation, Fierce Guardianship (con Hashaton en mesa), Mindbreak Trap, Misdirection, Commandeer, Snapback, Deadly Rollick.</li>
+    <li><strong>Motores:</strong> Necropotence, Rhystic Study, Mystic Remora, Black Market Connections. Una mano con motor + maná + interacción sin combo es aceptable.</li>
+  </ul>
+  <h3>Ejemplos</h3>
+  <p class="muted">Manos de ejemplo para ilustrar el criterio.</p>
+  <div class="hands">
+    <div class="hand keep">
+      <span class="verdict">Quédate · win T1</span>
+      <ul><li>Underground Sea</li><li>Lotus Petal</li><li>Entomb</li><li>Reanimate</li><li>Force of Will</li><li>Brainstorm</li><li>Rhystic Study</li></ul>
+      <p>Tierra + Petal = Entomb y Reanimate en turno 1, con FoW de respaldo. Si alguien tiene una respuesta cantada (blanco abierto, Tidebinder), espera al turno 2 con más protección.</p>
+    </div>
+    <div class="hand keep">
+      <span class="verdict">Quédate · Hashaton T1</span>
+      <ul><li>Scrubland</li><li>Chrome Mox</li><li>Lion's Eye Diamond</li><li>Demonic Tutor</li><li>Fierce Guardianship</li><li>Flooded Strand</li><li>Swords to Plowshares</li></ul>
+      <p>T1: Scrubland, Mox (imprinta Swords), Hashaton. T2: fetch, Demonic por Dack, LED, descarte, {2}{U}. Fierce gratis protege con Hashaton en mesa.</p>
+    </div>
+    <div class="hand ok">
+      <span class="verdict">Quédate · mano de motor</span>
+      <ul><li>Polluted Delta</li><li>Tundra</li><li>Sol Ring</li><li>Mystic Remora</li><li>Necropotence</li><li>Swan Song</li><li>Pact of Negation</li></ul>
+      <p>Sin combo, pero Necro en turno 2 te encuentra todo. Juega de control: frena al primero que intente ganar y gana tú después.</p>
+    </div>
+    <div class="hand mull">
+      <span class="verdict">Mulligan</span>
+      <ul><li>Hallowed Fountain</li><li>Command Tower</li><li>City of Brass</li><li>Damping Sphere</li><li>Snuff Out</li><li>Strix Serenade</li><li>Spell Snare</li></ul>
+      <p>Solo reacción. No avanza el combo, no tiene tutor ni motor. Este mazo gana por velocidad; una mano así pierde contra todos.</p>
+    </div>
+    <div class="hand mull">
+      <span class="verdict">Mulligan</span>
+      <ul><li>Lotus Petal</li><li>Mox Opal</li><li>Dack Fayden</li><li>Leveler</li><li>Intuition</li><li>Copy Enchantment</li><li>Dispel</li></ul>
+      <p>Sin tierras y Mox Opal sin metalcraft. Dos de tus cuatro criaturas en mano: Dack ya no encuentra a Leveler, y Leveler es un dead draw.</p>
+    </div>
+    <div class="hand ok">
+      <span class="verdict">Quédate con cuidado</span>
+      <ul><li>Ancient Tomb</li><li>Watery Grave</li><li>Mana Vault</li><li>Dark Ritual</li><li>Dack Fayden</li><li>Cavern of Souls</li><li>Mental Misstep</li></ul>
+      <p>Hard cast en turno 2: Tomb, Vault, Cavern nombrando Human, Ritual. Cuenta tu maná antes de comprometerte y usa Misstep contra el Mental Misstep o Swords rival.</p>
+    </div>
+  </div>
+  <div class="tip"><strong>Imprints y Gemstone:</strong> nunca imprintes Dack, Thassa ni un tutor en Chrome Mox. Imprinta remoción o un counter repetido. Lo mismo con Gemstone Caverns (solo sirve si no eres el primer jugador).</div>
+</section>
+
+<section id="temprano">
+  <h2><span class="n">09</span>Wins tempranos</h2>
+  <p>Recetas de victoria en turno 1–2. La pregunta antes de lanzarte: ¿quién tiene maná abierto y cartas en mano? En turno 1 casi nadie puede responder más que con counters gratis.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Receta</th><th>Cartas</th><th>Maná</th></tr></thead>
+    <tbody>
+      <tr><td>Entomb + Reanimate</td><td>Tierra negra + 1 fuente extra (Petal, Mox, ritual) + Entomb + Reanimate</td><td>{B}{B}</td></tr>
+      <tr><td>Entomb + Shallow Grave</td><td>Tierra + 2 fuentes + Entomb + Shallow Grave</td><td>{B} + {1}{B}</td></tr>
+      <tr><td>Ritual a hard cast</td><td>Ancient Tomb + Sol Ring + Mana Vault + 2 fuentes blancas + Dack</td><td>{4}{W}{W}</td></tr>
+      <tr><td>Ritual + LED a Dack</td><td>Tierra negra + Dark Ritual + LED + Dack</td><td>Tierra → Dark Ritual ({B}{B}{B}). Lanza Dack y, mientras pagas, sacrifica LED por {W}{W}{W}. Dack ya está en el stack, así que no lo descartas. 3 + 3 = 6.</td></tr>
+      <tr><td>Hashaton T1 → T2 win</td><td>Fuente W + fuente B (o Mox), Hashaton. T2: LED + Dack + {2}{U}</td><td>{W}{B}, luego {2}{U}</td></tr>
+      <tr><td>Thassa T2</td><td>Thassa + Consultation o Tainted Pact</td><td>{U}{U} + {B} o {1}{B}</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note"><p><strong>Regla del primer intento:</strong> si el intento temprano falla, no te quedas sin nada. Si te contrarrestan Dack, va al cementerio y Reanimate o Shallow Grave lo traen de vuelta. Si lo exilian (Swords después de que resolvió no importa, ya ganaste; pero un counter que exilia o un Extirpate rival sí), pasa a la línea G o H.</p></div>
+  <div class="tip"><strong>Turno 1 con counter gratis:</strong> la mejor apertura es win attempt + FoW/Pact/FoN en mano. Si no tienes protección y la mesa tiene azul con cartas, considera esperar un turno con Rhystic o Necro.</div>
+</section>
+
+<section id="interaccion">
+  <h2><span class="n">10</span>Interacción y protección</h2>
+  <h3>Gratis o casi gratis</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Carta</th><th>Condición de costo</th><th>Mejor uso</th></tr></thead>
+    <tbody>
+      <tr><td>Force of Will</td><td>Exilia una carta azul + 1 vida</td><td>Proteger tu win o parar uno rival.</td></tr>
+      <tr><td>Force of Negation</td><td>Gratis en turno ajeno</td><td>Contra no-criaturas en el turno de otro: su Consultation, su Underworld Breach.</td></tr>
+      <tr><td>Pact of Negation</td><td>Pagas {3}{U}{U} en tu próximo upkeep</td><td>Solo en el turno en que ganas, o si te salva de perder.</td></tr>
+      <tr><td>Fierce Guardianship</td><td>Gratis si controlas tu comandante</td><td>Tener Hashaton en mesa lo hace gratis. Otra razón para bajarlo temprano.</td></tr>
+      <tr><td>Deadly Rollick</td><td>Gratis si controlas tu comandante</td><td>Exilia Hushbringer, Tidebinder o su comandante combo.</td></tr>
+      <tr><td>Mindbreak Trap</td><td>Gratis si un rival lanzó 3+ hechizos este turno</td><td>Contra cadenas de rituales y storm. Exilia, así que gana a "no se puede contrarrestar".</td></tr>
+      <tr><td>Misdirection</td><td>Exilia una carta azul</td><td>Redirige un Swords, un counter o un tutor de objetivo único.</td></tr>
+      <tr><td>Commandeer</td><td>Exilia dos cartas azules</td><td>Roba su tutor o su Consultation. Robar su Demonic Tutor = tú buscas Dack.</td></tr>
+      <tr><td>Snapback</td><td>Exilia una carta azul</td><td>Rebota una criatura de hate (Hushbringer, Drannith) en respuesta.</td></tr>
+      <tr><td>Snuff Out</td><td>4 vidas si controlas un Swamp</td><td>Underground Sea, Scrubland, Watery Grave y Godless Shrine cuentan como Swamp. Mata criaturas no negras.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Baratas</h3>
+  <ul>
+    <li><span class="card">Mental Misstep</span>: Dark Ritual, Swords, Mystical/Vampiric/Enlightened rival. También para defender tu ritual.</li>
+    <li><span class="card">Flusterstorm</span>, <span class="card">Swan Song</span>, <span class="card">Dispel</span>: peleas de stack. Swan Song da un 2/2, irrelevante si ganas ya.</li>
+    <li><span class="card">Spell Snare</span>: valor 2: Tainted Pact, Thassa, Hashaton rival, Abolisher rival.</li>
+    <li><span class="card">An Offer You Can't Refuse</span>: contrarresta no-criatura, el rival recibe 2 Tesoros. Úsalo en el turno en que ganas o contra wins, no por valor.</li>
+    <li><span class="card">Strix Serenade</span>: artefacto, criatura o planeswalker. Contra su Thassa o su pieza de stax.</li>
+    <li><span class="card">Twincast</span>: copia tu tutor (dos tutores) o el hechizo clave rival.</li>
+  </ul>
+  <h3>Prevención en tu turno</h3>
+  <ul>
+    <li><span class="card">Silence</span> y <span class="card">Orim's Chant</span>: lánzalos en tu upkeep o antes del combo. Nadie lanza hechizos el resto del turno. Orim's Chant con kicker además impide ataques.</li>
+    <li><span class="card">Grand Abolisher</span>: bájalo antes de Dack, así no se regala y queda protegiendo. Recuerda que no frena habilidades de tierras ni channel.</li>
+    <li><span class="card">Cavern of Souls</span>: nombra Human para Dack y Abolisher; Wizard para Thassa (y también Hashaton).</li>
+  </ul>
+  <h3>Stax propio</h3>
+  <ul>
+    <li><span class="card">Cursed Totem</span>: no te afecta (Hashaton es trigger, tus criaturas no tienen activadas relevantes). Apaga Kinnan, Thrasios, Selvala, dorks.</li>
+    <li><span class="card">Damping Sphere</span>: también te frena las cadenas de hechizos y Ancient Tomb. Bájala en un turno en que no vas a ganar.</li>
+    <li><span class="card">Smothering Tithe</span>, <span class="card">Black Market Connections</span>: maná para el turno grande.</li>
+    <li><span class="card">Copy Enchantment</span>: copia tu Rhystic o Necro, o el stax o motor rival.</li>
+  </ul>
+</section>
+
+<section id="hate">
+  <h2><span class="n">11</span>Hate y respuestas</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Hate</th><th>Qué rompe</th><th>Respuesta</th></tr></thead>
+    <tbody>
+      <tr><td>Hushbringer, Torpor Orb, Hushwing Gryff</td><td>Triggers de entrada: Dack, Leveler, Thassa. Todo el mazo.</td><td>Swords, Snuff Out, Deadly Rollick, Snapback, Into the Flood Maw, Chain of Vapor, Otawara, Toxic Deluge. Plan Thassa con Consultation también muere: sácalo primero.</td></tr>
+      <tr><td>Grafdigger's Cage</td><td>Dack no puede poner criaturas de la biblioteca. Reanimate y Shallow Grave fallan.</td><td>Chain of Vapor, Into the Flood Maw (con gift), Otawara. Las copias de Hashaton son tokens y entran igual, pero el token de Dack sigue fallando.</td></tr>
+      <tr><td>Rest in Peace, Leyline of the Void</td><td>Entomb + reanimación</td><td>Hashaton sigue funcionando: el descarte dispara igual. Cambia a la línea A o D.</td></tr>
+      <tr><td>Stifle, Tishana's Tidebinder</td><td>El trigger de Dack o de Hashaton</td><td>Split second (sección 05), Grand Abolisher en tu turno, o counter guardado.</td></tr>
+      <tr><td>Drannith Magistrate</td><td>Hashaton desde la zona de mando</td><td>Remoción. Dack en el 99 no se ve afectado.</td></tr>
+      <tr><td>Rule of Law, Archon of Emeria</td><td>Las cadenas de rituales</td><td>La línea A (LED es habilidad) y Entomb + Reanimate en dos turnos.</td></tr>
+      <tr><td>Opposition Agent, Aven Mindcensor</td><td>Tus tutores</td><td>Dack no busca: revela. Funciona igual. Tus tutores sí sufren.</td></tr>
+      <tr><td>Bojuka Bog, Soul-Guide Lantern</td><td>Dack en el cementerio</td><td>Haz Entomb y reanimación en la misma ventana, no dejes a Dack en el cementerio una ronda.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note"><p><strong>Into the Flood Maw</strong> con gift (el rival recibe un pez) devuelve cualquier permanente no tierra, incluyendo artefactos como Torpor Orb o Cage. Sin gift solo criaturas de oponentes.</p></div>
+</section>
+
+<section id="reglas">
+  <h2><span class="n">12</span>Reglas finas y errores comunes</h2>
+  <ul>
+    <li><strong>Mesa de 3 (un jugador eliminado):</strong> X = 2. Si las tres criaturas están en la biblioteca, Dack para en la segunda y puede dejar fuera a Leveler o a Thassa. Solución: tener Abolisher fuera de la biblioteca (en mesa o en mano) para que solo queden Leveler y Thassa, o tener Consultation o Tainted Pact de respaldo en respuesta al trigger de Thassa.</li>
+    <li><strong>Mesa de 2:</strong> X = 1. Dack saca solo una criatura. Ya no es combo de una carta: usa Hashaton + Leveler + Thassa o el plan Thassa clásico.</li>
+    <li><strong>Revela toda la biblioteca:</strong> si hay menos criaturas que oponentes, Dack revela todo y pone las que encontró. Esa es la razón de cortar cualquier otra criatura del mazo.</li>
+    <li><strong>No agregues criaturas.</strong> Cualquier criatura extra en el 99 puede salir antes que Leveler o Thassa y romper el combo determinista.</li>
+    <li><strong>El token de Hashaton es 4/4 Zombie negro</strong>, pero conserva el costo de maná y los triggers. El token de Thassa sigue contando para devoción azul (la devoción cuenta símbolos del costo).</li>
+    <li><strong>Pagar {2}{U}:</strong> se paga al resolver el trigger de Hashaton. Sin el maná, no hay copia, y Dack queda en el cementerio (desde ahí sirve Reanimate).</li>
+    <li><strong>Matar a Hashaton en respuesta</strong> no detiene un trigger que ya está en el stack.</li>
+    <li><strong>Necropotence:</strong> ordena el trigger de Hashaton encima del exilio de Necro.</li>
+    <li><strong>Shallow Grave</strong> toma la criatura de más arriba de tu cementerio. Si descartas Leveler después de Entomb Dack, Shallow Grave te trae Leveler.</li>
+    <li><strong>Reanimate</strong> te hace perder vida igual al valor: 6 por Dack. Cuenta tu vida si usaste Ancient Tomb, Confluence, Necro o Snuff Out.</li>
+    <li><strong>Wishclaw Talisman</strong> pasa a un oponente después de usarlo. Solo si ganas ese turno.</li>
+    <li><strong>Pact of Negation</strong>: si no puedes pagar en tu upkeep, pierdes. Solo en el turno ganador.</li>
+    <li><strong>Morphic Pool y Sea of Clouds</strong> entran sin girar con dos o más oponentes. Starting Town entra sin girar en tus turnos 1–3.</li>
+    <li><strong>Mox Amber</strong> necesita una criatura o planeswalker legendario: Hashaton, Dack o Tezzeret.</li>
+  </ul>
+</section>
+
+<section id="lista">
+  <h2><span class="n">13</span>La lista por función</h2>
+  <p class="muted">Las 99 cartas del 99 agrupadas por su rol principal. Algunas hacen más de una cosa.</p>
+  <div class="decklist">
+    <div class="grp"><h4>Comandante</h4><ul><li>Hashaton, Scarab's Fist</li></ul></div>
+    <div class="grp"><h4>Criaturas (4)</h4><ul><li>Dack Fayden, Helping Hand</li><li>Grand Abolisher</li><li>Leveler</li><li>Thassa's Oracle</li></ul></div>
+    <div class="grp"><h4>Descarte y reanimación (6)</h4><ul><li>Lion's Eye Diamond</li><li>Careful Study</li><li>The Underworld Cookbook</li><li>Reanimate</li><li>Shallow Grave</li><li>Borne Upon a Wind</li></ul></div>
+    <div class="grp"><h4>Tutores (15)</h4><ul><li>Demonic Tutor</li><li>Vampiric Tutor</li><li>Imperial Seal</li><li>Grim Tutor</li><li>Mystical Tutor</li><li>Enlightened Tutor</li><li>Entomb</li><li>Intuition</li><li>Lim-Dûl's Vault</li><li>Scheming Symmetry</li><li>Wishclaw Talisman</li><li>Tainted Pact</li><li>Demonic Consultation</li><li>Unseat the Usurper</li><li>Tezzeret, Cruel Captain</li></ul></div>
+    <div class="grp"><h4>Fast mana (11)</h4><ul><li>Sol Ring</li><li>Mana Vault</li><li>Arcane Signet</li><li>Fellwar Stone</li><li>Chrome Mox</li><li>Mox Diamond</li><li>Mox Opal</li><li>Mox Amber</li><li>Lotus Petal</li><li>Dark Ritual</li><li>Cabal Ritual</li></ul></div>
+    <div class="grp"><h4>Motores (7)</h4><ul><li>Necropotence</li><li>Rhystic Study</li><li>Mystic Remora</li><li>Smothering Tithe</li><li>Black Market Connections</li><li>Brainstorm</li><li>Copy Enchantment</li></ul></div>
+    <div class="grp"><h4>Split second (3)</h4><ul><li>Angel's Grace</li><li>Slimed</li><li>Extirpate</li></ul></div>
+    <div class="grp"><h4>Counters y protección (17)</h4><ul><li>Force of Will</li><li>Force of Negation</li><li>Pact of Negation</li><li>Fierce Guardianship</li><li>Mindbreak Trap</li><li>Misdirection</li><li>Commandeer</li><li>Mental Misstep</li><li>Flusterstorm</li><li>Swan Song</li><li>Dispel</li><li>Spell Snare</li><li>Strix Serenade</li><li>An Offer You Can't Refuse</li><li>Twincast</li><li>Silence</li><li>Orim's Chant</li></ul></div>
+    <div class="grp"><h4>Remoción y rebote (7)</h4><ul><li>Swords to Plowshares</li><li>Snuff Out</li><li>Deadly Rollick</li><li>Snapback</li><li>Into the Flood Maw</li><li>Chain of Vapor</li><li>Toxic Deluge</li></ul></div>
+    <div class="grp"><h4>Stax (2)</h4><ul><li>Cursed Totem</li><li>Damping Sphere</li></ul></div>
+    <div class="grp"><h4>Tierras (27)</h4><ul><li>Ancient Tomb</li><li>Cavern of Souls</li><li>City of Brass</li><li>Command Tower</li><li>Gemstone Caverns</li><li>Mana Confluence</li><li>Starting Town</li><li>Urza's Saga</li><li>Tolaria West</li><li>Otawara, Soaring City</li><li>Underground Sea</li><li>Scrubland</li><li>Tundra</li><li>Watery Grave</li><li>Godless Shrine</li><li>Hallowed Fountain</li><li>Morphic Pool</li><li>Sea of Clouds</li><li>Vault of Champions</li><li>Arid Mesa</li><li>Bloodstained Mire</li><li>Flooded Strand</li><li>Marsh Flats</li><li>Misty Rainforest</li><li>Polluted Delta</li><li>Scalding Tarn</li><li>Verdant Catacombs</li></ul></div>
+  </div>
+</section>
+</main>
+</div>
+
+<footer>
+  <p>Fuentes: EDHREC, "Building Dack Fayden, Helping Hand for cEDH" (control de los triggers de Dack); MTG Rocks sobre Dack en cEDH y sobre Hashaton; MTG Wiki japonesa, página de 救いの手、ダク・フェイデン (arquetipo Hashaton + Dack + Leveler + Thassa); Scryfall y tiendas para el texto de Dack, Tezzeret, Starting Town, Slimed y Unseat the Usurper. Texto de cartas sujeto a la versión Oracle vigente.</p>
+</footer>
+
+</div>
+
+<div class="view" id="view-crystal" hidden>
+<header class="hero">
+  <div class="eyebrow">cEDH · Naya + azul · Primer</div>
+  <h1>Crystal <span class="amp">&amp;</span> la tormenta de Curiosity</h1>
+  <p class="lede">Crystal, Inhuman Princess es un dork de 3 maná que le pega a cada oponente por cada hechizo no criatura que lanzas. Con un efecto de Curiosity encima, cada hechizo además roba una carta por oponente. El mazo gana con loops infinitos de daño o arma una tormenta que entierra la mesa.</p>
+  <div class="chips">
+    <span class="chip"><b>Comandante:</b> Crystal {1}{R}{G} · 2/3 vuela</span>
+    <span class="chip"><b>Win principal:</b> Sewer-veillance Cam + Helix/Knack</span>
+    <span class="chip"><b>Win 2:</b> Breach + LED + Brain Freeze</span>
+    <span class="chip"><b>Motor:</b> Curiosity × 5</span>
+  </div>
+</header>
+
+<div class="wrap">
+<nav class="toc" aria-label="Índice Crystal">
+  <ol>
+    <li><a href="#c-idea">La idea</a></li>
+    <li><a href="#c-piezas">Las piezas</a></li>
+    <li><a href="#c-combos">Combos</a></li>
+    <li><a href="#c-motor">El motor de robo</a></li>
+    <li><a href="#c-split">Split second</a></li>
+    <li><a href="#c-tutores">Qué tutorear</a></li>
+    <li><a href="#c-manos">Manos y mulligan</a></li>
+    <li><a href="#c-temprano">Turnos tempranos</a></li>
+    <li><a href="#c-asiento">Según tu asiento</a></li>
+    <li><a href="#c-interaccion">Interacción</a></li>
+    <li><a href="#c-hate">Hate y respuestas</a></li>
+    <li><a href="#c-reglas">Reglas finas</a></li>
+    <li><a href="#c-lista">Lista por función</a></li>
+  </ol>
+</nav>
+<main>
+
+<section id="c-idea">
+  <h2><span class="n">01</span>La idea</h2>
+  <div class="thesis">
+    <p><strong>Crystal</strong>: vuela. Cada vez que lanzas un hechizo no criatura, hace X de daño a <em>cada</em> oponente, donde X es la cantidad de colores del hechizo. Además se gira por {R}, {G}, {W} o {U}.</p>
+    <p>Eso la convierte en tres cosas: un dork que acelera desde el turno 2, una fuente de daño que vuelve <strong>cualquier loop infinito de hechizos en una victoria</strong>, y una criatura que "hace daño" para activar Curiosity, Ophidian Eye, Keen Sense, Snake Umbra o Tandem Lookout. Con 3 oponentes, cada hechizo con Curiosity roba 3.</p>
+    <p>El plan: bajar Crystal en turno 1–2, protegerla, y ganar con <span class="card">Sewer-veillance Cam</span> + <span class="card">Retraction Helix</span> / <span class="card">Banishing Knack</span> (daño infinito) o con <span class="card">Underworld Breach</span> + <span class="card">Lion's Eye Diamond</span> + <span class="card">Brain Freeze</span>. Si no hay combo, el motor de Curiosity te roba hasta encontrarlo.</p>
+  </div>
+  <p><span class="card">Vivi Ornitier</span> es la segunda Crystal: 1 de daño a cada oponente por hechizo no criatura y crece con cada uno. Con las dos en mesa, cada hechizo pega doble.</p>
+  <p>Ojo con los colores: Crystal cuenta colores <strong>del hechizo</strong>. LED, Lotus Petal, Sol Ring y los moxes son incoloros: no pegan. Manamorphose pega 2 (rojo y verde) y Jeskai Ascendancy 3.</p>
+</section>
+
+<section id="c-piezas">
+  <h2><span class="n">02</span>Las piezas</h2>
+  <div class="pieces">
+    <div class="piece"><div class="top"><h4>Crystal, Inhuman Princess</h4><span class="cost">{1}{R}{G} · 2/3</span></div><div class="role">Comandante · daño + maná</div><p>Pega por color en cada hechizo no criatura. Se gira por R/G/W/U. Para usar su maná o una habilidad de {T} prestada necesita estar desde el inicio del turno.</p></div>
+    <div class="piece"><div class="top"><h4>Sewer-veillance Cam</h4><span class="cost">{U} · artefacto</span></div><div class="role">La pieza del loop</div><p>Flash. Al entrar <em>o salir</em> puedes girar o enderezar una criatura. {3}{U}, sacrificar: roba 2. Es azul, así que Crystal pega 1 cada vez que la lanzas.</p></div>
+    <div class="piece"><div class="top"><h4>Retraction Helix · Banishing Knack</h4><span class="cost">{U} instantáneo</span></div><div class="role">El rebote</div><p>Hasta el final del turno, la criatura objetivo gana "{T}: regresa un permanente no tierra a la mano de su dueño". Sobre Crystal arman el loop con Cam.</p></div>
+    <div class="piece"><div class="top"><h4>Jeskai Ascendancy</h4><span class="cost">{U}{R}{W}</span></div><div class="role">Loop alternativo</div><p>Cada hechizo no criatura endereza tus criaturas, les da +1/+1 y puedes lootear. Con Helix/Knack + Lotus Petal: maná y looteo infinitos.</p></div>
+    <div class="piece"><div class="top"><h4>Underworld Breach</h4><span class="cost">{1}{R}</span></div><div class="role">Combo de cementerio</div><p>Todo tu cementerio tiene escape: su costo + exiliar 3 cartas. Con LED y Brain Freeze, loop de mill y de daño con Crystal.</p></div>
+    <div class="piece"><div class="top"><h4>Curiosity y sus copias</h4><span class="cost">{U} · {G} · {2}{U} · {2}{G}</span></div><div class="role">Motor de robo</div><p>Curiosity, Keen Sense, Ophidian Eye (flash), Snake Umbra (protege con umbra armor) y Tandem Lookout (soulbond). Roban por cada oponente al que Crystal le pega.</p></div>
+    <div class="piece"><div class="top"><h4>Vivi Ornitier</h4><span class="cost">{1}{U}{R} · 0/3</span></div><div class="role">Segunda Crystal</div><p>1 de daño a cada rival por hechizo no criatura y +1/+1. {0}: maná U/R igual a su fuerza, una vez por turno en tu turno.</p></div>
+    <div class="piece"><div class="top"><h4>Kellan, the Fae-Blooded</h4><span class="cost">{2}{R} · Boon {1}{W}</span></div><div class="role">Tutor de auras</div><p>Su aventura Birthright Boon busca un Aura: Curiosity, Ophidian Eye, Keen Sense, Snake Umbra, Sigil of Sleep o Wild Growth. Después puedes lanzar a Kellan desde el exilio.</p></div>
+  </div>
+</section>
+
+<section id="c-combos">
+  <h2><span class="n">03</span>Combos</h2>
+
+  <div class="line">
+    <div class="head"><span class="id">1</span><span class="name">Cam + Helix (o Knack) sobre Crystal</span><div class="tags"><span class="tag">{U}{U} para empezar</span><span class="tag g">daño infinito</span></div></div>
+    <ol>
+      <li>Crystal en mesa desde el inicio del turno, enderezada. Sewer-veillance Cam en mesa (o en mano con {U} extra).</li>
+      <li>Retraction Helix o Banishing Knack sobre Crystal.</li>
+      <li>{T} Crystal: regresa Cam a la mano. <strong>Cam sale</strong>: endereza a Crystal.</li>
+      <li>{T} Crystal por {U}. Lanza Cam. Crystal pega 1 a cada oponente. <strong>Cam entra</strong>: endereza a Crystal.</li>
+      <li>Repite desde el paso 3. Cada vuelta: 1 de daño a cada rival y +1 de storm.</li>
+    </ol>
+    <p>Cada vuelta se paga sola: una enderezada se usa para rebotar y la otra para el {U}. Con Vivi en mesa son 2 de daño por vuelta. Con Curiosity, cuidado con robar de más: es "puedes robar".</p>
+    <p class="muted">Variante con otra criatura: si Crystal no puede girarse (entró este turno), sirve cualquier criatura sin mareo para rebotar más una fuente de {U} que Cam pueda enderezar (Birds, Noble Hierarch). El daño lo sigue haciendo Crystal o Vivi.</p>
+  </div>
+
+  <div class="line">
+    <div class="head"><span class="id">2</span><span class="name">Underworld Breach + LED + Brain Freeze</span><div class="tags"><span class="tag">3–5 maná</span><span class="tag g">mill o daño</span></div></div>
+    <ol>
+      <li>Breach en mesa. LED y Brain Freeze en mano o cementerio. Necesitas cartas en el cementerio para exiliar (3 por escape).</li>
+      <li>Lanza LED (escape: exilia 3). Sacrifícalo por 3 maná de un color, descartando la mano.</li>
+      <li>Escape de Brain Freeze ({1}{U} + exiliar 3) apuntándote a ti: mueles 3 × (storm + 1). Eso rellena el cementerio.</li>
+      <li>Repite. Cada vuelta te deja +1 maná neto y sube el storm.</li>
+      <li>Cierra con Brain Freeze apuntando a los rivales con storm alto, o simplemente sigue: con Crystal en mesa, cada Brain Freeze pega 1 a cada oponente. Eso mata por daño sin esperar a que roben.</li>
+    </ol>
+    <p>Breach mismo es rojo (pega 1 al lanzarlo). Con el maná sobrante puedes lanzar Gitaxian Probe, Manamorphose o Gut Shot desde el cementerio para más daño y storm.</p>
+  </div>
+
+  <div class="line">
+    <div class="head"><span class="id">3</span><span class="name">Jeskai Ascendancy + Helix/Knack + Lotus Petal</span><div class="tags"><span class="tag">{U}{R}{W} + {U}</span><span class="tag g">maná y looteo infinitos</span></div></div>
+    <ol>
+      <li>Ascendancy en mesa. Helix o Knack sobre Crystal (o sobre otra criatura sin mareo).</li>
+      <li>{T}: regresa Lotus Petal. Lánzalo (0). Ascendancy: enderezas todas tus criaturas, +1/+1, looteas.</li>
+      <li>Repite. Tus otros dorks (Birds, Noble, Crystal si no es la que rebota) dan maná infinito. El looteo te cava toda la biblioteca.</li>
+      <li>Termina buscando Cam (combo 1) o Brain Freeze con storm infinito. Petal es incoloro: este loop no pega con Crystal por sí solo.</li>
+    </ol>
+    <p>También funciona rebotando Cam en vez de Petal: cada Cam pega 1 y Ascendancy endereza, así que no necesitas el untap de Cam.</p>
+  </div>
+
+  <div class="line">
+    <div class="head"><span class="id">4</span><span class="name">Tormenta de Curiosity</span><div class="tags"><span class="tag">no determinista</span></div></div>
+    <p>Crystal + cualquier efecto de Curiosity: cada hechizo no criatura roba 3. Encadena hechizos gratis y baratos (Gitaxian Probe, Gut Shot, Manamorphose, Snap, Daze, Mental Misstep, Pact, Lotus Petal, LED) mientras robas hasta encontrar el combo 1 o 2. Manamorphose es la mejor carta de la cadena: pega 2, devuelve el maná y roba 4.</p>
+    <p>Cuenta el daño: con 2–3 efectos de daño (Crystal, Vivi, varias auras de Sigil) la tormenta puede matar sola en mesas que ya perdieron vida.</p>
+  </div>
+
+  <div class="line">
+    <div class="head"><span class="id">5</span><span class="name">Sigil of Sleep</span><div class="tags"><span class="tag">tempo</span></div></div>
+    <p>Aura de {U}: cada vez que la criatura encantada hace daño a un jugador, regresas una criatura de ese jugador a su mano. Sobre Crystal, <strong>cada hechizo no criatura rebota una criatura de cada oponente</strong>. Limpia bloqueadores, Hushbringers, Drannith y comandantes justo antes de tu turno de combo.</p>
+  </div>
+</section>
+
+<section id="c-motor">
+  <h2><span class="n">04</span>El motor de robo</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Carta</th><th>Costo</th><th>Notas</th></tr></thead>
+    <tbody>
+      <tr><td>Curiosity</td><td>{U} aura</td><td>La más barata. Va primero.</td></tr>
+      <tr><td>Keen Sense</td><td>{G} aura</td><td>Igual que Curiosity, en verde.</td></tr>
+      <tr><td>Ophidian Eye</td><td>{2}{U} aura, flash</td><td>Se baja en el end step anterior a tu turno o en respuesta.</td></tr>
+      <tr><td>Snake Umbra</td><td>{2}{G} aura</td><td>+1/+1 y umbra armor: si Crystal fuera a morir, se destruye el aura.</td></tr>
+      <tr><td>Tandem Lookout</td><td>{2}{U} criatura</td><td>Soulbond con Crystal. Es criatura: no la pueden contestar con quitar auras, pero no dispara Crystal.</td></tr>
+    </tbody>
+  </table></div>
+  <ul>
+    <li>Cada efecto se apila: Curiosity + Keen Sense = 6 cartas por hechizo con 3 rivales.</li>
+    <li>Es "puedes robar". No te mueles por accidente en un loop infinito.</li>
+    <li>Mystic Remora, Rhystic Study, Esper Sentinel y Faerie Mastermind dan cartas sin depender de Crystal.</li>
+  </ul>
+</section>
+
+<section id="c-split">
+  <h2><span class="n">05</span>Split second y protección de Crystal</h2>
+  <div class="thesis">
+    <p><span class="card">Legolas's Quick Reflexes</span> ({G}, split second): endereza una criatura y le da hexproof y reach hasta el final del turno. Mientras está en el stack, nadie puede responder.</p>
+    <p>Úsalo sobre Crystal <strong>en respuesta a su remoción</strong>: el hexproof hace que el Swords o el Pongify fallen al resolver, y no te pueden contestar el Legolas. O úsalo antes del combo para que no puedan apuntarle en tu turno.</p>
+  </div>
+  <ul>
+    <li><strong>Bonus de untap:</strong> endereza a Crystal. Es otro maná, u otra activación de Helix/Knack.</li>
+    <li><strong>Pega:</strong> es verde, así que Crystal hace 1 de daño a cada rival y Curiosity roba.</li>
+    <li><strong>Lo que no frena:</strong> remoción masiva sin objetivo (Toxic Deluge, Pyroclasm), edictos, y los efectos que ya resolvieron.</li>
+  </ul>
+  <h3>Otras formas de proteger el turno</h3>
+  <ul>
+    <li><span class="card">Silence</span> y <span class="card">Orim's Chant</span> en tu upkeep: tus oponentes no lanzan hechizos el resto del turno. Tú sí puedes seguir lanzando, y cada uno pega con Crystal.</li>
+    <li><span class="card">Veil of Summer</span>: hexproof para ti y tus permanentes contra azul y negro, y tus hechizos no se pueden contrarrestar con azul/negro ese turno. Roba si un rival lanzó azul o negro.</li>
+    <li><span class="card">Deflecting Swat</span> y <span class="card">Fierce Guardianship</span> son gratis con Crystal en mesa.</li>
+    <li><span class="card">Snake Umbra</span>: protege a Crystal de destrucción y daño letal.</li>
+  </ul>
+</section>
+
+<section id="c-tutores">
+  <h2><span class="n">06</span>Qué tutorear</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Tienes</th><th>Te falta</th><th>Busca</th></tr></thead>
+    <tbody>
+      <tr><td>Crystal + Cam</td><td>El rebote</td><td>Retraction Helix o Banishing Knack (Gamble, Intuition)</td></tr>
+      <tr><td>Crystal + Helix/Knack</td><td>Cam</td><td>Sewer-veillance Cam (Enlightened Tutor, Gamble)</td></tr>
+      <tr><td>Breach + LED</td><td>Brain Freeze</td><td>Gamble, Intuition</td></tr>
+      <tr><td>LED + Brain Freeze</td><td>Breach</td><td>Enlightened Tutor, Gamble</td></tr>
+      <tr><td>Crystal sola, mano corta</td><td>Motor</td><td>Curiosity (Enlightened, Birthright Boon)</td></tr>
+      <tr><td>Combo listo</td><td>Protección</td><td>Legolas's Quick Reflexes, Silence, Veil of Summer</td></tr>
+    </tbody>
+  </table></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Tutor</th><th>Mejores objetivos</th><th>Notas</th></tr></thead>
+    <tbody>
+      <tr><td>Enlightened Tutor</td><td>Cam, Curiosity, Underworld Breach, LED, Jeskai Ascendancy</td><td>Artefacto o encantamiento, al tope. Hazlo en el end step anterior.</td></tr>
+      <tr><td>Gamble</td><td>Lo que sea</td><td>{R}: a la mano, luego descartas una al azar. Juégalo con la mano casi vacía, o con LED/Breach donde descartar no importa.</td></tr>
+      <tr><td>Intuition</td><td>Ver abajo</td><td>3 cartas, el rival elige una para tu mano, el resto al cementerio.</td></tr>
+      <tr><td>Birthright Boon</td><td>Curiosity, Ophidian Eye, Keen Sense, Snake Umbra, Sigil of Sleep</td><td>Solo Auras. Kellan queda en el exilio para lanzarlo después.</td></tr>
+      <tr><td>Noxious Revival</td><td>La pieza que te countearon</td><td>Gratis con 2 vidas. Pone una carta del cementerio en el tope.</td></tr>
+      <tr><td>Sevinne's Reclamation</td><td>Cam, Curiosity, LED, Breach</td><td>Devuelve permanentes de valor ≤ 3 del cementerio al campo.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Pilas de Intuition</h3>
+  <ul>
+    <li><strong>Breach + LED + Brain Freeze</strong> cuando tienes Noxious Revival o Sevinne's Reclamation: lo que te den a la mano, recuperas Breach si fue al cementerio y los otros dos se lanzan con escape.</li>
+    <li><strong>Retraction Helix + Banishing Knack + Noxious Revival</strong> cuando ya tienes Crystal y Cam: cualquier carta que te den arma el rebote (Revival pone uno de los otros en tu tope).</li>
+  </ul>
+</section>
+
+<section id="c-manos">
+  <h2><span class="n">07</span>Manos y mulligan</h2>
+  <p>Quieres <strong>bajar Crystal en turno 1 o 2</strong>, una pieza de motor o combo, y algo de protección. El mazo tiene 9 aceleradores de criatura y artefacto más rituales y spirit guides; manos de una tierra con aceleración se pueden quedar.</p>
+  <p class="muted">Manos de ejemplo para ilustrar el criterio.</p>
+  <div class="hands">
+    <div class="hand keep"><span class="verdict">Quédate · Crystal T1</span><ul><li>Taiga</li><li>Elvish Spirit Guide</li><li>Lotus Petal</li><li>Curiosity</li><li>Fierce Guardianship</li><li>Gitaxian Probe</li><li>Volcanic Island</li></ul><p>T1: Taiga + ESG + Petal = Crystal. T2: Curiosity y empieza a robar, con Fierce gratis.</p></div>
+    <div class="hand keep"><span class="verdict">Quédate · combo T2</span><ul><li>Tropical Island</li><li>Birds of Paradise</li><li>Sewer-veillance Cam</li><li>Retraction Helix</li><li>Force of Will</li><li>Misty Rainforest</li><li>Snapback</li></ul><p>T1 Birds. T2 Crystal. T3 (Crystal sin mareo): Cam + Helix y ganas, con FoW de respaldo (Snapback es la carta azul que exilias). Con Petal se adelanta un turno.</p></div>
+    <div class="hand ok"><span class="verdict">Quédate · motor</span><ul><li>Volcanic Island</li><li>Sol Ring</li><li>Mystic Remora</li><li>Rhystic Study</li><li>Swan Song</li><li>Pact of Negation</li><li>Plateau</li></ul><p>Sin Crystal temprano, pero mucha carta. Remora en turno 1, Crystal + Rhystic en turno 2.</p></div>
+    <div class="hand mull"><span class="verdict">Mulligan</span><ul><li>Underworld Breach</li><li>Brain Freeze</li><li>Jeskai Ascendancy</li><li>Final Fortune</li><li>Cave-In</li><li>Sink into Stupor</li><li>Tundra</li></ul><p>Una tierra, nada de aceleración, piezas que no se conectan. No baja a Crystal antes del turno 3.</p></div>
+  </div>
+  <div class="tip"><strong>Imprints:</strong> en Chrome Mox imprinta una interacción repetida o una carta de dos colores que no vayas a usar. Nunca una pieza de combo. Mox Diamond pide descartar una tierra: no descartes tu único Volcanic si tus colores dependen de él.</div>
+</section>
+
+<section id="c-temprano">
+  <h2><span class="n">08</span>Turnos tempranos</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Objetivo</th><th>Cómo</th></tr></thead>
+    <tbody>
+      <tr><td>Crystal turno 1</td><td>Tierra roja o verde + dos de: Elvish Spirit Guide, Simian Spirit Guide, Lotus Petal, Chrome Mox, Mox Diamond, Rite of Flame, LED.</td></tr>
+      <tr><td>Crystal turno 1 con dork</td><td>Sol Ring + tierra = 3 maná, pero Sol Ring da incoloro: necesitas R y G aparte.</td></tr>
+      <tr><td>Combo turno 2</td><td>Crystal T1, y en T2 Cam + Helix: {U}{U} con Crystal sin mareo. Es la ventana más rápida del mazo.</td></tr>
+      <tr><td>Breach turno 2</td><td>Necesitas cementerio: Gitaxian Probe, fetches, Mental Misstep. LED también llena el cementerio al descartar.</td></tr>
+      <tr><td>Final Fortune</td><td>Turno extra (pierdes al final de ese turno). Úsalo solo si en ese turno ganas: te da la untap con Crystal sin mareo.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note"><p><strong>Mareo de invocación:</strong> el combo de Cam necesita que Crystal pueda girarse. Si la bajas este turno, solo sirve como fuente de daño, no para rebotar ni para maná. Planea el combo para el turno siguiente, o usa otra criatura para rebotar.</p></div>
+</section>
+
+<section id="c-asiento">
+  <h2><span class="n">09</span>Según tu asiento</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Asiento</th><th>Situación</th><th>Plan</th></tr></thead>
+    <tbody>
+      <tr><td>1 (juegas primero)</td><td>Nadie tiene maná abierto en tu primer turno. Gemstone Caverns no sirve.</td><td>Es el mejor asiento para Crystal turno 1 y un intento de combo turno 2 antes de que bajen hate.</td></tr>
+      <tr><td>2</td><td>Solo el Seat 1 actuó.</td><td>Mira qué dejó en mesa (Remora, Sentinel, Rhystic) antes de lanzar hechizos baratos: te los cobran.</td></tr>
+      <tr><td>3</td><td>Dos rivales ya bajaron tierras.</td><td>Gemstone Caverns te da un maná extra. Empieza a respetar los counters gratis.</td></tr>
+      <tr><td>4 (último)</td><td>Ves todo antes de actuar. Llegas con menos turnos propios si alguien acelera.</td><td>Juega más reactivo en la primera vuelta: guarda interacción para el Seat 1 y 2 y gana después. Gemstone Caverns es casi seguro.</td></tr>
+    </tbody>
+  </table></div>
+  <p>El jugador justo <strong>antes que tú</strong> es al que más te conviene frenar: si gana su turno, nunca tienes el tuyo. El jugador justo <strong>después</strong> es quien tiene más maná abierto cuando tú intentas ganar.</p>
+</section>
+
+<section id="c-interaccion">
+  <h2><span class="n">10</span>Interacción</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Carta</th><th>Costo alternativo</th><th>Uso</th></tr></thead>
+    <tbody>
+      <tr><td>Force of Will</td><td>Exilia carta azul + 1 vida</td><td>Protección o freno universal.</td></tr>
+      <tr><td>Force of Negation</td><td>Gratis en turno ajeno</td><td>Contra su Consultation, su Breach, su Ad Nauseam.</td></tr>
+      <tr><td>Fierce Guardianship</td><td>Gratis con Crystal en mesa</td><td>Contrarresta no-criatura.</td></tr>
+      <tr><td>Deflecting Swat</td><td>Gratis con Crystal en mesa</td><td>Redirige el Swords que apunta a Crystal.</td></tr>
+      <tr><td>Pact of Negation</td><td>Pagas {3}{U}{U} en tu upkeep</td><td>Solo en el turno que ganas.</td></tr>
+      <tr><td>Daze</td><td>Regresa una Island a la mano</td><td>Tus duales con tipo Island cuentan.</td></tr>
+      <tr><td>Mindbreak Trap</td><td>Gratis si un rival lanzó 3+ hechizos</td><td>Contra storm y cadenas.</td></tr>
+      <tr><td>Misdirection · Commandeer · Snapback</td><td>Exilian cartas azules</td><td>Redirigir, robar el hechizo, rebotar una criatura.</td></tr>
+      <tr><td>Pyrokinesis</td><td>Exilia una carta roja</td><td>4 de daño repartido: mata dorks y Hushbringers.</td></tr>
+      <tr><td>Cave-In</td><td>Exilia una carta roja</td><td>2 de daño a todo. Crystal sobrevive (2/3).</td></tr>
+      <tr><td>Gut Shot</td><td>2 vidas</td><td>Mata un dork, pega 1 con Crystal.</td></tr>
+    </tbody>
+  </table></div>
+  <ul>
+    <li><span class="card">Mental Misstep</span>, <span class="card">Flusterstorm</span>, <span class="card">Swan Song</span>, <span class="card">Dispel</span>, <span class="card">Red Elemental Blast</span>, <span class="card">An Offer You Can't Refuse</span>: peleas de stack baratas.</li>
+    <li><span class="card">Redirect Lightning</span>: cambia el objetivo de un hechizo (pagas 5 vidas o {2}).</li>
+    <li><span class="card">Into the Flood Maw</span>, <span class="card">Sink into Stupor</span>, <span class="card">Snap</span>, <span class="card">Otawara</span>, <span class="card">Boseiju</span>: rebotar y destruir.</li>
+    <li><span class="card">Claim the Firstborn</span>: roba una criatura de valor ≤ 3 por un turno. Contra Drannith o Hushbringer, o para usar su dork.</li>
+    <li><span class="card">Firestorm</span>: descarta X para X de daño a X objetivos. Mata varios dorks a la vez.</li>
+  </ul>
+</section>
+
+<section id="c-hate">
+  <h2><span class="n">11</span>Hate y respuestas</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Hate</th><th>Qué rompe</th><th>Respuesta</th></tr></thead>
+    <tbody>
+      <tr><td>Cursed Totem</td><td>El maná de Crystal y las habilidades de Helix/Knack</td><td>Boseiju (channel destruye artefactos), Into the Flood Maw con gift, Otawara, Sink into Stupor.</td></tr>
+      <tr><td>Collector Ouphe, Null Rod, Stony Silence</td><td>LED, Cam (sacrificio), Petal, Sol Ring</td><td>El loop de Cam no usa habilidades de Cam, sigue funcionando. Breach + LED muere.</td></tr>
+      <tr><td>Rule of Law, Archon of Emeria, Eidolon of Rhetoric</td><td>Todo el storm y los loops</td><td>Rebótalo o mátalo antes. Sigil of Sleep es tu mejor amiga contra Archon.</td></tr>
+      <tr><td>Rest in Peace, Leyline of the Void</td><td>Underworld Breach</td><td>Cambia al combo de Cam.</td></tr>
+      <tr><td>Drannith Magistrate</td><td>Crystal desde la zona de mando</td><td>Pyrokinesis, Claim the Firstborn, Into the Flood Maw, Snap, Sink into Stupor.</td></tr>
+      <tr><td>Notion Thief, Narset</td><td>El motor de Curiosity</td><td>Rebótalos antes de encadenar.</td></tr>
+      <tr><td>Orcish Bowmasters</td><td>Cada robo extra te cuesta 1 de daño y le da un ejército</td><td>No robes con Curiosity si no es necesario. Mátalo con Pyrokinesis o Cave-In.</td></tr>
+      <tr><td>Esper Sentinel, Mystic Remora, Rhystic Study rivales</td><td>Te cobran cada hechizo barato</td><td>Paga cuando importa. No encadenes cantrips gratis con Remora rival en mesa.</td></tr>
+      <tr><td>Tishana's Tidebinder</td><td>Puede contrarrestar el trigger de daño o el untap de Cam</td><td>Un trigger perdido no rompe el loop si tienes un {U} extra.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="c-reglas">
+  <h2><span class="n">12</span>Reglas finas</h2>
+  <ul>
+    <li><strong>Crystal cuenta colores del hechizo</strong>, no del maná gastado. Hechizos híbridos como Manamorphose cuentan ambos colores. Incoloros pegan 0.</li>
+    <li><strong>Curiosity roba por oponente</strong>: Crystal hace daño a cada rival por separado, así que el aura dispara una vez por cada uno.</li>
+    <li><strong>Mareo de invocación:</strong> Crystal no puede usar {T} (maná ni Helix) el turno que entra. Su trigger de daño sí funciona.</li>
+    <li><strong>Cam dispara al entrar y al salir.</strong> Las dos veces puedes enderezar una criatura. Es "puedes": no tienes que usarlo.</li>
+    <li><strong>Escape exilia 3 <em>otras</em> cartas</strong> del cementerio. Cuenta tu cementerio antes de empezar con Breach.</li>
+    <li><strong>LED descarta toda tu mano</strong>. Con Breach, esas cartas se vuelven fuel y escapes.</li>
+    <li><strong>Final Fortune</strong>: pierdes al inicio del end step del turno extra. Solo si ganas en ese turno.</li>
+    <li><strong>Forbidden Orchard</strong> le da un Spirit 1/1 a un oponente cada vez que la giras. Dáselo a quien menos lo aproveche.</li>
+    <li><strong>Pact of Negation</strong>: si no pagas en tu upkeep, pierdes.</li>
+    <li><strong>Tarnished Citadel</strong> te hace 3 de daño por maná de color.</li>
+  </ul>
+</section>
+
+<section id="c-lista">
+  <h2><span class="n">13</span>La lista por función</h2>
+  <div class="decklist">
+    <div class="grp"><h4>Comandante</h4><ul><li>Crystal, Inhuman Princess</li></ul></div>
+    <div class="grp"><h4>Combo (7)</h4><ul><li>Sewer-veillance Cam</li><li>Retraction Helix</li><li>Banishing Knack</li><li>Jeskai Ascendancy</li><li>Underworld Breach</li><li>Brain Freeze</li><li>Lion's Eye Diamond</li></ul></div>
+    <div class="grp"><h4>Motor de robo (9)</h4><ul><li>Curiosity</li><li>Keen Sense</li><li>Ophidian Eye</li><li>Snake Umbra</li><li>Tandem Lookout</li><li>Mystic Remora</li><li>Rhystic Study</li><li>Esper Sentinel</li><li>Faerie Mastermind</li></ul></div>
+    <div class="grp"><h4>Criaturas de valor (4)</h4><ul><li>Vivi Ornitier</li><li>Kellan, the Fae-Blooded</li><li>Ragavan, Nimble Pilferer</li><li>The Cabbage Merchant</li></ul></div>
+    <div class="grp"><h4>Tutores y recursión (7)</h4><ul><li>Enlightened Tutor</li><li>Gamble</li><li>Intuition</li><li>Noxious Revival</li><li>Sevinne's Reclamation</li><li>Borne Upon a Wind</li><li>Final Fortune</li></ul></div>
+    <div class="grp"><h4>Aceleración (17)</h4><ul><li>Birds of Paradise</li><li>Noble Hierarch</li><li>Tinder Wall</li><li>Elvish Spirit Guide</li><li>Simian Spirit Guide</li><li>Sol Ring</li><li>Chrome Mox</li><li>Mox Diamond</li><li>Lotus Petal</li><li>Carpet of Flowers</li><li>Wild Growth</li><li>Rite of Flame</li><li>Manamorphose</li><li>Strike It Rich</li><li>Gitaxian Probe</li><li>Emerald Charm</li><li>Tidal Bore</li></ul></div>
+    <div class="grp"><h4>Protección y counters (21)</h4><ul><li>Force of Will</li><li>Force of Negation</li><li>Pact of Negation</li><li>Fierce Guardianship</li><li>Deflecting Swat</li><li>Daze</li><li>Mindbreak Trap</li><li>Misdirection</li><li>Commandeer</li><li>Mental Misstep</li><li>Flusterstorm</li><li>Swan Song</li><li>Dispel</li><li>Red Elemental Blast</li><li>An Offer You Can't Refuse</li><li>Redirect Lightning</li><li>Veil of Summer</li><li>Legolas's Quick Reflexes</li><li>Silence</li><li>Orim's Chant</li><li>Snapback</li></ul></div>
+    <div class="grp"><h4>Remoción y tempo (9)</h4><ul><li>Pyrokinesis</li><li>Cave-In</li><li>Firestorm</li><li>Gut Shot</li><li>Into the Flood Maw</li><li>Sink into Stupor</li><li>Snap</li><li>Claim the Firstborn</li><li>Sigil of Sleep</li></ul></div>
+    <div class="grp"><h4>Tierras (25)</h4><ul><li>Ancient Tomb</li><li>Boseiju, Who Endures</li><li>Otawara, Soaring City</li><li>City of Brass</li><li>Mana Confluence</li><li>Command Tower</li><li>Exotic Orchard</li><li>Forbidden Orchard</li><li>Gemstone Caverns</li><li>Starting Town</li><li>Tarnished Citadel</li><li>Breeding Pool</li><li>Plateau</li><li>Savannah</li><li>Taiga</li><li>Tropical Island</li><li>Tundra</li><li>Volcanic Island</li><li>Arid Mesa</li><li>Flooded Strand</li><li>Misty Rainforest</li><li>Scalding Tarn</li><li>Verdant Catacombs</li><li>Windswept Heath</li><li>Wooded Foothills</li></ul></div>
+  </div>
+</section>
+</main>
+</div>
+
+</div>
+
+<div class="view" id="view-mesa" hidden>
+  <div class="mesa">
+    <div class="mesa-head">
+      <div>
+        <div class="eyebrow" id="mesa-eyebrow">Asistente de partida</div>
+        <h2>Mesa</h2>
+      </div>
+      <div class="row" style="gap:8px">
+        <button class="btn" id="btn-example" type="button">Cargar ejemplo</button>
+        <button class="btn" id="btn-clear" type="button">Nueva partida</button>
+      </div>
+    </div>
+
+    <div class="gamebar">
+      <div class="fld"><label for="deck">Mazo</label><select id="deck"><option value="hashaton">Hashaton</option><option value="crystal">Crystal</option></select></div>
+      <div class="fld"><label for="seat">Tu asiento</label><select id="seat"><option value="1">Seat 1</option><option value="2">Seat 2</option><option value="3">Seat 3</option><option value="4">Seat 4</option></select></div>
+      <div class="fld"><label for="round">Ronda</label><input id="round" type="number" min="1" inputmode="numeric" value="1"></div>
+      <div class="fld"><label for="active">Turno de</label><select id="active"><option value="1">Seat 1</option><option value="2">Seat 2</option><option value="3">Seat 3</option><option value="4">Seat 4</option></select></div>
+      <button class="btn primary" id="btn-next" type="button">Pasar turno →</button>
+      <div class="now"><b id="now-text">Ronda 1 · tu turno</b><div class="seatline" id="seatline"></div></div>
+    </div>
+
+    <nav class="mnav" aria-label="Ir a">
+      <a href="#p-mull">Mulligan</a><a href="#p-zonas">Mis zonas</a><a href="#p-plan">Plan</a><a href="#p-rivales">Rivales</a><a href="#ai-panel">Claude</a><a href="#p-log">Bitácora</a>
+    </nav>
+    <div class="mesa-grid">
+      <div>
+        <div class="panel" id="p-mull">
+          <h3>Mano inicial · ¿keep o mulligan?</h3>
+          <p class="small" style="margin-top:-4px">Pon tus cartas en Mano y el comandante de cada rival abajo. Te digo si la mano aguanta contra esta mesa.</p>
+          <div class="row">
+            <div class="fld"><label for="mm-n">Mulligans hechos</label><select id="mm-n"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div>
+            <div class="fld"><label for="mm-free">Primero gratis</label><select id="mm-free"><option value="1">Sí</option><option value="0">No</option></select></div>
+          </div>
+          <div id="mm-out" style="margin-top:12px"></div>
+          <div class="ai-actions"><button class="btn" id="mm-ai" type="button">Preguntar a Claude: ¿keep?</button></div>
+          <div class="ai-out" id="mm-ai-out"></div>
+        </div>
+        <div class="panel" id="p-zonas">
+          <h3>Tus zonas</h3>
+          <p class="small" style="margin-top:-4px">Escribe y presiona Enter. Autocompleta con tu mazo y acepta apodos (led, fow, cam, helix). Lo que no pongas se asume en la biblioteca.</p>
+          <div class="zone"><label for="in-hand">Mano</label><div class="chipbox" data-zone="hand"><input id="in-hand" list="cards" placeholder="Añadir carta…"></div></div>
+          <div class="zone"><label for="in-field">Campo</label><div class="chipbox" data-zone="field"><input id="in-field" list="cards" placeholder="Comandante, tierras, artefactos…"></div></div>
+          <div class="zone"><label for="in-grave">Cementerio</label><div class="chipbox" data-zone="grave"><input id="in-grave" list="cards" placeholder="Añadir carta…"></div></div>
+          <div class="zone"><label for="in-exile">Exilio</label><div class="chipbox" data-zone="exile"><input id="in-exile" list="cards" placeholder="Añadir carta…"></div></div>
+          <div class="row">
+            <div class="fld"><label for="mana">Maná disponible</label><input id="mana" placeholder="ej: URG2"><div class="hint">W U B R G C por color, número para genérico. Sin contar LED.</div></div>
+            <div class="fld"><label for="life">Tu vida</label><input id="life" type="number" inputmode="numeric" value="40"></div>
+          </div>
+          <label class="chk"><input type="checkbox" id="sick"> Mi comandante entró este turno (mareo)</label>
+        </div>
+
+        <div class="panel" id="p-rivales">
+          <h3>Rivales</h3>
+          <p class="small" style="margin-top:-4px">Se ordenan según el turno a partir de tu asiento. Escribe su mesa, pega su lista de Moxfield (Export → copiar texto) o sube una captura. Ctrl+V pega una imagen en el rival activo.</p>
+          <div class="opps" id="opps"></div>
+        </div>
+
+        <div class="panel" id="p-log">
+          <h3>Bitácora</h3>
+          <form class="logform" id="log-form">
+            <label class="sr" for="log-who">Quién</label>
+            <select id="log-who"></select>
+            <label class="sr" for="log-in">Qué pasó</label>
+            <input id="log-in" placeholder="Jugó Rhystic Study, dejó 2 abiertas…">
+            <button class="btn" type="submit">Anotar</button>
+          </form>
+          <div class="log" id="log"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="panel" id="p-plan">
+          <h3>Plan</h3>
+          <div id="plan"></div>
+          <h3 style="margin-top:16px">Líneas</h3>
+          <div class="status" id="lines"></div>
+          <div class="flags" id="flags"></div>
+        </div>
+        <div class="panel" id="ai-panel">
+          <h3>Análisis de Claude</h3>
+          <p class="small" id="ai-hint">Envío tu asiento, los turnos, tu estado, la bitácora, las listas y capturas de los rivales junto con el primer del mazo.</p>
+          <div class="fld" id="api-pass-row" hidden style="margin-bottom:8px"><label for="api-pass">Clave de la app</label><input id="api-pass" type="password" autocomplete="current-password"><div class="hint">La que pusiste en APP_PASSWORD en Vercel. Se guarda en este navegador.</div></div>
+          <div class="ai-actions">
+            <button class="btn primary" id="btn-ai" type="button">¿Qué hago ahora?</button>
+            <button class="btn" id="btn-stop" type="button" hidden>Detener</button>
+          </div>
+          <div class="ai-out" id="ai-out"></div>
+          <div class="ai-meta" id="ai-meta"></div>
+          <form class="qa" id="qa-form">
+            <label class="sr" for="qa-in">Pregunta de seguimiento</label>
+            <input id="qa-in" placeholder="¿Qué hace el Seat 3 si paso?">
+            <button class="btn" type="submit">Preguntar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="view" id="view-mulligan" hidden>
+  <div class="mesa">
+    <div class="mesa-head">
+      <div>
+        <div class="eyebrow">Entrenamiento</div>
+        <h2>Mulligan trainer</h2>
+      </div>
+      <div class="mstats" id="m-stats"></div>
+    </div>
+    <div class="gamebar">
+      <div class="fld"><label for="m-deck">Mazo</label><select id="m-deck"><option value="hashaton">Hashaton</option><option value="crystal">Crystal</option></select></div>
+      <div class="fld"><label for="m-seat">Asiento</label><select id="m-seat"><option value="r">Al azar</option><option value="1">Seat 1</option><option value="2">Seat 2</option><option value="3">Seat 3</option><option value="4">Seat 4</option></select></div>
+      <div class="fld"><label for="m-free">Mulligan gratis</label><select id="m-free"><option value="1">Sí, el primero</option><option value="0">No</option></select></div>
+      <button class="btn primary" id="m-new" type="button">Nueva mano</button>
+      <div class="now"><b id="m-status">Seat 1 · mano inicial</b><div class="small" id="m-sub">Decide antes de ver el análisis.</div></div>
+    </div>
+    <div class="mesa-grid">
+      <div>
+        <div class="panel">
+          <h3 id="m-hand-title">Tu mano</h3>
+          <div class="mhand" id="m-hand"></div>
+          <div class="ai-actions" id="m-actions">
+            <button class="btn primary" id="m-keep" type="button">Me quedo</button>
+            <button class="btn" id="m-mull" type="button">Mulligan</button>
+          </div>
+          <div class="ai-actions" id="m-bottom-actions" hidden>
+            <button class="btn primary" id="m-bottom-ok" type="button" disabled>Mandar al fondo</button>
+            <span class="small" id="m-bottom-hint"></span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="panel" id="m-result-panel">
+          <h3>Análisis</h3>
+          <div id="m-result"><p class="small">Elige "Me quedo" o "Mulligan" y te muestro qué haría yo con esta mano y por qué.</p></div>
+          <div class="ai-actions" id="m-ai-actions" hidden>
+            <button class="btn" id="m-ai" type="button">Pregúntale a Claude por esta mano</button>
+          </div>
+          <div class="ai-out" id="m-ai-out"></div>
+        </div>
+        <div class="panel">
+          <h3>Qué buscar en una mano</h3>
+          <div id="m-guide"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<datalist id="cards"></datalist>
+
+<script>
+/* ===================== Utilidades ===================== */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const norm = s => String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[’']/g,"'").trim();
+const COLORS = ["W","U","B","R","G"];
+function parseMana(str){
+  const m = {W:0,U:0,B:0,R:0,G:0,C:0,gen:0};
+  (str||"").toUpperCase().replace(/\s/g,"").replace(/(\d+)|([WUBRGC])/g,(x,n,c)=>{ if(n) m.gen+=parseInt(n,10); else m[c]++; return ""; });
+  return m;
+}
+function canPay(pool, cost){
+  const p = Object.assign({}, pool); let short = 0;
+  for (const c of COLORS) { const need = cost[c]||0; const use = Math.min(need, p[c]); p[c]-=use; short += need-use; }
+  const left = COLORS.reduce((a,c)=>a+p[c],0) + p.C + p.gen;
+  return short + Math.max(0,(cost.gen||0)-left);
+}
+const add = (...cs) => { const r={}; cs.forEach(c=>Object.keys(c).forEach(k=>r[k]=(r[k]||0)+c[k])); return r; };
+const costStr = c => { const s=(c.gen?String(c.gen):"")+COLORS.map(k=>k.repeat(c[k]||0)).join(""); return s||"0"; };
+
+/* ===================== Mazos ===================== */
+const DECKS = {};
+
+DECKS.hashaton = {
+  id:"hashaton", short:"Hashaton", commander:"Hashaton, Scarab's Fist",
+  cards: {
+    "Hashaton, Scarab's Fist":["c",2],"Dack Fayden, Helping Hand":["c",6],"Grand Abolisher":["c",2],"Leveler":["c",5],"Thassa's Oracle":["c",2],
+    "Lion's Eye Diamond":["a",0],"The Underworld Cookbook":["a",1],"Wishclaw Talisman":["a",1],"Sol Ring":["a",1],"Mana Vault":["a",1],"Arcane Signet":["a",2],"Fellwar Stone":["a",2],
+    "Chrome Mox":["a",0],"Mox Diamond":["a",0],"Mox Opal":["a",0],"Mox Amber":["a",0],"Lotus Petal":["a",0],"Cursed Totem":["a",2],"Damping Sphere":["a",2],
+    "Necropotence":["e",3],"Rhystic Study":["e",3],"Mystic Remora":["e",1],"Smothering Tithe":["e",4],"Black Market Connections":["e",3],"Copy Enchantment":["e",3],
+    "Tezzeret, Cruel Captain":["p",3],
+    "Entomb":["i",1],"Shallow Grave":["i",2],"Vampiric Tutor":["i",1],"Mystical Tutor":["i",1],"Enlightened Tutor":["i",1],"Lim-Dûl's Vault":["i",2],"Intuition":["i",3],
+    "Demonic Consultation":["i",1],"Tainted Pact":["i",2],"Angel's Grace":["i",1],"Slimed":["i",2],"Extirpate":["i",1],"Brainstorm":["i",1],"Dark Ritual":["i",1],"Cabal Ritual":["i",2],
+    "Borne Upon a Wind":["i",2],"Force of Will":["i",5],"Force of Negation":["i",3],"Pact of Negation":["i",0],"Fierce Guardianship":["i",3],"Mindbreak Trap":["i",4],"Misdirection":["i",5],
+    "Commandeer":["i",7],"Mental Misstep":["i",1],"Flusterstorm":["i",1],"Swan Song":["i",1],"Dispel":["i",1],"Spell Snare":["i",1],"Strix Serenade":["i",1],"An Offer You Can't Refuse":["i",1],
+    "Twincast":["i",2],"Silence":["i",1],"Orim's Chant":["i",1],"Swords to Plowshares":["i",1],"Snuff Out":["i",4],"Deadly Rollick":["i",4],"Snapback":["i",2],"Into the Flood Maw":["i",1],"Chain of Vapor":["i",1],
+    "Demonic Tutor":["s",2],"Imperial Seal":["s",1],"Grim Tutor":["s",3],"Scheming Symmetry":["s",1],"Reanimate":["s",1],"Careful Study":["s",1],"Unseat the Usurper":["s",3],"Toxic Deluge":["s",3],
+    "Ancient Tomb":["l",0],"Cavern of Souls":["l",0],"City of Brass":["l",0],"Command Tower":["l",0],"Gemstone Caverns":["l",0],"Mana Confluence":["l",0],"Starting Town":["l",0],"Urza's Saga":["l",0],
+    "Tolaria West":["l",0],"Otawara, Soaring City":["l",0],"Underground Sea":["l",0],"Scrubland":["l",0],"Tundra":["l",0],"Watery Grave":["l",0],"Godless Shrine":["l",0],"Hallowed Fountain":["l",0],
+    "Morphic Pool":["l",0],"Sea of Clouds":["l",0],"Vault of Champions":["l",0],"Arid Mesa":["l",0],"Bloodstained Mire":["l",0],"Flooded Strand":["l",0],"Marsh Flats":["l",0],"Misty Rainforest":["l",0],
+    "Polluted Delta":["l",0],"Scalding Tarn":["l",0],"Verdant Catacombs":["l",0]
+  },
+  aliases: {"led":"Lion's Eye Diamond","cookbook":"The Underworld Cookbook","thassa":"Thassa's Oracle","thoracle":"Thassa's Oracle","dack":"Dack Fayden, Helping Hand","hashaton":"Hashaton, Scarab's Fist","abolisher":"Grand Abolisher","consult":"Demonic Consultation","consultation":"Demonic Consultation","pact":"Tainted Pact","fow":"Force of Will","fon":"Force of Negation","fierce":"Fierce Guardianship","stp":"Swords to Plowshares","swords":"Swords to Plowshares","dt":"Demonic Tutor","vamp":"Vampiric Tutor","necro":"Necropotence","rhystic":"Rhystic Study","remora":"Mystic Remora","tezz":"Tezzeret, Cruel Captain","saga":"Urza's Saga","tomb":"Ancient Tomb","vault":"Mana Vault","petal":"Lotus Petal","grace":"Angel's Grace","trickbind":"Slimed"},
+  freeProtection: ["Force of Will","Force of Negation","Pact of Negation","Fierce Guardianship","Mindbreak Trap","Misdirection","Commandeer","Snapback","Deadly Rollick"],
+  cheapProtection: ["Mental Misstep","Flusterstorm","Swan Song","Dispel","Spell Snare","Strix Serenade","An Offer You Can't Refuse","Silence","Orim's Chant","Grand Abolisher"],
+  splitSecond: ["Angel's Grace","Slimed","Extirpate"],
+  tutors: {
+    "Demonic Tutor":{any:1},"Vampiric Tutor":{any:1},"Imperial Seal":{any:1},"Grim Tutor":{any:1},"Wishclaw Talisman":{any:1},"Lim-Dûl's Vault":{any:1},"Scheming Symmetry":{any:1},
+    "Mystical Tutor":{types:["i","s"]},"Enlightened Tutor":{types:["a","e"]},
+    "Tezzeret, Cruel Captain":{fn:(c,d)=>d.type(c)==="a"&&d.mv(c)<=1,field:1},"Urza's Saga":{fn:(c,d)=>d.type(c)==="a"&&d.mv(c)<=1,field:1},
+    "Tolaria West":{fn:(c,d)=>d.mv(c)===0}
+  },
+  hate: [
+    ["hushbringer","Hushbringer: no hay triggers de entrada. Dack, Leveler y Thassa no hacen nada. Sácalo primero."],
+    ["torpor orb","Torpor Orb: no hay triggers de entrada."],["hushwing","Hushwing Gryff: no hay triggers de entrada."],
+    ["elesh norn","Elesh Norn: apaga tus triggers de entrada."],
+    ["grafdigger","Grafdigger's Cage: Dack no saca criaturas de la biblioteca y falla la reanimación."],
+    ["rest in peace","Rest in Peace: sin reanimación. Usa Hashaton + descarte."],["leyline of the void","Leyline of the Void: sin reanimación."],
+    ["tidebinder","Tishana's Tidebinder: puede contrarrestar el trigger de Dack o Hashaton."],["stifle","Stifle: contrarresta un trigger."],
+    ["drannith","Drannith Magistrate: no puedes lanzar Hashaton desde la zona de mando."],
+    ["rule of law","Rule of Law: un hechizo por turno."],["archon of emeria","Archon of Emeria: un hechizo por turno."],
+    ["bojuka","Bojuka Bog: no dejes a Dack en el cementerio."],["soul-guide","Soul-Guide Lantern: no dejes a Dack en el cementerio."],
+    ["opposition agent","Opposition Agent: te roba los tutores (Dack revela, no busca)."]
+  ],
+  example: {
+    zones:{hand:["Dack Fayden, Helping Hand","Angel's Grace","Force of Will","Brainstorm","Polluted Delta"],field:["Hashaton, Scarab's Fist","Lion's Eye Diamond","Underground Sea","Scrubland","Sol Ring"],grave:["Flooded Strand"],exile:[]},
+    mana:"UB2"
+  },
+  summary: `MAZO: Hashaton, Scarab's Fist (WB, comandante). Cada vez que descartas una carta de criatura puedes pagar {2}{U}: token copia con sus triggers. Win real: Dack Fayden, Helping Hand ({4}{W}{W}) en el 99: al entrar revela hasta X criaturas (X = oponentes), las pone en juego y regala una a cada rival; tú controlas sus triggers de entrada. Solo hay 3 criaturas más: Grand Abolisher, Leveler, Thassa's Oracle. Leveler arriba (exilia biblioteca), Thassa abajo → ganas.
+LÍNEAS: A) Hashaton + LED en campo + Dack en mano: LED (habilidad de maná) por UUU descartando → paga 2U → gana, instantáneo. B) Entomb + Reanimate. C) Entomb + Shallow Grave (instantáneo). D) Hashaton + Careful Study o The Underworld Cookbook + 2U. E) Cleanup con más de 7 cartas/Necropotence. F) Hard cast 6 (Cavern nombrando Human; LED pagado al lanzar Dack no lo descarta). G) Thassa + Demonic Consultation/Tainted Pact en respuesta al trigger. H) Hashaton descarta Leveler y luego Thassa.
+SPLIT SECOND: Angel's Grace, Slimed (Trickbind), Extirpate: lánzalo, mantén prioridad, LED descartando Dack: el combo resuelve encima sin respuesta. Solo LED sirve.
+CASOS: Abolisher en campo antes de Dack lo protege. Thassa en mano → lanzarla tras Leveler. Leveler fuera → Pact/Consultation de respaldo. Thassa exiliada → no hay win con Dack. 2 oponentes: Dack puede saltarse una pieza. 1 oponente: no es combo.
+TUTORES: Demonic/Vampiric/Imperial/Grim/Wishclaw/Lim-Dûl/Scheming cualquiera; Mystical instantáneo/conjuro; Enlightened artefacto/encantamiento; Tezzeret -3 y Urza's Saga artefacto ≤1; Tolaria West valor 0. Intuition: Dack + Reanimate + Shallow Grave.
+PROTECCIÓN: FoW, FoN, Pact, Fierce Guardianship y Deadly Rollick gratis con comandante en campo, Mindbreak Trap, Misdirection, Commandeer, Snapback, Snuff Out, Silence, Orim's Chant.
+HATE: Hushbringer/Torpor Orb/Elesh Norn, Grafdigger's Cage, RIP/Leyline, Stifle/Tidebinder, Drannith, Rule of Law.`,
+  evaluate(st, h){
+    const {inZ, inLib, line, P} = h;
+    const ledF = inZ("field","Lion's Eye Diamond"), ledH = inZ("hand","Lion's Eye Diamond");
+    const hashF = inZ("field","Hashaton, Scarab's Fist");
+    const dackH = inZ("hand","Dack Fayden, Helping Hand"), dackG = inZ("grave","Dack Fayden, Helping Hand");
+    const exiler = ["Demonic Consultation","Tainted Pact"].find(c=>inZ("hand",c));
+    const thassaGone = inZ("exile","Thassa's Oracle");
+    const dackWorks = !thassaGone && (inLib("Thassa's Oracle")||inZ("hand","Thassa's Oracle")) && (inLib("Leveler")||exiler);
+    const warn = dackWorks ? "" : " ⚠ Dack no gana con Leveler/Thassa donde están.";
+    line("A","Hashaton + LED + Dack",[P("Hashaton, Scarab's Fist",hashF,"en el campo",0),P("Lion's Eye Diamond",ledF||ledH,"en campo o mano"),P("Dack Fayden, Helping Hand",dackH,"en la mano")],{},
+      (st.hand.some(c=>this.splitSecond.includes(c))?"Tienes split second: lánzalo y activa LED encima.":"El 2U lo paga el propio LED.")+warn);
+    if (dackG) {
+      line("B","Reanimate a Dack",[P("Reanimate",inZ("hand","Reanimate"),"en la mano")],{B:1},"Pierdes 6 vidas."+(st.life<=6?" ⚠ Tu vida no alcanza.":"")+warn);
+      line("C","Shallow Grave a Dack",[P("Shallow Grave",inZ("hand","Shallow Grave"),"en la mano")],{gen:1,B:1},"Dack debe ser la criatura de arriba del cementerio."+warn);
+    } else {
+      line("B","Entomb + Reanimate",[P("Entomb",inZ("hand","Entomb"),"en la mano"),P("Reanimate",inZ("hand","Reanimate"),"en la mano"),P("Dack Fayden, Helping Hand",inLib("Dack Fayden, Helping Hand"),"en la biblioteca",0)],{B:2},"Pierdes 6 vidas."+(st.life<=6?" ⚠ Tu vida no alcanza.":"")+warn);
+      line("C","Entomb + Shallow Grave",[P("Entomb",inZ("hand","Entomb"),"en la mano"),P("Shallow Grave",inZ("hand","Shallow Grave"),"en la mano"),P("Dack Fayden, Helping Hand",inLib("Dack Fayden, Helping Hand"),"en la biblioteca",0)],{gen:1,B:2},"Todo instantáneo."+warn);
+    }
+    const cookF = inZ("field","The Underworld Cookbook"), cookH = inZ("hand","The Underworld Cookbook"), study = inZ("hand","Careful Study");
+    line("D","Hashaton + Cookbook / Careful Study",[P("Hashaton, Scarab's Fist",hashF,"en el campo",0),P("Dack Fayden, Helping Hand",dackH,"en la mano"),P(cookF||cookH?"The Underworld Cookbook":(study?"Careful Study":"The Underworld Cookbook"),cookF||cookH||study,"como descarte")],
+      cookF?{gen:2,U:1}:(cookH?{gen:3,U:1}:{gen:2,U:2}),"Cookbook en campo: descarte instantáneo."+warn);
+    line("F","Hard cast de Dack",[P("Dack Fayden, Helping Hand",dackH,"en la mano")],{gen:4,W:2},(ledF||ledH?"LED aporta 3 de un color al lanzar Dack. ":"")+(inZ("field","Cavern of Souls")?"Cavern: nombra Human.":"")+warn);
+    const ex = exiler || "Demonic Consultation";
+    line("G","Thassa + "+(exiler||"Consultation / Pact"),[P("Thassa's Oracle",inZ("hand","Thassa's Oracle"),"en la mano"),P(ex,!!exiler,"en la mano")],ex==="Tainted Pact"?{U:2,gen:1,B:1}:{U:2,B:1},"Exilia en respuesta al trigger de Thassa.");
+    line("H","Hashaton descarta Leveler + Thassa",[P("Hashaton, Scarab's Fist",hashF,"en el campo",0),P("Leveler",inZ("hand","Leveler"),"en la mano"),P("Thassa's Oracle",inZ("hand","Thassa's Oracle"),"en la mano"),P("Lion's Eye Diamond",ledF||ledH||cookF||study,"u otro descarte")],ledF||ledH?{gen:2,U:2}:{gen:2,U:3},"Token de Leveler primero.");
+    const flags = [];
+    if (thassaGone) flags.push(["bad","Thassa's Oracle está exiliada: Dack ya no gana."]);
+    else if (!inLib("Leveler") && !exiler) flags.push(["bad","Leveler no está en la biblioteca: el trigger de Dack necesita Consultation o Tainted Pact de respaldo."]);
+    if (st.nopp===2 && inLib("Grand Abolisher") && inLib("Leveler") && inLib("Thassa's Oracle")) flags.push(["bad","Con 2 oponentes Dack saca 2 criaturas y puede saltarse Leveler o Thassa. Saca primero a Grand Abolisher o ten Pact/Consultation."]);
+    if (st.nopp===1) flags.push(["bad","Con 1 oponente Dack saca una sola criatura: usa G o H."]);
+    if (inZ("field","Grand Abolisher")) flags.push(["okf","Grand Abolisher en tu campo: en tu turno no lanzan hechizos."]);
+    if (st.hand.includes("Fierce Guardianship")||st.hand.includes("Deadly Rollick")) flags.push([hashF?"okf":"info",hashF?"Hashaton en campo: Fierce Guardianship y Deadly Rollick son gratis.":"Fierce / Rollick solo son gratis con Hashaton en campo."]);
+    if (!st.mine) flags.push(["info","Turno ajeno: solo instantáneos. A, C y G funcionan. Abolisher no protege."]);
+    return flags;
+  }
+};
+
+DECKS.crystal = {
+  id:"crystal", short:"Crystal", commander:"Crystal, Inhuman Princess",
+  cards: {
+    "Crystal, Inhuman Princess":["c",3],"Birds of Paradise":["c",1],"Noble Hierarch":["c",1],"Tinder Wall":["c",1],"Esper Sentinel":["c",1],"Faerie Mastermind":["c",2],"Ragavan, Nimble Pilferer":["c",1],
+    "Kellan, the Fae-Blooded":["c",3],"The Cabbage Merchant":["c",3],"Tandem Lookout":["c",3],"Vivi Ornitier":["c",3],"Elvish Spirit Guide":["c",3],"Simian Spirit Guide":["c",3],
+    "Chrome Mox":["a",0],"Lion's Eye Diamond":["a",0],"Lotus Petal":["a",0],"Mox Diamond":["a",0],"Sol Ring":["a",1],"Sewer-veillance Cam":["a",1],
+    "Carpet of Flowers":["e",1],"Curiosity":["e",1,1],"Jeskai Ascendancy":["e",3],"Keen Sense":["e",1,1],"Mystic Remora":["e",1],"Ophidian Eye":["e",3,1],"Rhystic Study":["e",3],
+    "Sigil of Sleep":["e",1,1],"Snake Umbra":["e",3,1],"Underworld Breach":["e",2],"Wild Growth":["e",1,1],
+    "An Offer You Can't Refuse":["i",1],"Banishing Knack":["i",1],"Borne Upon a Wind":["i",2],"Brain Freeze":["i",2],"Commandeer":["i",7],"Daze":["i",2],"Deflecting Swat":["i",3],"Dispel":["i",1],
+    "Emerald Charm":["i",1],"Enlightened Tutor":["i",1],"Fierce Guardianship":["i",3],"Flusterstorm":["i",1],"Force of Negation":["i",3],"Force of Will":["i",5],"Gut Shot":["i",1],"Into the Flood Maw":["i",1],
+    "Intuition":["i",3],"Legolas's Quick Reflexes":["i",1],"Manamorphose":["i",2],"Mental Misstep":["i",1],"Mindbreak Trap":["i",4],"Misdirection":["i",5],"Noxious Revival":["i",2],"Orim's Chant":["i",1],
+    "Pact of Negation":["i",0],"Pyrokinesis":["i",6],"Red Elemental Blast":["i",1],"Redirect Lightning":["i",1],"Retraction Helix":["i",1],"Silence":["i",1],"Snap":["i",2],"Snapback":["i",2],
+    "Swan Song":["i",1],"Tidal Bore":["i",2],"Veil of Summer":["i",1],"Sink into Stupor":["i",3],"Final Fortune":["i",2],"Firestorm":["i",1],
+    "Cave-In":["s",5],"Claim the Firstborn":["s",1],"Gamble":["s",1],"Gitaxian Probe":["s",1],"Rite of Flame":["s",1],"Sevinne's Reclamation":["s",1],"Strike It Rich":["s",1],
+    "Ancient Tomb":["l",0],"Arid Mesa":["l",0],"Boseiju, Who Endures":["l",0],"Breeding Pool":["l",0],"City of Brass":["l",0],"Command Tower":["l",0],"Exotic Orchard":["l",0],"Flooded Strand":["l",0],
+    "Forbidden Orchard":["l",0],"Gemstone Caverns":["l",0],"Mana Confluence":["l",0],"Misty Rainforest":["l",0],"Otawara, Soaring City":["l",0],"Plateau":["l",0],"Savannah":["l",0],"Scalding Tarn":["l",0],
+    "Starting Town":["l",0],"Taiga":["l",0],"Tarnished Citadel":["l",0],"Tropical Island":["l",0],"Tundra":["l",0],"Verdant Catacombs":["l",0],"Volcanic Island":["l",0],"Windswept Heath":["l",0],"Wooded Foothills":["l",0]
+  },
+  aliases: {"crystal":"Crystal, Inhuman Princess","cam":"Sewer-veillance Cam","helix":"Retraction Helix","knack":"Banishing Knack","breach":"Underworld Breach","led":"Lion's Eye Diamond","freeze":"Brain Freeze","bf":"Brain Freeze","jeskai":"Jeskai Ascendancy","ascendancy":"Jeskai Ascendancy","curio":"Curiosity","umbra":"Snake Umbra","eye":"Ophidian Eye","lookout":"Tandem Lookout","vivi":"Vivi Ornitier","kellan":"Kellan, the Fae-Blooded","boon":"Kellan, the Fae-Blooded","cabbage":"The Cabbage Merchant","petal":"Lotus Petal","fow":"Force of Will","fon":"Force of Negation","fierce":"Fierce Guardianship","swat":"Deflecting Swat","legolas":"Legolas's Quick Reflexes","veil":"Veil of Summer","esg":"Elvish Spirit Guide","ssg":"Simian Spirit Guide","probe":"Gitaxian Probe","remora":"Mystic Remora","rhystic":"Rhystic Study","sentinel":"Esper Sentinel","mastermind":"Faerie Mastermind","et":"Enlightened Tutor","enlightened":"Enlightened Tutor","revival":"Noxious Revival","sevinne":"Sevinne's Reclamation","birds":"Birds of Paradise","noble":"Noble Hierarch","rag":"Ragavan, Nimble Pilferer","ragavan":"Ragavan, Nimble Pilferer","reb":"Red Elemental Blast","sigil":"Sigil of Sleep","tomb":"Ancient Tomb","boseiju":"Boseiju, Who Endures","otawara":"Otawara, Soaring City"},
+  freeProtection: ["Force of Will","Force of Negation","Pact of Negation","Fierce Guardianship","Deflecting Swat","Daze","Mindbreak Trap","Misdirection","Commandeer","Snapback","Pyrokinesis"],
+  cheapProtection: ["Mental Misstep","Flusterstorm","Swan Song","Dispel","Red Elemental Blast","An Offer You Can't Refuse","Redirect Lightning","Veil of Summer","Legolas's Quick Reflexes","Silence","Orim's Chant"],
+  splitSecond: ["Legolas's Quick Reflexes"],
+  tutors: {
+    "Enlightened Tutor":{types:["a","e"]},"Gamble":{any:1},"Intuition":{any:1},
+    "Kellan, the Fae-Blooded":{fn:(c,d)=>d.aura(c),label:"Birthright Boon"}
+  },
+  hate: [
+    ["cursed totem","Cursed Totem: apaga el maná de Crystal y las habilidades de Helix/Knack. Boseiju, Otawara, Into the Flood Maw (gift)."],
+    ["null rod","Null Rod: apaga LED, Petal, Sol Ring. El loop de Cam sigue."],["collector ouphe","Collector Ouphe: apaga LED, Petal, Sol Ring."],["stony silence","Stony Silence: apaga artefactos."],
+    ["rule of law","Rule of Law: un hechizo por turno. Mata los loops: sácalo antes."],["archon of emeria","Archon of Emeria: un hechizo por turno. Sigil of Sleep o Pyrokinesis."],
+    ["eidolon of rhetoric","Eidolon of Rhetoric: un hechizo por turno."],["deafening silence","Deafening Silence: un hechizo no criatura por turno. Rompe todos tus combos."],
+    ["ethersworn canonist","Ethersworn Canonist: un hechizo no artefacto por turno."],
+    ["rest in peace","Rest in Peace: sin Underworld Breach. Usa Cam + Helix."],["leyline of the void","Leyline of the Void: sin Breach."],
+    ["drannith","Drannith Magistrate: no puedes lanzar Crystal desde la zona de mando."],
+    ["notion thief","Notion Thief: te roba los robos de Curiosity."],["narset","Narset: limita tus robos."],
+    ["bowmasters","Orcish Bowmasters: cada robo extra le hace daño a Crystal y crea ejército. No robes de más."],
+    ["esper sentinel","Esper Sentinel rival: te cobra el primer hechizo no criatura."],["mystic remora","Mystic Remora rival: cada hechizo no criatura le da carta salvo que pagues 4."],["rhystic study","Rhystic Study rival: paga 1 o le das carta."],
+    ["tidebinder","Tishana's Tidebinder: puede contrarrestar un trigger de Cam o de daño."],
+    ["toxic deluge","Toxic Deluge en su lista: barrida que no frena Legolas. Ten Snake Umbra o no sobreextiendas."],["pyroclasm","Barrida de daño: Crystal 2/3 cuidado."]
+  ],
+  example: {
+    zones:{hand:["Retraction Helix","Force of Will","Snapback","Gitaxian Probe","Volcanic Island"],field:["Crystal, Inhuman Princess","Sewer-veillance Cam","Tropical Island","Birds of Paradise","Curiosity"],grave:["Misty Rainforest"],exile:[]},
+    mana:"UG"
+  },
+  summary: `MAZO: Crystal, Inhuman Princess ({1}{R}{G}, 2/3 vuela, comandante). Cada hechizo no criatura que lanzas: Crystal hace X de daño a cada oponente, X = colores del hechizo (incoloros 0; Manamorphose 2; Jeskai Ascendancy 3). {T}: R, G, W o U.
+COMBO 1: Sewer-veillance Cam ({U}, flash; al entrar o salir puedes girar/enderezar una criatura) + Retraction Helix o Banishing Knack ({U}: la criatura gana "{T}: regresa un permanente no tierra") sobre Crystal sin mareo. Tap Crystal → rebota Cam → Cam sale y endereza Crystal → tap por U → lanza Cam (Crystal pega 1 a cada rival) → Cam entra y endereza → repetir. Daño infinito. Vivi suma 1 por vuelta.
+COMBO 2: Underworld Breach + LED + Brain Freeze. Escape LED (exilia 3), 3 maná, escape Brain Freeze apuntándote para moler y rellenar. +1 maná neto por vuelta. Con Crystal cada Brain Freeze pega 1 → muerte por daño.
+COMBO 3: Jeskai Ascendancy + Helix/Knack + Lotus Petal: rebota y relanza Petal, Ascendancy endereza todo y lootea → maná y looteo infinitos (no pega; busca Cam o Brain Freeze).
+MOTOR: Curiosity, Keen Sense, Ophidian Eye, Snake Umbra, Tandem Lookout sobre Crystal: cada hechizo roba 1 por oponente dañado. Vivi Ornitier: 1 de daño a cada rival por hechizo no criatura. Sigil of Sleep: rebota una criatura de cada rival por hechizo.
+PROTECCIÓN: Legolas's Quick Reflexes (split second: endereza + hexproof), Fierce Guardianship y Deflecting Swat gratis con Crystal en mesa, FoW, FoN, Pact, Daze, Mindbreak Trap, Misdirection, Commandeer, Snapback, Pyrokinesis, Veil of Summer, Silence, Orim's Chant.
+TUTORES: Enlightened (artefacto/encantamiento), Gamble (cualquiera, descarte al azar), Intuition, Birthright Boon de Kellan (Aura), Noxious Revival, Sevinne's Reclamation. Final Fortune: turno extra, pierdes al final.
+NOTAS: Crystal no puede girarse el turno que entra. Escape exilia 3 otras cartas. Seat 1 es el mejor para combo temprano; seat 4 juega más reactivo y suele tener Gemstone Caverns.
+HATE: Cursed Totem, Null Rod/Collector Ouphe, Rule of Law/Archon/Eidolon/Deafening Silence/Canonist, RIP/Leyline, Drannith, Notion Thief/Narset, Orcish Bowmasters, Esper Sentinel/Remora/Rhystic rivales.`,
+  evaluate(st, h){
+    const {inZ, inLib, line, P, deck} = h;
+    const cr = "Crystal, Inhuman Princess";
+    const crF = inZ("field",cr), sick = st.sick;
+    const viviF = inZ("field","Vivi Ornitier");
+    const dmgSrc = (crF?1:0) + (viviF?1:0);
+    const bounce = ["Retraction Helix","Banishing Knack"].find(c=>inZ("hand",c));
+    const camF = inZ("field","Sewer-veillance Cam"), camH = inZ("hand","Sewer-veillance Cam");
+    line("1","Cam + Helix/Knack (daño infinito)",[
+      P(cr,crF,"en el campo",0),
+      P("Crystal sin mareo",crF&&!sick,"(no puede entrar este turno)",0),
+      P("Sewer-veillance Cam",camF||camH,"en campo o mano"),
+      P(bounce||"Retraction Helix",!!bounce,"en la mano (o Banishing Knack)")
+    ], camF?{U:1}:{U:2}, `Cada vuelta: ${Math.max(dmgSrc,1)} de daño a cada rival.` + (viviF?" Vivi suma.":""));
+    const brH=inZ("hand","Underworld Breach"), brF=inZ("field","Underworld Breach");
+    const ledOk = ["hand","grave","field"].some(z=>inZ(z,"Lion's Eye Diamond"));
+    const bfOk = ["hand","grave"].some(z=>inZ(z,"Brain Freeze"));
+    line("2","Breach + LED + Brain Freeze",[
+      P("Underworld Breach",brH||brF,"en campo o mano"),
+      P("Lion's Eye Diamond",ledOk,"en mano, cementerio o campo"),
+      P("Brain Freeze",bfOk,"en mano o cementerio"),
+      P("Cementerio con 6+ cartas",st.grave.length>=6||inZ("hand","Lion's Eye Diamond"),"(o LED en mano para descartar)",0)
+    ], brF?{}:{gen:1,R:1}, crF?"Con Crystal en mesa ganas por daño.":"Sin Crystal ganas por mill: apunta Brain Freeze a cada rival con storm alto.");
+    const ascF=inZ("field","Jeskai Ascendancy"), ascH=inZ("hand","Jeskai Ascendancy");
+    const petal = ["field","hand"].some(z=>inZ(z,"Lotus Petal")) || camF || camH;
+    const dorkF = ["Birds of Paradise","Noble Hierarch"].some(c=>inZ("field",c)) || (crF&&!sick);
+    line("3","Jeskai Ascendancy + Helix/Knack + Petal",[
+      P("Jeskai Ascendancy",ascF||ascH,"en campo o mano"),
+      P(bounce||"Retraction Helix",!!bounce,"en la mano"),
+      P("Lotus Petal",petal,"(o Cam) en campo o mano"),
+      P("Criatura sin mareo",dorkF,"para rebotar (Crystal, Birds, Noble)",0)
+    ], add(ascF?{}:{U:1,R:1,W:1},{U:1}), "Da maná y looteo infinitos. Termina buscando Cam o Brain Freeze.");
+    const engines = st.field.filter(c=>["Curiosity","Keen Sense","Ophidian Eye","Snake Umbra","Tandem Lookout"].includes(c)).length;
+    if (!crF) line("0","Bajar Crystal",[P(cr,!inZ("exile",cr),"en la zona de mando",0)],{gen:1,R:1,G:1},"Suma 2 por cada vez que volvió a la zona de mando.");
+    const flags = [];
+    if (crF && engines) flags.push(["okf",`Motor activo: cada hechizo no criatura roba ${engines * st.nopp} (${engines} efecto${engines>1?"s":""} × ${st.nopp} rivales) y pega ${dmgSrc} a cada uno.`]);
+    else if (crF) flags.push(["info","Crystal sin Curiosity: busca una con Enlightened o Birthright Boon (Kellan)."]);
+    if (crF && sick) flags.push(["bad","Crystal entró este turno: pega, pero no puede girarse ni rebotar. El combo 1 espera al próximo turno."]);
+    if (viviF) flags.push(["okf","Vivi en mesa: 1 de daño extra a cada rival por hechizo y {0}: maná U/R igual a su fuerza (una vez, en tu turno)."]);
+    if (inZ("hand","Gemstone Caverns") && st.seat>1 && st.round<=1) flags.push(["info","No eres Seat 1: puedes empezar con Gemstone Caverns en mesa."]);
+    if (st.hand.includes("Fierce Guardianship")||st.hand.includes("Deflecting Swat")) flags.push([crF?"okf":"info",crF?"Crystal en mesa: Fierce Guardianship y Deflecting Swat son gratis.":"Fierce / Swat solo son gratis con Crystal en mesa."]);
+    if (st.hand.includes("Final Fortune")) flags.push(["info","Final Fortune: úsalo solo si ganas en el turno extra."]);
+    if (!st.mine) flags.push(["info","Turno ajeno: Cam tiene flash y Helix/Knack son instantáneos, pero Crystal tiene que estar enderezada. Ophidian Eye se baja ahora."]);
+    return flags;
+  }
+};
+
+/* ===================== Estado ===================== */
+const KEY = "grimorio-partida-v2";
+const blankZones = () => ({hand:[],field:[],grave:[],exile:[]});
+const blankOpp = () => ({name:"",text:"",list:"",life:40,alive:true});
+const blank = () => ({deck:"crystal",seat:1,round:1,active:1,sick:false,mana:"",life:40,zones:{hashaton:blankZones(),crystal:blankZones()},opps:[blankOpp(),blankOpp(),blankOpp()],log:[]});
+let S = blank();
+try {
+  const saved = JSON.parse(localStorage.getItem(KEY)||"null");
+  if (saved && saved.zones) { S = Object.assign(blank(), saved); S.zones = Object.assign(blank().zones, saved.zones); }
+  else {
+    const old = JSON.parse(localStorage.getItem("grimorio-mesa-hashaton-v1")||"null");
+    if (old && old.hand) { S.deck="hashaton"; S.zones.hashaton = {hand:old.hand,field:old.field,grave:old.grave,exile:old.exile}; S.mana=old.mana||""; }
+  }
+} catch(e) {}
+const shots = [null,null,null];
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e) {} }
+const D = () => DECKS[S.deck];
+const Z = () => S.zones[S.deck];
+const oppSeats = () => { const r=[]; for (let k=1;k<=3;k++) r.push(((S.seat-1+k)%4)+1); return r; };
+const seatOwner = seat => seat===S.seat ? -1 : oppSeats().indexOf(seat);
+const seatAlive = seat => { const i = seatOwner(seat); return i<0 ? true : S.opps[i].alive; };
+const seatName = seat => { const i = seatOwner(seat); if (i<0) return "Tú"; return S.opps[i].name ? S.opps[i].name : "Rival"; };
+
+/* ===================== Cartas ===================== */
+function canon(raw){
+  const d = D(); const names = Object.keys(d.cards);
+  const n = norm(raw); if(!n) return "";
+  if (d.aliases[n]) return d.aliases[n];
+  const exact = names.find(c => norm(c) === n); if (exact) return exact;
+  const pre = names.filter(c => norm(c).startsWith(n)); if (pre.length === 1) return pre[0];
+  const inc = names.filter(c => norm(c).includes(n)); if (inc.length === 1) return inc[0];
+  return raw.trim();
+}
+function fillDatalist(){ $("#cards").innerHTML = Object.keys(D().cards).map(c => `<option value="${esc(c)}">`).join(""); }
+
+function renderZone(zone){
+  const box = document.querySelector(`.chipbox[data-zone="${zone}"]`);
+  box.querySelectorAll(".cchip").forEach(x => x.remove());
+  const input = box.querySelector("input");
+  Z()[zone].forEach((c,i) => {
+    const el = document.createElement("span"); el.className = "cchip";
+    el.innerHTML = `${esc(c)}<button type="button" aria-label="Quitar ${esc(c)}">×</button>`;
+    el.querySelector("button").addEventListener("click", () => { Z()[zone].splice(i,1); renderZone(zone); update(); });
+    box.insertBefore(el, input);
+  });
+}
+const ZONES = ["hand","field","grave","exile"];
+document.querySelectorAll(".chipbox").forEach(box => {
+  const zone = box.dataset.zone, input = box.querySelector("input");
+  const addCards = () => {
+    const parts = input.value.split(/[,;\n]/).map(canon).filter(Boolean);
+    if (!parts.length) return;
+    const d = D();
+    parts.forEach(p => { ZONES.forEach(z => { if (z!==zone) { const k=Z()[z].indexOf(p); if(k>=0 && d.cards[p] && d.cards[p][0]!=="l") Z()[z].splice(k,1); } }); Z()[zone].push(p); });
+    input.value = ""; ZONES.forEach(renderZone); update();
+  };
+  input.addEventListener("keydown", e => {
+    if (e.key === "Enter") { e.preventDefault(); addCards(); }
+    else if (e.key === "Backspace" && !input.value && Z()[zone].length) { Z()[zone].pop(); renderZone(zone); update(); }
+  });
+  input.addEventListener("change", () => { if (D().cards[input.value]) addCards(); });
+  box.addEventListener("click", e => { if (e.target === box) input.focus(); });
+});
+
+/* ===================== Rivales ===================== */
+function countCards(list){ return list.split("\n").filter(l=>/^\s*\d+\s+\S/.test(l)).length; }
+function renderOpps(){
+  const wrap = $("#opps"); wrap.innerHTML = "";
+  const seats = oppSeats();
+  S.opps.forEach((o,i) => {
+    const d = document.createElement("div"); d.className = "opp" + (o.alive?"":" deadopp");
+    const n = countCards(o.list||"");
+    d.innerHTML = `
+      <div class="ohead">
+        <span class="stag">Seat ${seats[i]}</span>
+        <div class="fld"><label for="on${i}">Comandante o nombre</label><input id="on${i}" placeholder="ej: Kinnan" value="${esc(o.name)}"></div>
+        <div class="fld life"><label for="ol${i}">Vida</label><input id="ol${i}" type="number" inputmode="numeric" value="${esc(o.life)}"></div>
+      </div>
+      <label class="chk" style="margin:0 0 8px"><input type="checkbox" id="oa${i}" ${o.alive?"checked":""}> Sigue en la partida</label>
+      <div class="fld"><label for="ot${i}">Su mesa ahora</label><textarea id="ot${i}" placeholder="Campo, maná abierto, cartas en mano, qué jugó…">${esc(o.text)}</textarea></div>
+      <details ${o.list?"":""}><summary>Lista de Moxfield <span class="cnt">${n?`· ${n} líneas cargadas`:"· opcional"}</span></summary>
+        <div class="fld" style="margin-top:6px"><label for="ox${i}">Pega el texto exportado</label><textarea id="ox${i}" placeholder="1 Sol Ring&#10;1 Kinnan, Bonder Prodigy&#10;…" style="min-height:120px">${esc(o.list||"")}</textarea><div class="hint">Moxfield bloquea que la página lo lea directo: usa Export → Copy as plain text.</div></div>
+      </details>
+      <div class="shot"><label for="of${i}">Captura:</label><input id="of${i}" type="file" accept="image/*"><span id="op${i}"></span></div>`;
+    d.querySelector(`#on${i}`).addEventListener("input", e => { o.name = e.target.value; renderSeatline(); fillWho(); update(); });
+    d.querySelector(`#ol${i}`).addEventListener("input", e => { o.life = parseInt(e.target.value,10)||0; update(); });
+    d.querySelector(`#oa${i}`).addEventListener("change", e => { o.alive = e.target.checked; d.classList.toggle("deadopp",!o.alive); renderSeatline(); update(); });
+    d.querySelector(`#ot${i}`).addEventListener("input", e => { o.text = e.target.value; update(); });
+    d.querySelector(`#ox${i}`).addEventListener("input", e => { o.list = e.target.value; const c=countCards(o.list); d.querySelector(".cnt").textContent = c?`· ${c} líneas cargadas`:"· opcional"; update(); });
+    d.querySelector(`#of${i}`).addEventListener("change", e => { shots[i] = e.target.files[0] || null; showShot(i); });
+    wrap.appendChild(d); showShot(i);
+  });
+}
+function showShot(i){
+  const holder = document.getElementById("op"+i); if (!holder) return;
+  holder.innerHTML = "";
+  if (shots[i]) {
+    const img = document.createElement("img"); img.alt = "Captura del rival"; img.src = URL.createObjectURL(shots[i]);
+    const b = document.createElement("button"); b.type="button"; b.className="btn"; b.textContent="Quitar"; b.style.padding="4px 10px";
+    b.addEventListener("click", () => { shots[i]=null; const inp=document.getElementById("of"+i); if(inp) inp.value=""; showShot(i); });
+    holder.append(img, b);
+  }
+}
+document.addEventListener("paste", e => {
+  if ($("#view-mesa").hidden) return;
+  const item = [...(e.clipboardData?.items||[])].find(x => x.type.startsWith("image/"));
+  if (!item) return;
+  let k = seatOwner(S.active); if (k < 0) k = shots.findIndex(x=>!x); if (k < 0) k = 0;
+  shots[k] = item.getAsFile(); showShot(k);
+});
+
+/* ===================== Turnos y bitácora ===================== */
+function renderSeatline(){
+  const box = $("#seatline"); box.innerHTML = "";
+  for (let s=1; s<=4; s++) {
+    const el = document.createElement("span");
+    el.className = "seat" + (s===S.seat?" me":"") + (s===S.active?" active":"") + (seatAlive(s)?"":" dead");
+    el.textContent = `S${s} · ${seatName(s)}`;
+    box.appendChild(el);
+  }
+  const mine = S.active===S.seat;
+  $("#now-text").textContent = `Ronda ${S.round} · ` + (mine ? "tu turno" : `turno de Seat ${S.active}${seatOwner(S.active)>=0 && S.opps[seatOwner(S.active)].name ? " ("+S.opps[seatOwner(S.active)].name+")" : ""}`);
+}
+function fillWho(){
+  const sel = $("#log-who"); const cur = sel.value;
+  sel.innerHTML = [1,2,3,4].map(s => `<option value="${s}">S${s} ${esc(seatName(s))}</option>`).join("");
+  sel.value = cur && sel.querySelector(`option[value="${cur}"]`) ? cur : String(S.active);
+}
+function renderLog(){
+  const box = $("#log");
+  if (!S.log.length) { box.innerHTML = `<div class="empty-log">Sin anotaciones. Anota lo que juegan los rivales: hechizos clave, tutores, maná que dejan abierto.</div>`; return; }
+  box.innerHTML = S.log.map((e,i) => e.sys
+    ? `<div class="e sys"><span class="k">R${e.r}</span><span>${esc(e.t)}</span><span></span></div>`
+    : `<div class="e"><span class="k">R${e.r} · S${e.s}</span><span>${esc(e.t)}</span><button type="button" data-i="${i}" aria-label="Borrar">×</button></div>`).join("");
+  box.querySelectorAll("button[data-i]").forEach(b => b.addEventListener("click", () => { S.log.splice(+b.dataset.i,1); renderLog(); save(); }));
+  box.scrollTop = box.scrollHeight;
+}
+$("#log-form").addEventListener("submit", e => {
+  e.preventDefault(); const t = $("#log-in").value.trim(); if (!t) return;
+  S.log.push({r:S.round, s:+$("#log-who").value, t}); $("#log-in").value = ""; renderLog(); save();
+});
+$("#btn-next").addEventListener("click", () => {
+  let s = S.active;
+  for (let k=0;k<4;k++) { s = (s % 4) + 1; if (s === 1) S.round++; if (seatAlive(s)) break; }
+  S.active = s; S.sick = false;
+  S.log.push({r:S.round, s, t:`Empieza el turno de Seat ${s} (${seatName(s)})`, sys:true});
+  syncGamebar(); renderSeatline(); fillWho(); renderLog(); update();
+});
+function syncGamebar(){ $("#deck").value=S.deck; $("#seat").value=String(S.seat); $("#round").value=S.round; $("#active").value=String(S.active); $("#sick").checked=!!S.sick; }
+$("#deck").addEventListener("change", e => { S.deck = e.target.value; fillDatalist(); ZONES.forEach(renderZone); $("#mesa-eyebrow").textContent = D().short+" · asistente de partida"; convo=[]; update(); });
+$("#seat").addEventListener("change", e => { S.seat = +e.target.value; renderOpps(); renderSeatline(); fillWho(); update(); });
+$("#round").addEventListener("input", e => { S.round = Math.max(1, parseInt(e.target.value,10)||1); renderSeatline(); update(); });
+$("#active").addEventListener("change", e => { S.active = +e.target.value; renderSeatline(); fillWho(); update(); });
+$("#sick").addEventListener("change", e => { S.sick = e.target.checked; update(); });
+["mana","life"].forEach(id => $("#"+id).addEventListener("input", () => { S.mana = $("#mana").value; S.life = parseInt($("#life").value,10)||0; update(); }));
+
+/* ===================== Motor ===================== */
+function evaluate(){
+  const d = D(), z = Z();
+  const st = {hand:z.hand, field:z.field, grave:z.grave, exile:z.exile, life:S.life, sick:S.sick, seat:S.seat, round:S.round,
+              mine:S.active===S.seat, nopp:S.opps.filter(o=>o.alive).length || 1};
+  const inZ = (zn,c) => st[zn].includes(c);
+  const inLib = c => !ZONES.some(zn=>inZ(zn,c));
+  const pool = parseMana(S.mana);
+  const dh = {type:c=>(d.cards[c]||[])[0], mv:c=>(d.cards[c]||[])[1], aura:c=>!!(d.cards[c]||[])[2]};
+  function tutorsFor(card){
+    const out = [];
+    Object.entries(d.tutors).forEach(([t,T]) => {
+      const have = T.field ? (inZ("field",t)||inZ("hand",t)) : inZ("hand",t);
+      if (!have) return;
+      if (T.any || (T.types && T.types.includes(dh.type(card))) || (T.fn && T.fn(card,dh))) out.push(T.label||t);
+    });
+    if (inZ("grave",card) && inZ("hand","Noxious Revival")) out.push("Noxious Revival (al tope)");
+    return out;
+  }
+  const lines = [];
+  const P = (card, ok, need, tutorable=1) => ({card, ok:!!ok, need, tutorable});
+  function line(id, name, pieces, cost, note){
+    const missing = pieces.filter(p=>!p.ok);
+    const short = canPay(pool, cost);
+    const n = missing.length + (short>0?1:0);
+    const detail = [];
+    if (missing.length) detail.push("Falta: " + missing.map(m => {
+      const tt = m.tutorable ? tutorsFor(m.card) : [];
+      return `<b>${esc(m.card)}</b> ${esc(m.need)}` + (tt.length ? ` (búscalo con ${tt.map(esc).join(" o ")})` : "");
+    }).join(", "));
+    detail.push(`Costo: ${costStr(cost)}` + (short>0 ? ` · te faltan ${short} maná` : " · alcanza"));
+    if (note) detail.push(esc(note));
+    lines.push({id,name,n,short,detail:detail.join(" · "),missing:missing.map(mm=>({card:mm.card,tutors:mm.tutorable?tutorsFor(mm.card):[]}))});
+  }
+  const flags = d.evaluate(st, {inZ, inLib, line, P, deck:d}) || [];
+  // Protección y split second
+  const ss = st.hand.filter(c=>d.splitSecond.includes(c));
+  if (ss.length) flags.push(["info", `Split second en mano: ${ss.join(", ")}.`]);
+  const prot = st.hand.filter(c=>d.freeProtection.includes(c)||d.cheapProtection.includes(c));
+  flags.push([prot.length?"okf":"info", prot.length?`Protección en mano: ${prot.join(", ")}.`:"Sin protección en mano. Considera esperar o usar Silence/Orim's Chant."]);
+  if (st.hand.includes("Pact of Negation")) flags.push(["info","Pact of Negation: solo si ganas este turno."]);
+  // Hate en texto y listas rivales
+  const seats = oppSeats();
+  S.opps.forEach((o,i) => {
+    if (!o.alive) return;
+    const txt = norm(o.name+" "+o.text);
+    d.hate.forEach(([k,msg]) => { if (txt.includes(k)) flags.push(["bad", `Seat ${seats[i]}: ${msg}`]); });
+    if (o.list) {
+      const lst = norm(o.list);
+      const found = d.hate.filter(([k]) => lst.includes(k) && !txt.includes(k)).map(([k,msg]) => msg.split(":")[0]);
+      if (found.length) flags.push(["info", `Seat ${seats[i]} juega en su lista: ${[...new Set(found)].join(", ")}.`]);
+    }
+  });
+  // Asiento
+  const next = seats.find((s,i)=>S.opps[i].alive);
+  const prevSeats = [...seats].reverse(); const prev = prevSeats.find(s=>S.opps[seatOwner(s)].alive);
+  if (st.mine && next) flags.push(["info", `Después de ti juega Seat ${next}: es quien tendrá más maná abierto cuando intentes ganar.`]);
+  lines.sort((a,b)=>a.n-b.n);
+  return {lines, flags};
+}
+function update(){
+  save();
+  const {lines, flags} = evaluate();
+  $("#lines").innerHTML = lines.map(l => {
+    const cls = l.n===0 ? "ready" : (l.n===1 ? "one" : "far");
+    const pill = l.n===0 ? "Lista" : (l.n===1 ? "Falta 1" : `Faltan ${l.n}`);
+    return `<div class="ln ${cls}"><span class="pill">${pill}</span><span class="t">${esc(l.id)} · ${esc(l.name)}</span><span class="d">${l.detail}</span></div>`;
+  }).join("");
+  $("#plan").innerHTML = planHTML(lines);
+  renderMesaMull();
+  $("#flags").innerHTML = flags.map(([k,m]) => `<div class="flag ${k==="okf"?"okf":(k==="info"?"info":"")}">${esc(m)}</div>`).join("");
+}
+function loadAll(){
+  syncGamebar(); $("#mana").value = S.mana||""; $("#life").value = S.life;
+  $("#mesa-eyebrow").textContent = D().short+" · asistente de partida";
+  fillDatalist(); ZONES.forEach(renderZone); renderOpps(); renderSeatline(); fillWho(); renderLog(); update();
+}
+$("#btn-clear").addEventListener("click", () => { const deck=S.deck, seat=S.seat; S = blank(); S.deck=deck; S.seat=seat; S.active=1; shots.fill(null); $("#ai-out").innerHTML=""; $("#ai-meta").textContent=""; convo=[]; loadAll(); });
+$("#btn-example").addEventListener("click", () => {
+  const d = D(); const ex = JSON.parse(JSON.stringify(d.example));
+  S.zones[S.deck] = ex.zones; S.mana = ex.mana; S.seat = 2; S.round = 3; S.active = 2; S.life = 34; S.sick = false;
+  S.opps = [
+    {name:"Kinnan (ejemplo)",text:"2 tierras abiertas, 4 cartas en mano. Jugó Mystic Remora.",list:"",life:36,alive:true},
+    {name:"Tymna + Kraum (ejemplo)",text:"Tapped out. Tiene Esper Sentinel.",list:"",life:31,alive:true},
+    {name:"Rog/Si (ejemplo)",text:"1 Island abierta, 6 cartas.",list:"",life:38,alive:true}
+  ];
+  S.log = [{r:2,s:3,t:"Jugó Mystic Remora (ejemplo)"},{r:2,s:4,t:"Tutoreó con Demonic Tutor (ejemplo)"},{r:3,s:1,t:"Pasó con 1 Island abierta (ejemplo)"}];
+  loadAll();
+});
+document.querySelectorAll("a[data-deck]").forEach(a => a.addEventListener("click", () => { S.deck = a.dataset.deck; save(); loadAll(); }));
+
+/* ===================== Claude ===================== */
+let sampleNs = null, aborter = null, convo = [];
+let apiMode = false;
+const aiReady = () => !!sampleNs || apiMode;
+async function shrink(blob){
+  try {
+    const bmp = await createImageBitmap(blob); const k = Math.min(1, 1400/Math.max(bmp.width,bmp.height));
+    const c = document.createElement("canvas"); c.width = Math.round(bmp.width*k); c.height = Math.round(bmp.height*k);
+    c.getContext("2d").drawImage(bmp,0,0,c.width,c.height);
+    const url = c.toDataURL("image/jpeg",0.82); return {media_type:"image/jpeg", data:url.split(",")[1]};
+  } catch(e) { return null; }
+}
+async function askClaude(input, opts={}){
+  if (sampleNs) return sampleNs(input, opts);
+  if (!apiMode) throw {code:"sampling_disabled"};
+  const messages = typeof input === "string" ? [{role:"user",content:input}] : input;
+  const images = [];
+  for (const b of [].concat(opts.images||[]).slice(0,3)) { const x = await shrink(b); if (x) images.push(x); }
+  let pass = ""; try { pass = localStorage.getItem("grimorio-pass")||""; } catch(e) {}
+  let r;
+  try { r = await fetch("/api/claude", {method:"POST", headers:{"content-type":"application/json"}, body:JSON.stringify({messages, images, pass}), signal:opts.signal}); }
+  catch(e) { if (e && e.name==="AbortError") throw {code:"cancelled"}; throw {code:"upstream_error"}; }
+  if (r.status===401) throw {code:"bad_pass"};
+  const j = await r.json().catch(()=>({}));
+  if (!r.ok) throw {code: r.status===429 ? "rate_limited" : "upstream_error", message:j.error};
+  if (opts.onText) opts.onText({text:j.text, delta:j.text});
+  return {text:j.text, truncated:!!j.truncated};
+}
+(async () => {
+  try { sampleNs = window.claude?.use ? await window.claude.use("sample") : null; } catch(e) { sampleNs = null; }
+  if (!sampleNs) {
+    try { const r = await fetch("/api/claude", {method:"GET"}); if (r.ok) { const j = await r.json(); apiMode = !!j.ok; if (j.needsPass) $("#api-pass-row").hidden = false; } } catch(e) {}
+  }
+  if (!aiReady()) {
+    $("#ai-hint").textContent = "El análisis con Claude no está disponible en esta vista. El chequeo de líneas y el mulligan siguen funcionando; también puedes copiar tu estado al chat.";
+    ["#btn-ai","#mm-ai"].forEach(s=>$(s).disabled = true); $("#qa-form").querySelector("button").disabled = true;
+  }
+  if (H) mRender();
+})();
+try { $("#api-pass").value = localStorage.getItem("grimorio-pass")||""; } catch(e) {}
+$("#api-pass").addEventListener("input", e => { try { localStorage.setItem("grimorio-pass", e.target.value); } catch(_) {} });
+function stateText(){
+  const z = Z(), d = D(), seats = oppSeats();
+  const zl = (t,a) => `${t}: ${a.length ? a.join("; ") : "(nada)"}`;
+  const order = [1,2,3,4].map(s => `S${s}=${seatName(s)}${s===S.seat?" (YO)":""}${seatAlive(s)?"":" (eliminado)"}`).join(", ");
+  const opp = S.opps.map((o,i) => {
+    let s = `Seat ${seats[i]}${o.name?" ("+o.name+")":""}${o.alive?"":" [ELIMINADO]"} · vida ${o.life}: ${o.text||"(sin datos)"}${shots[i]?" [captura adjunta]":""}`;
+    if (o.list) s += `\n  Lista pegada (puede estar recortada):\n  ${o.list.replace(/\n+/g," | ").slice(0,3500)}`;
+    return s;
+  }).join("\n");
+  const log = S.log.slice(-40).map(e => e.sys ? `R${e.r}: ${e.t}` : `R${e.r} S${e.s}: ${e.t}`).join("\n");
+  return [
+    `MAZO: ${d.short}`, `ASIENTOS (orden de turno): ${order}`, `MI ASIENTO: Seat ${S.seat}`, `RONDA: ${S.round}`,
+    `TURNO ACTUAL: Seat ${S.active}${S.active===S.seat?" (mío)":""}`,
+    zl("MANO",z.hand), zl("CAMPO",z.field), zl("CEMENTERIO",z.grave), zl("EXILIO",z.exile),
+    `MANÁ DISPONIBLE (sin LED): ${S.mana||"(no indicado)"}`, `MI VIDA: ${S.life}`, `MI COMANDANTE ENTRÓ ESTE TURNO: ${S.sick?"sí":"no"}`,
+    "RIVALES:\n"+opp, "BITÁCORA:\n"+(log||"(vacía)"),
+    "CHEQUEO AUTOMÁTICO:\n"+evaluate().lines.map(l=>`${l.id} ${l.name}: ${l.n===0?"lista":"faltan "+l.n}`).join("\n")
+  ].join("\n");
+}
+function md(s){
+  const h = esc(s).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>");
+  const out = []; let list = false;
+  h.split("\n").forEach(line => {
+    const t = line.trim();
+    if (/^[-*•] /.test(t)) { if(!list){out.push("<ul>");list=true;} out.push("<li>"+t.slice(2)+"</li>"); return; }
+    if (list) { out.push("</ul>"); list=false; }
+    if (/^#{1,4} /.test(t)) out.push("<h4>"+t.replace(/^#+ /,"")+"</h4>");
+    else if (t) out.push("<p>"+t+"</p>");
+  });
+  if (list) out.push("</ul>");
+  return out.join("");
+}
+async function ask(question){
+  if (!aiReady()) return;
+  const d = D();
+  const rules = `Eres un coach experto de cEDH ayudando a Seba en una partida online en vivo. Responde en español de Chile, directo y concreto, máximo ~200 palabras salvo que la jugada exija más. Nombres de cartas en inglés. No inventes cartas que no estén en su mano o campo; asume que lo no listado de su mazo está en la biblioteca. Ten en cuenta el orden de asientos: quién juega después de él (más maná abierto al responder), quién antes, y qué anotó en la bitácora. Si hay listas de rivales, úsalas para estimar sus respuestas y win cons.
+Formato: **Jugada:** pasos numerados. **Riesgos:** qué puede hacer cada rival (por seat) y cómo cubrirlo. **Si no ganas ahora:** qué tutorear, qué guardar y a quién frenar. Si no hay victoria segura, dilo y propone la mejor jugada.
+
+${d.summary}
+
+SU LISTA (99 + comandante): ${Object.keys(d.cards).join("; ")}`;
+  if (!question || !convo.length) convo = [{role:"user", content: rules + "\n\nESTADO ACTUAL:\n" + stateText() + "\n\n" + (question || "¿Qué hago ahora?")}];
+  else convo.push({role:"user", content: "Estado actualizado:\n" + stateText() + "\n\nPregunta: " + question});
+  const out = $("#ai-out"), meta = $("#ai-meta");
+  out.innerHTML = "<p class='small'>Pensando…</p>"; meta.textContent = "";
+  $("#btn-ai").disabled = true; $("#btn-stop").hidden = false;
+  aborter = new AbortController();
+  const opts = { modelTier:"complex", cache:false, signal:aborter.signal, onText:({text}) => { out.innerHTML = md(text); } };
+  try {
+    const imgs = shots.filter(Boolean);
+    if (imgs.length) {
+      let lim = apiMode ? {images:{maxCount:3}} : null; if (!lim) { try { lim = await sampleNs.limits(); } catch(e) {} }
+      if (lim && lim.images) opts.images = imgs.slice(0, lim.images.maxCount || 3); else meta.textContent = "Las capturas no se pudieron enviar en esta vista; usé solo el texto.";
+    }
+    const r = await askClaude(convo.slice(), opts);
+    out.innerHTML = md(r.text); convo.push({role:"assistant", content:r.text});
+    if (r.truncated) meta.textContent = "Respuesta cortada por largo.";
+  } catch (e) {
+    const code = e && e.code;
+    if (code === "cancelled") { out.innerHTML = e.text ? md(e.text) : ""; meta.textContent = "Detenido."; }
+    else if (code === "not_granted") out.innerHTML = "<p>No diste permiso para que la página me consulte. Puedes activarlo desde el menú de permisos del artifact.</p>";
+    else if (code === "rate_limited") out.innerHTML = "<p>Demasiadas consultas seguidas. Espera un momento y vuelve a intentar.</p>";
+    else if (code === "bad_pass") out.innerHTML = "<p>La clave de la app no coincide. Revísala arriba del botón.</p>";
+    else if (code === "image_rejected" || code === "images_unavailable") out.innerHTML = "<p>No pude usar una de las capturas. Prueba otra imagen (JPG o PNG) o quítala y describe la mesa en texto.</p>";
+    else if (code === "prompt_too_large") out.innerHTML = "<p>Hay demasiado texto (listas o bitácora muy largas). Borra algunas anotaciones viejas o una lista y vuelve a intentar.</p>";
+    else if (code === "sampling_disabled" || code === "not_declared" || code === "capability_disabled") out.innerHTML = "<p>El análisis con Claude no está disponible en esta vista.</p>";
+    else { out.innerHTML = "<p>No pude obtener respuesta. Revisa tu conexión y vuelve a intentar.</p>" + (e && e.text ? md(e.text) : ""); }
+    if (convo.length && convo[convo.length-1].role === "user" && convo.length > 1) convo.pop();
+  } finally { $("#btn-ai").disabled = false; $("#btn-stop").hidden = true; aborter = null; }
+}
+$("#btn-ai").addEventListener("click", () => ask());
+$("#btn-stop").addEventListener("click", () => aborter && aborter.abort());
+$("#qa-form").addEventListener("submit", e => { e.preventDefault(); const q = $("#qa-in").value.trim(); if(!q) return; $("#qa-in").value=""; ask(q); });
+
+/* ===================== Búsqueda ===================== */
+const INDEX = [];
+[["hashaton","Hashaton"],["crystal","Crystal"]].forEach(([v,label]) => {
+  document.querySelectorAll(`#view-${v} section[id]`).forEach(sec => {
+    const h2 = sec.querySelector("h2"); const secTitle = h2 ? h2.textContent.replace(/^\d+/,"").trim() : sec.id;
+    sec.querySelectorAll("p, li, tr, .line, .piece, .hand, h3").forEach(b => {
+      if (b.closest(".line") && !b.classList.contains("line")) return;
+      if (b.closest(".piece") && !b.classList.contains("piece")) return;
+      if (b.closest(".hand") && !b.classList.contains("hand")) return;
+      if (b.closest(".decklist")) return;
+      const text = b.textContent.replace(/\s+/g," ").trim(); if (text.length < 12) return;
+      INDEX.push({deck:label, sec:secTitle, anchor:sec.id, text, el:b});
+    });
+  });
+});
+function search(q){
+  const terms = norm(q).split(/\s+/).filter(t=>t.length>1);
+  if (!terms.length) return [];
+  const pref = (location.hash||"").includes("crystal") || (!$("#view-crystal").hidden) ? "Crystal" : (!$("#view-hashaton").hidden ? "Hashaton" : (S.deck==="crystal"?"Crystal":"Hashaton"));
+  return INDEX.map(r => { const n = norm(r.text); let score = 0; for (const t of terms) { if (!n.includes(t)) return null; score += (n.split(t).length-1); } if (norm(r.sec).includes(terms[0])) score += 3; if (r.deck===pref) score += 2; return {r,score}; })
+    .filter(Boolean).sort((a,b)=>b.score-a.score).slice(0,12).map(x=>x.r);
+}
+function snippet(text, q){
+  const ws = norm(q).split(/\s+/).filter(x=>x.length>1);
+  const n = norm(text); const i = Math.max(0, n.indexOf(ws[0]||"")-50);
+  let s = (i>0?"…":"") + text.slice(i, i+170) + (text.length>i+170?"…":"");
+  ws.forEach(w => { s = s.replace(new RegExp("("+w.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+")","gi"), "\u0001$1\u0002"); });
+  return esc(s).replace(/\u0001/g,"<mark>").replace(/\u0002/g,"</mark>");
+}
+const qIn = $("#q"), res = $("#results");
+qIn.addEventListener("input", () => {
+  const q = qIn.value.trim(); if (!q) { res.hidden = true; return; }
+  const hits = search(q);
+  res.innerHTML = hits.length ? hits.map(h=>`<a href="#${h.anchor}" data-i="${INDEX.indexOf(h)}"><div class="rd">${esc(h.deck)} · ${esc(h.sec)}</div><div class="rs">${snippet(h.text,q)}</div></a>`).join("") : `<div class="empty">Sin resultados para “${esc(q)}”.</div>`;
+  res.hidden = false;
+});
+res.addEventListener("click", e => {
+  const a = e.target.closest("a"); if (!a) return; e.preventDefault();
+  const r = INDEX[+a.dataset.i]; res.hidden = true; qIn.blur();
+  history.replaceState(null,"","#"+r.anchor); route();
+  setTimeout(()=>{ r.el.scrollIntoView({behavior:"smooth",block:"center"}); r.el.style.outline="2px solid var(--gold)"; setTimeout(()=>r.el.style.outline="",2200); }, 30);
+});
+qIn.addEventListener("keydown", e => { if (e.key==="Escape") { res.hidden = true; qIn.blur(); } if (e.key==="Enter") { const f = res.querySelector("a"); if (f) f.click(); } });
+document.addEventListener("click", e => { if (!e.target.closest(".search")) res.hidden = true; });
+document.addEventListener("keydown", e => { const t = document.activeElement.tagName; if (e.key === "/" && t!=="INPUT" && t!=="TEXTAREA" && t!=="SELECT") { e.preventDefault(); qIn.focus(); } });
+
+/* ===================== Plan sugerido ===================== */
+const DEFAULT_PLAN = {
+  crystal(z){
+    const f = z.field;
+    if (!f.includes("Crystal, Inhuman Princess")) return ["Baja a Crystal", "Es tu motor y tu fuente de daño. Si puedes, protégela con maná abierto para Fierce Guardianship o Deflecting Swat (gratis con ella en mesa)."];
+    if (!f.some(c=>["Curiosity","Keen Sense","Ophidian Eye","Snake Umbra","Tandem Lookout"].includes(c))) return ["Busca un Curiosity", "Enlightened Tutor o Birthright Boon (Kellan) por Curiosity. Con él, cada hechizo barato roba 1 por rival y te lleva a Cam + Helix."];
+    return ["Encadena hechizos baratos", "Con el motor activo, lanza cantrips y hechizos gratis para robar hacia Cam + Helix o Breach + LED + Brain Freeze. Guarda una protección."];
+  },
+  hashaton(z){
+    const f = z.field;
+    if (!f.includes("Hashaton, Scarab's Fist")) return ["Baja a Hashaton", "Con él en mesa, cualquier descarte de Dack gana, y Fierce Guardianship y Deadly Rollick quedan gratis."];
+    return ["Junta descarte + Dack", "Prioriza LED o The Underworld Cookbook y un tutor negro por Dack. Si tienes Necro o Rhystic, desarrolla motor mientras tanto."];
+  }
+};
+function planHTML(lines){
+  const out = [];
+  const ready = lines.filter(l=>l.n===0 && l.id!=="0");
+  if (ready.length) {
+    out.push(`<div class="planbox go"><b>Puedes ganar ahora: línea ${esc(ready[0].id)}</b>${esc(ready[0].name)}. Revisa quién tiene maná abierto y lanza la protección primero si la necesitas.</div>`);
+  }
+  const tut = lines.filter(l=>l.n===1 && l.missing.length===1 && l.missing[0].tutors.length && l.short===0 && l.id!=="0");
+  if (tut.length) {
+    const l = tut[0], m = l.missing[0];
+    out.push(`<div class="planbox tut"><b>Tutorea: ${esc(m.card)}</b>Con ${esc(m.tutors[0])}${m.tutors.length>1?` (o ${esc(m.tutors.slice(1).join(", "))})`:""}. Deja lista la línea ${esc(l.id)} · ${esc(l.name)}.</div>`);
+  }
+  const mana = lines.filter(l=>l.n===1 && l.missing.length===0 && l.short>0 && l.id!=="0");
+  if (!ready.length && mana.length) out.push(`<div class="planbox"><b>Te falta maná para la línea ${esc(mana[0].id)}</b>Te faltan ${mana[0].short}. Juega aceleración o espera al próximo turno.</div>`);
+  if (!out.length) {
+    const near = lines.filter(l=>l.n===2 && l.missing.some(m=>m.tutors.length) && l.id!=="0");
+    if (near.length) { const m = near[0].missing.find(x=>x.tutors.length); out.push(`<div class="planbox tut"><b>Acércate: busca ${esc(m.card)}</b>Con ${esc(m.tutors[0])}. Después te queda una sola pieza para la línea ${esc(near[0].id)}.</div>`); }
+    const [t, b] = DEFAULT_PLAN[S.deck](Z());
+    out.push(`<div class="planbox"><b>${esc(t)}</b>${esc(b)}</div>`);
+  }
+  return out.join("");
+}
+
+/* ===================== Mulligan en la mesa ===================== */
+const CMDRS = [
+  ["kinnan","Kinnan","turbo","Combo rápido con dorks y artefactos. La remoción barata de criaturas gana tiempo."],
+  ["najeela","Najeela","turbo","Combo de combate: puede ganar en turno 2–3. Guarda remoción o Silence para su combate."],
+  ["rograkh","Rograkh","turbo","Partner turbo (Thoracle o Breach). Espera un intento muy temprano."],
+  ["magda","Magda","turbo","Turbo con tesoros; gana rápido si no lo frenas."],
+  ["malcolm","Malcolm","turbo","Turbo con tesoros."],
+  ["breeches","Breeches/Dargo","turbo","Turbo de un solo turno."],["dargo","Dargo","turbo","Turbo de un solo turno."],
+  ["dack fayden","Dack Fayden","turbo","Gana con un solo hechizo: contrarresta a Dack o su trigger."],
+  ["hashaton","Hashaton","turbo","Dack secreto: guarda Stifle o counter para el trigger de Dack."],
+  ["thrasios","Thrasios","midrange","Partner con mucho counter y Thoracle. Juega lento y reactivo."],
+  ["tymna","Tymna","midrange","Counters gratis y Thoracle."],
+  ["kraum","Kraum","midrange","Roba cuando un rival lanza su segundo hechizo del turno: castiga encadenar."],
+  ["blue farm","Blue Farm","midrange","Tymna/Kraum: counters y Thoracle, castiga encadenar hechizos."],
+  ["silas","Silas Renn","midrange","Valor de artefactos y Thoracle."],
+  ["tivit","Tivit","combo","Combo con Thoracle y tesoros; mucho counter."],
+  ["sisay","Sisay","combo","Toolbox de criaturas: busca piezas de combo y hate."],
+  ["urza","Urza","combo","Artefactos; el Cursed Totem no lo frena, Null Rod sí."],
+  ["crystal","Crystal","combo","Storm con Curiosity: rebota o mata a Crystal."],
+  ["vivi","Vivi","combo","Storm con Curiosity."],
+  ["kenrith","Kenrith","combo","Combo con su habilidad; necesita maná."],
+  ["korvold","Korvold","midrange","Valor y combo con sacrificio."],
+  ["yuriko","Yuriko","tempo","Presión temprana con ninjas; castiga manos lentas."],
+  ["zur","Zur","midrange","Encantamientos con Necro y counters."],
+  ["winota","Winota","stax","Stax y combate. Ten remoción para Winota."],
+  ["derevi","Derevi","stax","Stax con untaps y Stasis. Ten forma de sacar stax."],
+  ["grand arbiter","Grand Arbiter","stax","Encarece tus hechizos no criatura: Crystal sufre mucho."],
+  ["lavinia","Lavinia","stax","Contrarresta hechizos lanzados sin pagar maná: tus counters gratis sufren."],
+  ["talion","Talion","control","Castiga lanzar muchas cartas del mismo valor; control con counters."],
+  ["sami","Sami","stax","Stax de artefactos."],
+  ["ketramose","Ketramose","midrange","Valor y combo."],
+  ["aang","Aang","combo","Combo de criaturas al entrar."]
+];
+const REMOVAL = {
+  crystal:["Pyrokinesis","Cave-In","Firestorm","Gut Shot","Into the Flood Maw","Sink into Stupor","Snap","Snapback","Claim the Firstborn","Sigil of Sleep","Boseiju, Who Endures","Otawara, Soaring City"],
+  hashaton:["Swords to Plowshares","Snuff Out","Deadly Rollick","Snapback","Into the Flood Maw","Chain of Vapor","Toxic Deluge","Otawara, Soaring City"]
+};
+function readTable(){
+  const seats = oppSeats();
+  return S.opps.map((o,i)=>({o, seat:seats[i]})).filter(x=>x.o.alive).map(x => {
+    const t = norm(x.o.name);
+    const hit = CMDRS.filter(([k]) => t.includes(k));
+    return {seat:x.seat, name:x.o.name, hits:hit};
+  });
+}
+function mesaMullAnalysis(){
+  const hand = Z().hand, d = D();
+  if (hand.length < 5) return null;
+  const a = analyze(S.deck, hand, S.seat);
+  const tbl = readTable();
+  const types = tbl.flatMap(t=>t.hits.map(h=>h[2]));
+  const fast = types.filter(t=>t==="turbo").length, stax = types.filter(t=>t==="stax").length, tempo = types.filter(t=>t==="tempo").length;
+  const inter = hand.filter(c => d.freeProtection.includes(c)||d.cheapProtection.includes(c)||REMOVAL[S.deck].includes(c));
+  const removal = hand.filter(c => REMOVAL[S.deck].includes(c));
+  const winSoon = a.plans.some(p=>/^Win/.test(p));
+  let verdict = a.verdict, why = a.why; const notes = [];
+  if (fast >= 2 && inter.length === 0 && !winSoon && verdict==="keep") { verdict = "borderline"; why = `Mesa rápida (${fast} mazos turbo) y no tienes interacción: puedes perder antes de armar tu plan.`; }
+  else if (fast >= 1 && inter.length === 0 && !winSoon) notes.push("Hay al menos un mazo turbo y tu mano no tiene con qué frenarlo.");
+  if (fast === 0 && tbl.length && verdict === "borderline" && (a.plans.length || hand.some(c=>ROLES[S.deck].engine.includes(c)))) { verdict = "keep"; why = "Mesa sin turbos conocidos: te puedes dar tiempo para tu motor."; }
+  if (stax && removal.length === 0) notes.push(`Hay ${stax} mazo${stax>1?"s":""} de stax y no tienes remoción ni rebote en mano.`);
+  if (tempo && !a.cmdTurn) notes.push("Hay presión temprana (tempo) y tu comandante llega tarde.");
+  if (winSoon && fast) notes.push("Tienes un win temprano: compite en velocidad, intenta antes que los turbos.");
+  if (S.seat === 4 && fast) notes.push("Juegas último contra turbo: los primeros turnos de ellos llegan antes que los tuyos.");
+  if (S.seat === 1 && winSoon) notes.push("Seat 1 con win temprano: nadie tendrá maná abierto en tu primer turno.");
+  const mulls = +$("#mm-n").value, free = +$("#mm-free").value;
+  const bottom = Math.max(0, mulls - (free?1:0));
+  if (hand.length > 7 - bottom) notes.push(`Con ${mulls} mulligan${mulls===1?"":"s"} tienes que mandar ${bottom} al fondo. Yo mandaría: ${suggestBottom(S.deck, hand, bottom).join(", ")}.`);
+  if (verdict === "mull" && hand.length - bottom <= 5) { verdict = "borderline"; why += " Con 5 cartas o menos, quedarse suele ser mejor."; }
+  return {a, verdict, why, notes, tbl, inter};
+}
+function renderMesaMull(){
+  const box = $("#mm-out"); if (!box) return;
+  const r = mesaMullAnalysis();
+  if (!r) { box.innerHTML = `<p class="small">Carga al menos 5 cartas en Mano para evaluar.</p>`; return; }
+  const v = {keep:["keep","Keep"],mull:["mull","Mulligan"],borderline:["ok","Límite"]}[r.verdict];
+  const cmd = r.tbl.map(t => t.hits.length ? t.hits.map(h=>`<span class="cmdtag">S${t.seat} · ${esc(h[1])} (${esc(h[2])})</span>`).join("") : `<span class="cmdtag">S${t.seat} · ${esc(t.name||"sin comandante")}</span>`).join("");
+  const tnotes = r.tbl.flatMap(t=>t.hits.map(h=>`S${t.seat} ${h[1]}: ${h[3]}`));
+  box.innerHTML = (S.round>1?`<p class="small">Ya vas en la ronda ${S.round}: esto evalúa tu mano actual como si fuera la inicial.</p>`:"") + `<span class="vpill ${v[0]}">${v[1]}</span>
+    <p style="margin:0 0 6px"><b>${esc(r.why)}</b></p>
+    ${r.a.plans.length?`<h4>Plan</h4><ul>${r.a.plans.map(p=>`<li>${esc(p)}</li>`).join("")}</ul>`:""}
+    <h4>Tu mano</h4><ul>${r.a.reasons.map(p=>`<li>${esc(p)}</li>`).join("")}${r.a.risks.map(p=>`<li>${esc(p)}</li>`).join("")}</ul>
+    <h4>La mesa</h4><div>${cmd||'<span class="small">Escribe el comandante de cada rival en la sección Rivales.</span>'}</div>
+    ${tnotes.length||r.notes.length?`<ul>${r.notes.map(p=>`<li><b>${esc(p)}</b></li>`).join("")}${tnotes.map(p=>`<li>${esc(p)}</li>`).join("")}</ul>`:""}`;
+}
+["mm-n","mm-free"].forEach(id => $("#"+id).addEventListener("change", renderMesaMull));
+$("#mm-ai").addEventListener("click", async () => {
+  if (!aiReady()) return;
+  const d = D(), hand = Z().hand, out = $("#mm-ai-out");
+  if (hand.length < 5) { out.innerHTML = "<p class='small'>Carga tu mano primero.</p>"; return; }
+  const seats = oppSeats();
+  const opp = S.opps.map((o,i)=>`Seat ${seats[i]}: ${o.name||"(sin nombre)"}${o.text?" — "+o.text:""}${o.list?"\n  Lista: "+o.list.replace(/\n+/g," | ").slice(0,2500):""}`).join("\n");
+  const prompt = `Eres un coach de cEDH. Seba está decidiendo mulligan en una mesa de 4 por SpellTable. Responde en español de Chile, máximo 170 palabras: **Veredicto** (keep o mulligan), **Por qué** contra estos rivales concretos, **Plan** de los turnos 1–3 y qué tutorear primero. Si hay mulligans pagados, di qué mandar al fondo. Nombres de cartas en inglés.
+
+${d.summary}
+
+MI ASIENTO: Seat ${S.seat}. MULLIGANS: ${$("#mm-n").value} (primero gratis: ${+$("#mm-free").value?"sí":"no"}).
+MI MANO (${hand.length}): ${hand.join("; ")}
+RIVALES:
+${opp}`;
+  out.innerHTML = "<p class='small'>Pensando…</p>"; $("#mm-ai").disabled = true;
+  const imgs = shots.filter(Boolean);
+  try {
+    const opts = {modelTier:"default", cache:false, onText:({text})=>{ out.innerHTML = md(text); }};
+    if (imgs.length) { let lim = apiMode ? {images:{maxCount:3}} : null; if (!lim) { try { lim = await sampleNs.limits(); } catch(e) {} } if (lim && lim.images) opts.images = imgs.slice(0, lim.images.maxCount||3); }
+    const r = await askClaude(prompt, opts); out.innerHTML = md(r.text);
+  } catch(e) {
+    const c = e && e.code;
+    out.innerHTML = c==="not_granted" ? "<p>No diste permiso para que la página me consulte.</p>" : c==="bad_pass" ? "<p>La clave de la app no coincide.</p>" : c==="rate_limited" ? "<p>Demasiadas consultas. Espera un momento.</p>" : "<p>No pude obtener respuesta. Vuelve a intentar.</p>";
+  } finally { $("#mm-ai").disabled = false; }
+});
+
+/* ===================== Router ===================== */
+const VIEWS = ["inicio","hashaton","crystal","mesa","mulligan"];
+function route(){
+  const h = (location.hash||"#inicio").slice(1);
+  let view = VIEWS.includes(h) ? h : null, target = null;
+  if (!view) { target = document.getElementById(h); const v = target && target.closest(".view"); view = v ? v.id.replace("view-","") : "inicio"; }
+  VIEWS.forEach(v => document.getElementById("view-"+v).hidden = v !== view);
+  document.querySelectorAll(".tabs a").forEach(a => { if (a.dataset.tab===view) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
+  if (target) target.scrollIntoView(); else window.scrollTo(0,0);
+}
+window.addEventListener("hashchange", route);
+/* ===================== Mulligan trainer ===================== */
+const ROLES = {
+  hashaton: {
+    accelFast: ["Lotus Petal","Chrome Mox","Mox Diamond","Dark Ritual","Cabal Ritual","Mana Vault","Sol Ring","Lion's Eye Diamond"],
+    accelSlow: ["Arcane Signet","Fellwar Stone","Mox Opal","Mox Amber","Smothering Tithe","Black Market Connections"],
+    piece: ["Dack Fayden, Helping Hand","Lion's Eye Diamond","Entomb","Reanimate","Shallow Grave","The Underworld Cookbook","Careful Study","Thassa's Oracle","Demonic Consultation","Tainted Pact","Leveler"],
+    tutor: ["Demonic Tutor","Vampiric Tutor","Imperial Seal","Grim Tutor","Mystical Tutor","Enlightened Tutor","Wishclaw Talisman","Intuition","Lim-Dûl's Vault","Scheming Symmetry","Tezzeret, Cruel Captain","Urza's Saga","Tolaria West"],
+    engine: ["Necropotence","Rhystic Study","Mystic Remora","Smothering Tithe","Black Market Connections"],
+    landColors: {"Underground Sea":"UB","Scrubland":"WB","Tundra":"WU","Watery Grave":"UB","Godless Shrine":"WB","Hallowed Fountain":"WU","Morphic Pool":"UB","Sea of Clouds":"WU","Vault of Champions":"WB","Tolaria West":"U","Otawara, Soaring City":"U","Ancient Tomb":"","Cavern of Souls":"","Urza's Saga":"","Gemstone Caverns":""},
+    anyLand: ["City of Brass","Mana Confluence","Command Tower","Starting Town","Arid Mesa","Bloodstained Mire","Flooded Strand","Marsh Flats","Misty Rainforest","Polluted Delta","Scalding Tarn","Verdant Catacombs"],
+    cmdColors: "WB", cmdCost: 2
+  },
+  crystal: {
+    accelFast: ["Lotus Petal","Chrome Mox","Mox Diamond","Elvish Spirit Guide","Simian Spirit Guide","Rite of Flame","Lion's Eye Diamond","Sol Ring"],
+    accelSlow: ["Birds of Paradise","Noble Hierarch","Tinder Wall","Carpet of Flowers","Wild Growth","Strike It Rich"],
+    piece: ["Sewer-veillance Cam","Retraction Helix","Banishing Knack","Underworld Breach","Lion's Eye Diamond","Brain Freeze","Jeskai Ascendancy"],
+    tutor: ["Enlightened Tutor","Gamble","Intuition","Kellan, the Fae-Blooded"],
+    engine: ["Curiosity","Keen Sense","Ophidian Eye","Snake Umbra","Tandem Lookout","Mystic Remora","Rhystic Study","Esper Sentinel","Faerie Mastermind","Vivi Ornitier"],
+    landColors: {"Plateau":"RW","Savannah":"GW","Taiga":"RG","Tropical Island":"GU","Tundra":"WU","Volcanic Island":"UR","Breeding Pool":"GU","Boseiju, Who Endures":"G","Otawara, Soaring City":"U","Ancient Tomb":"","Gemstone Caverns":""},
+    anyLand: ["City of Brass","Mana Confluence","Command Tower","Exotic Orchard","Forbidden Orchard","Starting Town","Tarnished Citadel","Arid Mesa","Flooded Strand","Misty Rainforest","Scalding Tarn","Verdant Catacombs","Windswept Heath","Wooded Foothills"],
+    colorAccel: {"Birds of Paradise":"WUBRG","Noble Hierarch":"GWU","Elvish Spirit Guide":"G","Simian Spirit Guide":"R","Rite of Flame":"R","Carpet of Flowers":"G","Lotus Petal":"WUBRG","Lion's Eye Diamond":"WUBRG","Manamorphose":"WUBRG"},
+    cmdColors: "RG", cmdCost: 3
+  }
+};
+ROLES.hashaton.colorAccel = {"Lotus Petal":"WUB","Dark Ritual":"B","Cabal Ritual":"B","Lion's Eye Diamond":"WUB","Arcane Signet":"WUB","Fellwar Stone":"WUB"};
+
+const MKEY = "grimorio-mulligan-v1";
+let M = {deck:"crystal", seatMode:"r", free:1, stats:{}};
+try { const s = JSON.parse(localStorage.getItem(MKEY)||"null"); if (s) M = Object.assign(M, s); } catch(e) {}
+const msave = () => { try { localStorage.setItem(MKEY, JSON.stringify({deck:M.deck,seatMode:M.seatMode,free:M.free,stats:M.stats})); } catch(e) {} };
+let H = null; // {seat, mulls, cards:[...7], bottom:Set, phase:"decide"|"bottom"|"done", choice}
+
+function libraryOf(deckId){ const d = DECKS[deckId]; return Object.keys(d.cards).filter(c => c !== d.commander); }
+function shuffle(a){ for (let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function roleOf(deckId, c){
+  const R = ROLES[deckId], d = DECKS[deckId];
+  if ((d.cards[c]||[])[0]==="l") return "land";
+  for (const r of ["piece","tutor","engine"]) if (R[r].includes(c)) return r;
+  if (R.accelFast.includes(c)||R.accelSlow.includes(c)) return "accel";
+  if (d.freeProtection.includes(c)||d.cheapProtection.includes(c)||d.splitSecond.includes(c)) return "prot";
+  return "other";
+}
+const ROLE_LABEL = {land:"Tierra",accel:"Maná",piece:"Combo",tutor:"Tutor",engine:"Motor",prot:"Protección",other:"Utilidad"};
+
+function analyze(deckId, cards, seat){
+  const R = ROLES[deckId], d = DECKS[deckId];
+  const has = c => cards.includes(c);
+  const lands = cards.filter(c => (d.cards[c]||[])[0]==="l");
+  const usable = lands.filter(c => c!=="Gemstone Caverns" || seat>1);
+  const gem = has("Gemstone Caverns") && seat>1;
+  const fast = cards.filter(c => R.accelFast.includes(c) && c!=="Lion's Eye Diamond");
+  const slow = cards.filter(c => R.accelSlow.includes(c));
+  const pieces = cards.filter(c => R.piece.includes(c));
+  const tutors = cards.filter(c => R.tutor.includes(c));
+  const engines = cards.filter(c => R.engine.includes(c));
+  const prot = cards.filter(c => d.freeProtection.includes(c)||d.cheapProtection.includes(c)||d.splitSecond.includes(c));
+  const ritualBonus = c => ({"Dark Ritual":2,"Cabal Ritual":1,"Mana Vault":2,"Sol Ring":1,"Rite of Flame":1})[c] ?? 1;
+  const landDrop = usable.filter(c=>c!=="Gemstone Caverns").length;
+  const t1 = (landDrop?1:0) + (gem?1:0) + fast.reduce((a,c)=>a+ritualBonus(c),0) + (has("Ancient Tomb")&&landDrop?1:0);
+  const t2 = Math.min(landDrop,2) + (gem?1:0) + fast.reduce((a,c)=>a+ritualBonus(c),0) + slow.length + (has("Ancient Tomb")?1:0);
+  const t3 = Math.max(t2, Math.min(landDrop,3) + (gem?1:0) + fast.reduce((a,c)=>a+ritualBonus(c),0) + slow.length + (has("Ancient Tomb")?1:0));
+  // colores
+  const colorSet = new Set();
+  lands.forEach(c => { if (c==="Gemstone Caverns" && !gem) return; if (R.anyLand.includes(c)) "WUBRG".split("").forEach(x=>colorSet.add(x)); else (R.landColors[c]||"").split("").forEach(x=>colorSet.add(x)); });
+  cards.forEach(c => { if (R.colorAccel && R.colorAccel[c]) R.colorAccel[c].split("").forEach(x=>colorSet.add(x)); });
+  if (has("Chrome Mox")||has("Mox Diamond")) "WUBRG".split("").forEach(x=>colorSet.add(x));
+  if (gem) "WUBRG".split("").forEach(x=>colorSet.add(x));
+  const cmdOk = R.cmdColors.split("").every(x=>colorSet.has(x));
+  const missingCol = R.cmdColors.split("").filter(x=>!colorSet.has(x));
+  const cmdTurn = !cmdOk ? null : (t1>=R.cmdCost ? 1 : (t2>=R.cmdCost ? 2 : (t3>=R.cmdCost ? 3 : null)));
+
+  const plans = [], reasons = [], risks = [];
+  if (deckId==="hashaton") {
+    if (has("Entomb") && has("Reanimate") && t1>=2) plans.push("Win turno 1: Entomb + Reanimate.");
+    else if (has("Entomb") && (has("Reanimate")||has("Shallow Grave"))) plans.push(`Win temprano: Entomb + ${has("Reanimate")?"Reanimate":"Shallow Grave"} cuando tengas el maná.`);
+    if (has("Dack Fayden, Helping Hand") && has("Lion's Eye Diamond") && cmdTurn) plans.push(`Win turno ${cmdTurn}: Hashaton, luego LED descartando Dack (el {2}{U} sale del LED).`);
+    if (has("Dack Fayden, Helping Hand") && t2>=6) plans.push("Hard cast de Dack en turno 2.");
+    if (has("Thassa's Oracle") && (has("Demonic Consultation")||has("Tainted Pact"))) plans.push("Thassa + "+(has("Demonic Consultation")?"Consultation":"Tainted Pact")+" en cuanto tengas 3–4 maná.");
+    if (has("Dack Fayden, Helping Hand") && has("Leveler")) risks.push("Dack y Leveler en mano: Dack ya no encuentra a Leveler. Necesitas Consultation o Tainted Pact.");
+  } else {
+    if (cmdTurn===1) plans.push("Crystal turno 1.");
+    else if (cmdTurn===2) plans.push("Crystal turno 2.");
+    else if (cmdTurn===3) plans.push("Crystal turno 3.");
+    const bounce = has("Retraction Helix")||has("Banishing Knack");
+    if (has("Sewer-veillance Cam") && bounce && cmdTurn) plans.push(`Win turno ${cmdTurn+1}: Cam + ${has("Retraction Helix")?"Helix":"Knack"} con Crystal sin mareo.`);
+    if (has("Underworld Breach") && has("Lion's Eye Diamond") && has("Brain Freeze")) plans.push("Breach + LED + Brain Freeze completo: necesitas llenar el cementerio.");
+    if (has("Jeskai Ascendancy") && bounce && has("Lotus Petal")) plans.push("Jeskai Ascendancy + rebote + Petal: maná y looteo infinitos.");
+    if (cmdTurn && engines.some(c=>["Curiosity","Keen Sense","Ophidian Eye","Snake Umbra","Tandem Lookout"].includes(c))) plans.push("Motor de Curiosity sobre Crystal temprano.");
+  }
+  // razones
+  reasons.push(`${lands.length} tierra${lands.length===1?"":"s"}${gem?" (Gemstone empieza en mesa)":""}, ${fast.length+slow.length} de aceleración. Maná estimado: T1 ${t1}, T2 ${t2}, T3 ${t3}.`);
+  if (!cmdOk) reasons.push(`Sin fuente de ${missingCol.join(" y ")} para tu comandante.`);
+  else reasons.push(cmdTurn ? `Comandante en turno ${cmdTurn}.` : "El comandante llega tarde (turno 4 o más).");
+  const planCount = pieces.length + tutors.length;
+  reasons.push(`Combo/tutores: ${planCount}${planCount?` (${pieces.concat(tutors).join(", ")})`:""}. Motores: ${engines.length}. Protección: ${prot.length}.`);
+  if (has("Gemstone Caverns") && seat===1) risks.push("Gemstone Caverns no sirve en Seat 1: es una tierra que solo da incoloro.");
+  if (has("Mox Opal") && fast.concat(slow).filter(c=>ROLES.hashaton.accelFast.concat(ROLES.hashaton.accelSlow).includes(c)).length < 3) risks.push("Mox Opal probablemente sin metalcraft.");
+  if (has("Pact of Negation") && !plans.length) risks.push("Pact of Negation sin plan de win es casi una carta muerta.");
+
+  // veredicto
+  const size = cards.length;
+  const mana3 = t3 >= 3 || (deckId==="crystal" && cmdTurn && cmdTurn<=3);
+  let verdict, why;
+  const winSoon = plans.some(p=>/^Win/.test(p));
+  if (lands.length===0 && fast.length<2) { verdict="mull"; why="Sin tierras y con poca aceleración: no juegas nada."; }
+  else if (!mana3) { verdict="mull"; why="No llegas a 3 maná en el turno 3."; }
+  else if (!cmdOk && deckId==="crystal") { verdict = size<=6 ? "borderline" : "mull"; why="No puedes lanzar a Crystal: te falta un color."; }
+  else if (winSoon && (prot.length || size<=6)) { verdict="keep"; why="Tienes un win temprano y algo con qué protegerlo."; }
+  else if (winSoon) { verdict="keep"; why="Win temprano. Sin protección: elige bien el momento."; }
+  else if (planCount + engines.length >= 2) { verdict="keep"; why="Maná suficiente y dos o más piezas de plan (combo, tutor o motor)."; }
+  else if (planCount + engines.length === 1) { verdict = (prot.length>=1 || size<=6) ? "keep" : "borderline"; why = prot.length ? "Una pieza de plan con protección: aceptable." : "Una sola pieza de plan y nada que la proteja."; }
+  else if (lands.length >= 5) { verdict="mull"; why="Demasiadas tierras y ningún plan."; }
+  else { verdict = size<=5 ? "borderline" : "mull"; why="Sin combo, tutor ni motor: dependes de robar bien."; }
+  if (verdict==="mull" && size<=5) { verdict="borderline"; why += " Con 5 cartas, quedarse suele ser mejor que bajar a 4."; }
+  return {verdict, why, plans, reasons, risks, t1, t2, t3, cmdTurn};
+}
+function suggestBottom(deckId, cards, n){
+  const lands = cards.filter(c=>roleOf(deckId,c)==="land");
+  const value = c => {
+    const r = roleOf(deckId,c);
+    const base = {piece:9,tutor:8,engine:7,accel:6,prot:5,other:3,land:6}[r];
+    if (r==="land") { const idx = lands.indexOf(c); return idx >= 3 ? 1 : 6; }
+    return base;
+  };
+  return [...cards].sort((a,b)=>value(a)-value(b)).slice(0,n);
+}
+
+function mRender(){
+  if (!H) return;
+  const d = DECKS[M.deck];
+  const box = $("#m-hand");
+  box.innerHTML = H.cards.map((c,i) => {
+    const r = roleOf(M.deck,c); const sel = H.bottom.has(i);
+    return `<button type="button" class="mcard r-${r}${sel?" sel":""}" data-i="${i}" ${H.phase==="bottom"?"":"tabindex=\"-1\""} aria-pressed="${sel}"><span class="mrole">${ROLE_LABEL[r]}</span><span class="mname">${esc(c)}</span>${sel?'<span class="mbot">al fondo</span>':""}</button>`;
+  }).join("");
+  box.querySelectorAll(".mcard").forEach(b => b.addEventListener("click", () => {
+    if (H.phase!=="bottom") return;
+    const i = +b.dataset.i, need = H.needBottom;
+    if (H.bottom.has(i)) H.bottom.delete(i); else if (H.bottom.size < need) H.bottom.add(i);
+    $("#m-bottom-ok").disabled = H.bottom.size !== need;
+    $("#m-bottom-hint").textContent = `Elige ${need} carta${need>1?"s":""} para el fondo (${H.bottom.size}/${need}).`;
+    mRender();
+  }));
+  const size = H.cards.length - (H.phase==="done" || H.phase==="decide2" ? H.bottom.size : 0);
+  $("#m-status").textContent = `Seat ${H.seat} · ` + (H.mulls===0 ? "mano inicial" : `mulligan ${H.mulls}${H.mulls===1 && M.free?" (gratis)":""}`);
+  $("#m-sub").textContent = H.phase==="done" ? `Te quedaste con ${size} cartas.` : (H.phase==="bottom" ? "Elige qué mandar al fondo." : "Decide antes de ver el análisis.");
+  $("#m-hand-title").textContent = `Tu mano · ${H.cards.length - H.bottom.size} cartas`;
+  $("#m-actions").hidden = !(H.phase==="decide" || H.phase==="decide2");
+  $("#m-bottom-actions").hidden = H.phase!=="bottom";
+  $("#m-ai-actions").hidden = H.phase!=="done" || !aiReady();
+  // guía
+  $("#m-guide").innerHTML = M.deck==="crystal"
+    ? `<ul><li>Crystal en turno 1 o 2: necesitas rojo y verde, y 3 maná.</li><li>Una pieza de combo (Cam, Helix/Knack, Breach, LED, Brain Freeze, Ascendancy) o un tutor (Enlightened, Gamble, Intuition, Kellan).</li><li>Un motor de Curiosity vale casi como una pieza: roba 3 por hechizo.</li><li>Protección gratis (Fierce, Swat, FoW, Pact) sube mucho la mano.</li><li>En Seat 2–4, Gemstone Caverns es un maná extra en turno 1.</li></ul>`
+    : `<ul><li>3 maná en turno 2–3, con blanco y negro para Hashaton.</li><li>Una pieza de win (Dack, LED, Entomb, Reanimate, Thassa + Consultation/Pact) o un tutor negro.</li><li>Entomb + Reanimate con 2 maná en turno 1 es un keep automático.</li><li>Motores (Necro, Rhystic, Remora) cuentan como plan en manos lentas.</li><li>Dack y Leveler juntos en mano son una mala señal.</li></ul>`;
+  mStats();
+}
+function mStats(){
+  const s = M.stats[M.deck] || {hands:0,agree:0,keeps:0};
+  $("#m-stats").innerHTML = `<span class="chip"><b>Manos:</b> ${s.hands}</span> <span class="chip"><b>Coincidencia:</b> ${s.hands?Math.round(100*s.agree/s.hands):0}%</span> <span class="chip"><b>Keeps:</b> ${s.keeps}</span>`;
+}
+function mNew(){
+  M.deck = $("#m-deck").value; M.seatMode = $("#m-seat").value; M.free = +$("#m-free").value; msave();
+  const seat = M.seatMode==="r" ? 1+Math.floor(Math.random()*4) : +M.seatMode;
+  H = {seat, mulls:0, cards: shuffle(libraryOf(M.deck)).slice(0,7), bottom:new Set(), phase:"decide", choices:[]};
+  $("#m-result").innerHTML = `<p class="small">Elige "Me quedo" o "Mulligan" y te muestro qué haría yo con esta mano y por qué.</p>`;
+  $("#m-ai-out").innerHTML = "";
+  mRender();
+}
+function finalHand(){ return H.cards.filter((c,i)=>!H.bottom.has(i)); }
+function mDecide(choice){
+  // evalúa la mano que se está viendo (7 cartas menos las que se mandarían al fondo si se queda)
+  const need = Math.max(0, H.mulls - (M.free?1:0));
+  if (choice === "keep" && need > 0 && H.phase === "decide") {
+    H.needBottom = Math.min(need, 6); H.phase = "bottom"; H.pendingKeep = true;
+    $("#m-bottom-hint").textContent = `Elige ${H.needBottom} carta${H.needBottom>1?"s":""} para el fondo (0/${H.needBottom}).`;
+    $("#m-bottom-ok").disabled = true; mRender(); return;
+  }
+  const cards = choice==="keep" ? finalHand() : H.cards;
+  const a = analyze(M.deck, cards, H.seat);
+  const agree = a.verdict==="borderline" || a.verdict===choice;
+  const st = M.stats[M.deck] || (M.stats[M.deck] = {hands:0,agree:0,keeps:0});
+  st.hands++; if (agree) st.agree++; if (choice==="keep") st.keeps++; msave();
+  H.choices.push({choice, cards:[...cards], a});
+  showResult(choice, a, agree, cards);
+  if (choice==="keep") { H.phase="done"; }
+  else {
+    H.mulls++; H.cards = shuffle(libraryOf(M.deck)).slice(0,7); H.bottom = new Set(); H.phase="decide";
+  }
+  mRender();
+}
+function showResult(choice, a, agree, cards){
+  const vtxt = {keep:"Me quedo", mull:"Mulligan", borderline:"Límite: cualquiera es defendible"}[a.verdict];
+  const cls = a.verdict==="keep" ? "keep" : (a.verdict==="mull" ? "mull" : "ok");
+  const prev = choice==="mull" ? `<p class="small">Esa era la mano que acabas de mulliganear. Ya tienes la nueva arriba.</p>` : "";
+  $("#m-result").innerHTML = `${prev}
+    <div class="hand ${cls}" style="margin-bottom:10px">
+      <span class="verdict">${esc(vtxt)}</span>
+      <p><b>Tú elegiste: ${choice==="keep"?"quedarte":"mulligan"}.</b> ${agree?"Coincidimos.":"Yo lo habría hecho distinto."} ${esc(a.why)}</p>
+    </div>
+    ${a.plans.length?`<h4>Plan</h4><ul>${a.plans.map(p=>`<li>${esc(p)}</li>`).join("")}</ul>`:""}
+    <h4>Lectura</h4><ul>${a.reasons.map(p=>`<li>${esc(p)}</li>`).join("")}</ul>
+    ${a.risks.length?`<h4>Ojo</h4><ul>${a.risks.map(p=>`<li>${esc(p)}</li>`).join("")}</ul>`:""}
+    ${choice==="mull" ? "" : (H.bottom.size ? `<p class="small">Mandaste al fondo: ${esc([...H.bottom].map(i=>H.cards[i]).join(", "))}. Yo habría mandado: ${esc(suggestBottom(M.deck, H.cards, H.bottom.size).join(", "))}.</p>` : "")}`;
+}
+$("#m-new").addEventListener("click", mNew);
+$("#m-keep").addEventListener("click", () => mDecide("keep"));
+$("#m-mull").addEventListener("click", () => mDecide("mull"));
+$("#m-bottom-ok").addEventListener("click", () => { if (H.bottom.size !== H.needBottom) return; H.phase="decide2"; mDecide("keep"); });
+["m-deck","m-seat","m-free"].forEach(id => $("#"+id).addEventListener("change", mNew));
+$("#m-ai").addEventListener("click", async () => {
+  if (!aiReady() || !H) return;
+  const d = DECKS[M.deck], cards = finalHand(), last = H.choices[H.choices.length-1];
+  const out = $("#m-ai-out"); out.innerHTML = "<p class='small'>Pensando…</p>"; $("#m-ai").disabled = true;
+  const prompt = `Eres un coach de cEDH. Evalúa esta mano inicial para un mazo de Commander en mesa de 4. Responde en español de Chile, máximo 150 palabras: veredicto (keep o mulligan), plan de los primeros 2–3 turnos y qué buscar con los tutores. Nombres de cartas en inglés.
+
+${d.summary}
+
+ASIENTO: Seat ${H.seat}. MULLIGANS: ${H.mulls} (primero gratis: ${M.free?"sí":"no"}).
+MANO (${cards.length}): ${cards.join("; ")}
+${H.bottom.size?`AL FONDO: ${[...H.bottom].map(i=>H.cards[i]).join("; ")}`:""}
+El jugador eligió: ${last?last.choice:"keep"}.`;
+  try {
+    const r = await askClaude(prompt, {modelTier:"default", onText:({text})=>{ out.innerHTML = md(text); }});
+    out.innerHTML = md(r.text);
+  } catch(e) {
+    out.innerHTML = e && e.code==="not_granted" ? "<p>No diste permiso para que la página me consulte.</p>" : (e && e.code==="rate_limited" ? "<p>Demasiadas consultas. Espera un momento.</p>" : "<p>No pude obtener respuesta. Vuelve a intentar.</p>");
+  } finally { $("#m-ai").disabled = false; }
+});
+$("#m-deck").value = M.deck; $("#m-seat").value = M.seatMode; $("#m-free").value = String(M.free);
+mNew();
+
+loadAll(); route();
+
+</script>
+
+</body>
+</html>

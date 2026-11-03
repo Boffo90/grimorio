@@ -1,0 +1,16 @@
+{
+  "name": "Grimorio",
+  "short_name": "Grimorio",
+  "start_url": "/#mesa",
+  "display": "standalone",
+  "background_color": "#0c1224",
+  "theme_color": "#131b31",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
