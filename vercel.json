@@ -3,5 +3,17 @@
     "api/claude.js": {
       "maxDuration": 60
     }
-  }
+  },
+  "cleanUrls": true,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    }
+  ]
 }

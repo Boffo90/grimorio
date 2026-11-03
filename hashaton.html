@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="description" content="Primer cEDH de Hashaton, Scarab's Fist con Dack Fayden como comandante secreto.">
+<title>Primer Hashaton Dack</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,-apple-system,"Segoe UI",sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<style>
+/* Layout: columna de lectura de ~70ch con índice lateral en desktop; "pilas" del stack dibujadas como tablillas apiladas */
+:root{
+  --bg:#eef0f3;
+  --paper:#f9fafb;
+  --ink:#16203a;
+  --muted:#59627a;
+  --line:#cfd4de;
+  --lapis:#1f4fa3;
+  --lapis-soft:#e1e9f7;
+  --gold:#a8730d;
+  --gold-soft:#f5ead2;
+  --good:#1d7a4c;
+  --good-soft:#dff1e7;
+  --bad:#a8322a;
+  --bad-soft:#f6e1df;
+  --f-display:"Marcellus","Trajan Pro",Georgia,serif;
+  --f-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0c1224;--paper:#131b31;--ink:#e6e9f2;--muted:#9aa3bb;--line:#2a3554;
+    --lapis:#8fb0f0;--lapis-soft:#1b2747;--gold:#e3b04f;--gold-soft:#2e2615;
+    --good:#6fd3a0;--good-soft:#14301f;--bad:#f0938a;--bad-soft:#3a1a18;color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0c1224;--paper:#131b31;--ink:#e6e9f2;--muted:#9aa3bb;--line:#2a3554;
+  --lapis:#8fb0f0;--lapis-soft:#1b2747;--gold:#e3b04f;--gold-soft:#2e2615;
+  --good:#6fd3a0;--good-soft:#14301f;--bad:#f0938a;--bad-soft:#3a1a18;color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
+a{color:var(--lapis)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:220px minmax(0,1fr);gap:48px}
+@media (max-width:860px){.wrap{grid-template-columns:minmax(0,1fr);gap:0}.toc{display:none}}
+
+header.hero{max-width:1120px;margin:0 auto;padding-block:48px 32px;border-bottom:1px solid var(--line);margin-bottom:32px}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700}
+h1{font-family:var(--f-display);font-weight:400;font-size:clamp(34px,6vw,58px);line-height:1.05;margin:10px 0 14px;text-wrap:balance}
+h1 .amp{color:var(--gold)}
+.lede{font-size:18px;color:var(--muted);max-width:68ch;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{font-size:13px;border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:4px 12px}
+.chip b{color:var(--lapis)}
+
+.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;font-size:14px;padding-top:4px}
+.toc ol{list-style:none;padding:0;margin:0;display:grid;gap:4px;counter-reset:t}
+.toc li{counter-increment:t}
+.toc a{color:var(--muted);text-decoration:none;display:block;padding:3px 0 3px 10px;border-left:2px solid var(--line)}
+.toc a::before{content:counter(t,decimal-leading-zero) "  ";font-family:var(--f-mono);font-size:11px;color:var(--gold)}
+.toc a:hover{color:var(--ink);border-left-color:var(--gold)}
+
+main{min-width:0}
+section{padding-block:8px 36px;border-bottom:1px solid var(--line);margin-bottom:36px;scroll-margin-top:16px}
+section:last-child{border-bottom:0}
+h2{font-family:var(--f-display);font-weight:400;font-size:32px;line-height:1.15;margin:0 0 6px;text-wrap:balance}
+h2 .n{font-family:var(--f-mono);font-size:14px;color:var(--gold);vertical-align:middle;margin-right:10px}
+h3{font-size:19px;margin:28px 0 8px;font-weight:700;text-wrap:balance}
+h4{font-size:15px;margin:18px 0 6px;font-weight:700;color:var(--lapis);text-transform:uppercase;letter-spacing:.06em}
+p,li{max-width:72ch}
+p{margin:0 0 12px}
+ul,ol{padding-left:22px;margin:0 0 12px}
+li{margin-bottom:5px}
+.card{font-weight:600;color:var(--ink);border-bottom:1px dotted var(--gold);white-space:nowrap}
+.m{font-family:var(--f-mono);font-size:.86em;background:var(--lapis-soft);color:var(--lapis);padding:1px 6px;border-radius:4px;white-space:nowrap}
+.muted{color:var(--muted)}
+
+.thesis{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--gold);padding:20px 22px;border-radius:6px;margin:16px 0}
+.thesis p:last-child{margin:0}
+.note{background:var(--lapis-soft);padding:14px 18px;border-radius:6px;margin:14px 0;font-size:15px}
+.note p:last-child{margin:0}
+.warn{background:var(--bad-soft);padding:14px 18px;border-radius:6px;margin:14px 0;font-size:15px}
+.warn strong{color:var(--bad)}
+.tip{background:var(--good-soft);padding:14px 18px;border-radius:6px;margin:14px 0;font-size:15px}
+.tip strong{color:var(--good)}
+
+.pieces{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:16px 0}
+.piece{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:16px 18px;min-width:0}
+.piece .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.piece h4{margin:0;color:var(--ink);text-transform:none;letter-spacing:0;font-size:16px}
+.piece .cost{font-family:var(--f-mono);font-size:13px;color:var(--gold)}
+.piece .role{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--lapis);font-weight:700;margin:4px 0 8px}
+.piece p{font-size:14.5px;margin:0}
+
+/* Stack */
+.stackwrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin:16px 0}
+.stack{min-width:0}
+.stack .cap{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:700;margin-bottom:8px}
+.stack ol{list-style:none;padding:0;margin:0;display:grid;gap:6px}
+.stack li{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:9px 12px;font-size:14px;max-width:none;margin:0;position:relative}
+.stack li .lbl{font-family:var(--f-mono);font-size:11px;color:var(--gold);display:block;margin-bottom:1px}
+.stack li.ss{border-color:var(--gold);background:var(--gold-soft)}
+.stack li.win{border-color:var(--good);background:var(--good-soft)}
+
+/* Lines */
+.line{border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:18px 20px;margin:16px 0}
+.line .head{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:baseline;margin-bottom:10px}
+.line .id{font-family:var(--f-display);font-size:22px;color:var(--gold)}
+.line .name{font-weight:700;font-size:17px}
+.line .tags{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+.tag{font-size:12px;border-radius:4px;padding:2px 8px;background:var(--lapis-soft);color:var(--lapis);font-weight:600;white-space:nowrap}
+.tag.g{background:var(--gold-soft);color:var(--gold)}
+.line ol{margin-bottom:8px}
+.line p:last-child{margin-bottom:0}
+
+/* Tables */
+.tbl{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:8px;background:var(--paper)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:560px}
+th,td{text-align:left;vertical-align:top;padding:10px 14px;border-bottom:1px solid var(--line)}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700;background:var(--bg)}
+tr:last-child td{border-bottom:0}
+td:first-child{font-weight:600;white-space:nowrap}
+
+/* Hands */
+.hands{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:16px 0}
+.hand{border:1px solid var(--line);border-radius:8px;padding:16px 18px;background:var(--paper);min-width:0}
+.hand .verdict{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+.hand.keep .verdict{background:var(--good-soft);color:var(--good)}
+.hand.mull .verdict{background:var(--bad-soft);color:var(--bad)}
+.hand.ok .verdict{background:var(--gold-soft);color:var(--gold)}
+.hand ul{font-size:14px;padding-left:18px;margin-bottom:8px}
+.hand p{font-size:14px;margin:0}
+
+.decklist{columns:3 220px;column-gap:28px;font-size:14px}
+.decklist .grp{break-inside:avoid;margin-bottom:16px}
+.decklist h4{margin:0 0 4px}
+.decklist ul{list-style:none;padding:0;margin:0}
+.decklist li{margin:0;padding:1px 0}
+
+footer{max-width:1120px;margin:0 auto;font-size:13px;color:var(--muted);padding-top:24px;border-top:1px solid var(--line)}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+</style>
+
+<header class="hero">
+  <div class="eyebrow">cEDH · Esper · Primer</div>
+  <h1>Hashaton <span class="amp">&amp;</span> el Dack secreto</h1>
+  <p class="lede">Hashaton, Scarab's Fist en la zona de mando y Dack Fayden, Helping Hand escondido en el 99 como el verdadero comandante. Un mazo de combo rápido con interacción completa de azul y negro, que gana con una sola carta en cuanto Dack entra al campo.</p>
+  <div class="chips">
+    <span class="chip"><b>Comandante:</b> Hashaton {W}{B}</span>
+    <span class="chip"><b>Win con:</b> Dack → Leveler + Thassa's Oracle</span>
+    <span class="chip"><b>Criaturas en el 99:</b> 4</span>
+    <span class="chip"><b>Plan B:</b> Thoracle / Consultation / Tainted Pact</span>
+  </div>
+</header>
+
+<div class="wrap">
+<nav class="toc" aria-label="Índice">
+  <ol>
+    <li><a href="#idea">La idea</a></li>
+    <li><a href="#piezas">Las piezas</a></li>
+    <li><a href="#trigger">El trigger de Dack</a></li>
+    <li><a href="#lineas">Líneas de victoria</a></li>
+    <li><a href="#split">Split second</a></li>
+    <li><a href="#tutores">Qué tutorear</a></li>
+    <li><a href="#intuition">Pilas de Intuition</a></li>
+    <li><a href="#manos">Manos y mulligan</a></li>
+    <li><a href="#temprano">Wins tempranos</a></li>
+    <li><a href="#interaccion">Interacción</a></li>
+    <li><a href="#hate">Hate y respuestas</a></li>
+    <li><a href="#reglas">Reglas finas</a></li>
+    <li><a href="#lista">Lista por función</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<section id="idea">
+  <h2><span class="n">01</span>La idea</h2>
+  <div class="thesis">
+    <p><strong>Dack Fayden, Helping Hand</strong> dice: al entrar, revela cartas hasta revelar X criaturas (X = número de oponentes), ponlas en el campo, quedan goaded y le regalas una a cada oponente. El mazo corre <strong>solo tres criaturas más en el 99</strong>: <span class="card">Grand Abolisher</span>, <span class="card">Leveler</span> y <span class="card">Thassa's Oracle</span>. En una mesa de 4, Dack las encuentra a las tres sin falta.</p>
+    <p>Los triggers de entrada de esas criaturas los controlas <strong>tú</strong>, aunque las criaturas terminen en manos de tus oponentes. Apilas Leveler arriba y Thassa abajo: Leveler exilia tu biblioteca, Thassa resuelve con biblioteca vacía y ganas.</p>
+    <p>Hashaton es el motor de velocidad: cada vez que descartas una criatura puedes pagar {2}{U} para crear un token copia. Descartar Dack con Hashaton en mesa = <strong>ganar por 3 maná a velocidad instantánea</strong>, sin lanzar un hechizo de criatura que se pueda contrarrestar.</p>
+  </div>
+  <p>Por eso Dack es el "comandante secreto". Hashaton da los colores (Esper: todos los tutores negros, los counters gratis azules, el blanco para Dack y Silence), da la mecánica de descarte para meter a Dack barato, y habilita <span class="card">Fierce Guardianship</span> y <span class="card">Deadly Rollick</span> gratis.</p>
+  <p>El mazo tiene <strong>tres formas independientes</strong> de poner a Dack (o sus piezas) en el campo:</p>
+  <ul>
+    <li><strong>Hashaton + descarte:</strong> LED, Careful Study, The Underworld Cookbook, descartar en la cleanup con Necropotence o por tamaño de mano.</li>
+    <li><strong>Reanimación:</strong> Entomb + Reanimate o Shallow Grave. Dos o tres manás, a veces en el turno 1.</li>
+    <li><strong>Hard cast:</strong> 6 manás con fast mana y rituales, ideal con Cavern of Souls nombrando Human.</li>
+  </ul>
+  <p>Y si Dack no está disponible, sigue siendo un mazo con <span class="card">Thassa's Oracle</span> + <span class="card">Demonic Consultation</span> / <span class="card">Tainted Pact</span>.</p>
+  <p class="muted">Sobre el origen: la MTG Wiki japonesa describe exactamente este arquetipo (Hashaton al mando, Dack sacado temprano con el descarte y los tutores negros, Leveler + Thassa con Grand Abolisher de protección). No pude encontrar la página del resultado 8-0 en God of Commander, así que este primer se arma desde la lista y las reglas de las cartas, no desde un reporte del piloto.</p>
+</section>
+
+<section id="piezas">
+  <h2><span class="n">02</span>Las piezas</h2>
+  <div class="pieces">
+    <div class="piece">
+      <div class="top"><h4>Hashaton, Scarab's Fist</h4><span class="cost">{W}{B} · 1/3</span></div>
+      <div class="role">Comandante · motor</div>
+      <p>Cuando descartas una carta de criatura, puedes pagar {2}{U}: token copia girado, 4/4 Zombie negro. La copia conserva el trigger de entrada. Es un trigger, no un hechizo: los counters normales no lo detienen.</p>
+    </div>
+    <div class="piece">
+      <div class="top"><h4>Dack Fayden, Helping Hand</h4><span class="cost">{4}{W}{W} · 4/6</span></div>
+      <div class="role">El combo en una carta</div>
+      <p>Al entrar encuentra X criaturas de tu biblioteca y las pone en juego. Con solo Abolisher, Leveler y Thassa en el mazo, es un tutor + combo determinista.</p>
+    </div>
+    <div class="piece">
+      <div class="top"><h4>Leveler</h4><span class="cost">{5} · 10/10</span></div>
+      <div class="role">Vacía la biblioteca</div>
+      <p>Al entrar exilia toda tu biblioteca. Va arriba en el stack. También sirve sola con Hashaton: descártala y luego juega Thassa.</p>
+    </div>
+    <div class="piece">
+      <div class="top"><h4>Thassa's Oracle</h4><span class="cost">{U}{U} · 1/3</span></div>
+      <div class="role">El que gana</div>
+      <p>Con la biblioteca vacía al resolver su trigger, ganas. Además cubre todo el plan B con Consultation y Tainted Pact.</p>
+    </div>
+    <div class="piece">
+      <div class="top"><h4>Grand Abolisher</h4><span class="cost">{W}{W} · 2/2</span></div>
+      <div class="role">Protección</div>
+      <p>En tu turno los oponentes no lanzan hechizos ni activan habilidades de artefactos, criaturas y encantamientos. Si ya está en tu mesa antes de Dack, no se regala y protege todo el combo.</p>
+    </div>
+  </div>
+</section>
+
+<section id="trigger">
+  <h2><span class="n">03</span>Cómo resuelve el trigger de Dack</h2>
+  <p>Este es el corazón del mazo, así que vale la pena entender el orden exacto:</p>
+  <ol>
+    <li>Dack entra. Su trigger va al stack. <strong>Este es el momento en que te pueden responder</strong> (Stifle, Tishana's Tidebinder, remoción a Dack no sirve: el trigger ya está).</li>
+    <li>Al resolver: revelas hasta encontrar 3 criaturas. Entran al campo <strong>bajo tu control</strong>, se barajan las cartas reveladas, quedan goaded y cambias su control a cada oponente. Todo eso pasa dentro de la misma resolución.</li>
+    <li>Recién después, los triggers de Leveler y Thassa van al stack. <strong>Los controlas tú</strong> porque controlabas las criaturas al entrar, y tú eliges el orden.</li>
+  </ol>
+  <div class="stackwrap">
+    <div class="stack">
+      <div class="cap">Stack tras resolver Dack (arriba primero)</div>
+      <ol>
+        <li><span class="lbl">ARRIBA</span>Trigger de Leveler: exilia tu biblioteca</li>
+        <li class="win"><span class="lbl">ABAJO</span>Trigger de Thassa's Oracle: biblioteca 0 → ganas</li>
+      </ol>
+    </div>
+    <div class="stack">
+      <div class="cap">Si te stiflean Leveler</div>
+      <ol>
+        <li class="ss"><span class="lbl">RESPONDES</span>Tainted Pact o Demonic Consultation (nombrando una carta que no esté en el mazo) → biblioteca exiliada</li>
+        <li class="win"><span class="lbl">ABAJO</span>Thassa sigue en el stack → ganas</li>
+      </ol>
+    </div>
+  </div>
+  <div class="warn"><strong>Si te stiflean el trigger de Thassa</strong> después de que Leveler resuelva, quedas con biblioteca vacía y pierdes en tu próximo robo. Por eso, con Stifle o Tidebinder visibles, juega primero Abolisher, usa la ventana de split second o guarda un counter para el stifle.</div>
+  <h3>Casos especiales</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Situación</th><th>Qué pasa</th><th>Cómo cerrar</th></tr></thead>
+    <tbody>
+      <tr><td>Abolisher ya en tu mesa</td><td>En la biblioteca quedan 2 criaturas. Dack revela toda la biblioteca, encuentra Leveler y Thassa.</td><td>Gana igual, y Abolisher se queda contigo protegiendo el turno.</td></tr>
+      <tr><td>Thassa en tu mano</td><td>Dack saca Abolisher + Leveler. Leveler vacía la biblioteca.</td><td>Lanza Thassa por {U}{U} con la biblioteca ya vacía.</td></tr>
+      <tr><td>Leveler en mano o cementerio</td><td>Dack saca Abolisher + Thassa. Thassa trigger con biblioteca llena.</td><td>En respuesta: Tainted Pact o Demonic Consultation. Sin eso, no lances Dack todavía.</td></tr>
+      <tr><td>Thassa exiliada o perdida</td><td>No hay ganador. Leveler solo te mata.</td><td>No lances Dack. Cambia de plan (ver líneas H).</td></tr>
+      <tr><td>Quedan 2 oponentes</td><td>X = 2. Dack para en la segunda criatura y puede saltarse Leveler o Thassa.</td><td>Ten Abolisher en mesa o en mano primero, o un Pact/Consultation de respaldo. Ver <a href="#reglas">Reglas finas</a>.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="lineas">
+  <h2><span class="n">04</span>Líneas de victoria</h2>
+  <p>Ordenadas de la más barata a la más cara. Los costos asumen que ya tienes las cartas listadas.</p>
+
+  <div class="line">
+    <div class="head"><span class="id">A</span><span class="name">Hashaton + LED + Dack</span><div class="tags"><span class="tag">3 maná tras Hashaton</span><span class="tag g">instantánea</span></div></div>
+    <ol>
+      <li>Hashaton en mesa. Lion's Eye Diamond en mesa. Dack en mano.</li>
+      <li>Sacrifica LED, descarta tu mano (con Dack), toma {U}{U}{U}.</li>
+      <li>Trigger de Hashaton: pagas {2}{U} con esa misma maná. Token de Dack → Leveler + Thassa → ganas.</li>
+    </ol>
+    <p>Es la línea estrella. LED es una habilidad de maná, así que la puedes activar en cualquier momento, incluso con un hechizo de split second en el stack (sección 05). Te sobra {U} si quieres.</p>
+  </div>
+
+  <div class="line">
+    <div class="head"><span class="id">B</span><span class="name">Entomb + Reanimate</span><div class="tags"><span class="tag">2 maná</span><span class="tag g">turno 1 posible</span></div></div>
+    <ol>
+      <li>Entomb ({B}, instantáneo): Dack al cementerio.</li>
+      <li>Reanimate ({B}): Dack vuelve. Pierdes 6 vidas.</li>
+      <li>Trigger de Dack → ganas.</li>
+    </ol>
+    <p>No necesita a Hashaton. Ideal para turno 1 con una tierra negra y Lotus Petal o un Mox. Truco: haz Entomb en el end step del oponente anterior y Reanimate en tu turno con Abolisher o counter de respaldo.</p>
+  </div>
+
+  <div class="line">
+    <div class="head"><span class="id">C</span><span class="name">Entomb + Shallow Grave</span><div class="tags"><span class="tag">3 maná</span><span class="tag g">todo instantáneo</span></div></div>
+    <ol>
+      <li>Entomb Dack.</li>
+      <li>Shallow Grave ({1}{B}): devuelve la criatura de más arriba de tu cementerio, que es Dack.</li>
+    </ol>
+    <p>Ganas en el turno de un oponente, por ejemplo en su end step cuando ya se gastó el maná, o en respuesta a su win attempt si tienes counter que no te deja ganar a ti. Asegúrate de que Dack sea la criatura de más arriba: nada de descartar otra criatura después de Entomb.</p>
+  </div>
+
+  <div class="line">
+    <div class="head"><span class="id">D</span><span class="name">Hashaton + Careful Study / Cookbook</span><div class="tags"><span class="tag">4 maná tras Hashaton</span></div></div>
+    <ol>
+      <li><strong>Careful Study</strong> ({U}, conjuro): roba 2, descarta 2. Descarta Dack (de tu mano o el que robaste). Paga {2}{U}.</li>
+      <li><strong>The Underworld Cookbook</strong>: {T}, descarta una carta: ficha de Comida. Es un descarte repetible a velocidad instantánea. Paga {2}{U}.</li>
+    </ol>
+    <p>El Cookbook es un descarte permanente. Con él en mesa, cualquier Dack que robes o tutorees se convierte en victoria. Su segunda habilidad ({4}, {T}, sacrificar) devuelve una criatura del cementerio a la mano si te descartaron o contrarrestaron algo.</p>
+  </div>
+
+  <div class="line">
+    <div class="head"><span class="id">E</span><span class="name">Necropotence / tamaño de mano</span><div class="tags"><span class="tag">{2}{U} en cleanup</span></div></div>
+    <ol>
+      <li>Con Hashaton en mesa, termina tu turno con más de 7 cartas y Dack en mano. Con Necropotence en mesa robas muchas cartas, así que esto pasa fácil.</li>
+      <li>En la cleanup descartas Dack. Hashaton dispara: deja {2}{U} sin usar. Ganas.</li>
+    </ol>
+    <p>Con Necropotence hay dos triggers (Hashaton y el exilio de Necro). Pon <strong>el de Hashaton arriba</strong> para que resuelva antes de que Necro exilie la carta.</p>
+  </div>
+
+  <div class="line">
+    <div class="head"><span class="id">F</span><span class="name">Hard cast de Dack</span><div class="tags"><span class="tag">6 maná</span></div></div>
+    <ol>
+      <li>Junta {4}{W}{W}: Sol Ring, Mana Vault, Ancient Tomb, Dark Ritual + Cabal Ritual, LED, moxes, Lotus Petal.</li>
+      <li>Ideal: Cavern of Souls nombrando <strong>Human</strong> (Dack es Human Advisor) para que no lo contrarresten, o Grand Abolisher antes.</li>
+    </ol>
+  </div>
+
+  <div class="line">
+    <div class="head"><span class="id">G</span><span class="name">Thassa clásico</span><div class="tags"><span class="tag">3–4 maná</span><span class="tag g">plan B</span></div></div>
+    <ol>
+      <li>Thassa's Oracle en el stack, o su trigger en el stack.</li>
+      <li>En respuesta: Demonic Consultation ({B}, nombra una carta que no esté en tu mazo) o Tainted Pact ({1}{B}, en singleton exilia todo).</li>
+    </ol>
+    <p>También funciona al revés: Consultation/Pact primero y Thassa después, pero te expone a que te contrarresten Thassa con la biblioteca ya exiliada. Mejor hacer la exiliación en respuesta al trigger.</p>
+  </div>
+
+  <div class="line">
+    <div class="head"><span class="id">H</span><span class="name">Hashaton + Leveler y Thassa sin Dack</span><div class="tags"><span class="tag">6+ maná</span></div></div>
+    <ol>
+      <li>Descarta Leveler con Hashaton ({2}{U}) → token exilia tu biblioteca.</li>
+      <li>Lanza Thassa ({U}{U}) o descártala también con Hashaton ({2}{U}).</li>
+    </ol>
+    <p>Útil si Dack fue exiliado. Con LED puedes descartar ambas a la vez: ordena los triggers de Hashaton para que el token de Leveler entre primero.</p>
+  </div>
+</section>
+
+<section id="split">
+  <h2><span class="n">05</span>La ventana de split second</h2>
+  <p>El mazo trae tres hechizos de split second: <span class="card">Angel's Grace</span> ({W}), <span class="card">Slimed</span> ({1}{U}, la versión de Trickbind: contrarresta una habilidad activada o disparada) y <span class="card">Extirpate</span> ({B}, objetivo una carta en un cementerio).</p>
+  <div class="thesis">
+    <p><strong>La regla:</strong> mientras un hechizo con split second está en el stack, nadie puede lanzar hechizos ni activar habilidades que no sean de maná. Pero los triggers sí se disparan y se ponen <em>encima</em> del hechizo, y LED es una habilidad de maná.</p>
+    <p>Entonces: lanzas el split second, mantienes prioridad, sacrificas LED descartando Dack, y todo el combo (trigger de Hashaton, token de Dack, Leveler, Thassa) resuelve encima del split second. <strong>Nadie puede responder a ningún paso.</strong></p>
+  </div>
+  <div class="stackwrap">
+    <div class="stack">
+      <div class="cap">Paso 1 · lanzas Angel's Grace y mantienes prioridad</div>
+      <ol>
+        <li class="ss"><span class="lbl">SPLIT SECOND</span>Angel's Grace</li>
+      </ol>
+    </div>
+    <div class="stack">
+      <div class="cap">Paso 2 · LED por {U}{U}{U}, descartas Dack</div>
+      <ol>
+        <li><span class="lbl">ARRIBA</span>Trigger de Hashaton (pagas {2}{U})</li>
+        <li class="ss"><span class="lbl">ABAJO</span>Angel's Grace: todavía bloquea respuestas</li>
+      </ol>
+    </div>
+    <div class="stack">
+      <div class="cap">Paso 3 · token de Dack resuelve</div>
+      <ol>
+        <li><span class="lbl">ARRIBA</span>Trigger de Leveler</li>
+        <li class="win">Trigger de Thassa → ganas</li>
+        <li class="ss"><span class="lbl">ABAJO</span>Angel's Grace (nunca alcanza a resolver)</li>
+      </ol>
+    </div>
+  </div>
+  <h3>Qué necesitas</h3>
+  <ul>
+    <li>Hashaton en el campo, LED en el campo, Dack en la mano.</li>
+    <li>El hechizo de split second y maná para lanzarlo, aparte de LED.</li>
+    <li>El {2}{U} sale del propio LED. El maná se queda en tu reserva mientras el stack resuelve, dentro del mismo paso.</li>
+  </ul>
+  <h3>Cuál split second usar</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Carta</th><th>Objetivo que necesita</th><th>Notas</th></tr></thead>
+    <tbody>
+      <tr><td>Angel's Grace</td><td>Ninguno</td><td>La mejor: siempre se puede lanzar. De bonus no puedes perder este turno (Ancient Tomb, Confluence, Reanimate).</td></tr>
+      <tr><td>Slimed</td><td>Una habilidad activada o disparada en el stack</td><td>Activa tu fetchland y apunta a esa habilidad (pierdes la tierra, no importa). O apunta a un trigger rival real: Rhystic Study, Mystic Remora, un upkeep trigger. Además puede contrarrestar un trigger de Thassa ajeno.</td></tr>
+      <tr><td>Extirpate</td><td>Una carta en un cementerio (no tierra básica)</td><td>Casi siempre hay algo: una fetch usada (no es básica), un hechizo jugado. Si puedes, elige algo del rival que valga la pena: su Thassa, su Underworld Breach.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="warn"><strong>El orden importa.</strong> El descarte tiene que pasar <em>después</em> de lanzar el split second y tiene que ser una habilidad de maná. The Underworld Cookbook no sirve aquí: su habilidad no es de maná y no se puede activar con split second en el stack. Careful Study tampoco. Solo LED.</div>
+  <h3>Lo que el split second no frena</h3>
+  <ul>
+    <li><strong>Efectos estáticos:</strong> Hushbringer, Torpor Orb, Hushwing Gryff (los triggers de entrada no se disparan), Grafdigger's Cage (impide que Dack ponga criaturas de la biblioteca).</li>
+    <li><strong>Triggers rivales</strong> que se disparen en el proceso.</li>
+    <li>Habilidades de maná y acciones especiales de los rivales, que no te afectan.</li>
+  </ul>
+  <div class="tip"><strong>Versión sin LED.</strong> Si el rival tiene un Stifle cantado y no tienes LED, la alternativa es Grand Abolisher en tu turno: no podrán lanzar Stifle ni Tidebinder. El Abolisher no frena habilidades de tierras (Otawara, Boseiju) ni de cartas en mano (channel), mientras que el split second sí las frena.</div>
+</section>
+
+<section id="tutores">
+  <h2><span class="n">06</span>Qué tutorear</h2>
+  <p>La pregunta siempre es: ¿qué me falta para ganar <em>este</em> turno, o el próximo con protección? Busca la pieza que falta, no la más vistosa.</p>
+  <h3>Por situación</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Tienes</th><th>Te falta</th><th>Busca</th></tr></thead>
+    <tbody>
+      <tr><td>Hashaton + LED</td><td>Dack</td><td>Dack con Demonic / Vampiric / Imperial Seal / Grim / Wishclaw</td></tr>
+      <tr><td>Hashaton + Dack en mano</td><td>Un descarte</td><td>LED (Enlightened, Tezzeret −3, Urza's Saga, Tolaria West), Cookbook, Careful Study (Mystical)</td></tr>
+      <tr><td>Dack en mano, sin Hashaton</td><td>Ponerlo en juego</td><td>Entomb (Mystical) si tienes Reanimate o Shallow Grave</td></tr>
+      <tr><td>Reanimate o Shallow Grave</td><td>Dack en el cementerio</td><td>Entomb (Mystical), o un tutor general por Dack + descarte</td></tr>
+      <tr><td>Entomb</td><td>Reanimación</td><td>Reanimate (Mystical)</td></tr>
+      <tr><td>Thassa en mano</td><td>Vaciar biblioteca</td><td>Tainted Pact o Demonic Consultation (Mystical)</td></tr>
+      <tr><td>El combo completo</td><td>Protección</td><td>Angel's Grace (Mystical, para split second), Silence u Orim's Chant (Mystical), Grand Abolisher</td></tr>
+      <tr><td>Mano lenta, sin presión</td><td>Motor</td><td>Necropotence o Rhystic Study (Enlightened o Demonic)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Por tutor</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Tutor</th><th>Mejores objetivos</th><th>Notas</th></tr></thead>
+    <tbody>
+      <tr><td>Demonic Tutor</td><td>Dack, Entomb, LED</td><td>Conjuro, a la mano. El tutor más limpio.</td></tr>
+      <tr><td>Vampiric Tutor</td><td>Dack, Necropotence</td><td>Instantáneo, al tope. Hazlo en el end step anterior a tu turno. Combínalo con Brainstorm o Careful Study para usar la carta el mismo turno.</td></tr>
+      <tr><td>Imperial Seal</td><td>Dack o LED</td><td>Al tope, conjuro. Juégalo en turno 1 y busca la pieza que te deje ganar en turno 2.</td></tr>
+      <tr><td>Grim Tutor</td><td>Dack</td><td>A la mano, 3 maná y 3 vidas. El más caro.</td></tr>
+      <tr><td>Mystical Tutor</td><td>Entomb, Reanimate, Tainted Pact, Consultation, Angel's Grace, Careful Study, Silence</td><td>Solo instantáneos y conjuros, al tope.</td></tr>
+      <tr><td>Enlightened Tutor</td><td>LED, The Underworld Cookbook, Necropotence, Rhystic Study, Wishclaw</td><td>Artefactos y encantamientos, al tope.</td></tr>
+      <tr><td>Wishclaw Talisman</td><td>Dack o la pieza que falta</td><td>Úsalo solo si ganas ese turno: después el Talisman pasa a un oponente.</td></tr>
+      <tr><td>Tezzeret, Cruel Captain −3</td><td>LED, Cookbook, Wishclaw, Sol Ring, Mana Vault</td><td>Artefacto de valor 1 o menos, a la mano. Tezzeret también activa Mox Amber.</td></tr>
+      <tr><td>Urza's Saga (capítulo III)</td><td>LED, Cookbook, Wishclaw</td><td>Artefacto con costo 0 o 1, al campo. LED en el campo, listo para la línea A.</td></tr>
+      <tr><td>Tolaria West (transmute)</td><td>LED, Lotus Petal, moxes, Pact of Negation, Urza's Saga, Cavern of Souls</td><td>Busca cartas de valor 0, incluidas tierras.</td></tr>
+      <tr><td>Lim-Dûl's Vault</td><td>Dack o la pieza que falta</td><td>Instantáneo, al tope. Más lento pero flexible.</td></tr>
+      <tr><td>Scheming Symmetry</td><td>Dack</td><td>{B}, pero también busca un oponente. Apunta al que menos puede usar su carta.</td></tr>
+      <tr><td>Intuition</td><td>Ver sección 07</td><td>Instantáneo. Llena el cementerio para la reanimación.</td></tr>
+      <tr><td>Unseat the Usurper</td><td>Su Thassa, su tutor, su fast mana</td><td>Robas una carta de la biblioteca de un oponente y la puedes jugar.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="tip"><strong>Regla general:</strong> tutorea Dack solo si ya tienes cómo meterlo (Hashaton + descarte, Entomb + reanimación, o 6 maná). Si no, tutorea la pieza que convierte un Dack futuro en victoria inmediata: LED o Cookbook con Hashaton en mesa.</div>
+</section>
+
+<section id="intuition">
+  <h2><span class="n">07</span>Pilas de Intuition</h2>
+  <p>Intuition busca 3 cartas, un oponente elige una para tu mano y las otras van al cementerio. La gracia es armar pilas donde cualquier elección te gane.</p>
+  <div class="line">
+    <div class="head"><span class="id">I-1</span><span class="name">Dack + Reanimate + Shallow Grave</span><div class="tags"><span class="tag">necesitas {B} o {1}{B} extra</span></div></div>
+    <ul>
+      <li>Te dan Reanimate: Dack está en el cementerio → Reanimate → ganas.</li>
+      <li>Te dan Shallow Grave: Dack es la única criatura en el cementerio → Shallow Grave → ganas.</li>
+      <li>Te dan Dack: necesitas Hashaton + descarte (LED, Cookbook) o 6 maná. Arma esta pila cuando tengas eso listo.</li>
+    </ul>
+  </div>
+  <div class="line">
+    <div class="head"><span class="id">I-2</span><span class="name">Con Hashaton + LED en mesa</span></div>
+    <p>Dack + Reanimate + Shallow Grave, igual que I-1, pero ahora la rama "te dan Dack" también gana: lo descartas con LED y pagas {2}{U}. Las tres ramas ganan. Deja {1}{B} libre por si te dan Shallow Grave.</p>
+  </div>
+  <div class="line">
+    <div class="head"><span class="id">I-3</span><span class="name">Plan Thassa</span></div>
+    <p>Thassa's Oracle + Demonic Consultation + Tainted Pact cuando tienes Shallow Grave o Reanimate a mano. Si te dan Thassa, falta una exiliación: menos determinista. Úsala solo si las otras líneas están cerradas.</p>
+  </div>
+  <div class="warn"><strong>Cuidado:</strong> después de Intuition hay cartas en el cementerio que lo hacen vulnerable a Bojuka Bog, Soul-Guide Lantern o Extirpate rival. Ejecuta la reanimación en el mismo turno.</div>
+</section>
+
+<section id="manos">
+  <h2><span class="n">08</span>Manos y mulligan</h2>
+  <p>Una mano buena tiene <strong>maná para actuar en los turnos 1–2</strong>, <strong>una pieza o tutor del combo</strong>, y de preferencia <strong>una interacción gratis</strong>. El mazo tiene 27 tierras más 12 fuentes de fast mana y rituales, así que manos de 1 tierra + fast mana se pueden quedar.</p>
+  <h3>Qué valorar</h3>
+  <ul>
+    <li><strong>Piezas de victoria que se cuentan como medio combo:</strong> Dack, LED, Entomb, Reanimate, Thassa, Cookbook, cualquier tutor negro.</li>
+    <li><strong>Interacción gratis:</strong> Force of Will, Force of Negation, Pact of Negation, Fierce Guardianship (con Hashaton en mesa), Mindbreak Trap, Misdirection, Commandeer, Snapback, Deadly Rollick.</li>
+    <li><strong>Motores:</strong> Necropotence, Rhystic Study, Mystic Remora, Black Market Connections. Una mano con motor + maná + interacción sin combo es aceptable.</li>
+  </ul>
+  <h3>Ejemplos</h3>
+  <p class="muted">Manos de ejemplo para ilustrar el criterio.</p>
+  <div class="hands">
+    <div class="hand keep">
+      <span class="verdict">Quédate · win T1</span>
+      <ul><li>Underground Sea</li><li>Lotus Petal</li><li>Entomb</li><li>Reanimate</li><li>Force of Will</li><li>Brainstorm</li><li>Rhystic Study</li></ul>
+      <p>Tierra + Petal = Entomb y Reanimate en turno 1, con FoW de respaldo. Si alguien tiene una respuesta cantada (blanco abierto, Tidebinder), espera al turno 2 con más protección.</p>
+    </div>
+    <div class="hand keep">
+      <span class="verdict">Quédate · Hashaton T1</span>
+      <ul><li>Scrubland</li><li>Chrome Mox</li><li>Lion's Eye Diamond</li><li>Demonic Tutor</li><li>Fierce Guardianship</li><li>Flooded Strand</li><li>Swords to Plowshares</li></ul>
+      <p>T1: Scrubland, Mox (imprinta Swords), Hashaton. T2: fetch, Demonic por Dack, LED, descarte, {2}{U}. Fierce gratis protege con Hashaton en mesa.</p>
+    </div>
+    <div class="hand ok">
+      <span class="verdict">Quédate · mano de motor</span>
+      <ul><li>Polluted Delta</li><li>Tundra</li><li>Sol Ring</li><li>Mystic Remora</li><li>Necropotence</li><li>Swan Song</li><li>Pact of Negation</li></ul>
+      <p>Sin combo, pero Necro en turno 2 te encuentra todo. Juega de control: frena al primero que intente ganar y gana tú después.</p>
+    </div>
+    <div class="hand mull">
+      <span class="verdict">Mulligan</span>
+      <ul><li>Hallowed Fountain</li><li>Command Tower</li><li>City of Brass</li><li>Damping Sphere</li><li>Snuff Out</li><li>Strix Serenade</li><li>Spell Snare</li></ul>
+      <p>Solo reacción. No avanza el combo, no tiene tutor ni motor. Este mazo gana por velocidad; una mano así pierde contra todos.</p>
+    </div>
+    <div class="hand mull">
+      <span class="verdict">Mulligan</span>
+      <ul><li>Lotus Petal</li><li>Mox Opal</li><li>Dack Fayden</li><li>Leveler</li><li>Intuition</li><li>Copy Enchantment</li><li>Dispel</li></ul>
+      <p>Sin tierras y Mox Opal sin metalcraft. Dos de tus cuatro criaturas en mano: Dack ya no encuentra a Leveler, y Leveler es un dead draw.</p>
+    </div>
+    <div class="hand ok">
+      <span class="verdict">Quédate con cuidado</span>
+      <ul><li>Ancient Tomb</li><li>Watery Grave</li><li>Mana Vault</li><li>Dark Ritual</li><li>Dack Fayden</li><li>Cavern of Souls</li><li>Mental Misstep</li></ul>
+      <p>Hard cast en turno 2: Tomb, Vault, Cavern nombrando Human, Ritual. Cuenta tu maná antes de comprometerte y usa Misstep contra el Mental Misstep o Swords rival.</p>
+    </div>
+  </div>
+  <div class="tip"><strong>Imprints y Gemstone:</strong> nunca imprintes Dack, Thassa ni un tutor en Chrome Mox. Imprinta remoción o un counter repetido. Lo mismo con Gemstone Caverns (solo sirve si no eres el primer jugador).</div>
+</section>
+
+<section id="temprano">
+  <h2><span class="n">09</span>Wins tempranos</h2>
+  <p>Recetas de victoria en turno 1–2. La pregunta antes de lanzarte: ¿quién tiene maná abierto y cartas en mano? En turno 1 casi nadie puede responder más que con counters gratis.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Receta</th><th>Cartas</th><th>Maná</th></tr></thead>
+    <tbody>
+      <tr><td>Entomb + Reanimate</td><td>Tierra negra + 1 fuente extra (Petal, Mox, ritual) + Entomb + Reanimate</td><td>{B}{B}</td></tr>
+      <tr><td>Entomb + Shallow Grave</td><td>Tierra + 2 fuentes + Entomb + Shallow Grave</td><td>{B} + {1}{B}</td></tr>
+      <tr><td>Ritual a hard cast</td><td>Ancient Tomb + Sol Ring + Mana Vault + 2 fuentes blancas + Dack</td><td>{4}{W}{W}</td></tr>
+      <tr><td>Ritual + LED a Dack</td><td>Tierra negra + Dark Ritual + LED + Dack</td><td>Tierra → Dark Ritual ({B}{B}{B}). Lanza Dack y, mientras pagas, sacrifica LED por {W}{W}{W}. Dack ya está en el stack, así que no lo descartas. 3 + 3 = 6.</td></tr>
+      <tr><td>Hashaton T1 → T2 win</td><td>Fuente W + fuente B (o Mox), Hashaton. T2: LED + Dack + {2}{U}</td><td>{W}{B}, luego {2}{U}</td></tr>
+      <tr><td>Thassa T2</td><td>Thassa + Consultation o Tainted Pact</td><td>{U}{U} + {B} o {1}{B}</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note"><p><strong>Regla del primer intento:</strong> si el intento temprano falla, no te quedas sin nada. Si te contrarrestan Dack, va al cementerio y Reanimate o Shallow Grave lo traen de vuelta. Si lo exilian (Swords después de que resolvió no importa, ya ganaste; pero un counter que exilia o un Extirpate rival sí), pasa a la línea G o H.</p></div>
+  <div class="tip"><strong>Turno 1 con counter gratis:</strong> la mejor apertura es win attempt + FoW/Pact/FoN en mano. Si no tienes protección y la mesa tiene azul con cartas, considera esperar un turno con Rhystic o Necro.</div>
+</section>
+
+<section id="interaccion">
+  <h2><span class="n">10</span>Interacción y protección</h2>
+  <h3>Gratis o casi gratis</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Carta</th><th>Condición de costo</th><th>Mejor uso</th></tr></thead>
+    <tbody>
+      <tr><td>Force of Will</td><td>Exilia una carta azul + 1 vida</td><td>Proteger tu win o parar uno rival.</td></tr>
+      <tr><td>Force of Negation</td><td>Gratis en turno ajeno</td><td>Contra no-criaturas en el turno de otro: su Consultation, su Underworld Breach.</td></tr>
+      <tr><td>Pact of Negation</td><td>Pagas {3}{U}{U} en tu próximo upkeep</td><td>Solo en el turno en que ganas, o si te salva de perder.</td></tr>
+      <tr><td>Fierce Guardianship</td><td>Gratis si controlas tu comandante</td><td>Tener Hashaton en mesa lo hace gratis. Otra razón para bajarlo temprano.</td></tr>
+      <tr><td>Deadly Rollick</td><td>Gratis si controlas tu comandante</td><td>Exilia Hushbringer, Tidebinder o su comandante combo.</td></tr>
+      <tr><td>Mindbreak Trap</td><td>Gratis si un rival lanzó 3+ hechizos este turno</td><td>Contra cadenas de rituales y storm. Exilia, así que gana a "no se puede contrarrestar".</td></tr>
+      <tr><td>Misdirection</td><td>Exilia una carta azul</td><td>Redirige un Swords, un counter o un tutor de objetivo único.</td></tr>
+      <tr><td>Commandeer</td><td>Exilia dos cartas azules</td><td>Roba su tutor o su Consultation. Robar su Demonic Tutor = tú buscas Dack.</td></tr>
+      <tr><td>Snapback</td><td>Exilia una carta azul</td><td>Rebota una criatura de hate (Hushbringer, Drannith) en respuesta.</td></tr>
+      <tr><td>Snuff Out</td><td>4 vidas si controlas un Swamp</td><td>Underground Sea, Scrubland, Watery Grave y Godless Shrine cuentan como Swamp. Mata criaturas no negras.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Baratas</h3>
+  <ul>
+    <li><span class="card">Mental Misstep</span>: Dark Ritual, Swords, Mystical/Vampiric/Enlightened rival. También para defender tu ritual.</li>
+    <li><span class="card">Flusterstorm</span>, <span class="card">Swan Song</span>, <span class="card">Dispel</span>: peleas de stack. Swan Song da un 2/2, irrelevante si ganas ya.</li>
+    <li><span class="card">Spell Snare</span>: valor 2: Tainted Pact, Thassa, Hashaton rival, Abolisher rival.</li>
+    <li><span class="card">An Offer You Can't Refuse</span>: contrarresta no-criatura, el rival recibe 2 Tesoros. Úsalo en el turno en que ganas o contra wins, no por valor.</li>
+    <li><span class="card">Strix Serenade</span>: artefacto, criatura o planeswalker. Contra su Thassa o su pieza de stax.</li>
+    <li><span class="card">Twincast</span>: copia tu tutor (dos tutores) o el hechizo clave rival.</li>
+  </ul>
+  <h3>Prevención en tu turno</h3>
+  <ul>
+    <li><span class="card">Silence</span> y <span class="card">Orim's Chant</span>: lánzalos en tu upkeep o antes del combo. Nadie lanza hechizos el resto del turno. Orim's Chant con kicker además impide ataques.</li>
+    <li><span class="card">Grand Abolisher</span>: bájalo antes de Dack, así no se regala y queda protegiendo. Recuerda que no frena habilidades de tierras ni channel.</li>
+    <li><span class="card">Cavern of Souls</span>: nombra Human para Dack y Abolisher; Wizard para Thassa (y también Hashaton).</li>
+  </ul>
+  <h3>Stax propio</h3>
+  <ul>
+    <li><span class="card">Cursed Totem</span>: no te afecta (Hashaton es trigger, tus criaturas no tienen activadas relevantes). Apaga Kinnan, Thrasios, Selvala, dorks.</li>
+    <li><span class="card">Damping Sphere</span>: también te frena las cadenas de hechizos y Ancient Tomb. Bájala en un turno en que no vas a ganar.</li>
+    <li><span class="card">Smothering Tithe</span>, <span class="card">Black Market Connections</span>: maná para el turno grande.</li>
+    <li><span class="card">Copy Enchantment</span>: copia tu Rhystic o Necro, o el stax o motor rival.</li>
+  </ul>
+</section>
+
+<section id="hate">
+  <h2><span class="n">11</span>Hate y respuestas</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Hate</th><th>Qué rompe</th><th>Respuesta</th></tr></thead>
+    <tbody>
+      <tr><td>Hushbringer, Torpor Orb, Hushwing Gryff</td><td>Triggers de entrada: Dack, Leveler, Thassa. Todo el mazo.</td><td>Swords, Snuff Out, Deadly Rollick, Snapback, Into the Flood Maw, Chain of Vapor, Otawara, Toxic Deluge. Plan Thassa con Consultation también muere: sácalo primero.</td></tr>
+      <tr><td>Grafdigger's Cage</td><td>Dack no puede poner criaturas de la biblioteca. Reanimate y Shallow Grave fallan.</td><td>Chain of Vapor, Into the Flood Maw (con gift), Otawara. Las copias de Hashaton son tokens y entran igual, pero el token de Dack sigue fallando.</td></tr>
+      <tr><td>Rest in Peace, Leyline of the Void</td><td>Entomb + reanimación</td><td>Hashaton sigue funcionando: el descarte dispara igual. Cambia a la línea A o D.</td></tr>
+      <tr><td>Stifle, Tishana's Tidebinder</td><td>El trigger de Dack o de Hashaton</td><td>Split second (sección 05), Grand Abolisher en tu turno, o counter guardado.</td></tr>
+      <tr><td>Drannith Magistrate</td><td>Hashaton desde la zona de mando</td><td>Remoción. Dack en el 99 no se ve afectado.</td></tr>
+      <tr><td>Rule of Law, Archon of Emeria</td><td>Las cadenas de rituales</td><td>La línea A (LED es habilidad) y Entomb + Reanimate en dos turnos.</td></tr>
+      <tr><td>Opposition Agent, Aven Mindcensor</td><td>Tus tutores</td><td>Dack no busca: revela. Funciona igual. Tus tutores sí sufren.</td></tr>
+      <tr><td>Bojuka Bog, Soul-Guide Lantern</td><td>Dack en el cementerio</td><td>Haz Entomb y reanimación en la misma ventana, no dejes a Dack en el cementerio una ronda.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note"><p><strong>Into the Flood Maw</strong> con gift (el rival recibe un pez) devuelve cualquier permanente no tierra, incluyendo artefactos como Torpor Orb o Cage. Sin gift solo criaturas de oponentes.</p></div>
+</section>
+
+<section id="reglas">
+  <h2><span class="n">12</span>Reglas finas y errores comunes</h2>
+  <ul>
+    <li><strong>Mesa de 3 (un jugador eliminado):</strong> X = 2. Si las tres criaturas están en la biblioteca, Dack para en la segunda y puede dejar fuera a Leveler o a Thassa. Solución: tener Abolisher fuera de la biblioteca (en mesa o en mano) para que solo queden Leveler y Thassa, o tener Consultation o Tainted Pact de respaldo en respuesta al trigger de Thassa.</li>
+    <li><strong>Mesa de 2:</strong> X = 1. Dack saca solo una criatura. Ya no es combo de una carta: usa Hashaton + Leveler + Thassa o el plan Thassa clásico.</li>
+    <li><strong>Revela toda la biblioteca:</strong> si hay menos criaturas que oponentes, Dack revela todo y pone las que encontró. Esa es la razón de cortar cualquier otra criatura del mazo.</li>
+    <li><strong>No agregues criaturas.</strong> Cualquier criatura extra en el 99 puede salir antes que Leveler o Thassa y romper el combo determinista.</li>
+    <li><strong>El token de Hashaton es 4/4 Zombie negro</strong>, pero conserva el costo de maná y los triggers. El token de Thassa sigue contando para devoción azul (la devoción cuenta símbolos del costo).</li>
+    <li><strong>Pagar {2}{U}:</strong> se paga al resolver el trigger de Hashaton. Sin el maná, no hay copia, y Dack queda en el cementerio (desde ahí sirve Reanimate).</li>
+    <li><strong>Matar a Hashaton en respuesta</strong> no detiene un trigger que ya está en el stack.</li>
+    <li><strong>Necropotence:</strong> ordena el trigger de Hashaton encima del exilio de Necro.</li>
+    <li><strong>Shallow Grave</strong> toma la criatura de más arriba de tu cementerio. Si descartas Leveler después de Entomb Dack, Shallow Grave te trae Leveler.</li>
+    <li><strong>Reanimate</strong> te hace perder vida igual al valor: 6 por Dack. Cuenta tu vida si usaste Ancient Tomb, Confluence, Necro o Snuff Out.</li>
+    <li><strong>Wishclaw Talisman</strong> pasa a un oponente después de usarlo. Solo si ganas ese turno.</li>
+    <li><strong>Pact of Negation</strong>: si no puedes pagar en tu upkeep, pierdes. Solo en el turno ganador.</li>
+    <li><strong>Morphic Pool y Sea of Clouds</strong> entran sin girar con dos o más oponentes. Starting Town entra sin girar en tus turnos 1–3.</li>
+    <li><strong>Mox Amber</strong> necesita una criatura o planeswalker legendario: Hashaton, Dack o Tezzeret.</li>
+  </ul>
+</section>
+
+<section id="lista">
+  <h2><span class="n">13</span>La lista por función</h2>
+  <p class="muted">Las 99 cartas del 99 agrupadas por su rol principal. Algunas hacen más de una cosa.</p>
+  <div class="decklist">
+    <div class="grp"><h4>Comandante</h4><ul><li>Hashaton, Scarab's Fist</li></ul></div>
+    <div class="grp"><h4>Criaturas (4)</h4><ul><li>Dack Fayden, Helping Hand</li><li>Grand Abolisher</li><li>Leveler</li><li>Thassa's Oracle</li></ul></div>
+    <div class="grp"><h4>Descarte y reanimación (6)</h4><ul><li>Lion's Eye Diamond</li><li>Careful Study</li><li>The Underworld Cookbook</li><li>Reanimate</li><li>Shallow Grave</li><li>Borne Upon a Wind</li></ul></div>
+    <div class="grp"><h4>Tutores (15)</h4><ul><li>Demonic Tutor</li><li>Vampiric Tutor</li><li>Imperial Seal</li><li>Grim Tutor</li><li>Mystical Tutor</li><li>Enlightened Tutor</li><li>Entomb</li><li>Intuition</li><li>Lim-Dûl's Vault</li><li>Scheming Symmetry</li><li>Wishclaw Talisman</li><li>Tainted Pact</li><li>Demonic Consultation</li><li>Unseat the Usurper</li><li>Tezzeret, Cruel Captain</li></ul></div>
+    <div class="grp"><h4>Fast mana (11)</h4><ul><li>Sol Ring</li><li>Mana Vault</li><li>Arcane Signet</li><li>Fellwar Stone</li><li>Chrome Mox</li><li>Mox Diamond</li><li>Mox Opal</li><li>Mox Amber</li><li>Lotus Petal</li><li>Dark Ritual</li><li>Cabal Ritual</li></ul></div>
+    <div class="grp"><h4>Motores (7)</h4><ul><li>Necropotence</li><li>Rhystic Study</li><li>Mystic Remora</li><li>Smothering Tithe</li><li>Black Market Connections</li><li>Brainstorm</li><li>Copy Enchantment</li></ul></div>
+    <div class="grp"><h4>Split second (3)</h4><ul><li>Angel's Grace</li><li>Slimed</li><li>Extirpate</li></ul></div>
+    <div class="grp"><h4>Counters y protección (17)</h4><ul><li>Force of Will</li><li>Force of Negation</li><li>Pact of Negation</li><li>Fierce Guardianship</li><li>Mindbreak Trap</li><li>Misdirection</li><li>Commandeer</li><li>Mental Misstep</li><li>Flusterstorm</li><li>Swan Song</li><li>Dispel</li><li>Spell Snare</li><li>Strix Serenade</li><li>An Offer You Can't Refuse</li><li>Twincast</li><li>Silence</li><li>Orim's Chant</li></ul></div>
+    <div class="grp"><h4>Remoción y rebote (7)</h4><ul><li>Swords to Plowshares</li><li>Snuff Out</li><li>Deadly Rollick</li><li>Snapback</li><li>Into the Flood Maw</li><li>Chain of Vapor</li><li>Toxic Deluge</li></ul></div>
+    <div class="grp"><h4>Stax (2)</h4><ul><li>Cursed Totem</li><li>Damping Sphere</li></ul></div>
+    <div class="grp"><h4>Tierras (27)</h4><ul><li>Ancient Tomb</li><li>Cavern of Souls</li><li>City of Brass</li><li>Command Tower</li><li>Gemstone Caverns</li><li>Mana Confluence</li><li>Starting Town</li><li>Urza's Saga</li><li>Tolaria West</li><li>Otawara, Soaring City</li><li>Underground Sea</li><li>Scrubland</li><li>Tundra</li><li>Watery Grave</li><li>Godless Shrine</li><li>Hallowed Fountain</li><li>Morphic Pool</li><li>Sea of Clouds</li><li>Vault of Champions</li><li>Arid Mesa</li><li>Bloodstained Mire</li><li>Flooded Strand</li><li>Marsh Flats</li><li>Misty Rainforest</li><li>Polluted Delta</li><li>Scalding Tarn</li><li>Verdant Catacombs</li></ul></div>
+  </div>
+</section>
+</main>
+</div>
+
+<footer>
+  <p>Fuentes: EDHREC, "Building Dack Fayden, Helping Hand for cEDH" (control de los triggers de Dack); MTG Rocks sobre Dack en cEDH y sobre Hashaton; MTG Wiki japonesa, página de 救いの手、ダク・フェイデン (arquetipo Hashaton + Dack + Leveler + Thassa); Scryfall y tiendas para el texto de Dack, Tezzeret, Starting Town, Slimed y Unseat the Usurper. Texto de cartas sujeto a la versión Oracle vigente.</p>
+</footer>
+
+</body>
+</html>
