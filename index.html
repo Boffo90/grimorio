@@ -1211,7 +1211,10 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
             <div class="fld"><label for="mana">Maná disponible</label><input id="mana" placeholder="ej: URG2"><div class="hint">W U B R G C por color, número para genérico. Sin contar LED.</div></div>
             <div class="fld"><label for="life">Tu vida</label><input id="life" type="number" inputmode="numeric" value="40"></div>
           </div>
-          <label class="chk"><input type="checkbox" id="sick"> Mi comandante entró este turno (mareo)</label>
+          <div class="row" style="align-items:end">
+            <div class="fld"><label for="tax">Veces lanzado (impuesto)</label><input id="tax" type="number" min="0" inputmode="numeric" value="0"><div class="hint">Si no lo pones en Campo, cuento a tu comandante en la zona de mando.</div></div>
+            <div class="fld"><label class="chk" style="margin-top:22px"><input type="checkbox" id="sick"> Mi comandante entró este turno (mareo)</label></div>
+          </div>
         </div>
 
         <div class="panel" id="p-rivales">
@@ -1338,7 +1341,7 @@ const costStr = c => { const s=(c.gen?String(c.gen):"")+COLORS.map(k=>k.repeat(c
 const DECKS = {};
 
 DECKS.hashaton = {
-  id:"hashaton", short:"Hashaton", commander:"Hashaton, Scarab's Fist",
+  id:"hashaton", short:"Hashaton", commander:"Hashaton, Scarab's Fist", cmdCost:{W:1,B:1},
   cards: {
     "Hashaton, Scarab's Fist":["c",2],"Dack Fayden, Helping Hand":["c",6],"Grand Abolisher":["c",2],"Leveler":["c",5],"Thassa's Oracle":["c",2],
     "Lion's Eye Diamond":["a",0],"The Underworld Cookbook":["a",1],"Wishclaw Talisman":["a",1],"Sol Ring":["a",1],"Mana Vault":["a",1],"Arcane Signet":["a",2],"Fellwar Stone":["a",2],
@@ -1390,7 +1393,7 @@ TUTORES: Demonic/Vampiric/Imperial/Grim/Wishclaw/Lim-Dûl/Scheming cualquiera; M
 PROTECCIÓN: FoW, FoN, Pact, Fierce Guardianship y Deadly Rollick gratis con comandante en campo, Mindbreak Trap, Misdirection, Commandeer, Snapback, Snuff Out, Silence, Orim's Chant.
 HATE: Hushbringer/Torpor Orb/Elesh Norn, Grafdigger's Cage, RIP/Leyline, Stifle/Tidebinder, Drannith, Rule of Law.`,
   evaluate(st, h){
-    const {inZ, inLib, line, P} = h;
+    const {inZ, inLib, line, P, cmdr} = h;
     const ledF = inZ("field","Lion's Eye Diamond"), ledH = inZ("hand","Lion's Eye Diamond");
     const hashF = inZ("field","Hashaton, Scarab's Fist");
     const dackH = inZ("hand","Dack Fayden, Helping Hand"), dackG = inZ("grave","Dack Fayden, Helping Hand");
@@ -1398,8 +1401,8 @@ HATE: Hushbringer/Torpor Orb/Elesh Norn, Grafdigger's Cage, RIP/Leyline, Stifle/
     const thassaGone = inZ("exile","Thassa's Oracle");
     const dackWorks = !thassaGone && (inLib("Thassa's Oracle")||inZ("hand","Thassa's Oracle")) && (inLib("Leveler")||exiler);
     const warn = dackWorks ? "" : " ⚠ Dack no gana con Leveler/Thassa donde están.";
-    line("A","Hashaton + LED + Dack",[P("Hashaton, Scarab's Fist",hashF,"en el campo",0),P("Lion's Eye Diamond",ledF||ledH,"en campo o mano"),P("Dack Fayden, Helping Hand",dackH,"en la mano")],{},
-      (st.hand.some(c=>this.splitSecond.includes(c))?"Tienes split second: lánzalo y activa LED encima.":"El 2U lo paga el propio LED.")+warn);
+    line("A","Hashaton + LED + Dack",[P("Hashaton, Scarab's Fist",cmdr.ok,"en campo o zona de mando",0),P("Lion's Eye Diamond",ledF||ledH,"en campo o mano"),P("Dack Fayden, Helping Hand",dackH,"en la mano")],cmdr.extra,
+      (st.hand.some(c=>this.splitSecond.includes(c))?"Tienes split second: lánzalo y activa LED encima.":"El 2U lo paga el propio LED.")+cmdr.note+warn);
     if (dackG) {
       line("B","Reanimate a Dack",[P("Reanimate",inZ("hand","Reanimate"),"en la mano")],{B:1},"Pierdes 6 vidas."+(st.life<=6?" ⚠ Tu vida no alcanza.":"")+warn);
       line("C","Shallow Grave a Dack",[P("Shallow Grave",inZ("hand","Shallow Grave"),"en la mano")],{gen:1,B:1},"Dack debe ser la criatura de arriba del cementerio."+warn);
@@ -1408,12 +1411,12 @@ HATE: Hushbringer/Torpor Orb/Elesh Norn, Grafdigger's Cage, RIP/Leyline, Stifle/
       line("C","Entomb + Shallow Grave",[P("Entomb",inZ("hand","Entomb"),"en la mano"),P("Shallow Grave",inZ("hand","Shallow Grave"),"en la mano"),P("Dack Fayden, Helping Hand",inLib("Dack Fayden, Helping Hand"),"en la biblioteca",0)],{gen:1,B:2},"Todo instantáneo."+warn);
     }
     const cookF = inZ("field","The Underworld Cookbook"), cookH = inZ("hand","The Underworld Cookbook"), study = inZ("hand","Careful Study");
-    line("D","Hashaton + Cookbook / Careful Study",[P("Hashaton, Scarab's Fist",hashF,"en el campo",0),P("Dack Fayden, Helping Hand",dackH,"en la mano"),P(cookF||cookH?"The Underworld Cookbook":(study?"Careful Study":"The Underworld Cookbook"),cookF||cookH||study,"como descarte")],
-      cookF?{gen:2,U:1}:(cookH?{gen:3,U:1}:{gen:2,U:2}),"Cookbook en campo: descarte instantáneo."+warn);
+    line("D","Hashaton + Cookbook / Careful Study",[P("Hashaton, Scarab's Fist",cmdr.ok,"en campo o zona de mando",0),P("Dack Fayden, Helping Hand",dackH,"en la mano"),P(cookF||cookH?"The Underworld Cookbook":(study?"Careful Study":"The Underworld Cookbook"),cookF||cookH||study,"como descarte")],
+      add(cmdr.extra, cookF?{gen:2,U:1}:(cookH?{gen:3,U:1}:{gen:2,U:2})),"Cookbook en campo: descarte instantáneo."+cmdr.note+warn);
     line("F","Hard cast de Dack",[P("Dack Fayden, Helping Hand",dackH,"en la mano")],{gen:4,W:2},(ledF||ledH?"LED aporta 3 de un color al lanzar Dack. ":"")+(inZ("field","Cavern of Souls")?"Cavern: nombra Human.":"")+warn);
     const ex = exiler || "Demonic Consultation";
     line("G","Thassa + "+(exiler||"Consultation / Pact"),[P("Thassa's Oracle",inZ("hand","Thassa's Oracle"),"en la mano"),P(ex,!!exiler,"en la mano")],ex==="Tainted Pact"?{U:2,gen:1,B:1}:{U:2,B:1},"Exilia en respuesta al trigger de Thassa.");
-    line("H","Hashaton descarta Leveler + Thassa",[P("Hashaton, Scarab's Fist",hashF,"en el campo",0),P("Leveler",inZ("hand","Leveler"),"en la mano"),P("Thassa's Oracle",inZ("hand","Thassa's Oracle"),"en la mano"),P("Lion's Eye Diamond",ledF||ledH||cookF||study,"u otro descarte")],ledF||ledH?{gen:2,U:2}:{gen:2,U:3},"Token de Leveler primero.");
+    line("H","Hashaton descarta Leveler + Thassa",[P("Hashaton, Scarab's Fist",cmdr.ok,"en campo o zona de mando",0),P("Leveler",inZ("hand","Leveler"),"en la mano"),P("Thassa's Oracle",inZ("hand","Thassa's Oracle"),"en la mano"),P("Lion's Eye Diamond",ledF||ledH||cookF||study,"u otro descarte")],add(cmdr.extra, ledF||ledH?{gen:2,U:2}:{gen:2,U:3}),"Token de Leveler primero."+cmdr.note);
     const flags = [];
     if (thassaGone) flags.push(["bad","Thassa's Oracle está exiliada: Dack ya no gana."]);
     else if (!inLib("Leveler") && !exiler) flags.push(["bad","Leveler no está en la biblioteca: el trigger de Dack necesita Consultation o Tainted Pact de respaldo."]);
@@ -1427,7 +1430,7 @@ HATE: Hushbringer/Torpor Orb/Elesh Norn, Grafdigger's Cage, RIP/Leyline, Stifle/
 };
 
 DECKS.crystal = {
-  id:"crystal", short:"Crystal", commander:"Crystal, Inhuman Princess",
+  id:"crystal", short:"Crystal", commander:"Crystal, Inhuman Princess", cmdCost:{gen:1,R:1,G:1},
   cards: {
     "Crystal, Inhuman Princess":["c",3],"Birds of Paradise":["c",1],"Noble Hierarch":["c",1],"Tinder Wall":["c",1],"Esper Sentinel":["c",1],"Faerie Mastermind":["c",2],"Ragavan, Nimble Pilferer":["c",1],
     "Kellan, the Fae-Blooded":["c",3],"The Cabbage Merchant":["c",3],"Tandem Lookout":["c",3],"Vivi Ornitier":["c",3],"Elvish Spirit Guide":["c",3],"Simian Spirit Guide":["c",3],
@@ -1480,19 +1483,22 @@ TUTORES: Enlightened (artefacto/encantamiento), Gamble (cualquiera, descarte al 
 NOTAS: Crystal no puede girarse el turno que entra. Escape exilia 3 otras cartas. Seat 1 es el mejor para combo temprano; seat 4 juega más reactivo y suele tener Gemstone Caverns.
 HATE: Cursed Totem, Null Rod/Collector Ouphe, Rule of Law/Archon/Eidolon/Deafening Silence/Canonist, RIP/Leyline, Drannith, Notion Thief/Narset, Orcish Bowmasters, Esper Sentinel/Remora/Rhystic rivales.`,
   evaluate(st, h){
-    const {inZ, inLib, line, P, deck} = h;
+    const {inZ, inLib, line, P, deck, cmdr} = h;
     const cr = "Crystal, Inhuman Princess";
     const crF = inZ("field",cr), sick = st.sick;
     const viviF = inZ("field","Vivi Ornitier");
     const dmgSrc = (crF?1:0) + (viviF?1:0);
     const bounce = ["Retraction Helix","Banishing Knack"].find(c=>inZ("hand",c));
     const camF = inZ("field","Sewer-veillance Cam"), camH = inZ("hand","Sewer-veillance Cam");
+    const uDork = ["Birds of Paradise","Noble Hierarch"].find(c=>inZ("field",c));
+    const crReady = crF && !sick;
+    const rebotador = crReady ? "Crystal" : (uDork || null);
     line("1","Cam + Helix/Knack (daño infinito)",[
-      P(cr,crF,"en el campo",0),
-      P("Crystal sin mareo",crF&&!sick,"(no puede entrar este turno)",0),
+      P(cr,cmdr.ok,"en campo o zona de mando",0),
+      P("Criatura que rebote",!!rebotador,crF?"(Crystal tiene mareo: sirve Birds o Noble sin mareo)":"(Crystal entraría con mareo: necesitas Birds o Noble en mesa, o esperar un turno)",0),
       P("Sewer-veillance Cam",camF||camH,"en campo o mano"),
       P(bounce||"Retraction Helix",!!bounce,"en la mano (o Banishing Knack)")
-    ], camF?{U:1}:{U:2}, `Cada vuelta: ${Math.max(dmgSrc,1)} de daño a cada rival.` + (viviF?" Vivi suma.":""));
+    ], add(cmdr.extra, camF?{U:1}:{U:2}), `Cada vuelta: ${Math.max(dmgSrc,1)} de daño a cada rival.` + (rebotador && rebotador!=="Crystal" ? ` Helix/Knack va sobre ${rebotador}: Cam lo endereza para rebotar y para el {U}; Crystal solo pega.` : "") + (viviF?" Vivi suma.":"") + cmdr.note);
     const brH=inZ("hand","Underworld Breach"), brF=inZ("field","Underworld Breach");
     const ledOk = ["hand","grave","field"].some(z=>inZ(z,"Lion's Eye Diamond"));
     const bfOk = ["hand","grave"].some(z=>inZ(z,"Brain Freeze"));
@@ -1501,7 +1507,7 @@ HATE: Cursed Totem, Null Rod/Collector Ouphe, Rule of Law/Archon/Eidolon/Deafeni
       P("Lion's Eye Diamond",ledOk,"en mano, cementerio o campo"),
       P("Brain Freeze",bfOk,"en mano o cementerio"),
       P("Cementerio con 6+ cartas",st.grave.length>=6||inZ("hand","Lion's Eye Diamond"),"(o LED en mano para descartar)",0)
-    ], brF?{}:{gen:1,R:1}, crF?"Con Crystal en mesa ganas por daño.":"Sin Crystal ganas por mill: apunta Brain Freeze a cada rival con storm alto.");
+    ], brF?{}:{gen:1,R:1}, crF?"Con Crystal en mesa ganas por daño.":(cmdr.zone?"Si bajas antes a Crystal ganas por daño; si no, por mill apuntando Brain Freeze a cada rival.":"Sin Crystal ganas por mill: apunta Brain Freeze a cada rival con storm alto."));
     const ascF=inZ("field","Jeskai Ascendancy"), ascH=inZ("hand","Jeskai Ascendancy");
     const petal = ["field","hand"].some(z=>inZ(z,"Lotus Petal")) || camF || camH;
     const dorkF = ["Birds of Paradise","Noble Hierarch"].some(c=>inZ("field",c)) || (crF&&!sick);
@@ -1512,7 +1518,6 @@ HATE: Cursed Totem, Null Rod/Collector Ouphe, Rule of Law/Archon/Eidolon/Deafeni
       P("Criatura sin mareo",dorkF,"para rebotar (Crystal, Birds, Noble)",0)
     ], add(ascF?{}:{U:1,R:1,W:1},{U:1}), "Da maná y looteo infinitos. Termina buscando Cam o Brain Freeze.");
     const engines = st.field.filter(c=>["Curiosity","Keen Sense","Ophidian Eye","Snake Umbra","Tandem Lookout"].includes(c)).length;
-    if (!crF) line("0","Bajar Crystal",[P(cr,!inZ("exile",cr),"en la zona de mando",0)],{gen:1,R:1,G:1},"Suma 2 por cada vez que volvió a la zona de mando.");
     const flags = [];
     if (crF && engines) flags.push(["okf",`Motor activo: cada hechizo no criatura roba ${engines * st.nopp} (${engines} efecto${engines>1?"s":""} × ${st.nopp} rivales) y pega ${dmgSrc} a cada uno.`]);
     else if (crF) flags.push(["info","Crystal sin Curiosity: busca una con Enlightened o Birthright Boon (Kellan)."]);
@@ -1530,7 +1535,7 @@ HATE: Cursed Totem, Null Rod/Collector Ouphe, Rule of Law/Archon/Eidolon/Deafeni
 const KEY = "grimorio-partida-v2";
 const blankZones = () => ({hand:[],field:[],grave:[],exile:[]});
 const blankOpp = () => ({name:"",text:"",list:"",life:40,alive:true});
-const blank = () => ({deck:"crystal",seat:1,round:1,active:1,sick:false,mana:"",life:40,zones:{hashaton:blankZones(),crystal:blankZones()},opps:[blankOpp(),blankOpp(),blankOpp()],log:[]});
+const blank = () => ({deck:"crystal",seat:1,round:1,active:1,sick:false,tax:{hashaton:0,crystal:0},mana:"",life:40,zones:{hashaton:blankZones(),crystal:blankZones()},opps:[blankOpp(),blankOpp(),blankOpp()],log:[]});
 let S = blank();
 try {
   const saved = JSON.parse(localStorage.getItem(KEY)||"null");
@@ -1686,12 +1691,13 @@ $("#btn-next").addEventListener("click", () => {
   S.log.push({r:S.round, s, t:`Empieza el turno de Seat ${s} (${seatName(s)})`, sys:true});
   syncGamebar(); renderSeatline(); fillWho(); renderLog(); update();
 });
-function syncGamebar(){ $("#deck").value=S.deck; $("#seat").value=String(S.seat); $("#round").value=S.round; $("#active").value=String(S.active); $("#sick").checked=!!S.sick; }
-$("#deck").addEventListener("change", e => { S.deck = e.target.value; fillDatalist(); ZONES.forEach(renderZone); $("#mesa-eyebrow").textContent = D().short+" · asistente de partida"; convo=[]; update(); });
+function syncGamebar(){ $("#tax").value = ((S.tax||{})[S.deck])||0; $("#deck").value=S.deck; $("#seat").value=String(S.seat); $("#round").value=S.round; $("#active").value=String(S.active); $("#sick").checked=!!S.sick; }
+$("#deck").addEventListener("change", e => { S.deck = e.target.value; $("#tax").value = ((S.tax||{})[S.deck])||0; fillDatalist(); ZONES.forEach(renderZone); $("#mesa-eyebrow").textContent = D().short+" · asistente de partida"; convo=[]; update(); });
 $("#seat").addEventListener("change", e => { S.seat = +e.target.value; renderOpps(); renderSeatline(); fillWho(); update(); });
 $("#round").addEventListener("input", e => { S.round = Math.max(1, parseInt(e.target.value,10)||1); renderSeatline(); update(); });
 $("#active").addEventListener("change", e => { S.active = +e.target.value; renderSeatline(); fillWho(); update(); });
 $("#sick").addEventListener("change", e => { S.sick = e.target.checked; update(); });
+$("#tax").addEventListener("input", e => { S.tax = S.tax||{}; S.tax[S.deck] = Math.max(0, parseInt(e.target.value,10)||0); update(); });
 ["mana","life"].forEach(id => $("#"+id).addEventListener("input", () => { S.mana = $("#mana").value; S.life = parseInt($("#life").value,10)||0; update(); }));
 
 /* ===================== Motor ===================== */
@@ -1728,7 +1734,19 @@ function evaluate(){
     if (note) detail.push(esc(note));
     lines.push({id,name,n,short,detail:detail.join(" · "),missing:missing.map(mm=>({card:mm.card,tutors:mm.tutorable?tutorsFor(mm.card):[]}))});
   }
-  const flags = d.evaluate(st, {inZ, inLib, line, P, deck:d}) || [];
+  const cmdName = d.commander;
+  const tax = ((S.tax||{})[S.deck]||0);
+  const cmdF = inZ("field",cmdName);
+  const cmdZone = !cmdF && !ZONES.some(zn=>inZ(zn,cmdName));
+  const cmdr = {
+    name: cmdName, field: cmdF, zone: cmdZone, ok: cmdF || cmdZone,
+    extra: cmdF ? {} : add(d.cmdCost, {gen: 2*tax}),
+    note: cmdF ? "" : (cmdZone ? ` Incluye lanzar a ${cmdName.split(",")[0]} desde la zona de mando (${costStr(add(d.cmdCost,{gen:2*tax}))}).` : "")
+  };
+  st.cmdr = cmdr;
+  const flags = d.evaluate(st, {inZ, inLib, line, P, deck:d, cmdr}) || [];
+  if (cmdZone) flags.unshift(["info", `${cmdName.split(",")[0]} está en la zona de mando: lo cuento como disponible por ${costStr(cmdr.extra)}${tax?` (con impuesto de ${2*tax})`:""}.`]);
+  else if (!cmdF) flags.unshift(["bad", `${cmdName.split(",")[0]} no está en campo ni en la zona de mando: ponlo en la zona donde esté.`]);
   // Protección y split second
   const ss = st.hand.filter(c=>d.splitSecond.includes(c));
   if (ss.length) flags.push(["info", `Split second en mano: ${ss.join(", ")}.`]);
