@@ -506,7 +506,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <li>Sacrifica LED, descarta tu mano (con Dack), toma {U}{U}{U}.</li>
       <li>Trigger de Hashaton: pagas {2}{U} con esa misma maná. Token de Dack → Leveler + Thassa → ganas.</li>
     </ol>
-    <p>Es la línea estrella. LED es una habilidad de maná, así que la puedes activar en cualquier momento, incluso con un hechizo de split second en el stack (sección 05). Te sobra {U} si quieres.</p>
+    <p>Es la línea estrella. LED se activa cuando podrías lanzar un instantáneo, así que sirve en tu turno, en el turno rival y con un hechizo de split second en el stack (sección 05). Te sobra {U} si quieres.</p>
   </div>
 
   <div class="line">
@@ -549,7 +549,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   <div class="line">
     <div class="head"><span class="id">F</span><span class="name">Hard cast de Dack</span><div class="tags"><span class="tag">6 maná</span></div></div>
     <ol>
-      <li>Junta {4}{W}{W}: Sol Ring, Mana Vault, Ancient Tomb, Dark Ritual + Cabal Ritual, LED, moxes, Lotus Petal.</li>
+      <li>Junta {4}{W}{W}: Sol Ring, Mana Vault, Ancient Tomb, Dark Ritual + Cabal Ritual, moxes, Lotus Petal. Necesitas dos fuentes de blanco.</li>
+      <li><strong>LED no sirve aquí:</strong> solo se activa a velocidad de instantáneo, no mientras pagas un hechizo, y si lo activas antes descartas a Dack. Con Hashaton en mesa, ese descarte es la línea A, que es más barata.</li>
       <li>Ideal: Cavern of Souls nombrando <strong>Human</strong> (Dack es Human Advisor) para que no lo contrarresten, o Grand Abolisher antes.</li>
     </ol>
   </div>
@@ -730,8 +731,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     </div>
     <div class="hand ok">
       <span class="verdict">Quédate con cuidado</span>
-      <ul><li>Ancient Tomb</li><li>Watery Grave</li><li>Mana Vault</li><li>Dark Ritual</li><li>Dack Fayden</li><li>Cavern of Souls</li><li>Mental Misstep</li></ul>
-      <p>Hard cast en turno 2: Tomb, Vault, Cavern nombrando Human, Ritual. Cuenta tu maná antes de comprometerte y usa Misstep contra el Mental Misstep o Swords rival.</p>
+      <ul><li>Hallowed Fountain</li><li>Cavern of Souls</li><li>Sol Ring</li><li>Mana Vault</li><li>Dack Fayden</li><li>Mental Misstep</li><li>Force of Will</li></ul>
+      <p>T1: Hallowed Fountain y Sol Ring. T2: Cavern nombrando Human y Mana Vault: {W} + {W} + 2 + 3 = 7, y Dack no se puede contrarrestar. Cuenta tus fuentes de blanco antes de quedarte: necesitas dos.</p>
     </div>
   </div>
   <div class="tip"><strong>Imprints y Gemstone:</strong> Chrome Mox solo acepta cartas que no sean tierra ni artefacto, y nunca imprintes Dack, Thassa ni un tutor. Imprinta remoción o un counter repetido. Lo mismo con Gemstone Caverns (solo sirve si no eres el primer jugador).</div>
@@ -745,8 +746,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <tbody>
       <tr><td>Entomb + Reanimate</td><td>Tierra negra + 1 fuente extra (Petal, Mox, ritual) + Entomb + Reanimate</td><td>{B}{B}</td></tr>
       <tr><td>Entomb + Shallow Grave</td><td>Tierra + 2 fuentes + Entomb + Shallow Grave</td><td>{B} + {1}{B}</td></tr>
-      <tr><td>Ritual a hard cast</td><td>Ancient Tomb + Sol Ring + Mana Vault + 2 fuentes blancas + Dack</td><td>{4}{W}{W}</td></tr>
-      <tr><td>Ritual + LED a Dack</td><td>Tierra negra + Dark Ritual + LED + Dack</td><td>Tierra → Dark Ritual ({B}{B}{B}). Lanza Dack y, mientras pagas, sacrifica LED por {W}{W}{W}. Dack ya está en el stack, así que no lo descartas. 3 + 3 = 6.</td></tr>
+      <tr><td>Hard cast turno 2</td><td>Dos fuentes de blanco (por ejemplo Hallowed Fountain y Cavern nombrando Human) + Sol Ring + Mana Vault + Dack</td><td>{4}{W}{W}</td></tr>
       <tr><td>Hashaton T1 → T2 win</td><td>Fuente W + fuente B (o Mox), Hashaton. T2: LED + Dack + {2}{U}</td><td>{W}{B}, luego {2}{U}</td></tr>
       <tr><td>Thassa T2</td><td>Thassa + Consultation o Tainted Pact</td><td>{U}{U} + {B} o {1}{B}</td></tr>
     </tbody>
@@ -827,6 +827,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <li><strong>Matar a Hashaton en respuesta</strong> no detiene un trigger que ya está en el stack.</li>
     <li><strong>Necropotence:</strong> ordena el trigger de Hashaton encima del exilio de Necro.</li>
     <li><strong>Shallow Grave</strong> toma la criatura de más arriba de tu cementerio. Si descartas Leveler después de Entomb Dack, Shallow Grave te trae Leveler.</li>
+    <li><strong>Lion's Eye Diamond</strong> solo se activa cuando podrías lanzar un instantáneo: no sirve para pagar un hechizo mientras lo lanzas, y descarta toda tu mano. Sí se puede activar con un split second en el stack.</li>
     <li><strong>Reanimate</strong> te hace perder vida igual al valor: 6 por Dack. Cuenta tu vida si usaste Ancient Tomb, Confluence, Necro o Snuff Out.</li>
     <li><strong>Wishclaw Talisman</strong> pasa a un oponente después de usarlo. Solo si ganas ese turno.</li>
     <li><strong>Pact of Negation</strong>: si no puedes pagar en tu upkeep, pierdes. Solo en el turno ganador.</li>
@@ -1058,7 +1059,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   <div class="tbl"><table>
     <thead><tr><th>Objetivo</th><th>Cómo</th></tr></thead>
     <tbody>
-      <tr><td>Crystal turno 1</td><td>Tierra roja o verde + dos de: Elvish Spirit Guide, Simian Spirit Guide, Lotus Petal, Chrome Mox, Mox Diamond, Rite of Flame, LED.</td></tr>
+      <tr><td>Crystal turno 1</td><td>Tierra roja o verde + dos de: Elvish Spirit Guide, Simian Spirit Guide, Lotus Petal, Chrome Mox, Mox Diamond, Rite of Flame. LED no: descarta tu mano.</td></tr>
       <tr><td>Crystal turno 1 con dork</td><td>Sol Ring + tierra = 3 maná, pero Sol Ring da incoloro: necesitas R y G aparte.</td></tr>
       <tr><td>Combo turno 2</td><td>Crystal T1, y en T2 Cam + Helix: {U}{U} con Crystal sin mareo. Es la ventana más rápida del mazo.</td></tr>
       <tr><td>Breach turno 2</td><td>Necesitas cementerio: Gitaxian Probe, fetches, Mental Misstep. LED también llena el cementerio al descartar.</td></tr>
@@ -1386,7 +1387,7 @@ DECKS.hashaton = {
     mana:"UB2"
   },
   summary: `MAZO: Hashaton, Scarab's Fist (WB, comandante). Cada vez que descartas una carta de criatura puedes pagar {2}{U}: token copia con sus triggers. Win real: Dack Fayden, Helping Hand ({4}{W}{W}) en el 99: al entrar revela hasta X criaturas (X = oponentes), las pone en juego y regala una a cada rival; tú controlas sus triggers de entrada. Solo hay 3 criaturas más: Grand Abolisher, Leveler, Thassa's Oracle. Leveler arriba (exilia biblioteca), Thassa abajo → ganas.
-LÍNEAS: A) Hashaton + LED en campo + Dack en mano: LED (habilidad de maná) por UUU descartando → paga 2U → gana, instantáneo. B) Entomb + Reanimate. C) Entomb + Shallow Grave (instantáneo). D) Hashaton + Careful Study o The Underworld Cookbook + 2U. E) Cleanup con más de 7 cartas/Necropotence. F) Hard cast 6 (Cavern nombrando Human; LED pagado al lanzar Dack no lo descarta). G) Thassa + Demonic Consultation/Tainted Pact en respuesta al trigger. H) Hashaton descarta Leveler y luego Thassa.
+LÍNEAS: A) Hashaton + LED en campo + Dack en mano: LED (habilidad de maná) por UUU descartando → paga 2U → gana, instantáneo. B) Entomb + Reanimate. C) Entomb + Shallow Grave (instantáneo). D) Hashaton + Careful Study o The Underworld Cookbook + 2U. E) Cleanup con más de 7 cartas/Necropotence. F) Hard cast 6 con dos fuentes de blanco (Cavern nombrando Human). LED NO sirve para pagar a Dack: solo se activa a velocidad de instantáneo, nunca mientras lanzas un hechizo, y descarta la mano. G) Thassa + Demonic Consultation/Tainted Pact en respuesta al trigger. H) Hashaton descarta Leveler y luego Thassa.
 SPLIT SECOND: Angel's Grace, Trickbind, Extirpate: lánzalo, mantén prioridad, LED descartando Dack: el combo resuelve encima sin respuesta. Solo LED sirve.
 CASOS: Abolisher en campo antes de Dack lo protege. Thassa en mano → lanzarla tras Leveler. Leveler fuera → Pact/Consultation de respaldo. Thassa exiliada → no hay win con Dack. 2 oponentes: Dack puede saltarse una pieza. 1 oponente: no es combo.
 TUTORES: Demonic/Vampiric/Imperial/Grim/Wishclaw/Lim-Dûl/Scheming cualquiera; Mystical instantáneo/conjuro; Enlightened artefacto/encantamiento; Tezzeret -3 y Urza's Saga artefacto ≤1; Tolaria West valor 0. Intuition: Dack + Reanimate + Shallow Grave.
@@ -1413,10 +1414,10 @@ HATE: Hushbringer/Torpor Orb/Elesh Norn, Grafdigger's Cage, RIP/Leyline, Stifle/
     const cookF = inZ("field","The Underworld Cookbook"), cookH = inZ("hand","The Underworld Cookbook"), study = inZ("hand","Careful Study");
     line("D","Hashaton + Cookbook / Careful Study",[P("Hashaton, Scarab's Fist",cmdr.ok,"en campo o zona de mando",0),P("Dack Fayden, Helping Hand",dackH,"en la mano"),P(cookF||cookH?"The Underworld Cookbook":(study?"Careful Study":"The Underworld Cookbook"),cookF||cookH||study,"como descarte")],
       add(cmdr.extra, cookF?{gen:2,U:1}:(cookH?{gen:3,U:1}:{gen:2,U:2})),"Cookbook en campo: descarte instantáneo."+cmdr.note+warn);
-    line("F","Hard cast de Dack",[P("Dack Fayden, Helping Hand",dackH,"en la mano")],{gen:4,W:2},(ledF||ledH?"LED aporta 3 de un color al lanzar Dack. ":"")+(inZ("field","Cavern of Souls")?"Cavern: nombra Human.":"")+warn);
+    line("F","Hard cast de Dack",[P("Dack Fayden, Helping Hand",dackH,"en la mano")],{gen:4,W:2},(ledF||ledH?"LED no paga a Dack: no se activa mientras lanzas y descartaría la mano. ":"")+(inZ("field","Cavern of Souls")?"Cavern: nombra Human.":"")+warn);
     const ex = exiler || "Demonic Consultation";
     line("G","Thassa + "+(exiler||"Consultation / Pact"),[P("Thassa's Oracle",inZ("hand","Thassa's Oracle"),"en la mano"),P(ex,!!exiler,"en la mano")],ex==="Tainted Pact"?{U:2,gen:1,B:1}:{U:2,B:1},"Exilia en respuesta al trigger de Thassa.");
-    line("H","Hashaton descarta Leveler + Thassa",[P("Hashaton, Scarab's Fist",cmdr.ok,"en campo o zona de mando",0),P("Leveler",inZ("hand","Leveler"),"en la mano"),P("Thassa's Oracle",inZ("hand","Thassa's Oracle"),"en la mano"),P("Lion's Eye Diamond",ledF||ledH||cookF||study,"u otro descarte")],add(cmdr.extra, ledF||ledH?{gen:2,U:2}:{gen:2,U:3}),"Token de Leveler primero."+cmdr.note);
+    line("H","Hashaton descarta Leveler + Thassa",[P("Hashaton, Scarab's Fist",cmdr.ok,"en campo o zona de mando",0),P("Leveler",inZ("hand","Leveler"),"en la mano"),P("Thassa's Oracle",inZ("hand","Thassa's Oracle"),"en la mano"),P("Lion's Eye Diamond",ledF||ledH||cookF||study,"u otro descarte")],add(cmdr.extra, ledF||ledH?{gen:3}:{gen:2,U:3}),"Token de Leveler primero."+cmdr.note);
     const flags = [];
     if (thassaGone) flags.push(["bad","Thassa's Oracle está exiliada: Dack ya no gana."]);
     else if (!inLib("Leveler") && !exiler) flags.push(["bad","Leveler no está en la biblioteca: el trigger de Dack necesita Consultation o Tainted Pact de respaldo."]);
@@ -1880,7 +1881,7 @@ function md(s){
 async function ask(question){
   if (!aiReady()) return;
   const d = D();
-  const rules = `Eres un coach experto de cEDH ayudando a Seba en una partida online en vivo. Responde en español de Chile, directo y concreto, máximo ~200 palabras salvo que la jugada exija más. Nombres de cartas en inglés. Reglas a respetar: usa siempre el nombre Oracle de las cartas. Chrome Mox solo puede imprintar una carta que no sea tierra ni artefacto (y da maná de sus colores); Mox Diamond pide descartar una carta de tierra; Mox Opal necesita metalcraft; Gemstone Caverns solo empieza en mesa si no eres el primer jugador; Lotus Petal y LED son de un solo uso. No propongas jugadas ilegales. No inventes cartas que no estén en su mano o campo; asume que lo no listado de su mazo está en la biblioteca. Ten en cuenta el orden de asientos: quién juega después de él (más maná abierto al responder), quién antes, y qué anotó en la bitácora. Si hay listas de rivales, úsalas para estimar sus respuestas y win cons.
+  const rules = `Eres un coach experto de cEDH ayudando a Seba en una partida online en vivo. Responde en español de Chile, directo y concreto, máximo ~200 palabras salvo que la jugada exija más. Nombres de cartas en inglés. Reglas a respetar: usa siempre el nombre Oracle de las cartas. Chrome Mox solo puede imprintar una carta que no sea tierra ni artefacto (y da maná de sus colores); Mox Diamond pide descartar una carta de tierra; Mox Opal necesita metalcraft; Gemstone Caverns solo empieza en mesa si no eres el primer jugador; Lotus Petal y LED son de un solo uso; LED solo se activa a velocidad de instantáneo (nunca para pagar un hechizo mientras se lanza) y descarta toda la mano. No propongas jugadas ilegales. No inventes cartas que no estén en su mano o campo; asume que lo no listado de su mazo está en la biblioteca. Ten en cuenta el orden de asientos: quién juega después de él (más maná abierto al responder), quién antes, y qué anotó en la bitácora. Si hay listas de rivales, úsalas para estimar sus respuestas y win cons.
 Formato: **Jugada:** pasos numerados. **Riesgos:** qué puede hacer cada rival (por seat) y cómo cubrirlo. **Si no ganas ahora:** qué tutorear, qué guardar y a quién frenar. Si no hay victoria segura, dilo y propone la mejor jugada.
 
 ${d.summary}
@@ -2280,7 +2281,7 @@ $("#mm-ai").addEventListener("click", async () => {
   if (hand.length < 5) { out.innerHTML = "<p class='small'>Carga tu mano primero.</p>"; return; }
   const seats = oppSeats();
   const opp = S.opps.map((o,i)=>`Seat ${seats[i]}: ${o.name||"(sin nombre)"}${o.text?" — "+o.text:""}${o.list?"\n  Lista: "+o.list.replace(/\n+/g," | ").slice(0,2500):""}`).join("\n");
-  const prompt = `Eres un coach de cEDH. Seba está decidiendo mulligan en una mesa de 4 por SpellTable. Responde en español de Chile, máximo 170 palabras: **Veredicto** (keep o mulligan), **Por qué** contra estos rivales concretos, **Plan** de los turnos 1–3 y qué tutorear primero. Si hay mulligans pagados, di qué mandar al fondo. Nombres de cartas en inglés. Reglas a respetar: usa siempre el nombre Oracle de las cartas. Chrome Mox solo puede imprintar una carta que no sea tierra ni artefacto (y da maná de sus colores); Mox Diamond pide descartar una carta de tierra; Mox Opal necesita metalcraft; Gemstone Caverns solo empieza en mesa si no eres el primer jugador; Lotus Petal y LED son de un solo uso. No propongas jugadas ilegales.
+  const prompt = `Eres un coach de cEDH. Seba está decidiendo mulligan en una mesa de 4 por SpellTable. Responde en español de Chile, máximo 170 palabras: **Veredicto** (keep o mulligan), **Por qué** contra estos rivales concretos, **Plan** de los turnos 1–3 y qué tutorear primero. Si hay mulligans pagados, di qué mandar al fondo. Nombres de cartas en inglés. Reglas a respetar: usa siempre el nombre Oracle de las cartas. Chrome Mox solo puede imprintar una carta que no sea tierra ni artefacto (y da maná de sus colores); Mox Diamond pide descartar una carta de tierra; Mox Opal necesita metalcraft; Gemstone Caverns solo empieza en mesa si no eres el primer jugador; Lotus Petal y LED son de un solo uso; LED solo se activa a velocidad de instantáneo (nunca para pagar un hechizo mientras se lanza) y descarta toda la mano. No propongas jugadas ilegales.
 
 ${d.summary}
 
@@ -2531,7 +2532,7 @@ $("#m-ai").addEventListener("click", async () => {
   if (!aiReady() || !H) return;
   const d = DECKS[M.deck], cards = finalHand(), last = H.choices[H.choices.length-1];
   const out = $("#m-ai-out"); out.innerHTML = "<p class='small'>Pensando…</p>"; $("#m-ai").disabled = true;
-  const prompt = `Eres un coach de cEDH. Evalúa esta mano inicial para un mazo de Commander en mesa de 4. Responde en español de Chile, máximo 150 palabras: veredicto (keep o mulligan), plan de los primeros 2–3 turnos y qué buscar con los tutores. Nombres de cartas en inglés. Reglas a respetar: usa siempre el nombre Oracle de las cartas. Chrome Mox solo puede imprintar una carta que no sea tierra ni artefacto (y da maná de sus colores); Mox Diamond pide descartar una carta de tierra; Mox Opal necesita metalcraft; Gemstone Caverns solo empieza en mesa si no eres el primer jugador; Lotus Petal y LED son de un solo uso. No propongas jugadas ilegales.
+  const prompt = `Eres un coach de cEDH. Evalúa esta mano inicial para un mazo de Commander en mesa de 4. Responde en español de Chile, máximo 150 palabras: veredicto (keep o mulligan), plan de los primeros 2–3 turnos y qué buscar con los tutores. Nombres de cartas en inglés. Reglas a respetar: usa siempre el nombre Oracle de las cartas. Chrome Mox solo puede imprintar una carta que no sea tierra ni artefacto (y da maná de sus colores); Mox Diamond pide descartar una carta de tierra; Mox Opal necesita metalcraft; Gemstone Caverns solo empieza en mesa si no eres el primer jugador; Lotus Petal y LED son de un solo uso; LED solo se activa a velocidad de instantáneo (nunca para pagar un hechizo mientras se lanza) y descarta toda la mano. No propongas jugadas ilegales.
 
 ${d.summary}
 
