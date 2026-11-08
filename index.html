@@ -423,7 +423,14 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <li><strong>Hard cast:</strong> 6 manás con fast mana y rituales, ideal con Cavern of Souls nombrando Human.</li>
   </ul>
   <p>Y si Dack no está disponible, sigue siendo un mazo con <span class="card">Thassa's Oracle</span> + <span class="card">Demonic Consultation</span> / <span class="card">Tainted Pact</span>.</p>
-  <p class="muted">Sobre el origen: la MTG Wiki japonesa describe exactamente este arquetipo (Hashaton al mando, Dack sacado temprano con el descarte y los tutores negros, Leveler + Thassa con Grand Abolisher de protección). No pude encontrar la página del resultado 8-0 en God of Commander, así que este primer se arma desde la lista y las reglas de las cartas, no desde un reporte del piloto.</p>
+  <h3>Por qué Hashaton y no Dack al mando</h3>
+  <ul>
+    <li><strong>El token no se puede contrarrestar.</strong> Sale de un trigger, no se lanza: Force of Will y compañía no tienen a qué apuntar. Solo un efecto tipo Stifle lo frena.</li>
+    <li><strong>Es a velocidad de instantáneo.</strong> Con LED o The Underworld Cookbook armas a Dack en el upkeep o el end step de un rival.</li>
+    <li><strong>Suma azul.</strong> Thassa's Oracle, Demonic Consultation, Tainted Pact, los counters gratis y Rhystic Study.</li>
+    <li><strong>Se ve menos.</strong> Con Dack al mando todos hacen mulligan buscando interacción. Hashaton parece un mazo de reanimación o de valor.</li>
+  </ul>
+  <p class="muted">Lista original de Taiga Watanabe, que ganó el 16th God of Commander en Hareruya (Tokio). Este primer se complementó con el primer en inglés "Hashaton Dack: The Dack Fayden Deck in Disguise".</p>
 </section>
 
 <section id="piezas">
@@ -482,15 +489,27 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     </div>
   </div>
   <div class="warn"><strong>Si te stiflean el trigger de Thassa</strong> después de que Leveler resuelva, quedas con biblioteca vacía y pierdes en tu próximo robo. Por eso, con Stifle o Tidebinder visibles, juega primero Abolisher, usa la ventana de split second o guarda un counter para el stifle.</div>
+  <h3>A quién darle Grand Abolisher</h3>
+  <p>Es la decisión más importante del combo. Tú eliges qué criatura recibe cada oponente. Abolisher solo funciona <strong>en el turno de quien lo controla</strong>, y en ese turno ninguno de sus oponentes puede lanzar hechizos ni activar habilidades de artefactos, criaturas o encantamientos.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Cuándo combas</th><th>A quién se lo das</th><th>Resultado</th></tr></thead>
+    <tbody>
+      <tr><td>Turno de un rival</td><td>Al jugador activo</td><td>Los otros dos rivales no pueden responder a los triggers de Leveler y Thassa. Solo el jugador activo puede interactuar. Es la mejor ventana del mazo.</td></tr>
+      <tr><td>Turno de un rival, y después necesitas lanzar algo</td><td>A cualquiera menos el activo</td><td>Tú también eres oponente del activo: con Abolisher en su mano no podrías lanzar Thassa ni un Pact/Consultation de respaldo.</td></tr>
+      <tr><td>Tu turno</td><td>Da igual</td><td>No protege nada, porque nadie más está en su turno. El combo queda expuesto: por eso conviene hacerlo en el turno rival con LED o Cookbook.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="tip"><strong>Upkeep rival:</strong> con Hashaton y LED en mesa y Dack en mano, activa LED en el upkeep del jugador que más te asusta y dale Abolisher a él. Ya gastó poco o nada de su maná y los otros dos quedan bloqueados. Abolisher no frena habilidades de tierras ni channel (Otawara, Boseiju).</div>
   <h3>Casos especiales</h3>
   <div class="tbl"><table>
     <thead><tr><th>Situación</th><th>Qué pasa</th><th>Cómo cerrar</th></tr></thead>
     <tbody>
-      <tr><td>Abolisher ya en tu mesa</td><td>En la biblioteca quedan 2 criaturas. Dack revela toda la biblioteca, encuentra Leveler y Thassa.</td><td>Gana igual, y Abolisher se queda contigo protegiendo el turno.</td></tr>
-      <tr><td>Thassa en tu mano</td><td>Dack saca Abolisher + Leveler. Leveler vacía la biblioteca.</td><td>Lanza Thassa por {U}{U} con la biblioteca ya vacía.</td></tr>
+      <tr><td>Abolisher ya en tu mesa</td><td>En la biblioteca quedan 2 criaturas. Dack revela toda la biblioteca, encuentra Leveler y Thassa.</td><td>Gana igual. Abolisher se queda contigo, así que protege si el combo es en tu turno.</td></tr>
+      <tr><td>Thassa en tu mano</td><td>Dack saca Abolisher + Leveler. Leveler vacía la biblioteca.</td><td>Lanza Thassa por {U}{U}: con biblioteca 0 gana aunque su devoción sea baja. <strong>No le des Abolisher al jugador activo</strong> o no podrás lanzarla. Thassa lanzada sí se puede contrarrestar. Mejor aún: con LED descarta Dack y Thassa juntas y paga los dos triggers (6 en total, LED da 3). Resuelve primero el de Dack y después el token de Thassa gana sin que nadie lo pueda contrarrestar.</td></tr>
       <tr><td>Leveler en mano o cementerio</td><td>Dack saca Abolisher + Thassa. Thassa trigger con biblioteca llena.</td><td>En respuesta: Tainted Pact o Demonic Consultation. Sin eso, no lances Dack todavía.</td></tr>
-      <tr><td>Thassa exiliada o perdida</td><td>No hay ganador. Leveler solo te mata.</td><td>No lances Dack. Cambia de plan (ver líneas H).</td></tr>
-      <tr><td>Quedan 2 oponentes</td><td>X = 2. Dack para en la segunda criatura y puede saltarse Leveler o Thassa.</td><td>Ten Abolisher en mesa o en mano primero, o un Pact/Consultation de respaldo. Ver <a href="#reglas">Reglas finas</a>.</td></tr>
+      <tr><td>Thassa en el cementerio</td><td>Dack saca Abolisher + Leveler y Leveler te deja sin biblioteca, sin nadie que gane.</td><td>No lances Dack. Recupérala primero: The Underworld Cookbook ({4}, {T}, sacrificar) la devuelve a tu mano.</td></tr>
+      <tr><td>Thassa exiliada</td><td>No hay ganador. Leveler solo te mata.</td><td>No lances Dack. El plan pasa por otra cosa: interacción y desgaste.</td></tr>
+      <tr><td>Quedan 2 oponentes</td><td>X = 2. Dack para en la segunda criatura y puede saltarse Leveler o Thassa.</td><td>Solo es seguro si Abolisher ya salió de la biblioteca: entonces las dos que quedan son Leveler y Thassa. Si no, ten Pact/Consultation de respaldo. Ver <a href="#reglas">Reglas finas</a>.</td></tr>
     </tbody>
   </table></div>
 </section>
@@ -571,6 +590,15 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <li>Lanza Thassa ({U}{U}) o descártala también con Hashaton ({2}{U}).</li>
     </ol>
     <p>Útil si Dack fue exiliado. Con LED puedes descartar ambas a la vez: ordena los triggers de Hashaton para que el token de Leveler entre primero.</p>
+  </div>
+
+  <div class="line">
+    <div class="head"><span class="id">I</span><span class="name">Hard cast de Leveler + Thassa</span><div class="tags"><span class="tag">7 maná</span></div></div>
+    <ol>
+      <li>Lanza Leveler ({5}): su trigger exilia tu biblioteca.</li>
+      <li>Lanza Thassa's Oracle ({U}{U}) y gana.</li>
+    </ol>
+    <p>Caro y expuesto a counters, pero es una victoria real si tienes el maná y Dack no está disponible. Cavern of Souls no ayuda: ninguno de los dos es Human.</p>
   </div>
 </section>
 
@@ -701,6 +729,15 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <li><strong>Interacción gratis:</strong> Force of Will, Force of Negation, Pact of Negation, Fierce Guardianship (con Hashaton en mesa), Mindbreak Trap, Misdirection, Commandeer, Snapback, Deadly Rollick.</li>
     <li><strong>Motores:</strong> Necropotence, Rhystic Study, Mystic Remora, Black Market Connections. Una mano con motor + maná + interacción sin combo es aceptable.</li>
   </ul>
+  <h3>Regla rápida</h3>
+  <ul>
+    <li><strong>Keep:</strong> maná para Hashaton más Dack o un tutor, y un descarte o LED.</li>
+    <li><strong>Keep:</strong> fast mana, un tutor y una protección.</li>
+    <li><strong>Keep:</strong> Thassa con Consultation o Pact y maná para lanzarlas.</li>
+    <li><strong>Mulligan:</strong> no bajas Hashaton en turno 2 y no tienes otro plan.</li>
+    <li><strong>Mulligan:</strong> mucha pieza de combo y nada de maná.</li>
+    <li><strong>Mulligan:</strong> Leveler en mano sin forma de buscar Dack ni Consultation/Pact.</li>
+  </ul>
   <h3>Ejemplos</h3>
   <p class="muted">Manos de ejemplo para ilustrar el criterio.</p>
   <div class="hands">
@@ -747,6 +784,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <tr><td>Entomb + Reanimate</td><td>Tierra negra + 1 fuente extra (Petal, Mox, ritual) + Entomb + Reanimate</td><td>{B}{B}</td></tr>
       <tr><td>Entomb + Shallow Grave</td><td>Tierra + 2 fuentes + Entomb + Shallow Grave</td><td>{B} + {1}{B}</td></tr>
       <tr><td>Hard cast turno 2</td><td>Dos fuentes de blanco (por ejemplo Hallowed Fountain y Cavern nombrando Human) + Sol Ring + Mana Vault + Dack</td><td>{4}{W}{W}</td></tr>
+      <tr><td>Win turno 1 con Hashaton</td><td>Tierra de W o B + Lotus Petal (Hashaton) + LED + Dack</td><td>{W}{B} y LED paga el {2}{U}. Activa LED en tu main phase con Hashaton ya en mesa.</td></tr>
       <tr><td>Hashaton T1 → T2 win</td><td>Fuente W + fuente B (o Mox), Hashaton. T2: LED + Dack + {2}{U}</td><td>{W}{B}, luego {2}{U}</td></tr>
       <tr><td>Thassa T2</td><td>Thassa + Consultation o Tainted Pact</td><td>{U}{U} + {B} o {1}{B}</td></tr>
     </tbody>
@@ -803,6 +841,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <thead><tr><th>Hate</th><th>Qué rompe</th><th>Respuesta</th></tr></thead>
     <tbody>
       <tr><td>Hushbringer, Torpor Orb, Hushwing Gryff</td><td>Triggers de entrada: Dack, Leveler, Thassa. Todo el mazo.</td><td>Swords, Snuff Out, Deadly Rollick, Snapback, Into the Flood Maw, Chain of Vapor, Otawara, Toxic Deluge. Plan Thassa con Consultation también muere: sácalo primero.</td></tr>
+      <tr><td>Containment Priest</td><td>Las criaturas no token que entran sin lanzarse se exilian: Dack sigue saliendo como token, pero Abolisher, Leveler y Thassa se exilian. Reanimate también falla.</td><td>Mátalo antes (Swords, Snuff Out, Rollick). Tiene flash: cuidado con 2 maná abierto en blanco.</td></tr>
+      <tr><td>Strict Proctor</td><td>Los triggers de entrada se contrarrestan salvo que pagues {2} por cada uno.</td><td>Ten {6} extra para Dack, Leveler y Thassa, o sácalo primero.</td></tr>
       <tr><td>Grafdigger's Cage</td><td>Dack no puede poner criaturas de la biblioteca. Reanimate y Shallow Grave fallan.</td><td>Chain of Vapor, Into the Flood Maw (con gift), Otawara. Las copias de Hashaton son tokens y entran igual, pero el token de Dack sigue fallando.</td></tr>
       <tr><td>Rest in Peace, Leyline of the Void</td><td>Entomb + reanimación</td><td>Hashaton sigue funcionando: el descarte dispara igual. Cambia a la línea A o D.</td></tr>
       <tr><td>Stifle, Tishana's Tidebinder</td><td>El trigger de Dack o de Hashaton</td><td>Split second (sección 05), Grand Abolisher en tu turno, o counter guardado.</td></tr>
@@ -827,6 +867,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <li><strong>Matar a Hashaton en respuesta</strong> no detiene un trigger que ya está en el stack.</li>
     <li><strong>Necropotence:</strong> ordena el trigger de Hashaton encima del exilio de Necro.</li>
     <li><strong>Shallow Grave</strong> toma la criatura de más arriba de tu cementerio. Si descartas Leveler después de Entomb Dack, Shallow Grave te trae Leveler.</li>
+    <li><strong>Thassa's Oracle con biblioteca 0</strong> gana siempre: su devoción (X) es al menos 0. Por eso no importa a quién le diste las criaturas.</li>
     <li><strong>Lion's Eye Diamond</strong> solo se activa cuando podrías lanzar un instantáneo: no sirve para pagar un hechizo mientras lo lanzas, y descarta toda tu mano. Sí se puede activar con un split second en el stack.</li>
     <li><strong>Reanimate</strong> te hace perder vida igual al valor: 6 por Dack. Cuenta tu vida si usaste Ancient Tomb, Confluence, Necro o Snuff Out.</li>
     <li><strong>Wishclaw Talisman</strong> pasa a un oponente después de usarlo. Solo si ganas ese turno.</li>
@@ -857,7 +898,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 </div>
 
 <footer>
-  <p>Fuentes: EDHREC, "Building Dack Fayden, Helping Hand for cEDH" (control de los triggers de Dack); MTG Rocks sobre Dack en cEDH y sobre Hashaton; MTG Wiki japonesa, página de 救いの手、ダク・フェイデン (arquetipo Hashaton + Dack + Leveler + Thassa); Scryfall y tiendas para el texto de Dack, Tezzeret, Starting Town, Trickbind y Praetor's Grasp. Texto de cartas sujeto a la versión Oracle vigente.</p>
+  <p>Lista de Taiga Watanabe, ganador del 16th God of Commander (Hareruya): <a href="https://mtgdecks.net/Commander/hashaton-scarab-s-fist-decklist-by-watanabe-taiga-3161831">mtgdecks.net</a>. Complementado con el primer "Hashaton Dack: The Dack Fayden Deck in Disguise". Otras fuentes: EDHREC, "Building Dack Fayden, Helping Hand for cEDH" (control de los triggers de Dack); MTG Rocks sobre Dack en cEDH y sobre Hashaton; MTG Wiki japonesa, página de 救いの手、ダク・フェイデン (arquetipo Hashaton + Dack + Leveler + Thassa); Scryfall y tiendas para el texto de Dack, Tezzeret, Starting Town, Trickbind y Praetor's Grasp. Texto de cartas sujeto a la versión Oracle vigente.</p>
 </footer>
 
 </div>
@@ -1380,7 +1421,9 @@ DECKS.hashaton = {
     ["drannith","Drannith Magistrate: no puedes lanzar Hashaton desde la zona de mando."],
     ["rule of law","Rule of Law: un hechizo por turno."],["archon of emeria","Archon of Emeria: un hechizo por turno."],
     ["bojuka","Bojuka Bog: no dejes a Dack en el cementerio."],["soul-guide","Soul-Guide Lantern: no dejes a Dack en el cementerio."],
-    ["opposition agent","Opposition Agent: te roba los tutores (Dack revela, no busca)."]
+    ["opposition agent","Opposition Agent: te roba los tutores (Dack revela, no busca)."],
+    ["containment priest","Containment Priest: exilia a Abolisher, Leveler y Thassa cuando Dack las pone (y frena Reanimate). Tiene flash."],
+    ["strict proctor","Strict Proctor: pagas {2} por cada trigger de entrada (Dack, Leveler, Thassa) o se contrarresta."]
   ],
   example: {
     zones:{hand:["Dack Fayden, Helping Hand","Angel's Grace","Force of Will","Brainstorm","Polluted Delta"],field:["Hashaton, Scarab's Fist","Lion's Eye Diamond","Underground Sea","Scrubland","Sol Ring"],grave:["Flooded Strand"],exile:[]},
@@ -1392,7 +1435,9 @@ SPLIT SECOND: Angel's Grace, Trickbind, Extirpate: lánzalo, mantén prioridad, 
 CASOS: Abolisher en campo antes de Dack lo protege. Thassa en mano → lanzarla tras Leveler. Leveler fuera → Pact/Consultation de respaldo. Thassa exiliada → no hay win con Dack. 2 oponentes: Dack puede saltarse una pieza. 1 oponente: no es combo.
 TUTORES: Demonic/Vampiric/Imperial/Grim/Wishclaw/Lim-Dûl/Scheming cualquiera; Mystical instantáneo/conjuro; Enlightened artefacto/encantamiento; Tezzeret -3 y Urza's Saga artefacto ≤1; Tolaria West valor 0. Intuition: Dack + Reanimate + Shallow Grave.
 PROTECCIÓN: FoW, FoN, Pact, Fierce Guardianship y Deadly Rollick gratis con comandante en campo, Mindbreak Trap, Misdirection, Commandeer, Snapback, Snuff Out, Silence, Orim's Chant.
-HATE: Hushbringer/Torpor Orb/Elesh Norn, Grafdigger's Cage, RIP/Leyline, Stifle/Tidebinder, Drannith, Rule of Law.`,
+ABOLISHER: tú eliges qué criatura recibe cada rival. Abolisher solo protege en el turno de quien lo controla: si combas en el turno de un rival, dáselo al jugador activo y los otros dos no pueden responder; pero si después tienes que lanzar algo (Thassa desde la mano, Pact), no se lo des al activo. En tu propio turno no protege. Conviene combar en upkeep/end step rival con LED o Cookbook. Thassa en mano + LED: descarta Dack y Thassa juntas (dos triggers, {4}{U}{U}). Thassa en el cementerio: no lances Dack. I) Hard cast Leveler + Thassa, 7 maná.
+HATE: Hushbringer/Torpor Orb/Elesh Norn, Containment Priest, Strict Proctor, Grafdigger's Cage, RIP/Leyline, Stifle/Tidebinder, Drannith, Rule of Law, Opposition Agent.
+Lista base: Taiga Watanabe, ganador del 16th God of Commander (Hareruya).`,
   evaluate(st, h){
     const {inZ, inLib, line, P, cmdr} = h;
     const ledF = inZ("field","Lion's Eye Diamond"), ledH = inZ("hand","Lion's Eye Diamond");
@@ -1418,6 +1463,7 @@ HATE: Hushbringer/Torpor Orb/Elesh Norn, Grafdigger's Cage, RIP/Leyline, Stifle/
     const ex = exiler || "Demonic Consultation";
     line("G","Thassa + "+(exiler||"Consultation / Pact"),[P("Thassa's Oracle",inZ("hand","Thassa's Oracle"),"en la mano"),P(ex,!!exiler,"en la mano")],ex==="Tainted Pact"?{U:2,gen:1,B:1}:{U:2,B:1},"Exilia en respuesta al trigger de Thassa.");
     line("H","Hashaton descarta Leveler + Thassa",[P("Hashaton, Scarab's Fist",cmdr.ok,"en campo o zona de mando",0),P("Leveler",inZ("hand","Leveler"),"en la mano"),P("Thassa's Oracle",inZ("hand","Thassa's Oracle"),"en la mano"),P("Lion's Eye Diamond",ledF||ledH||cookF||study,"u otro descarte")],add(cmdr.extra, ledF||ledH?{gen:3}:{gen:2,U:3}),"Token de Leveler primero."+cmdr.note);
+    line("I","Hard cast Leveler + Thassa",[P("Leveler",inZ("hand","Leveler"),"en la mano"),P("Thassa's Oracle",inZ("hand","Thassa's Oracle"),"en la mano")],{gen:5,U:2},"Leveler exilia tu biblioteca y Thassa gana. Ambos se pueden contrarrestar.");
     const flags = [];
     if (thassaGone) flags.push(["bad","Thassa's Oracle está exiliada: Dack ya no gana."]);
     else if (!inLib("Leveler") && !exiler) flags.push(["bad","Leveler no está en la biblioteca: el trigger de Dack necesita Consultation o Tainted Pact de respaldo."]);
@@ -1425,7 +1471,16 @@ HATE: Hushbringer/Torpor Orb/Elesh Norn, Grafdigger's Cage, RIP/Leyline, Stifle/
     if (st.nopp===1) flags.push(["bad","Con 1 oponente Dack saca una sola criatura: usa G o H."]);
     if (inZ("field","Grand Abolisher")) flags.push(["okf","Grand Abolisher en tu campo: en tu turno no lanzan hechizos."]);
     if (st.hand.includes("Fierce Guardianship")||st.hand.includes("Deadly Rollick")) flags.push([hashF?"okf":"info",hashF?"Hashaton en campo: Fierce Guardianship y Deadly Rollick son gratis.":"Fierce / Rollick solo son gratis con Hashaton en campo."]);
-    if (!st.mine) flags.push(["info","Turno ajeno: solo instantáneos. A, C y G funcionan. Abolisher no protege."]);
+    const thassaHand = inZ("hand","Thassa's Oracle"), abolLib = inLib("Grand Abolisher");
+    if (inZ("grave","Thassa's Oracle")) flags.push(["bad","Thassa's Oracle está en el cementerio: no lances Dack o Leveler te deja sin biblioteca. The Underworld Cookbook ({4}, {T}, sacrificar) la devuelve a la mano."]);
+    if (thassaHand && (ledF||ledH) && hashF) flags.push(["okf","Thassa en mano + LED: descarta Dack y Thassa juntas y paga los dos triggers ({4}{U}{U}, LED da 3). Resuelve primero el de Dack; el token de Thassa gana sin poder ser contrarrestado."]);
+    if (!st.mine) {
+      if (abolLib && !thassaHand) flags.push(["okf","Turno ajeno: dale Grand Abolisher al jugador activo. Los otros dos no podrán responder a Leveler ni a Thassa. Solo instantáneos: A (LED o Cookbook), C y G."]);
+      else if (abolLib && thassaHand) flags.push(["info","Turno ajeno con Thassa en mano: NO le des Abolisher al jugador activo o no podrás lanzarla. Mejor descártala con LED junto a Dack."]);
+      else flags.push(["info","Turno ajeno: solo instantáneos. A (LED o Cookbook), C y G funcionan."]);
+    } else if (abolLib && (ledF||ledH||inZ("field","The Underworld Cookbook")) && hashF && inZ("hand","Dack Fayden, Helping Hand")) {
+      flags.push(["info","Puedes esperar al upkeep o end step de un rival: con LED o Cookbook armas a Dack a velocidad de instantáneo y le das Abolisher al jugador activo. En tu turno Abolisher no protege nada."]);
+    }
     return flags;
   }
 };
