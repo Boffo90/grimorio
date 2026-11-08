@@ -402,6 +402,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <li><a href="#interaccion">Interacción</a></li>
     <li><a href="#hate">Hate y respuestas</a></li>
     <li><a href="#reglas">Reglas finas</a></li>
+    <li><a href="#flex">Slot flex</a></li>
     <li><a href="#lista">Lista por función</a></li>
   </ol>
 </nav>
@@ -459,7 +460,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <div class="piece">
       <div class="top"><h4>Grand Abolisher</h4><span class="cost">{W}{W} · 2/2</span></div>
       <div class="role">Protección</div>
-      <p>En tu turno los oponentes no lanzan hechizos ni activan habilidades de artefactos, criaturas y encantamientos. Si ya está en tu mesa antes de Dack, no se regala y protege todo el combo.</p>
+      <p>En tu turno los oponentes no lanzan hechizos ni activan habilidades de artefactos, criaturas y encantamientos. Si ya está en tu mesa antes de Dack, no se regala y protege todo el combo. Es el slot flex del mazo: ver sección 13.</p>
     </div>
   </div>
 </section>
@@ -877,12 +878,70 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   </ul>
 </section>
 
+<section id="flex">
+  <h2><span class="n">13</span>El slot flex</h2>
+  <p>El 99 tiene que tener exactamente tres criaturas además de Dack para que su trigger sea determinista en mesa de 4. Leveler y Thassa's Oracle son obligatorias, así que <strong>la única que se puede cambiar es Grand Abolisher</strong>. La lista de Watanabe juega Abolisher; estas son las alternativas que se están viendo.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Carta</th><th>Costo</th><th>Si Dack la revela</th><th>Si la bajas antes</th></tr></thead>
+    <tbody>
+      <tr><td>Grand Abolisher</td><td>{W}{W}</td><td>Dásela al jugador activo en turno rival: los otros dos no responden.</td><td>Protege todo tu turno de hechizos y habilidades de artefactos, criaturas y encantamientos.</td></tr>
+      <tr><td>Yuriko, Blade of the Mighty</td><td>{3}{W}</td><td>Si combas durante un combate, nadie puede responder a Leveler ni a Thassa, ni siquiera el jugador activo.</td><td>Cada paso de combate de cualquier turno es una ventana sin respuestas para LED + Dack.</td></tr>
+      <tr><td>Teferi, Mage of Zhalfir</td><td>{2}{U}{U}{U}</td><td>Dáselo al rival que menos interactúa: los otros dos quedan a velocidad de conjuro, en cualquier turno.</td><td>Ningún rival puede responder con hechizos. Tus criaturas tienen flash.</td></tr>
+      <tr><td>Samut, Tyrant of Naktamun</td><td>{1}{U}</td><td>No protege nada, y le da split second a los hechizos del rival que la reciba.</td><td>Tus instantáneos y conjuros tienen split second: Entomb, Reanimate, Consultation y Pact no se pueden responder.</td></tr>
+      <tr><td>Superior Spider-Man</td><td>{2}{U}{B}</td><td>No protege nada.</td><td>Un segundo Dack: entra como copia de una criatura de cualquier cementerio.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Yuriko, Blade of the Mighty</h3>
+  <p>{3}{W}, 2/3. <em>Durante el combate, los jugadores no pueden lanzar hechizos ni activar habilidades que no sean de maná.</em> Afecta a todos, incluido quien la controla, y en cualquier turno.</p>
+  <ul>
+    <li><strong>Revelada por Dack:</strong> activa LED en el inicio de combate de cualquier turno. Cuando el token de Dack resuelve, Yuriko entra y desde ese momento nadie puede responder a los triggers de Leveler y Thassa. Bloquea también al jugador activo y a las tierras con channel (Otawara, Boseiju), dos cosas que Abolisher no frena.</li>
+    <li><strong>En tu campo antes:</strong> en combate nadie puede responder a nada, ni al trigger de Hashaton ni al de Dack. LED es habilidad de maná y sí se puede activar: es como tener un split second permanente durante cada combate.</li>
+    <li><strong>Ojo:</strong> en combate tú tampoco puedes lanzar hechizos ni usar The Underworld Cookbook. El único descarte que sirve es LED, y el caso de Thassa en mano no funciona.</li>
+    <li>Todos los turnos tienen inicio de combate, aunque nadie ataque, y en ese paso hay prioridad.</li>
+  </ul>
+
+  <h3>Teferi, Mage of Zhalfir</h3>
+  <p>{2}{U}{U}{U}, 3/4, flash. <em>Las cartas de criatura que posees fuera del campo tienen flash. Cada oponente solo puede lanzar hechizos cuando podría lanzar un conjuro.</em> Eso significa que nadie puede lanzar nada en respuesta.</p>
+  <ul>
+    <li><strong>Revelado por Dack:</strong> el rival que lo recibe queda libre, pero sus oponentes (tú y los otros dos) quedan a velocidad de conjuro. Al revés que Abolisher, dáselo al rival que menos puede interactuar. Funciona en cualquier turno, también el tuyo.</li>
+    <li><strong>En tu campo antes:</strong> ningún rival responde con hechizos (Force of Will, Fierce Guardianship, Stifle) a nada de lo que hagas. Además puedes hard castear Dack en el end step rival, o hacer Leveler + Thassa a velocidad de instantáneo.</li>
+    <li><strong>Contras:</strong> 5 maná con {U}{U}{U}, y no frena habilidades activadas. Si se lo regalas a un rival, tú pierdes el flash y quedas a velocidad de conjuro.</li>
+  </ul>
+
+  <h3>Samut, Tyrant of Naktamun</h3>
+  <p>{1}{U}, 2/1. <em>Los instantáneos y conjuros que controlas tienen split second.</em> Es la más jugada de las cartas nuevas en listas de Hashaton.</p>
+  <ul>
+    <li><strong>Proactiva:</strong> bájala temprano. Entomb, Reanimate, Shallow Grave, Demonic Consultation y Tainted Pact no se pueden contrarrestar.</li>
+    <li><strong>Ventana para LED:</strong> con Samut en mesa, <em>cualquier</em> instantáneo tuyo abre la ventana de la sección 05. Lanzas Brainstorm o Dark Ritual, mantienes prioridad y activas LED descartando a Dack. Todo el combo resuelve encima sin respuesta.</li>
+    <li><strong>Ojo:</strong> protege solo mientras tu hechizo está en el stack. Un Reanimate con split second no se puede contrarrestar, pero el trigger de Dack que viene después sí se puede stiflear. Si Dack la revela, va a un rival y le da split second a sus instantáneos.</li>
+  </ul>
+
+  <h3>Superior Spider-Man</h3>
+  <p>{2}{U}{B}, 4/4. <em>Puede entrar como copia de una carta de criatura de cualquier cementerio, y exilia esa carta.</em> Copia los triggers de "cuando entra".</p>
+  <ul>
+    <li><strong>Segundo Dack:</strong> si te contrarrestaron a Dack, lo tiraste con Entomb o lo descartaste sin pagar el {2}{U}, Spider-Man entra como copia de Dack por 4.</li>
+    <li><strong>Arregla casos rotos:</strong> con Thassa en el cementerio, Leveler vacía tu biblioteca y Spider-Man entra como copia de Thassa. Con Leveler en el cementerio, Spider-Man como Leveler y después Thassa. Puede copiar también la Thassa de un rival.</li>
+    <li><strong>Contras:</strong> es un hechizo de criatura que se puede contrarrestar y depende del cementerio (Rest in Peace, Bojuka Bog). No protege nada.</li>
+  </ul>
+
+  <h3>Cuál elegir</h3>
+  <ul>
+    <li><strong>Grand Abolisher:</strong> barato y simple. Es lo de la lista ganadora.</li>
+    <li><strong>Yuriko:</strong> la mejor protección cuando Dack la revela, si te disciplinas a combar con LED en un paso de combate.</li>
+    <li><strong>Samut:</strong> si juegas mucho la ruta de Entomb + Reanimate o Consultation, o quieres más ventanas de split second.</li>
+    <li><strong>Teferi:</strong> protección más fuerte y en cualquier turno, pero cara. Mejor en mesas lentas.</li>
+    <li><strong>Superior Spider-Man:</strong> en mesas que te contrarrestan o te exilian piezas, donde importa más tener un segundo intento.</li>
+  </ul>
+  <p class="muted">También aparece Fblthp, Impossibly Lost ({1}{U}) en algunas listas. Gana si tu biblioteca está vacía cuando le haces daño de combate a un rival en tu turno: es un respaldo de Thassa después de Leveler, no protección. Los porcentajes de uso salen de EDHREC; el análisis de cada carta es propio.</p>
+</section>
+
 <section id="lista">
-  <h2><span class="n">13</span>La lista por función</h2>
+  <h2><span class="n">14</span>La lista por función</h2>
   <p class="muted">Las 99 cartas del 99 agrupadas por su rol principal. Algunas hacen más de una cosa.</p>
   <div class="decklist">
     <div class="grp"><h4>Comandante</h4><ul><li>Hashaton, Scarab's Fist</li></ul></div>
-    <div class="grp"><h4>Criaturas (4)</h4><ul><li>Dack Fayden, Helping Hand</li><li>Grand Abolisher</li><li>Leveler</li><li>Thassa's Oracle</li></ul></div>
+    <div class="grp"><h4>Criaturas (4)</h4><ul><li>Dack Fayden, Helping Hand</li><li>Grand Abolisher (slot flex)</li><li>Leveler</li><li>Thassa's Oracle</li></ul></div>
     <div class="grp"><h4>Descarte y reanimación (6)</h4><ul><li>Lion's Eye Diamond</li><li>Careful Study</li><li>The Underworld Cookbook</li><li>Reanimate</li><li>Shallow Grave</li><li>Borne Upon a Wind</li></ul></div>
     <div class="grp"><h4>Tutores (15)</h4><ul><li>Demonic Tutor</li><li>Vampiric Tutor</li><li>Imperial Seal</li><li>Grim Tutor</li><li>Mystical Tutor</li><li>Enlightened Tutor</li><li>Entomb</li><li>Intuition</li><li>Lim-Dûl's Vault</li><li>Scheming Symmetry</li><li>Wishclaw Talisman</li><li>Tainted Pact</li><li>Demonic Consultation</li><li>Praetor's Grasp</li><li>Tezzeret, Cruel Captain</li></ul></div>
     <div class="grp"><h4>Fast mana (11)</h4><ul><li>Sol Ring</li><li>Mana Vault</li><li>Arcane Signet</li><li>Fellwar Stone</li><li>Chrome Mox</li><li>Mox Diamond</li><li>Mox Opal</li><li>Mox Amber</li><li>Lotus Petal</li><li>Dark Ritual</li><li>Cabal Ritual</li></ul></div>
@@ -1254,6 +1313,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
             <div class="fld"><label for="life">Tu vida</label><input id="life" type="number" inputmode="numeric" value="40"></div>
           </div>
           <div class="row" style="align-items:end">
+            <div class="fld" id="flex-row"><label for="flex">Slot flex</label><select id="flex"><option>Grand Abolisher</option><option>Yuriko, Blade of the Mighty</option><option>Teferi, Mage of Zhalfir</option><option>Samut, Tyrant of Naktamun</option><option>Superior Spider-Man</option></select><div class="hint">La tercera criatura junto a Leveler y Thassa.</div></div>
             <div class="fld"><label for="tax">Veces lanzado (impuesto)</label><input id="tax" type="number" min="0" inputmode="numeric" value="0"><div class="hint">Si no lo pones en Campo, cuento a tu comandante en la zona de mando.</div></div>
             <div class="fld"><label class="chk" style="margin-top:22px"><input type="checkbox" id="sick"> Mi comandante entró este turno (mareo)</label></div>
           </div>
@@ -1385,7 +1445,7 @@ const DECKS = {};
 DECKS.hashaton = {
   id:"hashaton", short:"Hashaton", commander:"Hashaton, Scarab's Fist", cmdCost:{W:1,B:1},
   cards: {
-    "Hashaton, Scarab's Fist":["c",2],"Dack Fayden, Helping Hand":["c",6],"Grand Abolisher":["c",2],"Leveler":["c",5],"Thassa's Oracle":["c",2],
+    "Hashaton, Scarab's Fist":["c",2],"Dack Fayden, Helping Hand":["c",6],"Grand Abolisher":["c",2],"Teferi, Mage of Zhalfir":["c",5],"Yuriko, Blade of the Mighty":["c",4],"Samut, Tyrant of Naktamun":["c",2],"Superior Spider-Man":["c",4],"Leveler":["c",5],"Thassa's Oracle":["c",2],
     "Lion's Eye Diamond":["a",0],"The Underworld Cookbook":["a",1],"Wishclaw Talisman":["a",1],"Sol Ring":["a",1],"Mana Vault":["a",1],"Arcane Signet":["a",2],"Fellwar Stone":["a",2],
     "Chrome Mox":["a",0],"Mox Diamond":["a",0],"Mox Opal":["a",0],"Mox Amber":["a",0],"Lotus Petal":["a",0],"Cursed Totem":["a",2],"Damping Sphere":["a",2],
     "Necropotence":["e",3],"Rhystic Study":["e",3],"Mystic Remora":["e",1],"Smothering Tithe":["e",4],"Black Market Connections":["e",3],"Copy Enchantment":["e",3],
@@ -1401,9 +1461,9 @@ DECKS.hashaton = {
     "Morphic Pool":["l",0],"Sea of Clouds":["l",0],"Vault of Champions":["l",0],"Arid Mesa":["l",0],"Bloodstained Mire":["l",0],"Flooded Strand":["l",0],"Marsh Flats":["l",0],"Misty Rainforest":["l",0],
     "Polluted Delta":["l",0],"Scalding Tarn":["l",0],"Verdant Catacombs":["l",0]
   },
-  aliases: {"led":"Lion's Eye Diamond","cookbook":"The Underworld Cookbook","thassa":"Thassa's Oracle","thoracle":"Thassa's Oracle","dack":"Dack Fayden, Helping Hand","hashaton":"Hashaton, Scarab's Fist","abolisher":"Grand Abolisher","consult":"Demonic Consultation","consultation":"Demonic Consultation","pact":"Tainted Pact","fow":"Force of Will","fon":"Force of Negation","fierce":"Fierce Guardianship","stp":"Swords to Plowshares","swords":"Swords to Plowshares","dt":"Demonic Tutor","vamp":"Vampiric Tutor","necro":"Necropotence","rhystic":"Rhystic Study","remora":"Mystic Remora","tezz":"Tezzeret, Cruel Captain","saga":"Urza's Saga","tomb":"Ancient Tomb","vault":"Mana Vault","petal":"Lotus Petal","grace":"Angel's Grace","trickbind":"Trickbind","slimed":"Trickbind","unseat":"Praetor's Grasp","grasp":"Praetor's Grasp"},
+  aliases: {"led":"Lion's Eye Diamond","cookbook":"The Underworld Cookbook","thassa":"Thassa's Oracle","thoracle":"Thassa's Oracle","dack":"Dack Fayden, Helping Hand","hashaton":"Hashaton, Scarab's Fist","abolisher":"Grand Abolisher","consult":"Demonic Consultation","consultation":"Demonic Consultation","pact":"Tainted Pact","fow":"Force of Will","fon":"Force of Negation","fierce":"Fierce Guardianship","stp":"Swords to Plowshares","swords":"Swords to Plowshares","dt":"Demonic Tutor","vamp":"Vampiric Tutor","necro":"Necropotence","rhystic":"Rhystic Study","remora":"Mystic Remora","tezz":"Tezzeret, Cruel Captain","saga":"Urza's Saga","tomb":"Ancient Tomb","vault":"Mana Vault","petal":"Lotus Petal","grace":"Angel's Grace","trickbind":"Trickbind","teferi":"Teferi, Mage of Zhalfir","yuriko":"Yuriko, Blade of the Mighty","samut":"Samut, Tyrant of Naktamun","spider":"Superior Spider-Man","spiderman":"Superior Spider-Man","spider-man":"Superior Spider-Man","slimed":"Trickbind","unseat":"Praetor's Grasp","grasp":"Praetor's Grasp"},
   freeProtection: ["Force of Will","Force of Negation","Pact of Negation","Fierce Guardianship","Mindbreak Trap","Misdirection","Commandeer","Snapback","Deadly Rollick"],
-  cheapProtection: ["Mental Misstep","Flusterstorm","Swan Song","Dispel","Spell Snare","Strix Serenade","An Offer You Can't Refuse","Silence","Orim's Chant","Grand Abolisher"],
+  cheapProtection: ["Mental Misstep","Flusterstorm","Swan Song","Dispel","Spell Snare","Strix Serenade","An Offer You Can't Refuse","Silence","Orim's Chant","Grand Abolisher","Teferi, Mage of Zhalfir","Yuriko, Blade of the Mighty","Samut, Tyrant of Naktamun"],
   splitSecond: ["Angel's Grace","Trickbind","Extirpate"],
   tutors: {
     "Demonic Tutor":{any:1},"Vampiric Tutor":{any:1},"Imperial Seal":{any:1},"Grim Tutor":{any:1},"Wishclaw Talisman":{any:1},"Lim-Dûl's Vault":{any:1},"Scheming Symmetry":{any:1},
@@ -1440,6 +1500,7 @@ HATE: Hushbringer/Torpor Orb/Elesh Norn, Containment Priest, Strict Proctor, Gra
 Lista base: Taiga Watanabe, ganador del 16th God of Commander (Hareruya).`,
   evaluate(st, h){
     const {inZ, inLib, line, P, cmdr} = h;
+    const fx = flexOf("hashaton"), fxLib = inLib(fx), fxF = inZ("field",fx), fxH = inZ("hand",fx);
     const ledF = inZ("field","Lion's Eye Diamond"), ledH = inZ("hand","Lion's Eye Diamond");
     const hashF = inZ("field","Hashaton, Scarab's Fist");
     const dackH = inZ("hand","Dack Fayden, Helping Hand"), dackG = inZ("grave","Dack Fayden, Helping Hand");
@@ -1448,7 +1509,7 @@ Lista base: Taiga Watanabe, ganador del 16th God of Commander (Hareruya).`,
     const dackWorks = !thassaGone && (inLib("Thassa's Oracle")||inZ("hand","Thassa's Oracle")) && (inLib("Leveler")||exiler);
     const warn = dackWorks ? "" : " ⚠ Dack no gana con Leveler/Thassa donde están.";
     line("A","Hashaton + LED + Dack",[P("Hashaton, Scarab's Fist",cmdr.ok,"en campo o zona de mando",0),P("Lion's Eye Diamond",ledF||ledH,"en campo o mano"),P("Dack Fayden, Helping Hand",dackH,"en la mano")],cmdr.extra,
-      (st.hand.some(c=>this.splitSecond.includes(c))?"Tienes split second: lánzalo y activa LED encima.":"El 2U lo paga el propio LED.")+cmdr.note+warn);
+      (st.hand.some(c=>this.splitSecond.includes(c)) || (fx==="Samut, Tyrant of Naktamun" && fxF && st.hand.some(c=>["i"].includes((this.cards[c]||[])[0]))) ? "Tienes un split second" + (fxF&&fx==="Samut, Tyrant of Naktamun"?" (Samut):":":") + " lánzalo, mantén prioridad y activa LED encima." : (fx==="Yuriko, Blade of the Mighty" && fxF ? "Hazlo en el inicio de combate: con Yuriko en mesa nadie puede responder." : "El 2U lo paga el propio LED."))+cmdr.note+warn);
     if (dackG) {
       line("B","Reanimate a Dack",[P("Reanimate",inZ("hand","Reanimate"),"en la mano")],{B:1},"Pierdes 6 vidas."+(st.life<=6?" ⚠ Tu vida no alcanza.":"")+warn);
       line("C","Shallow Grave a Dack",[P("Shallow Grave",inZ("hand","Shallow Grave"),"en la mano")],{gen:1,B:1},"Dack debe ser la criatura de arriba del cementerio."+warn);
@@ -1459,28 +1520,45 @@ Lista base: Taiga Watanabe, ganador del 16th God of Commander (Hareruya).`,
     const cookF = inZ("field","The Underworld Cookbook"), cookH = inZ("hand","The Underworld Cookbook"), study = inZ("hand","Careful Study");
     line("D","Hashaton + Cookbook / Careful Study",[P("Hashaton, Scarab's Fist",cmdr.ok,"en campo o zona de mando",0),P("Dack Fayden, Helping Hand",dackH,"en la mano"),P(cookF||cookH?"The Underworld Cookbook":(study?"Careful Study":"The Underworld Cookbook"),cookF||cookH||study,"como descarte")],
       add(cmdr.extra, cookF?{gen:2,U:1}:(cookH?{gen:3,U:1}:{gen:2,U:2})),"Cookbook en campo: descarte instantáneo."+cmdr.note+warn);
-    line("F","Hard cast de Dack",[P("Dack Fayden, Helping Hand",dackH,"en la mano")],{gen:4,W:2},(ledF||ledH?"LED no paga a Dack: no se activa mientras lanzas y descartaría la mano. ":"")+(inZ("field","Cavern of Souls")?"Cavern: nombra Human.":"")+warn);
+    line("F","Hard cast de Dack",[P("Dack Fayden, Helping Hand",dackH,"en la mano")],{gen:4,W:2},(ledF||ledH?"LED no paga a Dack: no se activa mientras lanzas y descartaría la mano. ":"")+(fx==="Teferi, Mage of Zhalfir"&&fxF?"Teferi te da flash: lánzalo en el end step rival. ":"")+(inZ("field","Cavern of Souls")?"Cavern: nombra Human.":"")+warn);
     const ex = exiler || "Demonic Consultation";
     line("G","Thassa + "+(exiler||"Consultation / Pact"),[P("Thassa's Oracle",inZ("hand","Thassa's Oracle"),"en la mano"),P(ex,!!exiler,"en la mano")],ex==="Tainted Pact"?{U:2,gen:1,B:1}:{U:2,B:1},"Exilia en respuesta al trigger de Thassa.");
     line("H","Hashaton descarta Leveler + Thassa",[P("Hashaton, Scarab's Fist",cmdr.ok,"en campo o zona de mando",0),P("Leveler",inZ("hand","Leveler"),"en la mano"),P("Thassa's Oracle",inZ("hand","Thassa's Oracle"),"en la mano"),P("Lion's Eye Diamond",ledF||ledH||cookF||study,"u otro descarte")],add(cmdr.extra, ledF||ledH?{gen:3}:{gen:2,U:3}),"Token de Leveler primero."+cmdr.note);
+    if (fx==="Superior Spider-Man") line("S","Superior Spider-Man copia a Dack",[P("Superior Spider-Man",fxH,"en la mano"),P("Dack Fayden, Helping Hand",dackG,"en tu cementerio (o el de un rival)",0)],{gen:2,U:1,B:1},"Entra como copia de Dack y exilia la carta. Se puede contrarrestar: es un hechizo de criatura."+(inZ("field","Cavern of Souls")?" Cavern nombrando Human sirve.":""));
     line("I","Hard cast Leveler + Thassa",[P("Leveler",inZ("hand","Leveler"),"en la mano"),P("Thassa's Oracle",inZ("hand","Thassa's Oracle"),"en la mano")],{gen:5,U:2},"Leveler exilia tu biblioteca y Thassa gana. Ambos se pueden contrarrestar.");
     const flags = [];
     if (thassaGone) flags.push(["bad","Thassa's Oracle está exiliada: Dack ya no gana."]);
     else if (!inLib("Leveler") && !exiler) flags.push(["bad","Leveler no está en la biblioteca: el trigger de Dack necesita Consultation o Tainted Pact de respaldo."]);
-    if (st.nopp===2 && inLib("Grand Abolisher") && inLib("Leveler") && inLib("Thassa's Oracle")) flags.push(["bad","Con 2 oponentes Dack saca 2 criaturas y puede saltarse Leveler o Thassa. Saca primero a Grand Abolisher o ten Pact/Consultation."]);
+    if (st.nopp===2 && fxLib && inLib("Leveler") && inLib("Thassa's Oracle")) flags.push(["bad",`Con 2 oponentes Dack saca 2 criaturas y puede saltarse Leveler o Thassa. Saca primero a ${fx.split(",")[0]} de la biblioteca o ten Pact/Consultation.`]);
     if (st.nopp===1) flags.push(["bad","Con 1 oponente Dack saca una sola criatura: usa G o H."]);
-    if (inZ("field","Grand Abolisher")) flags.push(["okf","Grand Abolisher en tu campo: en tu turno no lanzan hechizos."]);
     if (st.hand.includes("Fierce Guardianship")||st.hand.includes("Deadly Rollick")) flags.push([hashF?"okf":"info",hashF?"Hashaton en campo: Fierce Guardianship y Deadly Rollick son gratis.":"Fierce / Rollick solo son gratis con Hashaton en campo."]);
-    const thassaHand = inZ("hand","Thassa's Oracle"), abolLib = inLib("Grand Abolisher");
+    const thassaHand = inZ("hand","Thassa's Oracle");
     if (inZ("grave","Thassa's Oracle")) flags.push(["bad","Thassa's Oracle está en el cementerio: no lances Dack o Leveler te deja sin biblioteca. The Underworld Cookbook ({4}, {T}, sacrificar) la devuelve a la mano."]);
     if (thassaHand && (ledF||ledH) && hashF) flags.push(["okf","Thassa en mano + LED: descarta Dack y Thassa juntas y paga los dos triggers ({4}{U}{U}, LED da 3). Resuelve primero el de Dack; el token de Thassa gana sin poder ser contrarrestado."]);
-    if (!st.mine) {
-      if (abolLib && !thassaHand) flags.push(["okf","Turno ajeno: dale Grand Abolisher al jugador activo. Los otros dos no podrán responder a Leveler ni a Thassa. Solo instantáneos: A (LED o Cookbook), C y G."]);
-      else if (abolLib && thassaHand) flags.push(["info","Turno ajeno con Thassa en mano: NO le des Abolisher al jugador activo o no podrás lanzarla. Mejor descártala con LED junto a Dack."]);
-      else flags.push(["info","Turno ajeno: solo instantáneos. A (LED o Cookbook), C y G funcionan."]);
-    } else if (abolLib && (ledF||ledH||inZ("field","The Underworld Cookbook")) && hashF && inZ("hand","Dack Fayden, Helping Hand")) {
-      flags.push(["info","Puedes esperar al upkeep o end step de un rival: con LED o Cookbook armas a Dack a velocidad de instantáneo y le das Abolisher al jugador activo. En tu turno Abolisher no protege nada."]);
+    const ledReady = (ledF||ledH) && hashF && dackH;
+    if (fx==="Grand Abolisher") {
+      if (fxF) flags.push(["okf","Grand Abolisher en tu campo: en tu turno no lanzan hechizos ni activan habilidades de artefactos, criaturas o encantamientos."]);
+      if (!st.mine) {
+        if (fxLib && !thassaHand) flags.push(["okf","Turno ajeno: dale Grand Abolisher al jugador activo. Los otros dos no podrán responder a Leveler ni a Thassa. Solo instantáneos: A (LED o Cookbook), C y G."]);
+        else if (fxLib && thassaHand) flags.push(["info","Turno ajeno con Thassa en mano: NO le des Abolisher al jugador activo o no podrás lanzarla. Mejor descártala con LED junto a Dack."]);
+        else flags.push(["info","Turno ajeno: solo instantáneos. A (LED o Cookbook), C y G funcionan."]);
+      } else if (fxLib && (ledF||ledH||cookF) && hashF && dackH) flags.push(["info","Puedes esperar al upkeep o end step de un rival: con LED o Cookbook armas a Dack a velocidad de instantáneo y le das Abolisher al jugador activo. En tu turno Abolisher no protege nada."]);
+    } else if (fx==="Yuriko, Blade of the Mighty") {
+      if (fxF) flags.push(["okf","Yuriko en tu campo: durante cualquier combate nadie puede lanzar hechizos ni activar habilidades no de maná. Activa LED en el inicio de combate y el combo entero queda sin respuesta. Tú tampoco puedes usar Cookbook ni lanzar Thassa en combate."]);
+      else if (fxLib) flags.push(["info", ledReady ? "Comba en el inicio de combate (de cualquier turno) con LED: Yuriko entra con Dack y desde ahí nadie puede responder a Leveler ni a Thassa, ni el jugador activo." : "Yuriko en la biblioteca: si combas durante un combate, al entrar bloquea todas las respuestas a Leveler y Thassa."]);
+      if (thassaHand && fxLib) flags.push(["info","Con Thassa en mano no combas en combate: Yuriko no te dejaría lanzarla. Descártala con LED junto a Dack."]);
+    } else if (fx==="Teferi, Mage of Zhalfir") {
+      if (fxF) flags.push(["okf","Teferi en tu campo: ningún rival puede responder con hechizos y tus criaturas tienen flash (Dack en el end step rival, Leveler + Thassa a velocidad de instantáneo)."]);
+      else if (fxLib) flags.push(["info","Si Dack revela a Teferi, dáselo al rival que menos puede interactuar: tú y los otros dos quedan a velocidad de conjuro, en cualquier turno."]);
+      if (fxLib && thassaHand) flags.push(["info","Con Thassa en mano, regalar a Teferi te deja sin poder lanzarla salvo en tu fase principal con el stack vacío. Mejor descártala con LED junto a Dack."]);
+    } else if (fx==="Samut, Tyrant of Naktamun") {
+      if (fxF) flags.push(["okf","Samut en tu campo: tus instantáneos y conjuros tienen split second. Entomb, Reanimate, Consultation y Pact no se pueden responder, y cualquier instantáneo abre la ventana para LED + Dack. Los triggers que vienen después sí se pueden stiflear."]);
+      else if (fxLib) flags.push(["info","Samut rinde bajándola antes ({1}{U}). Si Dack la revela, no protege y le da split second al rival que la recibe."]);
+    } else if (fx==="Superior Spider-Man") {
+      if (inZ("grave","Thassa's Oracle") && (fxH)) flags.push(["okf","Thassa en el cementerio + Spider-Man en mano: Leveler vacía tu biblioteca y Spider-Man entra como copia de Thassa y gana."]);
+      if (fxLib) flags.push(["info","Spider-Man no protege el combo: cuando Dack la revela y la regala, no frena a nadie. Busca protección aparte (split second, Silence, counters)."]);
     }
+    if (st.mine && !fxF && fxH && ["Grand Abolisher","Yuriko, Blade of the Mighty","Teferi, Mage of Zhalfir","Samut, Tyrant of Naktamun"].includes(fx)) flags.push(["info",`${fx.split(",")[0]} en mano: bájalo antes del combo. Además Dack revela solo Leveler y Thassa.`]);
     return flags;
   }
 };
@@ -1587,11 +1665,22 @@ HATE: Cursed Totem, Null Rod/Collector Ouphe, Rule of Law/Archon/Eidolon/Deafeni
   }
 };
 
+/* ===================== Slot flex ===================== */
+const FLEX = {
+  "Grand Abolisher": "Grand Abolisher ({W}{W}): en el turno de su controlador, sus oponentes no lanzan hechizos ni activan habilidades de artefactos, criaturas o encantamientos. Revelado por Dack: dáselo al jugador activo en turno rival.",
+  "Yuriko, Blade of the Mighty": "Yuriko, Blade of the Mighty ({3}{W}): durante el combate, ningún jugador (tampoco tú) puede lanzar hechizos ni activar habilidades que no sean de maná. Comba con LED (habilidad de maná) en el inicio de combate de cualquier turno: revelada por Dack bloquea las respuestas a Leveler y Thassa; en tu campo antes bloquea todo el combo. En combate no sirven Cookbook ni lanzar Thassa.",
+  "Teferi, Mage of Zhalfir": "Teferi, Mage of Zhalfir ({2}{U}{U}{U}, flash): tus cartas de criatura tienen flash; cada oponente solo lanza hechizos a velocidad de conjuro. Revelado por Dack: dáselo al rival que menos interactúa; sus oponentes (tú incluido) quedan a velocidad de conjuro en cualquier turno. En tu campo: nadie responde con hechizos y puedes hard castear Dack con flash.",
+  "Samut, Tyrant of Naktamun": "Samut, Tyrant of Naktamun ({1}{U}): tus instantáneos y conjuros tienen split second. Bájala antes: Entomb, Reanimate, Consultation y Pact no se pueden responder, y cualquier instantáneo abre una ventana para LED + Dack. Revelada por Dack no protege y le da split second al rival que la recibe.",
+  "Superior Spider-Man": "Superior Spider-Man ({2}{U}{B}): entra como copia de una criatura de cualquier cementerio. Es un segundo Dack si Dack está en un cementerio, o la Thassa/Leveler que falta. No protege."
+};
+const flexOf = deckId => deckId === "hashaton" ? (S.flex && FLEX[S.flex] ? S.flex : "Grand Abolisher") : null;
+function deckCards(deckId){ const d = DECKS[deckId], fx = flexOf(deckId); return Object.keys(d.cards).filter(c => !(FLEX[c] && c !== fx)); }
+
 /* ===================== Estado ===================== */
 const KEY = "grimorio-partida-v2";
 const blankZones = () => ({hand:[],field:[],grave:[],exile:[]});
 const blankOpp = () => ({name:"",text:"",list:"",life:40,alive:true});
-const blank = () => ({deck:"crystal",seat:1,round:1,active:1,sick:false,tax:{hashaton:0,crystal:0},mana:"",life:40,zones:{hashaton:blankZones(),crystal:blankZones()},opps:[blankOpp(),blankOpp(),blankOpp()],log:[]});
+const blank = () => ({flex:"Grand Abolisher",deck:"crystal",seat:1,round:1,active:1,sick:false,tax:{hashaton:0,crystal:0},mana:"",life:40,zones:{hashaton:blankZones(),crystal:blankZones()},opps:[blankOpp(),blankOpp(),blankOpp()],log:[]});
 let S = blank();
 try {
   const saved = JSON.parse(localStorage.getItem(KEY)||"null");
@@ -1612,7 +1701,7 @@ const seatName = seat => { const i = seatOwner(seat); if (i<0) return "Tú"; ret
 
 /* ===================== Cartas ===================== */
 function canon(raw){
-  const d = D(); const names = Object.keys(d.cards);
+  const d = D(); const names = deckCards(d.id);
   const n = norm(raw); if(!n) return "";
   if (d.aliases[n]) return d.aliases[n];
   const exact = names.find(c => norm(c) === n); if (exact) return exact;
@@ -1621,7 +1710,7 @@ function canon(raw){
   return raw.trim();
 }
 function fillCmdrList(){ const dl = document.getElementById("cmdrs"); if (dl) dl.innerHTML = CMDR_DB.map(e=>`<option value="${esc(e.n)}">`).join(""); }
-function fillDatalist(){ $("#cards").innerHTML = Object.keys(D().cards).map(c => `<option value="${esc(c)}">`).join(""); }
+function fillDatalist(){ $("#cards").innerHTML = deckCards(S.deck).map(c => `<option value="${esc(c)}">`).join(""); }
 
 function renderZone(zone){
   const box = document.querySelector(`.chipbox[data-zone="${zone}"]`);
@@ -1747,12 +1836,13 @@ $("#btn-next").addEventListener("click", () => {
   S.log.push({r:S.round, s, t:`Empieza el turno de Seat ${s} (${seatName(s)})`, sys:true});
   syncGamebar(); renderSeatline(); fillWho(); renderLog(); update();
 });
-function syncGamebar(){ $("#tax").value = ((S.tax||{})[S.deck])||0; $("#deck").value=S.deck; $("#seat").value=String(S.seat); $("#round").value=S.round; $("#active").value=String(S.active); $("#sick").checked=!!S.sick; }
-$("#deck").addEventListener("change", e => { S.deck = e.target.value; $("#tax").value = ((S.tax||{})[S.deck])||0; fillDatalist(); ZONES.forEach(renderZone); $("#mesa-eyebrow").textContent = D().short+" · asistente de partida"; convo=[]; update(); });
+function syncGamebar(){ $("#flex").value = flexOf("hashaton"); $("#flex-row").hidden = S.deck!=="hashaton"; $("#tax").value = ((S.tax||{})[S.deck])||0; $("#deck").value=S.deck; $("#seat").value=String(S.seat); $("#round").value=S.round; $("#active").value=String(S.active); $("#sick").checked=!!S.sick; }
+$("#deck").addEventListener("change", e => { S.deck = e.target.value; $("#flex-row").hidden = S.deck!=="hashaton"; $("#tax").value = ((S.tax||{})[S.deck])||0; fillDatalist(); ZONES.forEach(renderZone); $("#mesa-eyebrow").textContent = D().short+" · asistente de partida"; convo=[]; update(); });
 $("#seat").addEventListener("change", e => { S.seat = +e.target.value; renderOpps(); renderSeatline(); fillWho(); update(); });
 $("#round").addEventListener("input", e => { S.round = Math.max(1, parseInt(e.target.value,10)||1); renderSeatline(); update(); });
 $("#active").addEventListener("change", e => { S.active = +e.target.value; renderSeatline(); fillWho(); update(); });
 $("#sick").addEventListener("change", e => { S.sick = e.target.checked; update(); });
+$("#flex").addEventListener("change", e => { S.flex = e.target.value; fillDatalist(); ZONES.forEach(renderZone); update(); });
 $("#tax").addEventListener("input", e => { S.tax = S.tax||{}; S.tax[S.deck] = Math.max(0, parseInt(e.target.value,10)||0); update(); });
 ["mana","life"].forEach(id => $("#"+id).addEventListener("input", () => { S.mana = $("#mana").value; S.life = parseInt($("#life").value,10)||0; update(); }));
 
@@ -1939,9 +2029,9 @@ async function ask(question){
   const rules = `Eres un coach experto de cEDH ayudando a Seba en una partida online en vivo. Responde en español de Chile, directo y concreto, máximo ~200 palabras salvo que la jugada exija más. Nombres de cartas en inglés. Reglas a respetar: usa siempre el nombre Oracle de las cartas. Chrome Mox solo puede imprintar una carta que no sea tierra ni artefacto (y da maná de sus colores); Mox Diamond pide descartar una carta de tierra; Mox Opal necesita metalcraft; Gemstone Caverns solo empieza en mesa si no eres el primer jugador; Lotus Petal y LED son de un solo uso; LED solo se activa a velocidad de instantáneo (nunca para pagar un hechizo mientras se lanza) y descarta toda la mano. No propongas jugadas ilegales. No inventes cartas que no estén en su mano o campo; asume que lo no listado de su mazo está en la biblioteca. Ten en cuenta el orden de asientos: quién juega después de él (más maná abierto al responder), quién antes, y qué anotó en la bitácora. Si hay listas de rivales, úsalas para estimar sus respuestas y win cons.
 Formato: **Jugada:** pasos numerados. **Riesgos:** qué puede hacer cada rival (por seat) y cómo cubrirlo. **Si no ganas ahora:** qué tutorear, qué guardar y a quién frenar. Si no hay victoria segura, dilo y propone la mejor jugada.
 
-${d.summary}
+${d.summary}${flexOf(d.id)?`\nSLOT FLEX QUE JUEGA: ${FLEX[flexOf(d.id)]}`:""}
 
-SU LISTA (99 + comandante): ${Object.keys(d.cards).join("; ")}`;
+SU LISTA (99 + comandante): ${deckCards(d.id).join("; ")}${flexOf(d.id)?`\nSLOT FLEX QUE JUEGA: ${FLEX[flexOf(d.id)]}`:""}`;
   if (!question || !convo.length) convo = [{role:"user", content: rules + "\n\nESTADO ACTUAL:\n" + stateText() + "\n\n" + (question || "¿Qué hago ahora?")}];
   else convo.push({role:"user", content: "Estado actualizado:\n" + stateText() + "\n\nPregunta: " + question});
   const out = $("#ai-out"), meta = $("#ai-meta");
@@ -2338,7 +2428,7 @@ $("#mm-ai").addEventListener("click", async () => {
   const opp = S.opps.map((o,i)=>`Seat ${seats[i]}: ${o.name||"(sin nombre)"}${o.text?" — "+o.text:""}${o.list?"\n  Lista: "+o.list.replace(/\n+/g," | ").slice(0,2500):""}`).join("\n");
   const prompt = `Eres un coach de cEDH. Seba está decidiendo mulligan en una mesa de 4 por SpellTable. Responde en español de Chile, máximo 170 palabras: **Veredicto** (keep o mulligan), **Por qué** contra estos rivales concretos, **Plan** de los turnos 1–3 y qué tutorear primero. Si hay mulligans pagados, di qué mandar al fondo. Nombres de cartas en inglés. Reglas a respetar: usa siempre el nombre Oracle de las cartas. Chrome Mox solo puede imprintar una carta que no sea tierra ni artefacto (y da maná de sus colores); Mox Diamond pide descartar una carta de tierra; Mox Opal necesita metalcraft; Gemstone Caverns solo empieza en mesa si no eres el primer jugador; Lotus Petal y LED son de un solo uso; LED solo se activa a velocidad de instantáneo (nunca para pagar un hechizo mientras se lanza) y descarta toda la mano. No propongas jugadas ilegales.
 
-${d.summary}
+${d.summary}${flexOf(d.id)?`\nSLOT FLEX QUE JUEGA: ${FLEX[flexOf(d.id)]}`:""}
 
 MI ASIENTO: Seat ${S.seat}. MULLIGANS: ${$("#mm-n").value} (primero gratis: ${+$("#mm-free").value?"sí":"no"}).
 MI MANO (${hand.length}): ${hand.join("; ")}
@@ -2399,7 +2489,7 @@ try { const s = JSON.parse(localStorage.getItem(MKEY)||"null"); if (s) M = Objec
 const msave = () => { try { localStorage.setItem(MKEY, JSON.stringify({deck:M.deck,seatMode:M.seatMode,free:M.free,stats:M.stats})); } catch(e) {} };
 let H = null; // {seat, mulls, cards:[...7], bottom:Set, phase:"decide"|"bottom"|"done", choice}
 
-function libraryOf(deckId){ const d = DECKS[deckId]; return Object.keys(d.cards).filter(c => c !== d.commander); }
+function libraryOf(deckId){ const d = DECKS[deckId]; return deckCards(deckId).filter(c => c !== d.commander); }
 function shuffle(a){ for (let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 function roleOf(deckId, c){
   const R = ROLES[deckId], d = DECKS[deckId];
@@ -2589,7 +2679,7 @@ $("#m-ai").addEventListener("click", async () => {
   const out = $("#m-ai-out"); out.innerHTML = "<p class='small'>Pensando…</p>"; $("#m-ai").disabled = true;
   const prompt = `Eres un coach de cEDH. Evalúa esta mano inicial para un mazo de Commander en mesa de 4. Responde en español de Chile, máximo 150 palabras: veredicto (keep o mulligan), plan de los primeros 2–3 turnos y qué buscar con los tutores. Nombres de cartas en inglés. Reglas a respetar: usa siempre el nombre Oracle de las cartas. Chrome Mox solo puede imprintar una carta que no sea tierra ni artefacto (y da maná de sus colores); Mox Diamond pide descartar una carta de tierra; Mox Opal necesita metalcraft; Gemstone Caverns solo empieza en mesa si no eres el primer jugador; Lotus Petal y LED son de un solo uso; LED solo se activa a velocidad de instantáneo (nunca para pagar un hechizo mientras se lanza) y descarta toda la mano. No propongas jugadas ilegales.
 
-${d.summary}
+${d.summary}${flexOf(d.id)?`\nSLOT FLEX QUE JUEGA: ${FLEX[flexOf(d.id)]}`:""}
 
 ASIENTO: Seat ${H.seat}. MULLIGANS: ${H.mulls} (primero gratis: ${M.free?"sí":"no"}).
 MANO (${cards.length}): ${cards.join("; ")}
