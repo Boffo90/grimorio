@@ -351,6 +351,11 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .setup > summary::after{grid-column:2;grid-row:1 / span 2;align-self:center;margin:0}
 .tg.more{border-style:dashed;color:var(--lapis)}
 .lines-d .status{margin-top:8px}
+.msum{flex:1 1 220px;min-width:0;display:flex;flex-wrap:wrap;gap:5px;align-items:center;font-size:13.5px}
+.ms{font:inherit;font-size:12.5px;font-weight:600;min-height:34px;padding:4px 9px;border-radius:7px;border:1px solid var(--good);background:var(--good-soft);color:var(--ink);cursor:pointer}
+.ms i{font-style:normal;font-family:var(--f-mono);font-size:11.5px;color:var(--muted);margin-left:2px}
+.ms.off{border-color:var(--line);background:var(--bg);opacity:.55;text-decoration:line-through}
+.cchip.tapped{opacity:.55}
 
 
 /* ---- Mulligan ---- */
@@ -1470,7 +1475,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
           </div>
           <div class="palette" id="palette"></div>
           <div class="quick">
-            <div class="qrow"><span class="ql">Maná</span><div class="mana" id="mana-btns"></div><button class="btn sm" id="mana-clr" type="button">Vaciar</button></div>
+            <div class="qrow"><span class="ql">Maná</span><div class="msum" id="mana-sum"></div><button class="btn sm" id="untap" type="button">Enderezar todo</button></div>
+            <div class="qrow"><span class="ql">Extra</span><div class="mana" id="mana-btns"></div><button class="btn sm" id="mana-clr" type="button">Vaciar</button></div>
+            <p class="small" style="margin:-2px 0 0">Las tierras y rocas del Campo se cuentan solas: una Underground Sea es U o B. Toca una fuente cuando la uses. Extra es para rituales, Treasures o maná flotante; se vacía al pasar turno.</p>
             <div class="qrow"><span class="ql">Vida</span><div class="step" id="life-step"></div></div>
             <div class="qrow" id="tax-row"><span class="ql">Impuesto</span><div class="step" id="tax-step"></div>
               <label class="chk"><input type="checkbox" id="sick"> Entró este turno</label></div>
@@ -1595,6 +1602,26 @@ function canPay(pool, cost){
   for (const c of COLORS) { const need = cost[c]||0; const use = Math.min(need, p[c]); p[c]-=use; short += need-use; }
   const left = COLORS.reduce((a,c)=>a+p[c],0) + p.C + p.gen;
   return short + Math.max(0,(cost.gen||0)-left);
+}
+// Fuentes de maná del campo: [colores posibles, cantidad]. "" = incoloro.
+const FETCH = ["Arid Mesa","Bloodstained Mire","Flooded Strand","Marsh Flats","Misty Rainforest","Polluted Delta","Scalding Tarn","Verdant Catacombs","Windswept Heath","Wooded Foothills"];
+const SOURCES = {
+  hashaton: {"Underground Sea":["UB",1],"Scrubland":["WB",1],"Tundra":["WU",1],"Watery Grave":["UB",1],"Godless Shrine":["WB",1],"Hallowed Fountain":["WU",1],"Morphic Pool":["UB",1],"Sea of Clouds":["WU",1],"Vault of Champions":["WB",1],
+    "Tolaria West":["U",1],"Otawara, Soaring City":["U",1],"Ancient Tomb":["",2],"Cavern of Souls":["",1],"Urza's Saga":["",1],"Gemstone Caverns":["",1],"City of Brass":["WUB",1],"Mana Confluence":["WUB",1],"Command Tower":["WUB",1],"Starting Town":["WUB",1],
+    "Sol Ring":["",2],"Mana Vault":["",3],"Arcane Signet":["WUB",1],"Fellwar Stone":["WUB",1],"Chrome Mox":["WUB",1],"Mox Diamond":["WUB",1],"Mox Opal":["WUB",1],"Mox Amber":["WB",1],"Lotus Petal":["WUB",1]},
+  crystal: {"Plateau":["RW",1],"Savannah":["GW",1],"Taiga":["RG",1],"Tropical Island":["GU",1],"Tundra":["WU",1],"Volcanic Island":["UR",1],"Breeding Pool":["GU",1],"Boseiju, Who Endures":["G",1],"Otawara, Soaring City":["U",1],
+    "Ancient Tomb":["",2],"Gemstone Caverns":["",1],"City of Brass":["WURG",1],"Mana Confluence":["WURG",1],"Command Tower":["WURG",1],"Exotic Orchard":["WURG",1],"Forbidden Orchard":["WURG",1],"Starting Town":["WURG",1],"Tarnished Citadel":["WURG",1],
+    "Sol Ring":["",2],"Chrome Mox":["WURG",1],"Mox Diamond":["WURG",1],"Lotus Petal":["WURG",1],"Birds of Paradise":["WURG",1],"Noble Hierarch":["GWU",1]}
+};
+function sourceOf(deckId, c){ const S0 = SOURCES[deckId]||{}; if (S0[c]) return S0[c]; if (FETCH.includes(c)) return [deckId==="hashaton"?"WUB":"WURG",1]; return null; }
+// units: lista de strings de colores posibles por cada maná ("" = solo genérico)
+function payShort(units, cost){
+  const pips = []; COLORS.forEach(c => { for (let i=0;i<(cost[c]||0);i++) pips.push(c); });
+  const match = new Array(units.length).fill(-1);
+  const tryPip = (pi, seen) => { for (let u=0; u<units.length; u++) { if (!units[u].includes(pips[pi]) || seen[u]) continue; seen[u]=1; if (match[u]<0 || tryPip(match[u], seen)) { match[u]=pi; return true; } } return false; };
+  let got = 0; pips.forEach((_,pi) => { if (tryPip(pi, [])) got++; });
+  const left = units.length - got;
+  return (pips.length - got) + Math.max(0, (cost.gen||0) - left);
 }
 const add = (...cs) => { const r={}; cs.forEach(c=>Object.keys(c).forEach(k=>r[k]=(r[k]||0)+c[k])); return r; };
 const costStr = c => { const s=(c.gen?String(c.gen):"")+COLORS.map(k=>k.repeat(c[k]||0)).join(""); return s||"0"; };
@@ -1891,7 +1918,7 @@ function deckCards(deckId){
 
 /* ===================== Estado ===================== */
 const KEY = "grimorio-partida-v2";
-const blankZones = () => ({hand:[],field:[],grave:[],exile:[]});
+const blankZones = () => ({hand:[],field:[],grave:[],exile:[],tapped:[]});
 const blankOpp = () => ({name:"",text:"",list:"",life:40,alive:true});
 const blank = () => ({pod:{hashaton:[],crystal:[]},flex:"Grand Abolisher",deck:"crystal",seat:1,round:1,active:1,sick:false,tax:{hashaton:0,crystal:0},mana:"",life:40,zones:{hashaton:blankZones(),crystal:blankZones()},opps:[blankOpp(),blankOpp(),blankOpp()],log:[]});
 let S = blank();
@@ -1933,6 +1960,7 @@ const zoneOf = c => ZONES.find(z => Z()[z].includes(c));
 function moveCard(c, to){
   const from = zoneOf(c);
   if (from) Z()[from].splice(Z()[from].indexOf(c),1);
+  if (from==="field" && to!=="field") { const t = tappedL(), k = t.indexOf(c); if (k>=0) t.splice(k,1); }
   if (to) Z()[to].push(c);
   renderCards(); update();
 }
@@ -1941,7 +1969,7 @@ function renderZSeg(){
 }
 function renderZones(){
   $("#zones").innerHTML = ZONES.map(z => `<div class="zrow${z===selZone?" sel":""}" data-z="${z}"><button type="button" class="zl" data-z="${z}">${ZLABEL[z]} ${Z()[z].length}</button>${
-    Z()[z].length ? Z()[z].map(c => `<button type="button" class="cchip" data-c="${esc(c)}">${esc(c)}</button>`).join("") : `<span class="zempty">${z===selZone?"Toca cartas abajo para añadirlas aquí":"—"}</span>`}</div>`).join("");
+    Z()[z].length ? Z()[z].map(c => `<button type="button" class="cchip${z==="field"&&tappedL().includes(c)?" tapped":""}" data-c="${esc(c)}">${z==="field"&&tappedL().includes(c)?"↷ ":""}${esc(c)}</button>`).join("") : `<span class="zempty">${z===selZone?"Toca cartas abajo para añadirlas aquí":"—"}</span>`}</div>`).join("");
 }
 const PAL_ORDER = [["piece","Combo"],["prot","Protección"],["tutor","Tutores"],["accel","Maná"],["engine","Motores"],["other","Otras"],["land","Tierras"]];
 let landsOpen = false;
@@ -1957,7 +1985,7 @@ function renderPalette(){
       return `<button type="button" class="pc r-${r}${z?" inz":""}" data-c="${esc(c)}">${esc(c.split(",")[0])}${z?`<span class="zb">${ZSHORT[z]}</span>`:""}</button>`; }).join("")}</div></div>`;
   }).join("") || `<p class="small">Nada coincide. Enter la añade igual con ese nombre.</p>`;
 }
-function renderCards(){ renderZSeg(); renderZones(); renderPalette(); }
+function renderCards(){ renderZSeg(); renderZones(); renderPalette(); renderManaSum(); }
 function renderZone(){ renderCards(); }
 $("#zseg").addEventListener("click", e => { const b = e.target.closest("button[data-z]"); if (!b) return; selZone = b.dataset.z; renderCards(); });
 $("#palette").addEventListener("click", e => {
@@ -1984,7 +2012,8 @@ $("#zones").addEventListener("click", e => {
   e.stopPropagation(); closeMenu();
   const c = chip.dataset.c, from = zoneOf(c), d = D(), isCmd = c === d.commander;
   menu = document.createElement("div"); menu.className = "chipmenu";
-  menu.innerHTML = `<div class="cm-t">${esc(c)}</div>` + ZONES.filter(z=>z!==from).map(z => `<button type="button" data-to="${z}">→ ${ZLABEL[z]}</button>`).join("")
+  const tapOpt = from==="field" && sourceOf(S.deck,c) ? `<button type="button" data-tap="1">${tappedL().includes(c)?"Enderezar":"Girar (ya la usé)"}</button>` : "";
+  menu.innerHTML = `<div class="cm-t">${esc(c)}</div>` + tapOpt + ZONES.filter(z=>z!==from).map(z => `<button type="button" data-to="${z}">→ ${ZLABEL[z]}</button>`).join("")
     + (isCmd ? `<button type="button" data-to="cmd">→ Zona de mando (+1 impuesto)</button>` : "")
     + `<button type="button" class="del" data-to="">Quitar (vuelve a la biblioteca)</button>`;
   document.body.appendChild(menu);
@@ -1992,6 +2021,7 @@ $("#zones").addEventListener("click", e => {
   menu.style.top = (window.scrollY + r.bottom + 4) + "px";
   menu.style.left = Math.max(8, Math.min(window.scrollX + r.left, window.scrollX + document.documentElement.clientWidth - menu.offsetWidth - 8)) + "px";
   menu.addEventListener("click", ev => {
+    if (ev.target.closest("button[data-tap]")) { closeMenu(); toggleTap(c); return; }
     const b = ev.target.closest("button[data-to]"); if (!b) return;
     const to = b.dataset.to;
     if (to === "cmd") { S.tax = S.tax||{}; S.tax[S.deck] = (S.tax[S.deck]||0) + 1; renderSteps(); moveCard(c, null); }
@@ -2003,6 +2033,27 @@ document.addEventListener("click", e => { if (menu && !menu.contains(e.target)) 
 document.addEventListener("keydown", e => { if (e.key === "Escape") closeMenu(); });
 
 /* ---- Maná, vida, impuesto ---- */
+const tappedL = () => (Z().tapped = Z().tapped || []);
+function fieldSources(){
+  return Z().field.map(c => ({c, src:sourceOf(S.deck, c), tapped:tappedL().includes(c)})).filter(x => x.src);
+}
+function manaUnits(){
+  const u = [];
+  fieldSources().filter(x=>!x.tapped).forEach(x => { for (let i=0;i<x.src[1];i++) u.push(x.src[0]); });
+  const m = parseMana(S.mana);
+  COLORS.forEach(c => { for (let i=0;i<m[c];i++) u.push(c); });
+  for (let i=0;i<m.C+m.gen;i++) u.push("");
+  return u;
+}
+const srcLabel = src => (src[0] ? src[0].split("").join("/") : "C") + (src[1]>1 ? ` ×${src[1]}` : "");
+function renderManaSum(){
+  const fs = fieldSources(), up = fs.filter(x=>!x.tapped), n = manaUnits().length;
+  $("#mana-sum").innerHTML = `<b style="width:100%">${n} maná disponible</b>` + (fs.length
+    ? `${fs.map(x => `<button type="button" class="ms${x.tapped?" off":""}" data-c="${esc(x.c)}" title="${x.tapped?"Girada: toca para enderezar":"Toca si ya la usaste"}">${esc(x.c.split(",")[0])} <i>${esc(srcLabel(x.src))}</i></button>`).join("")}`
+    : `<span class="small">Pon tus tierras y rocas en Campo y se cuentan solas.</span>`);
+}
+function toggleTap(c){ const t = tappedL(), k = t.indexOf(c); if (k>=0) t.splice(k,1); else t.push(c); renderCards(); update(); }
+
 const MANA_KEYS = ["W","U","B","R","G","C","gen"];
 let manaMinus = false;
 function manaObj(){ return parseMana(S.mana); }
@@ -2017,9 +2068,11 @@ $("#mana-btns").addEventListener("click", e => {
   if (e.target.closest("#mana-minus")) { manaMinus = !manaMinus; renderMana(); return; }
   const b = e.target.closest(".mb[data-k]"); if (!b) return;
   const m = manaObj(), k = b.dataset.k; m[k] = Math.max(0, (m[k]||0) + (manaMinus ? -1 : 1));
-  S.mana = manaToStr(m); renderMana(); update();
+  S.mana = manaToStr(m); renderMana(); renderManaSum(); update();
 });
-$("#mana-clr").addEventListener("click", () => { S.mana = ""; manaMinus = false; renderMana(); update(); });
+$("#mana-clr").addEventListener("click", () => { S.mana = ""; manaMinus = false; renderMana(); renderManaSum(); update(); });
+$("#mana-sum").addEventListener("click", e => { const b = e.target.closest(".ms[data-c]"); if (b) toggleTap(b.dataset.c); });
+$("#untap").addEventListener("click", () => { Z().tapped = []; renderCards(); update(); });
 function stepper(el, get, set, steps){
   el.innerHTML = steps.filter(s=>s<0).map(s=>`<button type="button" data-s="${s}">${s}</button>`).join("") + `<output>${get()}</output>` + steps.filter(s=>s>0).map(s=>`<button type="button" data-s="${s}">+${s}</button>`).join("");
   el.onclick = e => { const b = e.target.closest("button[data-s]"); if (!b) return; set(get() + (+b.dataset.s)); el.querySelector("output").textContent = get(); update(); };
@@ -2174,6 +2227,9 @@ $("#btn-next").addEventListener("click", () => {
   let s = S.active;
   for (let k=0;k<4;k++) { s = (s % 4) + 1; if (s === 1) S.round++; if (seatAlive(s)) break; }
   S.active = s; S.sick = false; $("#sick").checked = false; $("#p-setup").open = false;
+  S.mana = ""; manaMinus = false; renderMana();
+  if (s === S.seat) Z().tapped = [];
+  renderCards();
   S.opps.forEach(o => { o.open = null; });
   if (S.round > 1) $("#p-mull").open = false;
   S.log.push({r:S.round, s, t:`Empieza el turno de Seat ${s} (${seatName(s)})`, sys:true});
@@ -2203,7 +2259,7 @@ function evaluate(){
               mine:S.active===S.seat, nopp:S.opps.filter(o=>o.alive).length || 1};
   const inZ = (zn,c) => st[zn].includes(c);
   const inLib = c => deckCards(d.id).includes(c) && !ZONES.some(zn=>inZ(zn,c));
-  const pool = parseMana(S.mana);
+  const units = manaUnits();
   const dh = {type:c=>(d.cards[c]||[])[0], mv:c=>(d.cards[c]||[])[1], aura:c=>!!(d.cards[c]||[])[2]};
   function tutorsFor(card){
     const out = [];
@@ -2221,7 +2277,7 @@ function evaluate(){
   function line(id, name, pieces, cost, note){
     if (pieces.some(p => !p.ok && !inList(p.card))) return;
     const missing = pieces.filter(p=>!p.ok);
-    const short = canPay(pool, cost);
+    const short = payShort(units, cost);
     const n = missing.length + (short>0?1:0);
     const detail = [];
     if (missing.length) detail.push("Falta: " + missing.map(m => {
@@ -2310,7 +2366,7 @@ function loadAll(){
 $("#btn-clear").addEventListener("click", () => { const deck=S.deck, seat=S.seat; S = blank(); S.deck=deck; S.seat=seat; S.active=1; shots.fill(null); $("#ai-out").innerHTML=""; $("#ai-meta").textContent=""; convo=[]; loadAll(); });
 $("#btn-example").addEventListener("click", () => {
   const d = D(); const ex = JSON.parse(JSON.stringify(d.example));
-  S.zones[S.deck] = ex.zones; S.mana = ex.mana; S.seat = 2; S.round = 3; S.active = 2; S.life = 34; S.sick = false;
+  S.zones[S.deck] = Object.assign({tapped:[]}, ex.zones); S.mana = ""; S.seat = 2; S.round = 3; S.active = 2; S.life = 34; S.sick = false;
   S.opps = [
     {name:"Kinnan (ejemplo)",text:"2 tierras abiertas, 4 cartas en mano. Jugó Mystic Remora.",list:"",life:36,alive:true},
     {name:"Tymna + Kraum (ejemplo)",text:"Tapped out. Tiene Esper Sentinel.",list:"",life:31,alive:true},
@@ -2379,7 +2435,7 @@ function stateText(){
     `TURNO ACTUAL: Seat ${S.active}${S.active===S.seat?" (mío)":""}`,
     zl("MANO",z.hand), zl("CAMPO",z.field), zl("CEMENTERIO",z.grave), zl("EXILIO",z.exile),
     ...(S.escape && S.deck==="hashaton" ? ["SITUACIÓN: me contrarrestaron el trigger de Thassa's Oracle y Leveler ya exilió mi biblioteca. Necesito ganar antes de mi próximo paso de robo."] : []),
-    `MANÁ DISPONIBLE (sin LED): ${S.mana||"(no indicado)"}`, `MI VIDA: ${S.life}`, `MI COMANDANTE ENTRÓ ESTE TURNO: ${S.sick?"sí":"no"}`,
+    `MANÁ DISPONIBLE (sin LED): ${manaUnits().length} — ${fieldSources().filter(x=>!x.tapped).map(x=>x.c+" ("+srcLabel(x.src)+")").join(", ")||"nada en el campo"}${S.mana?"; extra: "+S.mana:""}${fieldSources().some(x=>x.tapped)?"; giradas: "+fieldSources().filter(x=>x.tapped).map(x=>x.c).join(", "):""}`, `MI VIDA: ${S.life}`, `MI COMANDANTE ENTRÓ ESTE TURNO: ${S.sick?"sí":"no"}`,
     "RIVALES:\n"+opp, "BITÁCORA:\n"+(log||"(vacía)"),
     "CHEQUEO AUTOMÁTICO:\n"+evaluate().lines.map(l=>`${l.id} ${l.name}: ${l.n===0?"lista":"faltan "+l.n}`).join("\n")
   ].join("\n");
