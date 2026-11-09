@@ -296,6 +296,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .oi-t,.oi-c{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:1px 7px;border-radius:999px;background:var(--lapis-soft);color:var(--lapis)}
 .oi-t.t-turbo{background:var(--bad-soft);color:var(--bad)}.oi-t.t-stax{background:var(--gold-soft);color:var(--gold)}
 .oi-c{font-family:var(--f-mono);background:var(--bg);color:var(--muted)}
+.chk.esc{background:var(--bad-soft);border-radius:8px;padding:8px 10px;margin:0 0 10px;font-weight:600}
 /* ---- v2 ---- */
 .gamebar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:end;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:18px}
 .gamebar .fld{flex:0 1 auto;min-width:0}
@@ -489,7 +490,29 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       </ol>
     </div>
   </div>
-  <div class="warn"><strong>Si te stiflean el trigger de Thassa</strong> después de que Leveler resuelva, quedas con biblioteca vacía y pierdes en tu próximo robo. Por eso, con Stifle o Tidebinder visibles, juega primero Abolisher, usa la ventana de split second o guarda un counter para el stifle.</div>
+  <h3 id="escape-thassa">Si te contrarrestan el trigger de Thassa: cómo salir</h3>
+  <p>Es la respuesta más común: Trickbind, Stifle o Tishana's Tidebinder sobre el trigger de Thassa. Leveler igual exilia tu biblioteca y <strong>pierdes en tu próximo paso de robo</strong>. Trickbind tiene split second, así que no le puedes responder: todo lo de abajo se hace después de que resuelve.</p>
+  <div class="note"><p><strong>La clave:</strong> Thassa's Oracle es tuya aunque la controle un rival. Todo lo que diga "a la mano de su dueño" o "al cementerio de su dueño" te la devuelve a ti, y con biblioteca 0 cualquier trigger nuevo de Thassa gana.</p></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Ruta</th><th>Cartas</th><th>Velocidad</th><th>Cómo</th></tr></thead>
+    <tbody>
+      <tr><td>Rebote + Hashaton</td><td>Into the Flood Maw, Snapback, Chain of Vapor u Otawara (channel) + The Underworld Cookbook en mesa</td><td>Instantánea</td><td>Rebota a Thassa a tu mano, descártala con el Cookbook y paga {2}{U}. El token de Thassa entra y gana. No se puede contrarrestar, solo stiflear de nuevo.</td></tr>
+      <tr><td>Rebote + lanzarla</td><td>Un rebote + {U}{U}</td><td>Solo en tu fase principal</td><td>Rebota a Thassa y lánzala. Se puede contrarrestar. Con Teferi, Mage of Zhalfir en tu campo tiene flash y vale en cualquier momento.</td></tr>
+      <tr><td>Matar + Shallow Grave</td><td>Snuff Out (gratis con un Swamp) + Shallow Grave</td><td>Instantánea</td><td>Snuff Out destruye a Thassa (es azul, no negra) y va a tu cementerio. Shallow Grave la trae de vuelta si es la criatura de más arriba. Su trigger gana.</td></tr>
+      <tr><td>Matar + Reanimate</td><td>Snuff Out o Toxic Deluge + Reanimate</td><td>Tu turno</td><td>Igual que la anterior, con Reanimate (pierdes 2 vidas). Swords to Plowshares no sirve: exilia.</td></tr>
+      <tr><td>Spider-Man</td><td>Superior Spider-Man en el flex + Thassa en un cementerio</td><td>Tu turno</td><td>Después de matarla, Spider-Man entra como copia de Thassa y gana.</td></tr>
+      <tr><td>Frenar a Leveler</td><td>Trickbind propio</td><td>Instantánea</td><td>Solo si te contrarrestan a Thassa <em>antes</em> de que resuelva Leveler: contrarresta tu propio trigger de Leveler y no pierdes la biblioteca.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="warn"><strong>Cuánto tiempo tienes:</strong> hasta tu próximo paso de robo, que viene antes de tu fase principal. Si pasó en tu turno, tienes el resto del turno y los turnos rivales. Si pasó en el turno de un rival, solo te sirven las rutas instantáneas: en tu upkeep todavía no puedes lanzar a Thassa.</div>
+  <h4>Cómo prepararte</h4>
+  <ul>
+    <li>Antes de combar, guarda un rebote (Snapback es gratis) o Snuff Out + Shallow Grave. Con el Cookbook en mesa, el rebote basta.</li>
+    <li>Si combas con LED, tu mano se descarta: el rebote tiene que venir de otro lado (Otawara en mesa no sirve, el channel es desde la mano). Combar con Cookbook en vez de LED te deja conservar la mano.</li>
+    <li>La mejor defensa es que no puedan tirarlo: comba encima de un split second propio (Angel's Grace, Trickbind, Extirpate, o cualquier instantáneo con Samut en mesa), con Yuriko en combate o Teferi en tu campo, o después de Silence.</li>
+    <li><strong>Con Hoarding Broodlord en el flex, busca la salida, no un counter.</strong> Su trigger resuelve primero y la carta queda jugable desde el exilio aunque Broodlord se lo regales a un rival. Contra Trickbind un counter no sirve (split second), pero <strong>Into the Flood Maw</strong> ({U}, instantáneo) sí: si te contrarrestan a Thassa, la rebotas desde el exilio y la vuelves a lanzar o descartar. Busca Pact of Negation solo si esperas un Stifle o un Tidebinder, que sí se pueden contrarrestar.</li>
+    <li>Ten maná para la salida: Into the Flood Maw {U} y después Thassa {U}{U}, o {2}{U} si la descartas con el Cookbook.</li>
+  </ul>
   <h3>A quién darle Grand Abolisher</h3>
   <p>Es la decisión más importante del combo. Tú eliges qué criatura recibe cada oponente. Abolisher solo funciona <strong>en el turno de quien lo controla</strong>, y en ese turno ninguno de sus oponentes puede lanzar hechizos ni activar habilidades de artefactos, criaturas o encantamientos.</p>
   <div class="tbl"><table>
@@ -929,7 +952,13 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   <h3>Hoarding Broodlord</h3>
   <p>{5}{B}{B}{B}, 7/6, convoke, vuela. <em>Al entrar, busca cualquier carta de tu biblioteca y exíliala boca abajo; mientras siga exiliada, puedes jugarla. Los hechizos que lanzas desde el exilio tienen convoke.</em> Si otro jugador gana el control de Broodlord, el permiso para jugar la carta sigue siendo tuyo.</p>
   <ul>
-    <li><strong>Revelada por Dack:</strong> apila Thassa abajo, Leveler al medio y Broodlord arriba. Su trigger resuelve con la biblioteca llena y buscas lo que falte: Pact of Negation (gratis) o Fierce Guardianship (gratis con Hashaton) contra un Stifle, o Tainted Pact por si te stiflean a Leveler. Si combaste con LED tu mano está vacía y Force of Will no sirve: Broodlord te devuelve una respuesta justo ahí.</li>
+    <li><strong>Revelada por Dack:</strong> apila Thassa abajo, Leveler al medio y Broodlord arriba. Su trigger resuelve con la biblioteca llena y buscas tu seguro:
+      <ul>
+        <li><strong>Into the Flood Maw</strong> (la mejor contra Trickbind): si contrarrestan a Thassa, la rebotas a tu mano desde el exilio y la vuelves a lanzar o descartar. Ver <a href="#escape-thassa">cómo salir</a>.</li>
+        <li><strong>Pact of Negation</strong> (gratis) o <strong>Fierce Guardianship</strong> (gratis con Hashaton): contra Stifle o Tidebinder, que se pueden contrarrestar. Contra Trickbind no sirven.</li>
+        <li><strong>Tainted Pact</strong>: si temes que te contrarresten a Leveler.</li>
+      </ul>
+      Si combaste con LED tu mano está vacía: Broodlord te devuelve una carta justo ahí.</li>
     <li><strong>Con Hashaton:</strong> descartarla (Cookbook, LED, Careful Study) cuesta {2}{U} y el token te da un tutor de cualquier carta a velocidad de instantáneo.</li>
     <li><strong>Contras:</strong> no impide que te respondan; tu respuesta también se puede contrarrestar y solo cubre una. En mano es casi muerta si no la descartas. Reanimate te cuesta 8 vidas.</li>
   </ul>
@@ -1351,6 +1380,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <div>
         <div class="panel" id="p-plan">
           <h3>Plan</h3>
+          <label class="chk esc" id="esc-row"><input type="checkbox" id="esc"> Me contrarrestaron el trigger de Thassa y Leveler ya exilió mi biblioteca</label>
           <div id="plan"></div>
           <h3 style="margin-top:16px">Líneas</h3>
           <div class="status" id="lines"></div>
@@ -1496,6 +1526,31 @@ DECKS.hashaton = {
     ["containment priest","Containment Priest: exilia a Abolisher, Leveler y Thassa cuando Dack las pone (y frena Reanimate). Tiene flash."],
     ["strict proctor","Strict Proctor: pagas {2} por cada trigger de entrada (Dack, Leveler, Thassa) o se contrarresta."]
   ],
+  escape(st, h, fx){
+    const {inZ, line, P} = h;
+    const hashF = inZ("field","Hashaton, Scarab's Fist");
+    const teferi = fx==="Teferi, Mage of Zhalfir" && inZ("field",fx);
+    const fromBrood = c => fx==="Hoarding Broodlord" && inZ("exile",c);
+    const have = c => inZ("hand",c) || fromBrood(c);
+    const legends = st.field.filter(c => ["Hashaton, Scarab's Fist","Tezzeret, Cruel Captain","Yuriko, Blade of the Mighty","Teferi, Mage of Zhalfir","Samut, Tyrant of Naktamun"].includes(c)).length;
+    const B = [["Into the Flood Maw",{U:1}],["Chain of Vapor",{U:1}],["Snapback",{gen:1,U:1}],["Otawara, Soaring City",{gen:Math.max(0,3-legends),U:1}]];
+    const bounce = B.find(([c]) => c==="Otawara, Soaring City" ? inZ("hand",c) : have(c));
+    const bName = bounce ? bounce[0] : "Into the Flood Maw", bCost = bounce ? bounce[1] : {U:1};
+    const bNote = bounce ? (fromBrood(bounce[0]) ? ` ${bounce[0]} desde el exilio de Broodlord.` : (bounce[0]==="Snapback" ? " Snapback también es gratis exiliando una carta azul de tu mano." : (bounce[0].startsWith("Otawara") ? " Channel desde la mano." : ""))) : "";
+    const bP = P(bName, !!bounce, "en mano (Into the Flood Maw, Snapback, Chain of Vapor u Otawara)", 0);
+    const swamp = ["Underground Sea","Scrubland","Watery Grave","Godless Shrine"].some(c=>inZ("field",c));
+    line("R1","Rebote + descartar Thassa con Hashaton",[bP,P("Hashaton, Scarab's Fist",hashF,"en el campo",0),P("The Underworld Cookbook",inZ("field","The Underworld Cookbook"),"en el campo (descarte instantáneo)",0)],add(bCost,{gen:2,U:1}),"Rebota a Thassa a tu mano, descártala con el Cookbook y paga {2}{U}: el token gana y no se puede contrarrestar."+bNote);
+    line("R2","Rebote + lanzar Thassa",[bP,P("Tu fase principal",st.mine||teferi,teferi?"":"(o Teferi en tu campo para darle flash)",0)],add(bCost,{U:2}),"Thassa lanzada se puede contrarrestar."+bNote);
+    line("R3","Snuff Out + Shallow Grave",[P("Snuff Out",have("Snuff Out"),"en mano",0),P("Un Swamp en tu campo",swamp,"(Underground Sea, Scrubland, Watery Grave o Godless Shrine) para pagar Snuff Out gratis",0),P("Shallow Grave",have("Shallow Grave"),"en mano",0)],{gen:1,B:1},"Snuff Out mata a Thassa (azul), va a tu cementerio y Shallow Grave la devuelve: su trigger gana. Snuff Out cuesta 4 vidas."+(st.life<=4?" ⚠ Tu vida no alcanza para Snuff Out.":""));
+    const killer = ["Snuff Out","Toxic Deluge"].find(have);
+    line("R4","Matar + Reanimate",[P(killer||"Snuff Out",!!killer,"en mano (o Toxic Deluge)",0),P("Reanimate",have("Reanimate"),"en mano",0),P("Tu turno",st.mine,"(Reanimate y Deluge son conjuros)",0)],killer==="Toxic Deluge"?{gen:2,B:2}:{B:1},"Reanimate trae a Thassa de tu cementerio y su trigger gana. Pierdes 2 vidas.");
+    if (fx==="Superior Spider-Man") line("R5","Matar + Spider-Man como Thassa",[P(killer||"Snuff Out",!!killer,"en mano (o Toxic Deluge)",0),P("Superior Spider-Man",have("Superior Spider-Man"),"en mano",0),P("Tu fase principal",st.mine,"",0)],add(killer==="Toxic Deluge"?{gen:2,B:1}:{},{gen:2,U:1,B:1}),"Spider-Man entra como copia de Thassa desde tu cementerio.");
+    const flags = [];
+    flags.push(["bad", st.mine ? "Te contrarrestaron a Thassa y tu biblioteca está vacía: pierdes en tu próximo paso de robo. Pasó en tu turno, así que tienes el resto del turno y los turnos rivales." : "Te contrarrestaron a Thassa y tu biblioteca está vacía: pierdes en tu próximo paso de robo. Pasó en turno rival: en tu upkeep todavía no puedes lanzar criaturas, así que usa R1 o R3, que son instantáneas."]);
+    flags.push(["info","Thassa es tuya aunque la controle un rival: rebotarla la manda a tu mano y matarla la manda a tu cementerio. Swords to Plowshares no sirve, la exilia."]);
+    if (!bounce && !have("Snuff Out")) flags.push(["bad","No tienes rebote ni Snuff Out a mano. Tus tutores no sirven: la biblioteca está vacía."]);
+    return flags;
+  },
   example: {
     zones:{hand:["Dack Fayden, Helping Hand","Angel's Grace","Force of Will","Brainstorm","Polluted Delta"],field:["Hashaton, Scarab's Fist","Lion's Eye Diamond","Underground Sea","Scrubland","Sol Ring"],grave:["Flooded Strand"],exile:[]},
     mana:"UB2"
@@ -1512,6 +1567,7 @@ Lista base: Taiga Watanabe, ganador del 16th God of Commander (Hareruya).`,
   evaluate(st, h){
     const {inZ, inLib, line, P, cmdr} = h;
     const fx = flexOf("hashaton"), fxLib = inLib(fx), fxF = inZ("field",fx), fxH = inZ("hand",fx);
+    if (S.escape) return this.escape(st, h, fx);
     const ledF = inZ("field","Lion's Eye Diamond"), ledH = inZ("hand","Lion's Eye Diamond");
     const hashF = inZ("field","Hashaton, Scarab's Fist");
     const dackH = inZ("hand","Dack Fayden, Helping Hand"), dackG = inZ("grave","Dack Fayden, Helping Hand");
@@ -1566,7 +1622,7 @@ Lista base: Taiga Watanabe, ganador del 16th God of Commander (Hareruya).`,
       if (fxF) flags.push(["okf","Samut en tu campo: tus instantáneos y conjuros tienen split second. Entomb, Reanimate, Consultation y Pact no se pueden responder, y cualquier instantáneo abre la ventana para LED + Dack. Los triggers que vienen después sí se pueden stiflear."]);
       else if (fxLib) flags.push(["info","Samut rinde bajándola antes ({1}{U}). Si Dack la revela, no protege y le da split second al rival que la recibe."]);
     } else if (fx==="Hoarding Broodlord") {
-      if (fxLib) flags.push(["info","Si Dack revela a Broodlord, apila Thassa abajo, Leveler al medio y Broodlord arriba: con la biblioteca llena busca Pact of Negation (gratis), Fierce Guardianship" + (hashF?" (gratis con Hashaton)":"") + " o Tainted Pact de respaldo."]);
+      if (fxLib) flags.push(["info","Si Dack revela a Broodlord, apila Thassa abajo, Leveler al medio y Broodlord arriba. Contra Trickbind busca Into the Flood Maw: si contrarrestan a Thassa, la rebotas desde el exilio y la vuelves a lanzar o descartar. Contra Stifle o Tidebinder, Pact of Negation." + (hashF?" Fierce Guardianship también es gratis con Hashaton.":"")]);
       if (fxH && (hashF || cmdr.zone)) flags.push(["okf","Broodlord en mano: descártala con Hashaton (Cookbook, LED, Careful Study) y paga {2}{U}: el token te busca cualquier carta a velocidad de instantáneo."]);
     } else if (fx==="Superior Spider-Man") {
       if (inZ("grave","Thassa's Oracle") && (fxH)) flags.push(["okf","Thassa en el cementerio + Spider-Man en mano: Leveler vacía tu biblioteca y Spider-Man entra como copia de Thassa y gana."]);
@@ -1851,12 +1907,13 @@ $("#btn-next").addEventListener("click", () => {
   S.log.push({r:S.round, s, t:`Empieza el turno de Seat ${s} (${seatName(s)})`, sys:true});
   syncGamebar(); renderSeatline(); fillWho(); renderLog(); update();
 });
-function syncGamebar(){ $("#flex").value = flexOf("hashaton"); $("#flex-row").hidden = S.deck!=="hashaton"; $("#tax").value = ((S.tax||{})[S.deck])||0; $("#deck").value=S.deck; $("#seat").value=String(S.seat); $("#round").value=S.round; $("#active").value=String(S.active); $("#sick").checked=!!S.sick; }
-$("#deck").addEventListener("change", e => { S.deck = e.target.value; $("#flex-row").hidden = S.deck!=="hashaton"; $("#tax").value = ((S.tax||{})[S.deck])||0; fillDatalist(); ZONES.forEach(renderZone); $("#mesa-eyebrow").textContent = D().short+" · asistente de partida"; convo=[]; update(); });
+function syncGamebar(){ $("#esc").checked = !!S.escape; $("#esc-row").hidden = S.deck!=="hashaton"; $("#flex").value = flexOf("hashaton"); $("#flex-row").hidden = S.deck!=="hashaton"; $("#tax").value = ((S.tax||{})[S.deck])||0; $("#deck").value=S.deck; $("#seat").value=String(S.seat); $("#round").value=S.round; $("#active").value=String(S.active); $("#sick").checked=!!S.sick; }
+$("#deck").addEventListener("change", e => { S.deck = e.target.value; $("#flex-row").hidden = S.deck!=="hashaton"; $("#esc-row").hidden = S.deck!=="hashaton"; $("#tax").value = ((S.tax||{})[S.deck])||0; fillDatalist(); ZONES.forEach(renderZone); $("#mesa-eyebrow").textContent = D().short+" · asistente de partida"; convo=[]; update(); });
 $("#seat").addEventListener("change", e => { S.seat = +e.target.value; renderOpps(); renderSeatline(); fillWho(); update(); });
 $("#round").addEventListener("input", e => { S.round = Math.max(1, parseInt(e.target.value,10)||1); renderSeatline(); update(); });
 $("#active").addEventListener("change", e => { S.active = +e.target.value; renderSeatline(); fillWho(); update(); });
 $("#sick").addEventListener("change", e => { S.sick = e.target.checked; update(); });
+$("#esc").addEventListener("change", e => { S.escape = e.target.checked; update(); });
 $("#flex").addEventListener("change", e => { S.flex = e.target.value; fillDatalist(); ZONES.forEach(renderZone); update(); });
 $("#tax").addEventListener("input", e => { S.tax = S.tax||{}; S.tax[S.deck] = Math.max(0, parseInt(e.target.value,10)||0); update(); });
 ["mana","life"].forEach(id => $("#"+id).addEventListener("input", () => { S.mana = $("#mana").value; S.life = parseInt($("#life").value,10)||0; update(); }));
@@ -2020,6 +2077,7 @@ function stateText(){
     `MAZO: ${d.short}`, `ASIENTOS (orden de turno): ${order}`, `MI ASIENTO: Seat ${S.seat}`, `RONDA: ${S.round}`,
     `TURNO ACTUAL: Seat ${S.active}${S.active===S.seat?" (mío)":""}`,
     zl("MANO",z.hand), zl("CAMPO",z.field), zl("CEMENTERIO",z.grave), zl("EXILIO",z.exile),
+    ...(S.escape && S.deck==="hashaton" ? ["SITUACIÓN: me contrarrestaron el trigger de Thassa's Oracle y Leveler ya exilió mi biblioteca. Necesito ganar antes de mi próximo paso de robo."] : []),
     `MANÁ DISPONIBLE (sin LED): ${S.mana||"(no indicado)"}`, `MI VIDA: ${S.life}`, `MI COMANDANTE ENTRÓ ESTE TURNO: ${S.sick?"sí":"no"}`,
     "RIVALES:\n"+opp, "BITÁCORA:\n"+(log||"(vacía)"),
     "CHEQUEO AUTOMÁTICO:\n"+evaluate().lines.map(l=>`${l.id} ${l.name}: ${l.n===0?"lista":"faltan "+l.n}`).join("\n")
