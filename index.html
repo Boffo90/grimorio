@@ -1614,12 +1614,19 @@ const FETCH = ["Arid Mesa","Bloodstained Mire","Flooded Strand","Marsh Flats","M
 const SOURCES = {
   hashaton: {"Underground Sea":["UB",1],"Scrubland":["WB",1],"Tundra":["WU",1],"Watery Grave":["UB",1],"Godless Shrine":["WB",1],"Hallowed Fountain":["WU",1],"Morphic Pool":["UB",1],"Sea of Clouds":["WU",1],"Vault of Champions":["WB",1],
     "Tolaria West":["U",1],"Otawara, Soaring City":["U",1],"Ancient Tomb":["",2],"Cavern of Souls":["",1],"Urza's Saga":["",1],"Gemstone Caverns":["",1],"City of Brass":["WUB",1],"Mana Confluence":["WUB",1],"Command Tower":["WUB",1],"Starting Town":["WUB",1],
-    "Sol Ring":["",2],"Mana Vault":["",3],"Arcane Signet":["WUB",1],"Fellwar Stone":["WUB",1],"Chrome Mox":["WUB",1],"Mox Diamond":["WUB",1],"Mox Opal":["WUB",1],"Mox Amber":["WB",1],"Lotus Petal":["WUB",1]},
+    "Sol Ring":["",2],"Mana Vault":["",3],"Arcane Signet":["WUB",1],"Fellwar Stone":["WUB",1],"Chrome Mox":["WUB",1],"Mox Diamond":["WUB",1],"Mox Opal":["WUB",1],"Lotus Petal":["WUB",1]},
   crystal: {"Plateau":["RW",1],"Savannah":["GW",1],"Taiga":["RG",1],"Tropical Island":["GU",1],"Tundra":["WU",1],"Volcanic Island":["UR",1],"Breeding Pool":["GU",1],"Boseiju, Who Endures":["G",1],"Otawara, Soaring City":["U",1],
     "Ancient Tomb":["",2],"Gemstone Caverns":["",1],"City of Brass":["WURG",1],"Mana Confluence":["WURG",1],"Command Tower":["WURG",1],"Exotic Orchard":["WURG",1],"Forbidden Orchard":["WURG",1],"Starting Town":["WURG",1],"Tarnished Citadel":["WURG",1],
     "Sol Ring":["",2],"Chrome Mox":["WURG",1],"Mox Diamond":["WURG",1],"Lotus Petal":["WURG",1],"Birds of Paradise":["WURG",1],"Noble Hierarch":["GWU",1]}
 };
-function sourceOf(deckId, c){ const S0 = SOURCES[deckId]||{}; if (S0[c]) return S0[c]; if (FETCH.includes(c)) return [deckId==="hashaton"?"WUB":"WURG",1]; return null; }
+// Mox Amber: solo da maná de los colores de tus criaturas legendarias y planeswalkers en campo
+const LEGEND_COLORS = {"Hashaton, Scarab's Fist":"WB","Dack Fayden, Helping Hand":"W","Yuriko, Blade of the Mighty":"W","Teferi, Mage of Zhalfir":"U","Samut, Tyrant of Naktamun":"U"};
+function sourceOf(deckId, c){
+  if (c === "Mox Amber") {
+    const cols = [...new Set(((S.zones[deckId]||{}).field||[]).flatMap(x => (LEGEND_COLORS[x]||"").split("")).filter(Boolean))].join("");
+    return cols ? [cols,1] : null;
+  }
+  const S0 = SOURCES[deckId]||{}; if (S0[c]) return S0[c]; if (FETCH.includes(c)) return [deckId==="hashaton"?"WUB":"WURG",1]; return null; }
 // units: lista de strings de colores posibles por cada maná ("" = solo genérico)
 function payShort(units, cost){
   const pips = []; COLORS.forEach(c => { for (let i=0;i<(cost[c]||0);i++) pips.push(c); });
@@ -1922,6 +1929,18 @@ function deckCards(deckId){
   return Object.keys(d.cards).filter(c => !(FLEX[c] && c !== fx) && !(podIn.includes(c) && !onIn.includes(c)) && !onOut.includes(c));
 }
 
+const TUTOR_COST = {
+  "Demonic Tutor":{gen:1,B:1},"Vampiric Tutor":{B:1},"Imperial Seal":{B:1},"Grim Tutor":{gen:1,B:2},"Lim-Dûl's Vault":{U:1,B:1},"Scheming Symmetry":{B:1},
+  "Mystical Tutor":{U:1},"Enlightened Tutor":{W:1},"Intuition":{gen:2,U:1},"Merchant Scroll":{gen:1,U:1},"Tolaria West":{gen:1,U:2},"Gamble":{R:1},
+  "Hoarding Broodlord":{gen:2,U:1}
+};
+// Tutores que dejan la carta arriba de la biblioteca: no la tienes este turno salvo que robes
+const TOP_TUTORS = ["Vampiric Tutor","Imperial Seal","Scheming Symmetry","Mystical Tutor","Enlightened Tutor","Lim-Dûl's Vault"];
+function tutorCost(t, onField){
+  if (t === "Wishclaw Talisman") return onField ? {gen:1} : {gen:2};
+  if (t === "Tezzeret, Cruel Captain" || t === "Urza's Saga") return onField ? {} : null;
+  return TUTOR_COST[t] || null;
+}
 /* ===================== Estado ===================== */
 const KEY = "grimorio-partida-v2";
 const blankZones = () => ({hand:[],field:[],grave:[],exile:[],tapped:[]});
@@ -2333,16 +2352,19 @@ function evaluate(){
   const inLib = c => deckCards(d.id).includes(c) && !ZONES.some(zn=>inZ(zn,c));
   const units = manaUnits();
   const dh = {type:c=>(d.cards[c]||[])[0], mv:c=>(d.cards[c]||[])[1], aura:c=>!!(d.cards[c]||[])[2]};
+  // Devuelve [{label, cost}] ordenados: primero los que puedes pagar ahora
   function tutorsFor(card){
     const out = [];
     Object.entries(d.tutors).forEach(([t,T]) => {
-      const have = T.field ? (inZ("field",t)||inZ("hand",t)) : inZ("hand",t);
+      const onField = inZ("field",t), have = T.field ? (onField||inZ("hand",t)) : inZ("hand",t);
       if (!have) return;
-      if (T.any || (T.types && T.types.includes(dh.type(card))) || (T.fn && T.fn(card,dh))) out.push(T.label||t);
+      if (T.any || (T.types && T.types.includes(dh.type(card))) || (T.fn && T.fn(card,dh))) out.push({label:T.label||t, cost:tutorCost(t, onField), top:TOP_TUTORS.includes(t)});
     });
-    if (inZ("grave",card) && inZ("hand","Noxious Revival")) out.push("Noxious Revival (al tope)");
-    return out;
+    if (inZ("grave",card) && inZ("hand","Noxious Revival")) out.push({label:"Noxious Revival (al tope)", cost:{}});
+    out.forEach(o => { o.ok = !o.cost || payShort(units, o.cost) === 0; });
+    return out.sort((a,b) => b.ok - a.ok);
   }
+  const tName = o => o.label + (o.top ? " (al tope)" : "") + (o.ok ? "" : ` (no tienes ${o.cost ? costStr(o.cost) : ""} para lanzarlo)`);
   const lines = [];
   const P = (card, ok, need, tutorable=1) => ({card, ok:!!ok, need, tutorable});
   const inList = c => !d.cards[c] || deckCards(d.id).includes(c);
@@ -2354,11 +2376,12 @@ function evaluate(){
     const detail = [];
     if (missing.length) detail.push("Falta: " + missing.map(m => {
       const tt = m.tutorable ? tutorsFor(m.card) : [];
-      return `<b>${esc(m.card)}</b> ${esc(m.need)}` + (tt.length ? ` (búscalo con ${tt.map(esc).join(" o ")})` : "");
+      return `<b>${esc(m.card)}</b> ${esc(m.need)}` + (tt.length ? ` (búscalo con ${tt.map(o=>esc(tName(o))).join(" o ")})` : "");
     }).join(", "));
     detail.push(`Costo: ${costStr(cost)}` + (short>0 ? ` · te faltan ${short} maná` : " · alcanza"));
     if (note) detail.push(esc(note));
-    lines.push({id,name,n,short,detail:detail.join(" · "),missing:missing.map(mm=>({card:mm.card,tutors:mm.tutorable?tutorsFor(mm.card):[]}))});
+    lines.push({id,name,n,short,detail:detail.join(" · "),missing:missing.map(mm=>{ const all = mm.tutorable?tutorsFor(mm.card):[];
+      return {card:mm.card, tutorsAll:all, tutors:all.filter(o=>o.ok).map(o=>o.label), tutorsTop:all.filter(o=>o.ok&&o.top).map(o=>o.label), tutorsNow:all.filter(o=>!o.top && o.ok && (!o.cost || payShort(units, add(cost, o.cost))===0)).map(o=>o.label)}; })});
   }
   const cmdName = d.commander;
   const tax = ((S.tax||{})[S.deck]||0);
@@ -2634,10 +2657,20 @@ function planHTML(lines){
   if (ready.length) {
     out.push(`<div class="planbox go"><b>Puedes ganar ahora: línea ${esc(ready[0].id)}</b>${esc(ready[0].name)}. Revisa quién tiene maná abierto y lanza la protección primero si la necesitas.</div>`);
   }
-  const tut = lines.filter(l=>l.n===1 && l.missing.length===1 && l.missing[0].tutors.length && l.short===0 && l.id!=="0");
-  if (tut.length) {
-    const l = tut[0], m = l.missing[0];
-    out.push(`<div class="planbox tut"><b>Tutorea: ${esc(m.card)}</b>Con ${esc(m.tutors[0])}${m.tutors.length>1?` (o ${esc(m.tutors.slice(1).join(", "))})`:""}. Deja lista la línea ${esc(l.id)} · ${esc(l.name)}.</div>`);
+  const one = lines.filter(l=>l.n===1 && l.missing.length===1 && l.id!=="0" && !l.cage);
+  const now = one.find(l=>l.missing[0].tutorsNow.length && l.short===0);
+  const soon = one.find(l=>l.missing[0].tutors.length);
+  const blocked = one.find(l=>l.missing[0].tutorsAll.length && !l.missing[0].tutors.length);
+  if (now) {
+    const m = now.missing[0];
+    out.push(`<div class="planbox tut"><b>Tutorea: ${esc(m.card)} y gana</b>Con ${esc(m.tutorsNow[0])}${m.tutorsNow.length>1?` (o ${esc(m.tutorsNow.slice(1).join(", "))})`:""}. Te alcanza el maná para el tutor y la línea ${esc(now.id)} · ${esc(now.name)} este turno.</div>`);
+  } else if (soon) {
+    const m = soon.missing[0];
+    const top = m.tutorsTop.includes(m.tutors[0]);
+    out.push(`<div class="planbox tut"><b>Tutorea: ${esc(m.card)}</b>Con ${esc(m.tutors[0])}${m.tutors.length>1?` (o ${esc(m.tutors.slice(1).join(", "))})`:""}. ${top ? `Queda arriba de tu biblioteca: la robas en tu próximo paso de robo (o antes con Brainstorm o Mystic Remora). Lánzalo en el end step del rival anterior a ti para no mostrarla tanto tiempo.` : `Te alcanza para el tutor, pero no para la línea ${esc(soon.id)} en el mismo turno.`} Así queda lista la línea ${esc(soon.id)} · ${esc(soon.name)}.</div>`);
+  } else if (blocked && !ready.length) {
+    const m = blocked.missing[0], o = m.tutorsAll[0];
+    out.push(`<div class="planbox"><b>Te falta maná para tutorear ${esc(m.card)}</b>${esc(o.label)} necesita ${esc(o.cost?costStr(o.cost):"maná")} y no lo tienes disponible. Busca esa fuente primero.</div>`);
   }
   const mana = lines.filter(l=>l.n===1 && l.missing.length===0 && l.short>0 && l.id!=="0");
   if (!ready.length && mana.length) out.push(`<div class="planbox"><b>Te falta maná para la línea ${esc(mana[0].id)}</b>Te faltan ${mana[0].short}. Juega aceleración o espera al próximo turno.</div>`);
