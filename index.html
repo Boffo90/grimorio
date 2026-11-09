@@ -889,6 +889,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <tr><td>Teferi, Mage of Zhalfir</td><td>{2}{U}{U}{U}</td><td>Dáselo al rival que menos interactúa: los otros dos quedan a velocidad de conjuro, en cualquier turno.</td><td>Ningún rival puede responder con hechizos. Tus criaturas tienen flash.</td></tr>
       <tr><td>Samut, Tyrant of Naktamun</td><td>{1}{U}</td><td>No protege nada, y le da split second a los hechizos del rival que la reciba.</td><td>Tus instantáneos y conjuros tienen split second: Entomb, Reanimate, Consultation y Pact no se pueden responder.</td></tr>
       <tr><td>Superior Spider-Man</td><td>{2}{U}{B}</td><td>No protege nada.</td><td>Un segundo Dack: entra como copia de una criatura de cualquier cementerio.</td></tr>
+      <tr><td>Hoarding Broodlord</td><td>{5}{B}{B}{B}, convoke</td><td>Su trigger va arriba de Leveler: buscas una respuesta (Pact of Negation, Fierce Guardianship) o Tainted Pact antes de que se exilie la biblioteca.</td><td>No se baja: descartada con Hashaton por {2}{U} es un tutor de cualquier carta a velocidad de instantáneo.</td></tr>
     </tbody>
   </table></div>
 
@@ -925,6 +926,14 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <li><strong>Contras:</strong> es un hechizo de criatura que se puede contrarrestar y depende del cementerio (Rest in Peace, Bojuka Bog). No protege nada.</li>
   </ul>
 
+  <h3>Hoarding Broodlord</h3>
+  <p>{5}{B}{B}{B}, 7/6, convoke, vuela. <em>Al entrar, busca cualquier carta de tu biblioteca y exíliala boca abajo; mientras siga exiliada, puedes jugarla. Los hechizos que lanzas desde el exilio tienen convoke.</em> Si otro jugador gana el control de Broodlord, el permiso para jugar la carta sigue siendo tuyo.</p>
+  <ul>
+    <li><strong>Revelada por Dack:</strong> apila Thassa abajo, Leveler al medio y Broodlord arriba. Su trigger resuelve con la biblioteca llena y buscas lo que falte: Pact of Negation (gratis) o Fierce Guardianship (gratis con Hashaton) contra un Stifle, o Tainted Pact por si te stiflean a Leveler. Si combaste con LED tu mano está vacía y Force of Will no sirve: Broodlord te devuelve una respuesta justo ahí.</li>
+    <li><strong>Con Hashaton:</strong> descartarla (Cookbook, LED, Careful Study) cuesta {2}{U} y el token te da un tutor de cualquier carta a velocidad de instantáneo.</li>
+    <li><strong>Contras:</strong> no impide que te respondan; tu respuesta también se puede contrarrestar y solo cubre una. En mano es casi muerta si no la descartas. Reanimate te cuesta 8 vidas.</li>
+  </ul>
+
   <h3>Cuál elegir</h3>
   <ul>
     <li><strong>Grand Abolisher:</strong> barato y simple. Es lo de la lista ganadora.</li>
@@ -932,6 +941,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <li><strong>Samut:</strong> si juegas mucho la ruta de Entomb + Reanimate o Consultation, o quieres más ventanas de split second.</li>
     <li><strong>Teferi:</strong> protección más fuerte y en cualquier turno, pero cara. Mejor en mesas lentas.</li>
     <li><strong>Superior Spider-Man:</strong> en mesas que te contrarrestan o te exilian piezas, donde importa más tener un segundo intento.</li>
+    <li><strong>Hoarding Broodlord:</strong> si quieres que Dack te dé una respuesta propia en vez de bloquear a los rivales, y un tutor extra con Hashaton.</li>
   </ul>
   <p class="muted">También aparece Fblthp, Impossibly Lost ({1}{U}) en algunas listas. Gana si tu biblioteca está vacía cuando le haces daño de combate a un rival en tu turno: es un respaldo de Thassa después de Leveler, no protección. Los porcentajes de uso salen de EDHREC; el análisis de cada carta es propio.</p>
 </section>
@@ -1313,7 +1323,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
             <div class="fld"><label for="life">Tu vida</label><input id="life" type="number" inputmode="numeric" value="40"></div>
           </div>
           <div class="row" style="align-items:end">
-            <div class="fld" id="flex-row"><label for="flex">Slot flex</label><select id="flex"><option>Grand Abolisher</option><option>Yuriko, Blade of the Mighty</option><option>Teferi, Mage of Zhalfir</option><option>Samut, Tyrant of Naktamun</option><option>Superior Spider-Man</option></select><div class="hint">La tercera criatura junto a Leveler y Thassa.</div></div>
+            <div class="fld" id="flex-row"><label for="flex">Slot flex</label><select id="flex"><option>Grand Abolisher</option><option>Yuriko, Blade of the Mighty</option><option>Teferi, Mage of Zhalfir</option><option>Samut, Tyrant of Naktamun</option><option>Superior Spider-Man</option><option>Hoarding Broodlord</option></select><div class="hint">La tercera criatura junto a Leveler y Thassa.</div></div>
             <div class="fld"><label for="tax">Veces lanzado (impuesto)</label><input id="tax" type="number" min="0" inputmode="numeric" value="0"><div class="hint">Si no lo pones en Campo, cuento a tu comandante en la zona de mando.</div></div>
             <div class="fld"><label class="chk" style="margin-top:22px"><input type="checkbox" id="sick"> Mi comandante entró este turno (mareo)</label></div>
           </div>
@@ -1445,7 +1455,7 @@ const DECKS = {};
 DECKS.hashaton = {
   id:"hashaton", short:"Hashaton", commander:"Hashaton, Scarab's Fist", cmdCost:{W:1,B:1},
   cards: {
-    "Hashaton, Scarab's Fist":["c",2],"Dack Fayden, Helping Hand":["c",6],"Grand Abolisher":["c",2],"Teferi, Mage of Zhalfir":["c",5],"Yuriko, Blade of the Mighty":["c",4],"Samut, Tyrant of Naktamun":["c",2],"Superior Spider-Man":["c",4],"Leveler":["c",5],"Thassa's Oracle":["c",2],
+    "Hashaton, Scarab's Fist":["c",2],"Dack Fayden, Helping Hand":["c",6],"Grand Abolisher":["c",2],"Teferi, Mage of Zhalfir":["c",5],"Yuriko, Blade of the Mighty":["c",4],"Samut, Tyrant of Naktamun":["c",2],"Superior Spider-Man":["c",4],"Hoarding Broodlord":["c",8],"Leveler":["c",5],"Thassa's Oracle":["c",2],
     "Lion's Eye Diamond":["a",0],"The Underworld Cookbook":["a",1],"Wishclaw Talisman":["a",1],"Sol Ring":["a",1],"Mana Vault":["a",1],"Arcane Signet":["a",2],"Fellwar Stone":["a",2],
     "Chrome Mox":["a",0],"Mox Diamond":["a",0],"Mox Opal":["a",0],"Mox Amber":["a",0],"Lotus Petal":["a",0],"Cursed Totem":["a",2],"Damping Sphere":["a",2],
     "Necropotence":["e",3],"Rhystic Study":["e",3],"Mystic Remora":["e",1],"Smothering Tithe":["e",4],"Black Market Connections":["e",3],"Copy Enchantment":["e",3],
@@ -1461,7 +1471,7 @@ DECKS.hashaton = {
     "Morphic Pool":["l",0],"Sea of Clouds":["l",0],"Vault of Champions":["l",0],"Arid Mesa":["l",0],"Bloodstained Mire":["l",0],"Flooded Strand":["l",0],"Marsh Flats":["l",0],"Misty Rainforest":["l",0],
     "Polluted Delta":["l",0],"Scalding Tarn":["l",0],"Verdant Catacombs":["l",0]
   },
-  aliases: {"led":"Lion's Eye Diamond","cookbook":"The Underworld Cookbook","thassa":"Thassa's Oracle","thoracle":"Thassa's Oracle","dack":"Dack Fayden, Helping Hand","hashaton":"Hashaton, Scarab's Fist","abolisher":"Grand Abolisher","consult":"Demonic Consultation","consultation":"Demonic Consultation","pact":"Tainted Pact","fow":"Force of Will","fon":"Force of Negation","fierce":"Fierce Guardianship","stp":"Swords to Plowshares","swords":"Swords to Plowshares","dt":"Demonic Tutor","vamp":"Vampiric Tutor","necro":"Necropotence","rhystic":"Rhystic Study","remora":"Mystic Remora","tezz":"Tezzeret, Cruel Captain","saga":"Urza's Saga","tomb":"Ancient Tomb","vault":"Mana Vault","petal":"Lotus Petal","grace":"Angel's Grace","trickbind":"Trickbind","teferi":"Teferi, Mage of Zhalfir","yuriko":"Yuriko, Blade of the Mighty","samut":"Samut, Tyrant of Naktamun","spider":"Superior Spider-Man","spiderman":"Superior Spider-Man","spider-man":"Superior Spider-Man","slimed":"Trickbind","unseat":"Praetor's Grasp","grasp":"Praetor's Grasp"},
+  aliases: {"led":"Lion's Eye Diamond","cookbook":"The Underworld Cookbook","thassa":"Thassa's Oracle","thoracle":"Thassa's Oracle","dack":"Dack Fayden, Helping Hand","hashaton":"Hashaton, Scarab's Fist","abolisher":"Grand Abolisher","consult":"Demonic Consultation","consultation":"Demonic Consultation","pact":"Tainted Pact","fow":"Force of Will","fon":"Force of Negation","fierce":"Fierce Guardianship","stp":"Swords to Plowshares","swords":"Swords to Plowshares","dt":"Demonic Tutor","vamp":"Vampiric Tutor","necro":"Necropotence","rhystic":"Rhystic Study","remora":"Mystic Remora","tezz":"Tezzeret, Cruel Captain","saga":"Urza's Saga","tomb":"Ancient Tomb","vault":"Mana Vault","petal":"Lotus Petal","grace":"Angel's Grace","trickbind":"Trickbind","teferi":"Teferi, Mage of Zhalfir","yuriko":"Yuriko, Blade of the Mighty","samut":"Samut, Tyrant of Naktamun","spider":"Superior Spider-Man","spiderman":"Superior Spider-Man","spider-man":"Superior Spider-Man","broodlord":"Hoarding Broodlord","hoarding":"Hoarding Broodlord","slimed":"Trickbind","unseat":"Praetor's Grasp","grasp":"Praetor's Grasp"},
   freeProtection: ["Force of Will","Force of Negation","Pact of Negation","Fierce Guardianship","Mindbreak Trap","Misdirection","Commandeer","Snapback","Deadly Rollick"],
   cheapProtection: ["Mental Misstep","Flusterstorm","Swan Song","Dispel","Spell Snare","Strix Serenade","An Offer You Can't Refuse","Silence","Orim's Chant","Grand Abolisher","Teferi, Mage of Zhalfir","Yuriko, Blade of the Mighty","Samut, Tyrant of Naktamun"],
   splitSecond: ["Angel's Grace","Trickbind","Extirpate"],
@@ -1469,7 +1479,8 @@ DECKS.hashaton = {
     "Demonic Tutor":{any:1},"Vampiric Tutor":{any:1},"Imperial Seal":{any:1},"Grim Tutor":{any:1},"Wishclaw Talisman":{any:1},"Lim-Dûl's Vault":{any:1},"Scheming Symmetry":{any:1},
     "Mystical Tutor":{types:["i","s"]},"Enlightened Tutor":{types:["a","e"]},
     "Tezzeret, Cruel Captain":{fn:(c,d)=>d.type(c)==="a"&&d.mv(c)<=1,field:1},"Urza's Saga":{fn:(c,d)=>d.type(c)==="a"&&d.mv(c)<=1,field:1},
-    "Tolaria West":{fn:(c,d)=>d.mv(c)===0}
+    "Tolaria West":{fn:(c,d)=>d.mv(c)===0},
+    "Hoarding Broodlord":{fn:(c,d)=>d.type(c)!=="c",label:"Hoarding Broodlord descartada con Hashaton (la juegas desde el exilio)"}
   },
   hate: [
     ["hushbringer","Hushbringer: no hay triggers de entrada. Dack, Leveler y Thassa no hacen nada. Sácalo primero."],
@@ -1554,6 +1565,9 @@ Lista base: Taiga Watanabe, ganador del 16th God of Commander (Hareruya).`,
     } else if (fx==="Samut, Tyrant of Naktamun") {
       if (fxF) flags.push(["okf","Samut en tu campo: tus instantáneos y conjuros tienen split second. Entomb, Reanimate, Consultation y Pact no se pueden responder, y cualquier instantáneo abre la ventana para LED + Dack. Los triggers que vienen después sí se pueden stiflear."]);
       else if (fxLib) flags.push(["info","Samut rinde bajándola antes ({1}{U}). Si Dack la revela, no protege y le da split second al rival que la recibe."]);
+    } else if (fx==="Hoarding Broodlord") {
+      if (fxLib) flags.push(["info","Si Dack revela a Broodlord, apila Thassa abajo, Leveler al medio y Broodlord arriba: con la biblioteca llena busca Pact of Negation (gratis), Fierce Guardianship" + (hashF?" (gratis con Hashaton)":"") + " o Tainted Pact de respaldo."]);
+      if (fxH && (hashF || cmdr.zone)) flags.push(["okf","Broodlord en mano: descártala con Hashaton (Cookbook, LED, Careful Study) y paga {2}{U}: el token te busca cualquier carta a velocidad de instantáneo."]);
     } else if (fx==="Superior Spider-Man") {
       if (inZ("grave","Thassa's Oracle") && (fxH)) flags.push(["okf","Thassa en el cementerio + Spider-Man en mano: Leveler vacía tu biblioteca y Spider-Man entra como copia de Thassa y gana."]);
       if (fxLib) flags.push(["info","Spider-Man no protege el combo: cuando Dack la revela y la regala, no frena a nadie. Busca protección aparte (split second, Silence, counters)."]);
@@ -1671,6 +1685,7 @@ const FLEX = {
   "Yuriko, Blade of the Mighty": "Yuriko, Blade of the Mighty ({3}{W}): durante el combate, ningún jugador (tampoco tú) puede lanzar hechizos ni activar habilidades que no sean de maná. Comba con LED (habilidad de maná) en el inicio de combate de cualquier turno: revelada por Dack bloquea las respuestas a Leveler y Thassa; en tu campo antes bloquea todo el combo. En combate no sirven Cookbook ni lanzar Thassa.",
   "Teferi, Mage of Zhalfir": "Teferi, Mage of Zhalfir ({2}{U}{U}{U}, flash): tus cartas de criatura tienen flash; cada oponente solo lanza hechizos a velocidad de conjuro. Revelado por Dack: dáselo al rival que menos interactúa; sus oponentes (tú incluido) quedan a velocidad de conjuro en cualquier turno. En tu campo: nadie responde con hechizos y puedes hard castear Dack con flash.",
   "Samut, Tyrant of Naktamun": "Samut, Tyrant of Naktamun ({1}{U}): tus instantáneos y conjuros tienen split second. Bájala antes: Entomb, Reanimate, Consultation y Pact no se pueden responder, y cualquier instantáneo abre una ventana para LED + Dack. Revelada por Dack no protege y le da split second al rival que la recibe.",
+  "Hoarding Broodlord": "Hoarding Broodlord ({5}{B}{B}{B}, convoke): al entrar busca cualquier carta y la exilia; puedes jugarla aunque otro controle a Broodlord. Revelada por Dack: apila su trigger arriba de Leveler y busca Pact of Negation, Fierce Guardianship o Tainted Pact antes de que se exilie la biblioteca. Descartada con Hashaton por {2}{U}: tutor de cualquier carta a velocidad de instantáneo. No bloquea a nadie.",
   "Superior Spider-Man": "Superior Spider-Man ({2}{U}{B}): entra como copia de una criatura de cualquier cementerio. Es un segundo Dack si Dack está en un cementerio, o la Thassa/Leveler que falta. No protege."
 };
 const flexOf = deckId => deckId === "hashaton" ? (S.flex && FLEX[S.flex] ? S.flex : "Grand Abolisher") : null;
@@ -2463,7 +2478,7 @@ const ROLES = {
     accelFast: ["Lotus Petal","Chrome Mox","Mox Diamond","Dark Ritual","Cabal Ritual","Mana Vault","Sol Ring","Lion's Eye Diamond"],
     accelSlow: ["Arcane Signet","Fellwar Stone","Mox Opal","Mox Amber","Smothering Tithe","Black Market Connections"],
     piece: ["Dack Fayden, Helping Hand","Lion's Eye Diamond","Entomb","Reanimate","Shallow Grave","The Underworld Cookbook","Careful Study","Thassa's Oracle","Demonic Consultation","Tainted Pact","Leveler"],
-    tutor: ["Demonic Tutor","Vampiric Tutor","Imperial Seal","Grim Tutor","Mystical Tutor","Enlightened Tutor","Wishclaw Talisman","Intuition","Lim-Dûl's Vault","Scheming Symmetry","Tezzeret, Cruel Captain","Urza's Saga","Tolaria West"],
+    tutor: ["Hoarding Broodlord","Demonic Tutor","Vampiric Tutor","Imperial Seal","Grim Tutor","Mystical Tutor","Enlightened Tutor","Wishclaw Talisman","Intuition","Lim-Dûl's Vault","Scheming Symmetry","Tezzeret, Cruel Captain","Urza's Saga","Tolaria West"],
     engine: ["Necropotence","Rhystic Study","Mystic Remora","Smothering Tithe","Black Market Connections"],
     landColors: {"Underground Sea":"UB","Scrubland":"WB","Tundra":"WU","Watery Grave":"UB","Godless Shrine":"WB","Hallowed Fountain":"WU","Morphic Pool":"UB","Sea of Clouds":"WU","Vault of Champions":"WB","Tolaria West":"U","Otawara, Soaring City":"U","Ancient Tomb":"","Cavern of Souls":"","Urza's Saga":"","Gemstone Caverns":""},
     anyLand: ["City of Brass","Mana Confluence","Command Tower","Starting Town","Arid Mesa","Bloodstained Mire","Flooded Strand","Marsh Flats","Misty Rainforest","Polluted Delta","Scalding Tarn","Verdant Catacombs"],
