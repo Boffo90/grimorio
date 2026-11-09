@@ -356,6 +356,12 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .ms i{font-style:normal;font-family:var(--f-mono);font-size:11.5px;color:var(--muted);margin-left:2px}
 .ms.off{border-color:var(--line);background:var(--bg);opacity:.55;text-decoration:line-through}
 .cchip.tapped{opacity:.55}
+.cchip,.pc{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.dragghost{position:fixed;z-index:50;pointer-events:none;transform:translate(-50%,-130%);background:var(--lapis);color:var(--paper);font-size:14px;font-weight:700;padding:8px 12px;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.3);white-space:nowrap}
+.dragging{opacity:.35}
+body.is-dragging{cursor:grabbing}
+body.is-dragging .zrow{border-style:dashed}
+.zrow.drop-over,#zseg button.drop-over{border-color:var(--gold);background:var(--gold-soft);border-style:solid}
 
 
 /* ---- Mulligan ---- */
@@ -1969,7 +1975,7 @@ function renderZSeg(){
 }
 function renderZones(){
   $("#zones").innerHTML = ZONES.map(z => `<div class="zrow${z===selZone?" sel":""}" data-z="${z}"><button type="button" class="zl" data-z="${z}">${ZLABEL[z]} ${Z()[z].length}</button>${
-    Z()[z].length ? Z()[z].map(c => `<button type="button" class="cchip${z==="field"&&tappedL().includes(c)?" tapped":""}" data-c="${esc(c)}">${z==="field"&&tappedL().includes(c)?"↷ ":""}${esc(c)}</button>`).join("") : `<span class="zempty">${z===selZone?"Toca cartas abajo para añadirlas aquí":"—"}</span>`}</div>`).join("");
+    Z()[z].length ? Z()[z].map(c => `<button type="button" class="cchip${z==="field"&&tappedL().includes(c)?" tapped":""}" data-c="${esc(c)}">${z==="field"&&tappedL().includes(c)?"↷ ":""}${esc(c)}</button>`).join("") : `<span class="zempty">${z===selZone?"Toca o arrastra cartas aquí":"—"}</span>`}</div>`).join("");
 }
 const PAL_ORDER = [["piece","Combo"],["prot","Protección"],["tutor","Tutores"],["accel","Maná"],["engine","Motores"],["other","Otras"],["land","Tierras"]];
 let landsOpen = false;
@@ -2031,6 +2037,72 @@ $("#zones").addEventListener("click", e => {
 });
 document.addEventListener("click", e => { if (menu && !menu.contains(e.target)) closeMenu(); });
 document.addEventListener("keydown", e => { if (e.key === "Escape") closeMenu(); });
+
+/* ---- Arrastrar cartas entre zonas (mouse y touch) ---- */
+let drag = null, suppressClick = false;
+const DRAG_SEL = "#zones .cchip, #palette .pc[data-c]";
+function dropZoneAt(x, y){
+  const el = document.elementFromPoint(x, y);
+  const t = el && el.closest("#zones .zrow[data-z], #zseg button[data-z]");
+  return t ? t.dataset.z : null;
+}
+function dragStart(src, x, y){
+  closeMenu();
+  const c = src.dataset.c;
+  const g = document.createElement("div"); g.className = "dragghost"; g.textContent = c.split(",")[0];
+  document.body.appendChild(g);
+  drag = {c, g, over:null, from: zoneOf(c)};
+  src.classList.add("dragging");
+  document.body.classList.add("is-dragging");
+  dragMove(x, y);
+  if (navigator.vibrate) try { navigator.vibrate(15); } catch(e) {}
+}
+function dragMove(x, y){
+  if (!drag) return;
+  drag.g.style.left = x + "px"; drag.g.style.top = y + "px";
+  const z = dropZoneAt(x, y);
+  if (z !== drag.over) {
+    document.querySelectorAll(".drop-over").forEach(e => e.classList.remove("drop-over"));
+    drag.over = z;
+    if (z) document.querySelectorAll(`#zones .zrow[data-z="${z}"], #zseg button[data-z="${z}"]`).forEach(e => e.classList.add("drop-over"));
+  }
+  // auto-scroll cerca de los bordes
+  const m = 70, h = window.innerHeight;
+  if (y < m) window.scrollBy(0, -12); else if (y > h - m - 90) window.scrollBy(0, 12);
+}
+function dragEnd(){
+  if (!drag) return;
+  const {c, g, over, from} = drag;
+  g.remove(); document.body.classList.remove("is-dragging");
+  document.querySelectorAll(".drop-over, .dragging").forEach(e => e.classList.remove("drop-over","dragging"));
+  drag = null; suppressClick = true; setTimeout(() => { suppressClick = false; }, 50);
+  if (over && over !== from) moveCard(c, over);
+}
+// Mouse: arrastre inmediato tras moverse 6px
+document.addEventListener("mousedown", e => {
+  const src = e.target.closest(DRAG_SEL); if (!src || e.button !== 0) return;
+  const x0 = e.clientX, y0 = e.clientY;
+  const mm = ev => { if (!drag && Math.hypot(ev.clientX-x0, ev.clientY-y0) > 6) dragStart(src, ev.clientX, ev.clientY); if (drag) { ev.preventDefault(); dragMove(ev.clientX, ev.clientY); } };
+  const mu = () => { document.removeEventListener("mousemove", mm); document.removeEventListener("mouseup", mu); dragEnd(); };
+  document.addEventListener("mousemove", mm); document.addEventListener("mouseup", mu);
+});
+// Touch: mantén apretado ~0,3 s y arrastra (así el scroll normal sigue funcionando)
+let lp = null;
+document.addEventListener("touchstart", e => {
+  const src = e.target.closest(DRAG_SEL); if (!src || e.touches.length > 1) return;
+  const t = e.touches[0];
+  lp = {src, x0:t.clientX, y0:t.clientY, x:t.clientX, y:t.clientY, timer: setTimeout(() => { if (lp) dragStart(lp.src, lp.x, lp.y); }, 280)};
+}, {passive:true});
+document.addEventListener("touchmove", e => {
+  const t = e.touches[0];
+  if (drag) { e.preventDefault(); dragMove(t.clientX, t.clientY); return; }
+  if (lp) { lp.x = t.clientX; lp.y = t.clientY; if (Math.hypot(lp.x-lp.x0, lp.y-lp.y0) > 10) { clearTimeout(lp.timer); lp = null; } }
+}, {passive:false});
+const touchEnd = e => { if (lp) { clearTimeout(lp.timer); lp = null; } if (drag) { e.preventDefault(); dragEnd(); } };
+document.addEventListener("touchend", touchEnd, {passive:false});
+document.addEventListener("touchcancel", touchEnd, {passive:false});
+document.addEventListener("contextmenu", e => { if (e.target.closest(DRAG_SEL)) e.preventDefault(); });
+document.addEventListener("click", e => { if (suppressClick && e.target.closest(DRAG_SEL)) { e.stopPropagation(); e.preventDefault(); } }, true);
 
 /* ---- Maná, vida, impuesto ---- */
 const tappedL = () => (Z().tapped = Z().tapped || []);
