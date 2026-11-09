@@ -496,6 +496,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   <div class="tbl"><table>
     <thead><tr><th>Ruta</th><th>Cartas</th><th>Velocidad</th><th>Cómo</th></tr></thead>
     <tbody>
+      <tr><td>Flicker of Fate</td><td>Flicker of Fate (no viene en la lista: hay que agregarla al 99)</td><td>Instantánea</td><td>Exilia a Thassa y vuelve bajo el control de su dueño, que eres tú: trigger nuevo y ganas. Una carta, {1}{W}, sirve en cualquier turno y no necesita a Hashaton.</td></tr>
       <tr><td>Rebote + Hashaton</td><td>Into the Flood Maw, Snapback, Chain of Vapor u Otawara (channel) + The Underworld Cookbook en mesa</td><td>Instantánea</td><td>Rebota a Thassa a tu mano, descártala con el Cookbook y paga {2}{U}. El token de Thassa entra y gana. No se puede contrarrestar, solo stiflear de nuevo.</td></tr>
       <tr><td>Rebote + lanzarla</td><td>Un rebote + {U}{U}</td><td>Solo en tu fase principal</td><td>Rebota a Thassa y lánzala. Se puede contrarrestar. Con Teferi, Mage of Zhalfir en tu campo tiene flash y vale en cualquier momento.</td></tr>
       <tr><td>Matar + Shallow Grave</td><td>Snuff Out (gratis con un Swamp) + Shallow Grave</td><td>Instantánea</td><td>Snuff Out destruye a Thassa (es azul, no negra) y va a tu cementerio. Shallow Grave la trae de vuelta si es la criatura de más arriba. Su trigger gana.</td></tr>
@@ -509,6 +510,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   <ul>
     <li>Antes de combar, guarda un rebote (Snapback es gratis) o Snuff Out + Shallow Grave. Con el Cookbook en mesa, el rebote basta.</li>
     <li>Si combas con LED, tu mano se descarta: el rebote tiene que venir de otro lado (Otawara en mesa no sirve, el channel es desde la mano). Combar con Cookbook en vez de LED te deja conservar la mano.</li>
+    <li><strong>Ojo con los blinkers:</strong> Ephemerate, Cloudshift y Momentary Blink solo apuntan a criaturas que controlas, y Thassa la controla un rival. Flicker of Fate sirve porque apunta a cualquier criatura y la devuelve bajo el control de su dueño. Turn to Mist también, pero devuelve a Thassa recién en el end step.</li>
     <li>La mejor defensa es que no puedan tirarlo: comba encima de un split second propio (Angel's Grace, Trickbind, Extirpate, o cualquier instantáneo con Samut en mesa), con Yuriko en combate o Teferi en tu campo, o después de Silence.</li>
     <li><strong>Con Hoarding Broodlord en el flex, busca la salida, no un counter.</strong> Su trigger resuelve primero y la carta queda jugable desde el exilio aunque Broodlord se lo regales a un rival. Contra Trickbind un counter no sirve (split second), pero <strong>Into the Flood Maw</strong> ({U}, instantáneo) sí: si te contrarrestan a Thassa, la rebotas desde el exilio y la vuelves a lanzar o descartar. Busca Pact of Negation solo si esperas un Stifle o un Tidebinder, que sí se pueden contrarrestar.</li>
     <li>Ten maná para la salida: Into the Flood Maw {U} y después Thassa {U}{U}, o {2}{U} si la descartas con el Cookbook.</li>
@@ -954,7 +956,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   <ul>
     <li><strong>Revelada por Dack:</strong> apila Thassa abajo, Leveler al medio y Broodlord arriba. Su trigger resuelve con la biblioteca llena y buscas tu seguro:
       <ul>
-        <li><strong>Into the Flood Maw</strong> (la mejor contra Trickbind): si contrarrestan a Thassa, la rebotas a tu mano desde el exilio y la vuelves a lanzar o descartar. Ver <a href="#escape-thassa">cómo salir</a>.</li>
+        <li><strong>Flicker of Fate</strong>, si la agregas al 99 (la mejor): si contrarrestan a Thassa, la parpadeas desde el exilio y su nuevo trigger gana. También salva un trigger de Leveler contrarrestado: parpadeas a Leveler mientras el trigger de Thassa sigue en el stack. Ver <a href="#escape-thassa">cómo salir</a>.</li>
+        <li><strong>Into the Flood Maw</strong> (la mejor de la lista actual contra Trickbind): rebotas a Thassa a tu mano y la vuelves a lanzar o descartar.</li>
         <li><strong>Pact of Negation</strong> (gratis) o <strong>Fierce Guardianship</strong> (gratis con Hashaton): contra Stifle o Tidebinder, que se pueden contrarrestar. Contra Trickbind no sirven.</li>
         <li><strong>Tainted Pact</strong>: si temes que te contrarresten a Leveler.</li>
       </ul>
@@ -1539,6 +1542,7 @@ DECKS.hashaton = {
     const bNote = bounce ? (fromBrood(bounce[0]) ? ` ${bounce[0]} desde el exilio de Broodlord.` : (bounce[0]==="Snapback" ? " Snapback también es gratis exiliando una carta azul de tu mano." : (bounce[0].startsWith("Otawara") ? " Channel desde la mano." : ""))) : "";
     const bP = P(bName, !!bounce, "en mano (Into the Flood Maw, Snapback, Chain of Vapor u Otawara)", 0);
     const swamp = ["Underground Sea","Scrubland","Watery Grave","Godless Shrine"].some(c=>inZ("field",c));
+    if (have("Flicker of Fate")) line("R0","Flicker of Fate a Thassa",[P("Flicker of Fate",true,"",0)],{gen:1,W:1},"Thassa vuelve bajo tu control (eres su dueño): trigger nuevo con biblioteca 0 y ganas. Instantáneo, sirve en cualquier turno."+(fromBrood("Flicker of Fate")?" Desde el exilio de Broodlord.":""));
     line("R1","Rebote + descartar Thassa con Hashaton",[bP,P("Hashaton, Scarab's Fist",hashF,"en el campo",0),P("The Underworld Cookbook",inZ("field","The Underworld Cookbook"),"en el campo (descarte instantáneo)",0)],add(bCost,{gen:2,U:1}),"Rebota a Thassa a tu mano, descártala con el Cookbook y paga {2}{U}: el token gana y no se puede contrarrestar."+bNote);
     line("R2","Rebote + lanzar Thassa",[bP,P("Tu fase principal",st.mine||teferi,teferi?"":"(o Teferi en tu campo para darle flash)",0)],add(bCost,{U:2}),"Thassa lanzada se puede contrarrestar."+bNote);
     line("R3","Snuff Out + Shallow Grave",[P("Snuff Out",have("Snuff Out"),"en mano",0),P("Un Swamp en tu campo",swamp,"(Underground Sea, Scrubland, Watery Grave o Godless Shrine) para pagar Snuff Out gratis",0),P("Shallow Grave",have("Shallow Grave"),"en mano",0)],{gen:1,B:1},"Snuff Out mata a Thassa (azul), va a tu cementerio y Shallow Grave la devuelve: su trigger gana. Snuff Out cuesta 4 vidas."+(st.life<=4?" ⚠ Tu vida no alcanza para Snuff Out.":""));
@@ -1547,7 +1551,7 @@ DECKS.hashaton = {
     if (fx==="Superior Spider-Man") line("R5","Matar + Spider-Man como Thassa",[P(killer||"Snuff Out",!!killer,"en mano (o Toxic Deluge)",0),P("Superior Spider-Man",have("Superior Spider-Man"),"en mano",0),P("Tu fase principal",st.mine,"",0)],add(killer==="Toxic Deluge"?{gen:2,B:1}:{},{gen:2,U:1,B:1}),"Spider-Man entra como copia de Thassa desde tu cementerio.");
     const flags = [];
     flags.push(["bad", st.mine ? "Te contrarrestaron a Thassa y tu biblioteca está vacía: pierdes en tu próximo paso de robo. Pasó en tu turno, así que tienes el resto del turno y los turnos rivales." : "Te contrarrestaron a Thassa y tu biblioteca está vacía: pierdes en tu próximo paso de robo. Pasó en turno rival: en tu upkeep todavía no puedes lanzar criaturas, así que usa R1 o R3, que son instantáneas."]);
-    flags.push(["info","Thassa es tuya aunque la controle un rival: rebotarla la manda a tu mano y matarla la manda a tu cementerio. Swords to Plowshares no sirve, la exilia."]);
+    flags.push(["info","Thassa es tuya aunque la controle un rival: rebotarla la manda a tu mano y matarla la manda a tu cementerio. Swords to Plowshares no sirve, la exilia. Ephemerate y Cloudshift tampoco: solo apuntan a criaturas que controlas. Flicker of Fate sí."]);
     if (!bounce && !have("Snuff Out")) flags.push(["bad","No tienes rebote ni Snuff Out a mano. Tus tutores no sirven: la biblioteca está vacía."]);
     return flags;
   },
@@ -1622,7 +1626,7 @@ Lista base: Taiga Watanabe, ganador del 16th God of Commander (Hareruya).`,
       if (fxF) flags.push(["okf","Samut en tu campo: tus instantáneos y conjuros tienen split second. Entomb, Reanimate, Consultation y Pact no se pueden responder, y cualquier instantáneo abre la ventana para LED + Dack. Los triggers que vienen después sí se pueden stiflear."]);
       else if (fxLib) flags.push(["info","Samut rinde bajándola antes ({1}{U}). Si Dack la revela, no protege y le da split second al rival que la recibe."]);
     } else if (fx==="Hoarding Broodlord") {
-      if (fxLib) flags.push(["info","Si Dack revela a Broodlord, apila Thassa abajo, Leveler al medio y Broodlord arriba. Contra Trickbind busca Into the Flood Maw: si contrarrestan a Thassa, la rebotas desde el exilio y la vuelves a lanzar o descartar. Contra Stifle o Tidebinder, Pact of Negation." + (hashF?" Fierce Guardianship también es gratis con Hashaton.":"")]);
+      if (fxLib) flags.push(["info","Si Dack revela a Broodlord, apila Thassa abajo, Leveler al medio y Broodlord arriba. Contra Trickbind busca Flicker of Fate si la juegas (parpadea a Thassa o a Leveler y vuelven bajo tu control), o Into the Flood Maw para rebotar a Thassa y volver a lanzarla o descartarla. Contra Stifle o Tidebinder, Pact of Negation." + (hashF?" Fierce Guardianship también es gratis con Hashaton.":"")]);
       if (fxH && (hashF || cmdr.zone)) flags.push(["okf","Broodlord en mano: descártala con Hashaton (Cookbook, LED, Careful Study) y paga {2}{U}: el token te busca cualquier carta a velocidad de instantáneo."]);
     } else if (fx==="Superior Spider-Man") {
       if (inZ("grave","Thassa's Oracle") && (fxH)) flags.push(["okf","Thassa en el cementerio + Spider-Man en mano: Leveler vacía tu biblioteca y Spider-Man entra como copia de Thassa y gana."]);
