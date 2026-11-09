@@ -254,6 +254,104 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .small{font-size:13px;color:var(--muted)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
+/* ---- Mesa rápida ---- */
+#view-mesa .mesa{padding-bottom:120px}
+.turnbar{position:fixed;left:0;right:0;bottom:0;z-index:15;background:var(--paper);border-top:1px solid var(--line);box-shadow:0 -6px 20px rgba(0,0,0,.12);
+  padding:8px max(16px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.tb-in{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"now next" "best best";gap:6px 10px;align-items:center}
+@media (min-width:760px){.tb-in{grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"now best next"}}
+.tb-now{grid-area:now;min-width:0}
+.tb-now b{font-family:var(--f-display);font-weight:400;font-size:17px;color:var(--gold);display:block;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tb-now .seatline{margin-top:4px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.tb-now .seat{cursor:pointer;font:inherit;font-size:12px;font-weight:700}
+.tb-next{grid-area:next;padding:12px 16px;font-size:15px}
+.tb-best{grid-area:best;min-width:0;font-size:13px;text-decoration:none;color:var(--ink);padding:6px 10px;border-radius:8px;background:var(--bg);border:1px solid var(--line);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tb-best.go{background:var(--good-soft);border-color:var(--good)}
+.tb-best.one{background:var(--gold-soft);border-color:var(--gold)}
+.tb-best:empty{display:none}
+.side{position:sticky;top:76px}
+@media (max-width:900px){.side{position:static}}
+.panel > summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.panel > summary::-webkit-details-marker{display:none}
+.panel > summary::after{content:"▾";margin-left:auto;color:var(--muted)}
+.panel[open] > summary::after{content:"▴"}
+.panel > summary h3{margin:0}
+.lines-d > summary{cursor:pointer;list-style:none}
+.lines-d > summary::-webkit-details-marker{display:none}
+.setup{margin-bottom:16px}
+.setup .eyebrow{margin:0}
+.setup-sum{font-size:13px;color:var(--muted)}
+.setup-body{margin-top:12px}
+.podbox{margin-top:10px;display:grid;gap:6px}
+.podbox .pd{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+.podbox .pd input{width:20px;height:20px;flex:0 0 auto;margin-top:1px;accent-color:var(--lapis)}
+.podbox .pd b{display:block}
+.podbox .pd span{color:var(--muted)}
+.seg{display:inline-flex;flex-wrap:wrap;gap:4px}
+.seg button{font:inherit;font-size:14px;font-weight:600;min-width:44px;min-height:40px;padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--lapis);border-color:var(--lapis);color:var(--paper)}
+.seg button .n{font-size:11px;opacity:.8;margin-left:4px}
+.zhead{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;margin-bottom:10px}
+.zhead h3{margin:0}
+.zones{display:grid;gap:6px;margin-bottom:10px}
+.zrow{display:flex;flex-wrap:wrap;gap:5px;align-items:center;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:var(--bg);min-height:40px}
+.zrow.sel{border-color:var(--lapis);box-shadow:inset 3px 0 0 var(--lapis)}
+.zrow .zl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);min-width:66px;cursor:pointer;background:none;border:0;padding:4px 0;text-align:left;font-family:inherit}
+.zrow .zempty{font-size:12.5px;color:var(--muted)}
+.cchip{cursor:pointer;font:inherit;font-size:13px;font-weight:600;color:var(--ink);padding:5px 9px}
+.cchip:hover{border-color:var(--lapis)}
+.pick input{width:100%;font:inherit;font-size:16px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.palette{margin-top:10px;display:grid;gap:10px;max-height:46vh;overflow:auto;padding-right:2px}
+.pg h4{margin:0 0 5px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.pg .pb{display:flex;flex-wrap:wrap;gap:5px}
+.pc{font:inherit;font-size:13px;font-weight:600;min-height:36px;padding:5px 10px;border-radius:7px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;text-align:left}
+.pc:hover{border-color:var(--lapis)}
+.pc .zb{font-size:10px;font-weight:700;margin-left:5px;padding:1px 5px;border-radius:4px;background:var(--lapis);color:var(--paper)}
+.pc.inz{background:var(--lapis-soft);border-color:var(--lapis)}
+.pc.r-piece{border-left:3px solid var(--gold)}.pc.r-tutor{border-left:3px solid var(--lapis)}.pc.r-prot{border-left:3px solid var(--good)}
+.quick{display:grid;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.qrow{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.ql{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);min-width:66px}
+.mana{display:flex;flex-wrap:wrap;gap:4px}
+.mb{font:inherit;font-family:var(--f-mono);font-size:14px;font-weight:600;min-width:46px;min-height:40px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:4px;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+.mb b{font-size:15px}
+.mb.on{border-color:var(--lapis);background:var(--lapis-soft)}
+.btn.sm{padding:6px 10px;min-height:40px}
+.step{display:inline-flex;align-items:center;gap:4px}
+.step button{font:inherit;font-size:14px;font-weight:700;min-width:42px;min-height:40px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;touch-action:manipulation}
+.step output{font-family:var(--f-mono);font-size:17px;font-weight:600;min-width:42px;text-align:center}
+.chipmenu{position:absolute;z-index:30;background:var(--paper);border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.2);padding:6px;display:grid;gap:4px;min-width:190px}
+.chipmenu .cm-t{font-size:12px;font-weight:700;color:var(--muted);padding:4px 8px}
+.chipmenu button{font:inherit;font-size:14px;text-align:left;padding:9px 10px;border:0;border-radius:6px;background:var(--bg);color:var(--ink);cursor:pointer}
+.chipmenu button:hover{background:var(--lapis-soft)}
+.chipmenu button.del{color:var(--bad)}
+.opp{padding:10px 12px}
+.ohd{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.ohd .stag{font-family:var(--f-mono);font-size:12px;font-weight:600;color:var(--gold);background:var(--gold-soft);padding:3px 8px;border-radius:4px;cursor:pointer;border:0}
+.ohd .stag.act{background:var(--gold);color:var(--paper)}
+.ohd .oname{flex:1 1 150px;min-width:0;font:inherit;font-size:15px;font-weight:600;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink)}
+.ohd .step button{min-width:38px;min-height:36px;font-size:13px}
+.ohd .step output{font-size:15px;min-width:32px}
+.ostop{font-size:13px;margin:8px 0 0;padding:6px 9px;border-radius:6px;background:var(--lapis-soft)}
+.ostop b{color:var(--lapis)}
+.otags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;align-items:center}
+.otags .ol{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-right:2px}
+.tg{font:inherit;font-size:12.5px;font-weight:600;min-height:34px;padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
+.tg[aria-pressed="true"]{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.tg.mo[aria-pressed="true"]{background:var(--lapis);border-color:var(--lapis);color:var(--paper)}
+.tg.inl{border-style:dashed}
+.opp details{margin-top:8px}
+.opp details summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--lapis)}
+.opp .out{font:inherit;font-size:12px;padding:4px 10px;min-height:34px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--muted);cursor:pointer}
+.qlog{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.qlog .ql2{font-size:12px;color:var(--muted);width:100%}
+.setup > summary{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px}
+.setup > summary .eyebrow{grid-column:1}
+.setup > summary .setup-sum{grid-column:1}
+.setup > summary::after{grid-column:2;grid-row:1 / span 2;align-self:center;margin:0}
+.tg.more{border-style:dashed;color:var(--lapis)}
+.lines-d .status{margin-top:8px}
+
 
 /* ---- Mulligan ---- */
 .mstats{display:flex;gap:6px;flex-wrap:wrap}
@@ -405,6 +503,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <li><a href="#reglas">Reglas finas</a></li>
     <li><a href="#flex">Slot flex</a></li>
     <li><a href="#lista">Lista por función</a></li>
+    <li><a href="#pod">Cartas según el pod</a></li>
   </ol>
 </nav>
 
@@ -496,7 +595,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   <div class="tbl"><table>
     <thead><tr><th>Ruta</th><th>Cartas</th><th>Velocidad</th><th>Cómo</th></tr></thead>
     <tbody>
-      <tr><td>Flicker of Fate</td><td>Flicker of Fate (no viene en la lista: hay que agregarla al 99)</td><td>Instantánea</td><td>Exilia a Thassa y vuelve bajo el control de su dueño, que eres tú: trigger nuevo y ganas. Una carta, {1}{W}, sirve en cualquier turno y no necesita a Hashaton.</td></tr>
+      <tr><td>Flicker of Fate</td><td>Flicker of Fate (no viene en la lista base: es un cambio de pod, ver sección 14)</td><td>Instantánea</td><td>Exilia a Thassa y vuelve bajo el control de su dueño, que eres tú: trigger nuevo y ganas. Una carta, {1}{W}, sirve en cualquier turno y no necesita a Hashaton.</td></tr>
       <tr><td>Rebote + Hashaton</td><td>Into the Flood Maw, Snapback, Chain of Vapor u Otawara (channel) + The Underworld Cookbook en mesa</td><td>Instantánea</td><td>Rebota a Thassa a tu mano, descártala con el Cookbook y paga {2}{U}. El token de Thassa entra y gana. No se puede contrarrestar, solo stiflear de nuevo.</td></tr>
       <tr><td>Rebote + lanzarla</td><td>Un rebote + {U}{U}</td><td>Solo en tu fase principal</td><td>Rebota a Thassa y lánzala. Se puede contrarrestar. Con Teferi, Mage of Zhalfir en tu campo tiene flash y vale en cualquier momento.</td></tr>
       <tr><td>Matar + Shallow Grave</td><td>Snuff Out (gratis con un Swamp) + Shallow Grave</td><td>Instantánea</td><td>Snuff Out destruye a Thassa (es azul, no negra) y va a tu cementerio. Shallow Grave la trae de vuelta si es la criatura de más arriba. Su trigger gana.</td></tr>
@@ -994,6 +1093,20 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <div class="grp"><h4>Stax (2)</h4><ul><li>Cursed Totem</li><li>Damping Sphere</li></ul></div>
     <div class="grp"><h4>Tierras (27)</h4><ul><li>Ancient Tomb</li><li>Cavern of Souls</li><li>City of Brass</li><li>Command Tower</li><li>Gemstone Caverns</li><li>Mana Confluence</li><li>Starting Town</li><li>Urza's Saga</li><li>Tolaria West</li><li>Otawara, Soaring City</li><li>Underground Sea</li><li>Scrubland</li><li>Tundra</li><li>Watery Grave</li><li>Godless Shrine</li><li>Hallowed Fountain</li><li>Morphic Pool</li><li>Sea of Clouds</li><li>Vault of Champions</li><li>Arid Mesa</li><li>Bloodstained Mire</li><li>Flooded Strand</li><li>Marsh Flats</li><li>Misty Rainforest</li><li>Polluted Delta</li><li>Scalding Tarn</li><li>Verdant Catacombs</li></ul></div>
   </div>
+  <h3 id="pod">Cartas según el pod</h3>
+  <p>La lista de arriba es la base. Estos cambios dependen de contra qué juegas: hazlos cuando la mesa los pida. Cada fila saca una carta concreta, así el mazo sigue en 99 y con las mismas tres criaturas junto a Dack. En la Mesa del Grimorio puedes marcar los que estás usando.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Entra</th><th>Sale</th><th>Cuándo</th></tr></thead>
+    <tbody>
+      <tr><td>Gleaming Splendor</td><td>Black Market Connections</td><td>Mesas que roban mucho (Tivit, Aang, Rhystic Study, Mystic Remora). Cuesta {1}{W}, te da un Treasure cada vez que un rival roba su segunda carta del turno y no te cobra vida. Los Treasures llegan en turno rival, justo para el {2}{U} de Hashaton.</td></tr>
+      <tr><td>Flicker of Fate</td><td>Twincast</td><td>Rivales con Trickbind, Stifle o Tishana's Tidebinder. Es la salida más barata si te contrarrestan el trigger de Thassa, y funciona con Grafdigger's Cage porque devuelve desde el exilio.</td></tr>
+      <tr><td>Stifle</td><td>Copy Enchantment</td><td>Comandantes que dependen de triggers (Tivit, Aang, Arcum Dagsson) o loops de Underworld Breach. No corta habilidades de maná como los Treasures.</td></tr>
+      <tr><td>Merchant Scroll</td><td>Scheming Symmetry</td><td>Mesas de control. Busca cualquier instantáneo azul: Force of Will, Mental Misstep, Stifle, Annul, Chain of Vapor o Trickbind, sin regalarle un tutor a un rival.</td></tr>
+      <tr><td>Annul</td><td>Shallow Grave</td><td>Rivales con Grafdigger's Cage, Vexing Bauble, Cursed Totem o combos de artefactos y encantamientos (Arcum, Tivit, Underworld Breach). Con la jaula en mesa, Shallow Grave no hace nada.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note"><p><strong>Qué se queda aunque el pod sea de control:</strong> Damping Sphere encarece cada hechizo extra de los loops de Breach y Jeska's Will. Reanimate sigue, porque sin jaula es de tus mejores cartas. No metas Null Rod ni Stony Silence: apagan tu propio LED, los Moxes y Wishclaw Talisman.</p></div>
+  <div class="warn"><strong>Con Grafdigger's Cage en mesa:</strong> Dack no pone criaturas de la biblioteca y no puedes reanimar. Gana con Leveler descartado + Hashaton + Thassa desde la mano, o con Demonic Consultation o Tainted Pact + Thassa. O saca la jaula: Mental Misstep o Annul cuando la lanzan, Chain of Vapor u Otawara después.</div>
 </section>
 </main>
 </div>
@@ -1306,88 +1419,92 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 </div>
 
 <div class="view" id="view-mesa" hidden>
+  <div class="turnbar" id="turnbar">
+    <div class="tb-in">
+      <div class="tb-now"><b id="now-text">Ronda 1 · tu turno</b><div class="seatline" id="seatline" aria-label="Toca un asiento para darle el turno"></div></div>
+      <a class="tb-best" id="tb-best" href="#p-plan"></a>
+      <button class="btn primary tb-next" id="btn-next" type="button">Pasar turno →</button>
+    </div>
+  </div>
   <div class="mesa">
-    <div class="mesa-head">
-      <div>
-        <div class="eyebrow" id="mesa-eyebrow">Asistente de partida</div>
-        <h2>Mesa</h2>
+    <details class="panel setup" id="p-setup">
+      <summary><span class="eyebrow" id="mesa-eyebrow">Asistente de partida</span><span class="setup-sum" id="setup-sum"></span></summary>
+      <div class="setup-body">
+        <div class="row">
+          <div class="fld"><label for="deck">Mazo</label><select id="deck"><option value="hashaton">Hashaton</option><option value="crystal">Crystal</option></select></div>
+          <div class="fld"><label>Tu asiento</label><div class="seg" id="seat-seg" role="group" aria-label="Tu asiento"></div></div>
+        </div>
+        <div class="row" id="flex-row-wrap">
+          <div class="fld" id="flex-row"><label for="flex">Slot flex</label><select id="flex"><option>Grand Abolisher</option><option>Yuriko, Blade of the Mighty</option><option>Teferi, Mage of Zhalfir</option><option>Samut, Tyrant of Naktamun</option><option>Superior Spider-Man</option><option>Hoarding Broodlord</option></select></div>
+        </div>
+        <div id="pod-row" class="podbox"></div>
+        <div class="row" style="margin-top:10px">
+          <button class="btn" id="btn-clear" type="button">Nueva partida</button>
+          <button class="btn" id="btn-example" type="button">Cargar ejemplo</button>
+        </div>
+        <input type="hidden" id="seat"><input type="hidden" id="active"><input type="hidden" id="round">
       </div>
-      <div class="row" style="gap:8px">
-        <button class="btn" id="btn-example" type="button">Cargar ejemplo</button>
-        <button class="btn" id="btn-clear" type="button">Nueva partida</button>
-      </div>
-    </div>
+    </details>
 
-    <div class="gamebar">
-      <div class="fld"><label for="deck">Mazo</label><select id="deck"><option value="hashaton">Hashaton</option><option value="crystal">Crystal</option></select></div>
-      <div class="fld"><label for="seat">Tu asiento</label><select id="seat"><option value="1">Seat 1</option><option value="2">Seat 2</option><option value="3">Seat 3</option><option value="4">Seat 4</option></select></div>
-      <div class="fld"><label for="round">Ronda</label><input id="round" type="number" min="1" inputmode="numeric" value="1"></div>
-      <div class="fld"><label for="active">Turno de</label><select id="active"><option value="1">Seat 1</option><option value="2">Seat 2</option><option value="3">Seat 3</option><option value="4">Seat 4</option></select></div>
-      <button class="btn primary" id="btn-next" type="button">Pasar turno →</button>
-      <div class="now"><b id="now-text">Ronda 1 · tu turno</b><div class="seatline" id="seatline"></div></div>
-    </div>
-
-    <nav class="mnav" aria-label="Ir a">
-      <a href="#p-mull">Mulligan</a><a href="#p-zonas">Mis zonas</a><a href="#p-plan">Plan</a><a href="#p-rivales">Rivales</a><a href="#ai-panel">Claude</a><a href="#p-log">Bitácora</a>
-    </nav>
     <div class="mesa-grid">
       <div>
-        <div class="panel" id="p-mull">
-          <h3>Mano inicial · ¿keep o mulligan?</h3>
-          <p class="small" style="margin-top:-4px">Pon tus cartas en Mano y el comandante de cada rival abajo. Te digo si la mano aguanta contra esta mesa.</p>
-          <div class="row">
-            <div class="fld"><label for="mm-n">Mulligans hechos</label><select id="mm-n"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div>
-            <div class="fld"><label for="mm-free">Primero gratis</label><select id="mm-free"><option value="1">Sí</option><option value="0">No</option></select></div>
+        <details class="panel" id="p-mull">
+          <summary><h3>Mano inicial · ¿keep o mulligan?</h3></summary>
+          <div class="row" style="margin-top:8px">
+            <div class="fld"><label>Mulligans hechos</label><div class="seg" id="mm-seg"></div><select id="mm-n" hidden><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div>
+            <div class="fld"><label class="chk" style="margin-top:20px"><input type="checkbox" id="mm-free-chk" checked> Primero gratis</label><select id="mm-free" hidden><option value="1">Sí</option><option value="0">No</option></select></div>
           </div>
           <div id="mm-out" style="margin-top:12px"></div>
           <div class="ai-actions"><button class="btn" id="mm-ai" type="button">Preguntar a Claude: ¿keep?</button></div>
           <div class="ai-out" id="mm-ai-out"></div>
-        </div>
+        </details>
+
         <div class="panel" id="p-zonas">
-          <h3>Tus zonas</h3>
-          <p class="small" style="margin-top:-4px">Escribe y presiona Enter. Autocompleta con tu mazo y acepta apodos (led, fow, cam, helix). Lo que no pongas se asume en la biblioteca.</p>
-          <div class="zone"><label for="in-hand">Mano</label><div class="chipbox" data-zone="hand"><input id="in-hand" list="cards" placeholder="Añadir carta…"></div></div>
-          <div class="zone"><label for="in-field">Campo</label><div class="chipbox" data-zone="field"><input id="in-field" list="cards" placeholder="Comandante, tierras, artefactos…"></div></div>
-          <div class="zone"><label for="in-grave">Cementerio</label><div class="chipbox" data-zone="grave"><input id="in-grave" list="cards" placeholder="Añadir carta…"></div></div>
-          <div class="zone"><label for="in-exile">Exilio</label><div class="chipbox" data-zone="exile"><input id="in-exile" list="cards" placeholder="Añadir carta…"></div></div>
-          <div class="row">
-            <div class="fld"><label for="mana">Maná disponible</label><input id="mana" placeholder="ej: URG2"><div class="hint">W U B R G C por color, número para genérico. Sin contar LED.</div></div>
-            <div class="fld"><label for="life">Tu vida</label><input id="life" type="number" inputmode="numeric" value="40"></div>
+          <div class="zhead">
+            <h3>Mis cartas</h3>
+            <div class="seg zseg" id="zseg" role="tablist" aria-label="Zona destino"></div>
           </div>
-          <div class="row" style="align-items:end">
-            <div class="fld" id="flex-row"><label for="flex">Slot flex</label><select id="flex"><option>Grand Abolisher</option><option>Yuriko, Blade of the Mighty</option><option>Teferi, Mage of Zhalfir</option><option>Samut, Tyrant of Naktamun</option><option>Superior Spider-Man</option><option>Hoarding Broodlord</option></select><div class="hint">La tercera criatura junto a Leveler y Thassa.</div></div>
-            <div class="fld"><label for="tax">Veces lanzado (impuesto)</label><input id="tax" type="number" min="0" inputmode="numeric" value="0"><div class="hint">Si no lo pones en Campo, cuento a tu comandante en la zona de mando.</div></div>
-            <div class="fld"><label class="chk" style="margin-top:22px"><input type="checkbox" id="sick"> Mi comandante entró este turno (mareo)</label></div>
+          <div class="zones" id="zones"></div>
+          <div class="pick">
+            <input id="pick-q" list="cards" placeholder="Filtrar o escribir (led, fow, dt)… Enter añade" autocomplete="off" enterkeyhint="done">
           </div>
+          <div class="palette" id="palette"></div>
+          <div class="quick">
+            <div class="qrow"><span class="ql">Maná</span><div class="mana" id="mana-btns"></div><button class="btn sm" id="mana-clr" type="button">Vaciar</button></div>
+            <div class="qrow"><span class="ql">Vida</span><div class="step" id="life-step"></div></div>
+            <div class="qrow" id="tax-row"><span class="ql">Impuesto</span><div class="step" id="tax-step"></div>
+              <label class="chk"><input type="checkbox" id="sick"> Entró este turno</label></div>
+          </div>
+          <input type="hidden" id="mana"><input type="hidden" id="life"><input type="hidden" id="tax">
         </div>
 
         <div class="panel" id="p-rivales">
           <h3>Rivales</h3>
-          <p class="small" style="margin-top:-4px">Se ordenan según el turno a partir de tu asiento. Escribe su mesa, pega su lista de Moxfield (Export → copiar texto) o sube una captura. Ctrl+V pega una imagen en el rival activo.</p>
           <div class="opps" id="opps"></div>
         </div>
 
         <div class="panel" id="p-log">
           <h3>Bitácora</h3>
+          <div class="qlog" id="qlog"></div>
           <form class="logform" id="log-form">
             <label class="sr" for="log-who">Quién</label>
             <select id="log-who"></select>
             <label class="sr" for="log-in">Qué pasó</label>
-            <input id="log-in" placeholder="Jugó Rhystic Study, dejó 2 abiertas…">
+            <input id="log-in" placeholder="Otra cosa…" enterkeyhint="send">
             <button class="btn" type="submit">Anotar</button>
           </form>
           <div class="log" id="log"></div>
         </div>
       </div>
 
-      <div>
+      <div class="side">
         <div class="panel" id="p-plan">
           <h3>Plan</h3>
           <label class="chk esc" id="esc-row"><input type="checkbox" id="esc"> Me contrarrestaron el trigger de Thassa y Leveler ya exilió mi biblioteca</label>
           <div id="plan"></div>
-          <h3 style="margin-top:16px">Líneas</h3>
-          <div class="status" id="lines"></div>
           <div class="flags" id="flags"></div>
+          <h3 style="margin:16px 0 8px">Líneas</h3>
+          <div class="status" id="lines"></div>
         </div>
         <div class="panel" id="ai-panel">
           <h3>Análisis de Claude</h3>
@@ -1484,6 +1601,7 @@ const costStr = c => { const s=(c.gen?String(c.gen):"")+COLORS.map(k=>k.repeat(c
 
 /* ===================== Mazos ===================== */
 const DECKS = {};
+const BLUE_INSTANTS = ["Force of Will","Force of Negation","Pact of Negation","Fierce Guardianship","Mindbreak Trap","Misdirection","Commandeer","Mental Misstep","Flusterstorm","Swan Song","Dispel","Spell Snare","Strix Serenade","Trickbind","Brainstorm","Mystical Tutor","Intuition","Borne Upon a Wind","Snapback","Into the Flood Maw","Chain of Vapor","Twincast","Stifle","Annul","Snap","Sink into Stupor"];
 
 DECKS.hashaton = {
   id:"hashaton", short:"Hashaton", commander:"Hashaton, Scarab's Fist", cmdCost:{W:1,B:1},
@@ -1502,17 +1620,26 @@ DECKS.hashaton = {
     "Ancient Tomb":["l",0],"Cavern of Souls":["l",0],"City of Brass":["l",0],"Command Tower":["l",0],"Gemstone Caverns":["l",0],"Mana Confluence":["l",0],"Starting Town":["l",0],"Urza's Saga":["l",0],
     "Tolaria West":["l",0],"Otawara, Soaring City":["l",0],"Underground Sea":["l",0],"Scrubland":["l",0],"Tundra":["l",0],"Watery Grave":["l",0],"Godless Shrine":["l",0],"Hallowed Fountain":["l",0],
     "Morphic Pool":["l",0],"Sea of Clouds":["l",0],"Vault of Champions":["l",0],"Arid Mesa":["l",0],"Bloodstained Mire":["l",0],"Flooded Strand":["l",0],"Marsh Flats":["l",0],"Misty Rainforest":["l",0],
-    "Polluted Delta":["l",0],"Scalding Tarn":["l",0],"Verdant Catacombs":["l",0]
+    "Polluted Delta":["l",0],"Scalding Tarn":["l",0],"Verdant Catacombs":["l",0],
+    "Gleaming Splendor":["e",2],"Flicker of Fate":["i",2],"Stifle":["i",1],"Merchant Scroll":["s",2],"Annul":["i",1]
   },
-  aliases: {"led":"Lion's Eye Diamond","cookbook":"The Underworld Cookbook","thassa":"Thassa's Oracle","thoracle":"Thassa's Oracle","dack":"Dack Fayden, Helping Hand","hashaton":"Hashaton, Scarab's Fist","abolisher":"Grand Abolisher","consult":"Demonic Consultation","consultation":"Demonic Consultation","pact":"Tainted Pact","fow":"Force of Will","fon":"Force of Negation","fierce":"Fierce Guardianship","stp":"Swords to Plowshares","swords":"Swords to Plowshares","dt":"Demonic Tutor","vamp":"Vampiric Tutor","necro":"Necropotence","rhystic":"Rhystic Study","remora":"Mystic Remora","tezz":"Tezzeret, Cruel Captain","saga":"Urza's Saga","tomb":"Ancient Tomb","vault":"Mana Vault","petal":"Lotus Petal","grace":"Angel's Grace","trickbind":"Trickbind","teferi":"Teferi, Mage of Zhalfir","yuriko":"Yuriko, Blade of the Mighty","samut":"Samut, Tyrant of Naktamun","spider":"Superior Spider-Man","spiderman":"Superior Spider-Man","spider-man":"Superior Spider-Man","broodlord":"Hoarding Broodlord","hoarding":"Hoarding Broodlord","slimed":"Trickbind","unseat":"Praetor's Grasp","grasp":"Praetor's Grasp"},
+  pod: [
+    {in:"Gleaming Splendor", out:"Black Market Connections", when:"Mesas que roban mucho (Tivit, Aang, Rhystic Study, Mystic Remora). Treasures en turno rival, sin pagar vida."},
+    {in:"Flicker of Fate", out:"Twincast", when:"Rivales con Trickbind, Stifle o Tishana's Tidebinder: salida si te contrarrestan el trigger de Thassa. Funciona con Grafdigger's Cage."},
+    {in:"Stifle", out:"Copy Enchantment", when:"Comandantes de triggers (Tivit, Aang, Arcum Dagsson) o loops de Underworld Breach."},
+    {in:"Merchant Scroll", out:"Scheming Symmetry", when:"Mesas de control: busca cualquier instantáneo azul (Force of Will, Mental Misstep, Stifle, Annul, Chain of Vapor, Trickbind)."},
+    {in:"Annul", out:"Shallow Grave", when:"Rivales con Grafdigger's Cage, Vexing Bauble, Cursed Totem o combos de artefactos y encantamientos (Arcum, Tivit, Underworld Breach)."}
+  ],
+  aliases: {"splendor":"Gleaming Splendor","flicker":"Flicker of Fate","scroll":"Merchant Scroll","merchant":"Merchant Scroll","led":"Lion's Eye Diamond","cookbook":"The Underworld Cookbook","thassa":"Thassa's Oracle","thoracle":"Thassa's Oracle","dack":"Dack Fayden, Helping Hand","hashaton":"Hashaton, Scarab's Fist","abolisher":"Grand Abolisher","consult":"Demonic Consultation","consultation":"Demonic Consultation","pact":"Tainted Pact","fow":"Force of Will","fon":"Force of Negation","fierce":"Fierce Guardianship","stp":"Swords to Plowshares","swords":"Swords to Plowshares","dt":"Demonic Tutor","vamp":"Vampiric Tutor","necro":"Necropotence","rhystic":"Rhystic Study","remora":"Mystic Remora","tezz":"Tezzeret, Cruel Captain","saga":"Urza's Saga","tomb":"Ancient Tomb","vault":"Mana Vault","petal":"Lotus Petal","grace":"Angel's Grace","trickbind":"Trickbind","teferi":"Teferi, Mage of Zhalfir","yuriko":"Yuriko, Blade of the Mighty","samut":"Samut, Tyrant of Naktamun","spider":"Superior Spider-Man","spiderman":"Superior Spider-Man","spider-man":"Superior Spider-Man","broodlord":"Hoarding Broodlord","hoarding":"Hoarding Broodlord","slimed":"Trickbind","unseat":"Praetor's Grasp","grasp":"Praetor's Grasp"},
   freeProtection: ["Force of Will","Force of Negation","Pact of Negation","Fierce Guardianship","Mindbreak Trap","Misdirection","Commandeer","Snapback","Deadly Rollick"],
-  cheapProtection: ["Mental Misstep","Flusterstorm","Swan Song","Dispel","Spell Snare","Strix Serenade","An Offer You Can't Refuse","Silence","Orim's Chant","Grand Abolisher","Teferi, Mage of Zhalfir","Yuriko, Blade of the Mighty","Samut, Tyrant of Naktamun"],
+  cheapProtection: ["Mental Misstep","Flusterstorm","Swan Song","Dispel","Spell Snare","Strix Serenade","An Offer You Can't Refuse","Silence","Orim's Chant","Stifle","Annul","Grand Abolisher","Teferi, Mage of Zhalfir","Yuriko, Blade of the Mighty","Samut, Tyrant of Naktamun"],
   splitSecond: ["Angel's Grace","Trickbind","Extirpate"],
   tutors: {
     "Demonic Tutor":{any:1},"Vampiric Tutor":{any:1},"Imperial Seal":{any:1},"Grim Tutor":{any:1},"Wishclaw Talisman":{any:1},"Lim-Dûl's Vault":{any:1},"Scheming Symmetry":{any:1},
     "Mystical Tutor":{types:["i","s"]},"Enlightened Tutor":{types:["a","e"]},
     "Tezzeret, Cruel Captain":{fn:(c,d)=>d.type(c)==="a"&&d.mv(c)<=1,field:1},"Urza's Saga":{fn:(c,d)=>d.type(c)==="a"&&d.mv(c)<=1,field:1},
     "Tolaria West":{fn:(c,d)=>d.mv(c)===0},
+    "Merchant Scroll":{fn:c=>BLUE_INSTANTS.includes(c)},
     "Hoarding Broodlord":{fn:(c,d)=>d.type(c)!=="c",label:"Hoarding Broodlord descartada con Hashaton (la juegas desde el exilio)"}
   },
   hate: [
@@ -1527,7 +1654,12 @@ DECKS.hashaton = {
     ["bojuka","Bojuka Bog: no dejes a Dack en el cementerio."],["soul-guide","Soul-Guide Lantern: no dejes a Dack en el cementerio."],
     ["opposition agent","Opposition Agent: te roba los tutores (Dack revela, no busca)."],
     ["containment priest","Containment Priest: exilia a Abolisher, Leveler y Thassa cuando Dack las pone (y frena Reanimate). Tiene flash."],
-    ["strict proctor","Strict Proctor: pagas {2} por cada trigger de entrada (Dack, Leveler, Thassa) o se contrarresta."]
+    ["strict proctor","Strict Proctor: pagas {2} por cada trigger de entrada (Dack, Leveler, Thassa) o se contrarresta."],
+    ["grand abolisher","Grand Abolisher rival: en su turno no puedes lanzar hechizos ni activar habilidades. Sácalo antes de que intente ganar."],
+    ["bowmasters","Orcish Bowmasters: cada robo extra (Brainstorm, Careful Study, Rhystic) te hace daño y le da ejército."],
+    ["vexing bauble","Vexing Bauble: contrarresta tus hechizos gratis (Force of Will, Pact of Negation, Fierce Guardianship). Mental Misstep o Annul la frenan."],
+    ["teferi, time raveler","Teferi, Time Raveler: solo lanzas a velocidad de conjuro. Pierdes la ventana de split second en turno rival."],
+    ["voice of victory","Voice of Victory: no puedes lanzar hechizos en el turno de su controlador."]
   ],
   escape(st, h, fx){
     const {inZ, line, P} = h;
@@ -1675,7 +1807,8 @@ DECKS.crystal = {
     ["bowmasters","Orcish Bowmasters: cada robo extra le hace daño a Crystal y crea ejército. No robes de más."],
     ["esper sentinel","Esper Sentinel rival: te cobra el primer hechizo no criatura."],["mystic remora","Mystic Remora rival: cada hechizo no criatura le da carta salvo que pagues 4."],["rhystic study","Rhystic Study rival: paga 1 o le das carta."],
     ["tidebinder","Tishana's Tidebinder: puede contrarrestar un trigger de Cam o de daño."],
-    ["toxic deluge","Toxic Deluge en su lista: barrida que no frena Legolas. Ten Snake Umbra o no sobreextiendas."],["pyroclasm","Barrida de daño: Crystal 2/3 cuidado."]
+    ["toxic deluge","Toxic Deluge en su lista: barrida que no frena Legolas. Ten Snake Umbra o no sobreextiendas."],["pyroclasm","Barrida de daño: Crystal 2/3 cuidado."],
+    ["grand abolisher","Grand Abolisher rival: en su turno no puedes responder. Sácalo antes de que intente ganar."]
   ],
   example: {
     zones:{hand:["Retraction Helix","Force of Will","Snapback","Gitaxian Probe","Volcanic Island"],field:["Crystal, Inhuman Princess","Sewer-veillance Cam","Tropical Island","Birds of Paradise","Curiosity"],grave:["Misty Rainforest"],exile:[]},
@@ -1749,13 +1882,18 @@ const FLEX = {
   "Superior Spider-Man": "Superior Spider-Man ({2}{U}{B}): entra como copia de una criatura de cualquier cementerio. Es un segundo Dack si Dack está en un cementerio, o la Thassa/Leveler que falta. No protege."
 };
 const flexOf = deckId => deckId === "hashaton" ? (S.flex && FLEX[S.flex] ? S.flex : "Grand Abolisher") : null;
-function deckCards(deckId){ const d = DECKS[deckId], fx = flexOf(deckId); return Object.keys(d.cards).filter(c => !(FLEX[c] && c !== fx)); }
+const podOn = deckId => { const d = DECKS[deckId]; return (d.pod||[]).filter(p => ((S.pod||{})[deckId]||[]).includes(p.in)); };
+function deckCards(deckId){
+  const d = DECKS[deckId], fx = flexOf(deckId), on = podOn(deckId);
+  const podIn = (d.pod||[]).map(p=>p.in), onIn = on.map(p=>p.in), onOut = on.map(p=>p.out);
+  return Object.keys(d.cards).filter(c => !(FLEX[c] && c !== fx) && !(podIn.includes(c) && !onIn.includes(c)) && !onOut.includes(c));
+}
 
 /* ===================== Estado ===================== */
 const KEY = "grimorio-partida-v2";
 const blankZones = () => ({hand:[],field:[],grave:[],exile:[]});
 const blankOpp = () => ({name:"",text:"",list:"",life:40,alive:true});
-const blank = () => ({flex:"Grand Abolisher",deck:"crystal",seat:1,round:1,active:1,sick:false,tax:{hashaton:0,crystal:0},mana:"",life:40,zones:{hashaton:blankZones(),crystal:blankZones()},opps:[blankOpp(),blankOpp(),blankOpp()],log:[]});
+const blank = () => ({pod:{hashaton:[],crystal:[]},flex:"Grand Abolisher",deck:"crystal",seat:1,round:1,active:1,sick:false,tax:{hashaton:0,crystal:0},mana:"",life:40,zones:{hashaton:blankZones(),crystal:blankZones()},opps:[blankOpp(),blankOpp(),blankOpp()],log:[]});
 let S = blank();
 try {
   const saved = JSON.parse(localStorage.getItem(KEY)||"null");
@@ -1778,7 +1916,7 @@ const seatName = seat => { const i = seatOwner(seat); if (i<0) return "Tú"; ret
 function canon(raw){
   const d = D(); const names = deckCards(d.id);
   const n = norm(raw); if(!n) return "";
-  if (d.aliases[n]) return d.aliases[n];
+  if (d.aliases[n] && names.includes(d.aliases[n])) return d.aliases[n];
   const exact = names.find(c => norm(c) === n); if (exact) return exact;
   const pre = names.filter(c => norm(c).startsWith(n)); if (pre.length === 1) return pre[0];
   const inc = names.filter(c => norm(c).includes(n)); if (inc.length === 1) return inc[0];
@@ -1787,73 +1925,171 @@ function canon(raw){
 function fillCmdrList(){ const dl = document.getElementById("cmdrs"); if (dl) dl.innerHTML = CMDR_DB.map(e=>`<option value="${esc(e.n)}">`).join(""); }
 function fillDatalist(){ $("#cards").innerHTML = deckCards(S.deck).map(c => `<option value="${esc(c)}">`).join(""); }
 
-function renderZone(zone){
-  const box = document.querySelector(`.chipbox[data-zone="${zone}"]`);
-  box.querySelectorAll(".cchip").forEach(x => x.remove());
-  const input = box.querySelector("input");
-  Z()[zone].forEach((c,i) => {
-    const el = document.createElement("span"); el.className = "cchip";
-    el.innerHTML = `${esc(c)}<button type="button" aria-label="Quitar ${esc(c)}">×</button>`;
-    el.querySelector("button").addEventListener("click", () => { Z()[zone].splice(i,1); renderZone(zone); update(); });
-    box.insertBefore(el, input);
-  });
-}
 const ZONES = ["hand","field","grave","exile"];
-document.querySelectorAll(".chipbox").forEach(box => {
-  const zone = box.dataset.zone, input = box.querySelector("input");
-  const addCards = () => {
-    const parts = input.value.split(/[,;\n]/).map(canon).filter(Boolean);
-    if (!parts.length) return;
-    const d = D();
-    parts.forEach(p => { ZONES.forEach(z => { if (z!==zone) { const k=Z()[z].indexOf(p); if(k>=0 && d.cards[p] && d.cards[p][0]!=="l") Z()[z].splice(k,1); } }); Z()[zone].push(p); });
-    input.value = ""; ZONES.forEach(renderZone); update();
-  };
-  input.addEventListener("keydown", e => {
-    if (e.key === "Enter") { e.preventDefault(); addCards(); }
-    else if (e.key === "Backspace" && !input.value && Z()[zone].length) { Z()[zone].pop(); renderZone(zone); update(); }
-  });
-  input.addEventListener("change", () => { if (D().cards[input.value]) addCards(); });
-  box.addEventListener("click", e => { if (e.target === box) input.focus(); });
+const ZLABEL = {hand:"Mano",field:"Campo",grave:"Cementerio",exile:"Exilio"};
+const ZSHORT = {hand:"M",field:"C",grave:"G",exile:"X"};
+let selZone = "hand";
+const zoneOf = c => ZONES.find(z => Z()[z].includes(c));
+function moveCard(c, to){
+  const from = zoneOf(c);
+  if (from) Z()[from].splice(Z()[from].indexOf(c),1);
+  if (to) Z()[to].push(c);
+  renderCards(); update();
+}
+function renderZSeg(){
+  $("#zseg").innerHTML = ZONES.map(z => `<button type="button" data-z="${z}" aria-pressed="${z===selZone}">${ZLABEL[z]}<span class="n">${Z()[z].length||""}</span></button>`).join("");
+}
+function renderZones(){
+  $("#zones").innerHTML = ZONES.map(z => `<div class="zrow${z===selZone?" sel":""}" data-z="${z}"><button type="button" class="zl" data-z="${z}">${ZLABEL[z]} ${Z()[z].length}</button>${
+    Z()[z].length ? Z()[z].map(c => `<button type="button" class="cchip" data-c="${esc(c)}">${esc(c)}</button>`).join("") : `<span class="zempty">${z===selZone?"Toca cartas abajo para añadirlas aquí":"—"}</span>`}</div>`).join("");
+}
+const PAL_ORDER = [["piece","Combo"],["prot","Protección"],["tutor","Tutores"],["accel","Maná"],["engine","Motores"],["other","Otras"],["land","Tierras"]];
+let landsOpen = false;
+function renderPalette(){
+  const q = norm($("#pick-q").value||"");
+  const d = D(), cards = deckCards(d.id);
+  const match = c => !q || norm(c).includes(q) || Object.entries(d.aliases).some(([a,v]) => v===c && a.startsWith(q));
+  const groups = {}; cards.forEach(c => { if (!match(c)) return; const r = roleOf(d.id, c); (groups[r] = groups[r]||[]).push(c); });
+  $("#palette").innerHTML = PAL_ORDER.filter(([r]) => groups[r]).map(([r,lab]) => {
+    const list = groups[r];
+    if (r==="land" && !q && !landsOpen) return `<div class="pg"><h4>Tierras</h4><div class="pb"><button type="button" class="pc" id="lands-open">Mostrar ${list.length} tierras</button></div></div>`;
+    return `<div class="pg"><h4>${lab}</h4><div class="pb">${list.map(c => { const z = zoneOf(c);
+      return `<button type="button" class="pc r-${r}${z?" inz":""}" data-c="${esc(c)}">${esc(c.split(",")[0])}${z?`<span class="zb">${ZSHORT[z]}</span>`:""}</button>`; }).join("")}</div></div>`;
+  }).join("") || `<p class="small">Nada coincide. Enter la añade igual con ese nombre.</p>`;
+}
+function renderCards(){ renderZSeg(); renderZones(); renderPalette(); }
+function renderZone(){ renderCards(); }
+$("#zseg").addEventListener("click", e => { const b = e.target.closest("button[data-z]"); if (!b) return; selZone = b.dataset.z; renderCards(); });
+$("#palette").addEventListener("click", e => {
+  if (e.target.closest("#lands-open")) { landsOpen = true; renderPalette(); return; }
+  const b = e.target.closest(".pc[data-c]"); if (!b) return;
+  const c = b.dataset.c, z = zoneOf(c);
+  moveCard(c, z === selZone ? null : selZone);
+  if ($("#pick-q").value) { $("#pick-q").value = ""; renderPalette(); }
 });
+$("#pick-q").addEventListener("input", renderPalette);
+$("#pick-q").addEventListener("keydown", e => {
+  if (e.key !== "Enter") return; e.preventDefault();
+  const v = $("#pick-q").value; if (!v.trim()) return;
+  v.split(/[,;]/).map(canon).filter(Boolean).forEach(c => { const z = zoneOf(c); if (z !== selZone) { if (z) Z()[z].splice(Z()[z].indexOf(c),1); Z()[selZone].push(c); } });
+  $("#pick-q").value = ""; renderCards(); update();
+});
+$("#pick-q").addEventListener("change", () => { const v = $("#pick-q").value; if (deckCards(S.deck).includes(v)) { const z = zoneOf(v); if (z !== selZone) moveCard(v, selZone); $("#pick-q").value=""; renderPalette(); } });
+// Menú de una carta en zona
+let menu = null;
+function closeMenu(){ if (menu) { menu.remove(); menu = null; } }
+$("#zones").addEventListener("click", e => {
+  const zl = e.target.closest(".zl"); if (zl) { selZone = zl.dataset.z; renderCards(); return; }
+  const chip = e.target.closest(".cchip"); if (!chip) return;
+  e.stopPropagation(); closeMenu();
+  const c = chip.dataset.c, from = zoneOf(c), d = D(), isCmd = c === d.commander;
+  menu = document.createElement("div"); menu.className = "chipmenu";
+  menu.innerHTML = `<div class="cm-t">${esc(c)}</div>` + ZONES.filter(z=>z!==from).map(z => `<button type="button" data-to="${z}">→ ${ZLABEL[z]}</button>`).join("")
+    + (isCmd ? `<button type="button" data-to="cmd">→ Zona de mando (+1 impuesto)</button>` : "")
+    + `<button type="button" class="del" data-to="">Quitar (vuelve a la biblioteca)</button>`;
+  document.body.appendChild(menu);
+  const r = chip.getBoundingClientRect();
+  menu.style.top = (window.scrollY + r.bottom + 4) + "px";
+  menu.style.left = Math.max(8, Math.min(window.scrollX + r.left, window.scrollX + document.documentElement.clientWidth - menu.offsetWidth - 8)) + "px";
+  menu.addEventListener("click", ev => {
+    const b = ev.target.closest("button[data-to]"); if (!b) return;
+    const to = b.dataset.to;
+    if (to === "cmd") { S.tax = S.tax||{}; S.tax[S.deck] = (S.tax[S.deck]||0) + 1; renderSteps(); moveCard(c, null); }
+    else moveCard(c, to || null);
+    closeMenu();
+  });
+});
+document.addEventListener("click", e => { if (menu && !menu.contains(e.target)) closeMenu(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeMenu(); });
+
+/* ---- Maná, vida, impuesto ---- */
+const MANA_KEYS = ["W","U","B","R","G","C","gen"];
+let manaMinus = false;
+function manaObj(){ return parseMana(S.mana); }
+function manaToStr(m){ return (m.gen?String(m.gen):"") + COLORS.concat(["C"]).map(k=>k.repeat(m[k]||0)).join(""); }
+function renderMana(){
+  const m = manaObj(), cols = D().id==="hashaton" ? ["W","U","B","C","gen"] : ["W","U","R","G","C","gen"];
+  $("#mana-btns").innerHTML = cols.map(k => `<button type="button" class="mb${m[k]?" on":""}" data-k="${k}" aria-label="${k==="gen"?"Genérico":k}">${k==="gen"?"◇":k}<b>${m[k]||0}</b></button>`).join("")
+    + `<button type="button" class="mb${manaMinus?" on":""}" id="mana-minus" aria-pressed="${manaMinus}" title="Restar">−</button>`;
+  $("#mana").value = S.mana;
+}
+$("#mana-btns").addEventListener("click", e => {
+  if (e.target.closest("#mana-minus")) { manaMinus = !manaMinus; renderMana(); return; }
+  const b = e.target.closest(".mb[data-k]"); if (!b) return;
+  const m = manaObj(), k = b.dataset.k; m[k] = Math.max(0, (m[k]||0) + (manaMinus ? -1 : 1));
+  S.mana = manaToStr(m); renderMana(); update();
+});
+$("#mana-clr").addEventListener("click", () => { S.mana = ""; manaMinus = false; renderMana(); update(); });
+function stepper(el, get, set, steps){
+  el.innerHTML = steps.filter(s=>s<0).map(s=>`<button type="button" data-s="${s}">${s}</button>`).join("") + `<output>${get()}</output>` + steps.filter(s=>s>0).map(s=>`<button type="button" data-s="${s}">+${s}</button>`).join("");
+  el.onclick = e => { const b = e.target.closest("button[data-s]"); if (!b) return; set(get() + (+b.dataset.s)); el.querySelector("output").textContent = get(); update(); };
+}
+function renderSteps(){
+  stepper($("#life-step"), () => S.life, v => { S.life = v; $("#life").value = v; }, [-5,-1,1]);
+  stepper($("#tax-step"), () => ((S.tax||{})[S.deck])||0, v => { S.tax = S.tax||{}; S.tax[S.deck] = Math.max(0,v); }, [-1,1]);
+}
 
 /* ===================== Rivales ===================== */
+const QUICK_HATE = {
+  hashaton:["grafdigger","drannith","opposition agent","bowmasters","grand abolisher","vexing bauble","teferi, time raveler","hushbringer","stifle"],
+  crystal:["cursed totem","rule of law","drannith","bowmasters","grand abolisher","null rod","rest in peace","esper sentinel"]
+};
+const hateLabel = (d,k) => { const h = d.hate.find(x=>x[0]===k); return h ? h[1].split(":")[0].replace(/ rival$/,"") : k; };
 function countCards(list){ return list.split("\n").filter(l=>/^\s*\d+\s+\S/.test(l)).length; }
+function oppTagKeys(o){
+  const d = D(), lst = norm(o.list||"");
+  const inList = d.hate.map(h=>h[0]).filter(k => lst && lst.includes(k));
+  return [...new Set([...inList, ...QUICK_HATE[d.id]])].filter(k => d.hate.some(h=>h[0]===k));
+}
+const tagsOpen = [false,false,false];
 function renderOpps(){
   const wrap = $("#opps"); wrap.innerHTML = "";
-  const seats = oppSeats();
+  const seats = oppSeats(), d = D();
   S.opps.forEach((o,i) => {
-    const d = document.createElement("div"); d.className = "opp" + (o.alive?"":" deadopp");
-    const n = countCards(o.list||"");
-    d.innerHTML = `
-      <div class="ohead">
-        <span class="stag">Seat ${seats[i]}</span>
-        <div class="fld"><label for="on${i}">Comandante o nombre</label><input id="on${i}" list="cmdrs" placeholder="Escribe: kinnan, najeela, tymna…" value="${esc(o.name)}" autocomplete="off"></div>
-        <div class="fld life"><label for="ol${i}">Vida</label><input id="ol${i}" type="number" inputmode="numeric" value="${esc(o.life)}"></div>
+    o.tags = o.tags || [];
+    const el = document.createElement("div"); el.className = "opp" + (o.alive?"":" deadopp");
+    const n = countCards(o.list||""), lst = norm(o.list||"");
+    const keys = oppTagKeys(o);
+    el.innerHTML = `
+      <div class="ohd">
+        <button type="button" class="stag${S.active===seats[i]?" act":""}" data-act="${seats[i]}" title="Darle el turno">S${seats[i]}</button>
+        <input class="oname" id="on${i}" list="cmdrs" placeholder="Comandante (kinnan, tivit…)" value="${esc(o.name)}" autocomplete="off" aria-label="Comandante del Seat ${seats[i]}">
+        <div class="step" id="ols${i}" aria-label="Vida"></div>
+        <button type="button" class="out" id="oa${i}">${o.alive?"Fuera":"Volvió"}</button>
       </div>
-      <div class="oinfo" id="oi${i}"></div>
-      <label class="chk" style="margin:0 0 8px"><input type="checkbox" id="oa${i}" ${o.alive?"checked":""}> Sigue en la partida</label>
-      <div class="fld"><label for="ot${i}">Su mesa ahora</label><textarea id="ot${i}" placeholder="Campo, maná abierto, cartas en mano, qué jugó…">${esc(o.text)}</textarea></div>
-      <details ${o.list?"":""}><summary>Lista de Moxfield <span class="cnt">${n?`· ${n} líneas cargadas`:"· opcional"}</span></summary>
-        <div class="fld" style="margin-top:6px"><label for="ox${i}">Pega el texto exportado</label><textarea id="ox${i}" placeholder="1 Sol Ring&#10;1 Kinnan, Bonder Prodigy&#10;…" style="min-height:120px">${esc(o.list||"")}</textarea><div class="hint">Moxfield bloquea que la página lo lea directo: usa Export → Copy as plain text.</div></div>
-      </details>
-      <div class="shot"><label for="of${i}">Captura:</label><input id="of${i}" type="file" accept="image/*"><span id="op${i}"></span></div>`;
-    d.querySelector(`#on${i}`).addEventListener("input", e => { o.name = e.target.value; renderOppInfo(i); renderSeatline(); fillWho(); update(); });
-    d.querySelector(`#ol${i}`).addEventListener("input", e => { o.life = parseInt(e.target.value,10)||0; update(); });
-    d.querySelector(`#oa${i}`).addEventListener("change", e => { o.alive = e.target.checked; d.classList.toggle("deadopp",!o.alive); renderSeatline(); update(); });
-    d.querySelector(`#ot${i}`).addEventListener("input", e => { o.text = e.target.value; update(); });
-    d.querySelector(`#ox${i}`).addEventListener("input", e => { o.list = e.target.value; const c=countCards(o.list); d.querySelector(".cnt").textContent = c?`· ${c} líneas cargadas`:"· opcional"; update(); });
-    d.querySelector(`#of${i}`).addEventListener("change", e => { shots[i] = e.target.files[0] || null; showShot(i); });
-    wrap.appendChild(d); showShot(i); renderOppInfo(i);
+      <div class="ostopw" id="oi${i}"></div>
+      <div class="otags"><span class="ol">Abierto</span>${[0,1,2,3].map(v=>`<button type="button" class="tg mo" data-open="${v}" aria-pressed="${o.open===v}">${v===3?"3+":v}</button>`).join("")}</div>
+      <div class="otags"><span class="ol">En mesa</span>${keys.filter(k => tagsOpen[i] || o.tags.includes(k) || lst.includes(k) || QUICK_HATE[d.id].indexOf(k) > -1 && QUICK_HATE[d.id].indexOf(k) < 4).map(k=>`<button type="button" class="tg${lst.includes(k)?" inl":""}" data-tag="${esc(k)}" aria-pressed="${o.tags.includes(k)}" title="${lst.includes(k)?"Está en su lista":""}">${esc(hateLabel(d,k))}</button>`).join("")}<button type="button" class="tg more" data-more="${i}">${tagsOpen[i]?"Menos":"+ más"}</button></div>
+      <details><summary>Notas, lista y captura${o.text||n?" · con datos":""}</summary>
+        <div class="fld" style="margin-top:6px"><label for="ot${i}">Su mesa ahora</label><textarea id="ot${i}" placeholder="Cartas clave, cartas en mano…">${esc(o.text)}</textarea></div>
+        <div class="fld"><label for="ox${i}">Lista (Moxfield → Export → Copy as plain text) <span class="cnt">${n?`· ${n} líneas`:"· opcional"}</span></label><textarea id="ox${i}" placeholder="1 Sol Ring&#10;1 Kinnan, Bonder Prodigy&#10;…" style="min-height:90px">${esc(o.list||"")}</textarea></div>
+        <div class="shot"><label for="of${i}">Captura:</label><input id="of${i}" type="file" accept="image/*"><span id="op${i}"></span></div>
+        <div id="oif${i}"></div>
+      </details>`;
+    wrap.appendChild(el);
+    stepper(el.querySelector(`#ols${i}`), () => o.life, v => { o.life = v; }, [-5,-1,1]);
+    el.querySelector(`#on${i}`).addEventListener("input", e => { o.name = e.target.value; renderOppInfo(i); renderSeatline(); fillWho(); update(); });
+    el.querySelector(`#oa${i}`).addEventListener("click", () => { o.alive = !o.alive; renderOpps(); renderSeatline(); update(); });
+    el.querySelector(".stag").addEventListener("click", ev => { setActive(+ev.currentTarget.dataset.act); });
+    el.querySelectorAll("[data-open]").forEach(b => b.addEventListener("click", () => { const v = +b.dataset.open; o.open = o.open===v ? null : v; el.querySelectorAll("[data-open]").forEach(x => x.setAttribute("aria-pressed", String(o.open===+x.dataset.open))); update(); }));
+    el.querySelectorAll("[data-tag]").forEach(b => b.addEventListener("click", () => { const k = b.dataset.tag, j = o.tags.indexOf(k); if (j>=0) o.tags.splice(j,1); else o.tags.push(k); b.setAttribute("aria-pressed", String(j<0)); update(); }));
+    el.querySelector("[data-more]").addEventListener("click", () => { tagsOpen[i] = !tagsOpen[i]; renderOpps(); });
+    el.querySelector(`#ot${i}`).addEventListener("input", e => { o.text = e.target.value; update(); });
+    el.querySelector(`#ox${i}`).addEventListener("change", () => renderOpps());
+    el.querySelector(`#ox${i}`).addEventListener("input", e => { o.list = e.target.value; const c=countCards(o.list); el.querySelector(".cnt").textContent = c?`· ${c} líneas`:"· opcional"; update(); });
+    el.querySelector(`#of${i}`).addEventListener("change", e => { shots[i] = e.target.files[0] || null; showShot(i); });
+    showShot(i); renderOppInfo(i);
   });
 }
 function renderOppInfo(i){
-  const box = document.getElementById("oi"+i); if (!box) return;
+  const box = document.getElementById("oi"+i), full = document.getElementById("oif"+i); if (!box) return;
   const o = S.opps[i]; const hits = cmdrLookup(o.name);
-  if (!o.name.trim()) { box.innerHTML = ""; return; }
-  if (!hits.length) { box.innerHTML = `<p class="small">No tengo a "${esc(o.name)}" en la base. Pega su lista o describe su plan abajo y Claude lo considera.</p>`; return; }
+  if (!o.name.trim()) { box.innerHTML = ""; if (full) full.innerHTML = ""; return; }
+  if (!hits.length) { box.innerHTML = `<p class="ostop">No lo tengo en la base: anota su plan en Notas.</p>`; if (full) full.innerHTML = ""; return; }
+  box.innerHTML = hits.map(h => `<p class="ostop"><b>${esc(h.n.split(",")[0])}</b> · ${esc(h.t)} · <b>Frénalo:</b> ${esc(h.stop)}</p>`).join("");
   const cols = [...new Set(hits.flatMap(h=>h.c.split("")))];
-  box.innerHTML = hits.map(h => `<div class="oi"><div class="oi-h"><b>${esc(h.n)}</b><span class="oi-t t-${esc(h.t)}">${esc(h.t)}</span><span class="oi-c">${esc(h.c)}</span></div>
-    <p><b>Cómo gana:</b> ${esc(h.plan)}</p><p><b>Stax:</b> ${esc(h.s||"sin datos")}</p><p><b>Cómo frenarlo:</b> ${esc(h.stop)}</p></div>`).join("")
+  if (full) full.innerHTML = hits.map(h => `<div class="oi"><div class="oi-h"><b>${esc(h.n)}</b><span class="oi-t t-${esc(h.t)}">${esc(h.t)}</span><span class="oi-c">${esc(h.c)}</span></div>
+    <p><b>Cómo gana:</b> ${esc(h.plan)}</p><p><b>Stax:</b> ${esc(h.s||"sin datos")}</p></div>`).join("")
     + `<p class="small"><b>Por colores espera:</b> ${cols.map(c=>esc(COLOR_THREAT[c]||c)).join(" · ")}.</p>`;
 }
 function showShot(i){
@@ -1872,28 +2108,58 @@ document.addEventListener("paste", e => {
   if (!item) return;
   let k = seatOwner(S.active); if (k < 0) k = shots.findIndex(x=>!x); if (k < 0) k = 0;
   shots[k] = item.getAsFile(); showShot(k);
+  const det = document.querySelectorAll("#opps .opp details")[k]; if (det) det.open = true;
 });
 
 /* ===================== Turnos y bitácora ===================== */
+function setActive(s){ S.active = s; S.log.push({r:S.round, s, t:`Turno de Seat ${s} (${seatName(s)})`, sys:true}); syncGamebar(); renderSeatline(); renderOpps(); fillWho(); renderLog(); renderQlog(); update(); }
 function renderSeatline(){
   const box = $("#seatline"); box.innerHTML = "";
   for (let s=1; s<=4; s++) {
-    const el = document.createElement("span");
+    const el = document.createElement("button"); el.type = "button";
     el.className = "seat" + (s===S.seat?" me":"") + (s===S.active?" active":"") + (seatAlive(s)?"":" dead");
-    el.textContent = `S${s} · ${seatName(s)}`;
+    el.textContent = `S${s} ${s===S.seat?"Tú":(seatName(s)==="Rival"?"":seatName(s).split(",")[0].split(" ")[0])}`.trim();
+    el.addEventListener("click", () => { if (s!==S.active) setActive(s); });
     box.appendChild(el);
   }
-  const mine = S.active===S.seat;
-  $("#now-text").textContent = `Ronda ${S.round} · ` + (mine ? "tu turno" : `turno de Seat ${S.active}${seatOwner(S.active)>=0 && S.opps[seatOwner(S.active)].name ? " ("+S.opps[seatOwner(S.active)].name+")" : ""}`);
+  const mine = S.active===S.seat, k = seatOwner(S.active);
+  $("#now-text").textContent = `R${S.round} · ` + (mine ? "Tu turno" : `Turno S${S.active}${k>=0 && S.opps[k].name ? " · "+S.opps[k].name.split(",")[0] : ""}`);
+  renderSetupSum();
+}
+function renderSeatSeg(){
+  $("#seat-seg").innerHTML = [1,2,3,4].map(s => `<button type="button" data-s="${s}" aria-pressed="${s===S.seat}">${s}</button>`).join("");
+}
+$("#seat-seg").addEventListener("click", e => { const b = e.target.closest("button[data-s]"); if (!b) return; S.seat = +b.dataset.s; $("#seat").value = S.seat; renderSeatSeg(); renderOpps(); renderSeatline(); fillWho(); renderQlog(); update(); });
+function renderSetupSum(){
+  const box = $("#setup-sum"); if (!box) return;
+  const pods = podOn(S.deck).length;
+  box.textContent = `${D().short} · Seat ${S.seat}${S.deck==="hashaton"?" · "+flexOf("hashaton").split(",")[0]:""}${pods?` · ${pods} cambio${pods>1?"s":""} de pod`:""}`;
+}
+function renderPod(){
+  const d = D(), box = $("#pod-row");
+  if (!d.pod || !d.pod.length) { box.innerHTML = ""; return; }
+  const on = (S.pod = S.pod||{})[d.id] = (S.pod[d.id]||[]);
+  box.innerHTML = `<label style="display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)">Cartas según el pod</label>` + d.pod.map(p => `<label class="pd"><input type="checkbox" data-in="${esc(p.in)}" ${on.includes(p.in)?"checked":""}><span><b>${esc(p.in)} en vez de ${esc(p.out)}</b><span>${esc(p.when)}</span></span></label>`).join("");
+  box.querySelectorAll("input[data-in]").forEach(x => x.addEventListener("change", () => {
+    const arr = S.pod[d.id], k = arr.indexOf(x.dataset.in);
+    if (x.checked && k<0) arr.push(x.dataset.in); if (!x.checked && k>=0) arr.splice(k,1);
+    fillDatalist(); renderCards(); renderSetupSum(); update();
+  }));
 }
 function fillWho(){
   const sel = $("#log-who"); const cur = sel.value;
-  sel.innerHTML = [1,2,3,4].map(s => `<option value="${s}">S${s} ${esc(seatName(s))}</option>`).join("");
-  sel.value = cur && sel.querySelector(`option[value="${cur}"]`) ? cur : String(S.active);
+  sel.innerHTML = [1,2,3,4].map(s => `<option value="${s}">S${s} ${esc(seatName(s).split(",")[0])}</option>`).join("");
+  sel.value = String(S.active);
 }
+const QLOG = ["Tutoreó","Contrarrestó","Remoción","Ritual / mucho maná","Robó mucho","Bajó stax","Intento de combo","Pasó con maná abierto","Tapped out"];
+function renderQlog(){
+  $("#qlog").innerHTML = `<span class="ql2">Toca para anotar sobre S${$("#log-who").value||S.active}:</span>` + QLOG.map(t => `<button type="button" class="tg" data-q="${esc(t)}">${esc(t)}</button>`).join("");
+}
+$("#qlog").addEventListener("click", e => { const b = e.target.closest("[data-q]"); if (!b) return; S.log.push({r:S.round, s:+$("#log-who").value, t:b.dataset.q}); renderLog(); save(); });
+$("#log-who").addEventListener("change", renderQlog);
 function renderLog(){
   const box = $("#log");
-  if (!S.log.length) { box.innerHTML = `<div class="empty-log">Sin anotaciones. Anota lo que juegan los rivales: hechizos clave, tutores, maná que dejan abierto.</div>`; return; }
+  if (!S.log.length) { box.innerHTML = `<div class="empty-log">Sin anotaciones.</div>`; return; }
   box.innerHTML = S.log.map((e,i) => e.sys
     ? `<div class="e sys"><span class="k">R${e.r}</span><span>${esc(e.t)}</span><span></span></div>`
     : `<div class="e"><span class="k">R${e.r} · S${e.s}</span><span>${esc(e.t)}</span><button type="button" data-i="${i}" aria-label="Borrar">×</button></div>`).join("");
@@ -1907,20 +2173,28 @@ $("#log-form").addEventListener("submit", e => {
 $("#btn-next").addEventListener("click", () => {
   let s = S.active;
   for (let k=0;k<4;k++) { s = (s % 4) + 1; if (s === 1) S.round++; if (seatAlive(s)) break; }
-  S.active = s; S.sick = false;
+  S.active = s; S.sick = false; $("#sick").checked = false; $("#p-setup").open = false;
+  S.opps.forEach(o => { o.open = null; });
+  if (S.round > 1) $("#p-mull").open = false;
   S.log.push({r:S.round, s, t:`Empieza el turno de Seat ${s} (${seatName(s)})`, sys:true});
-  syncGamebar(); renderSeatline(); fillWho(); renderLog(); update();
+  syncGamebar(); renderSeatline(); renderOpps(); fillWho(); renderQlog(); renderLog(); update();
 });
-function syncGamebar(){ $("#esc").checked = !!S.escape; $("#esc-row").hidden = S.deck!=="hashaton"; $("#flex").value = flexOf("hashaton"); $("#flex-row").hidden = S.deck!=="hashaton"; $("#tax").value = ((S.tax||{})[S.deck])||0; $("#deck").value=S.deck; $("#seat").value=String(S.seat); $("#round").value=S.round; $("#active").value=String(S.active); $("#sick").checked=!!S.sick; }
-$("#deck").addEventListener("change", e => { S.deck = e.target.value; $("#flex-row").hidden = S.deck!=="hashaton"; $("#esc-row").hidden = S.deck!=="hashaton"; $("#tax").value = ((S.tax||{})[S.deck])||0; fillDatalist(); ZONES.forEach(renderZone); $("#mesa-eyebrow").textContent = D().short+" · asistente de partida"; convo=[]; update(); });
-$("#seat").addEventListener("change", e => { S.seat = +e.target.value; renderOpps(); renderSeatline(); fillWho(); update(); });
-$("#round").addEventListener("input", e => { S.round = Math.max(1, parseInt(e.target.value,10)||1); renderSeatline(); update(); });
-$("#active").addEventListener("change", e => { S.active = +e.target.value; renderSeatline(); fillWho(); update(); });
+function syncGamebar(){
+  $("#esc").checked = !!S.escape; $("#esc-row").hidden = S.deck!=="hashaton";
+  $("#flex").value = flexOf("hashaton"); $("#flex-row-wrap").hidden = S.deck!=="hashaton";
+  $("#tax").value = ((S.tax||{})[S.deck])||0; $("#deck").value=S.deck; $("#seat").value=String(S.seat); $("#round").value=S.round; $("#active").value=String(S.active); $("#sick").checked=!!S.sick;
+  renderSeatSeg(); renderPod(); renderSetupSum();
+}
+$("#deck").addEventListener("change", e => { S.deck = e.target.value; selZone = "hand"; landsOpen = false; syncGamebar(); fillDatalist(); renderCards(); renderMana(); renderSteps(); renderOpps(); $("#mesa-eyebrow").textContent = D().short+" · asistente de partida"; convo=[]; update(); });
 $("#sick").addEventListener("change", e => { S.sick = e.target.checked; update(); });
 $("#esc").addEventListener("change", e => { S.escape = e.target.checked; update(); });
-$("#flex").addEventListener("change", e => { S.flex = e.target.value; fillDatalist(); ZONES.forEach(renderZone); update(); });
-$("#tax").addEventListener("input", e => { S.tax = S.tax||{}; S.tax[S.deck] = Math.max(0, parseInt(e.target.value,10)||0); update(); });
-["mana","life"].forEach(id => $("#"+id).addEventListener("input", () => { S.mana = $("#mana").value; S.life = parseInt($("#life").value,10)||0; update(); }));
+$("#flex").addEventListener("change", e => { S.flex = e.target.value; fillDatalist(); renderCards(); renderSetupSum(); update(); });
+function renderMullSeg(){
+  const v = $("#mm-n").value;
+  $("#mm-seg").innerHTML = [0,1,2,3].map(n => `<button type="button" data-n="${n}" aria-pressed="${String(n)===v}">${n}</button>`).join("");
+}
+$("#mm-seg").addEventListener("click", e => { const b = e.target.closest("button[data-n]"); if (!b) return; $("#mm-n").value = b.dataset.n; renderMullSeg(); renderMesaMull(); });
+$("#mm-free-chk").addEventListener("change", e => { $("#mm-free").value = e.target.checked ? "1" : "0"; renderMesaMull(); });
 
 /* ===================== Motor ===================== */
 function evaluate(){
@@ -1928,7 +2202,7 @@ function evaluate(){
   const st = {hand:z.hand, field:z.field, grave:z.grave, exile:z.exile, life:S.life, sick:S.sick, seat:S.seat, round:S.round,
               mine:S.active===S.seat, nopp:S.opps.filter(o=>o.alive).length || 1};
   const inZ = (zn,c) => st[zn].includes(c);
-  const inLib = c => !ZONES.some(zn=>inZ(zn,c));
+  const inLib = c => deckCards(d.id).includes(c) && !ZONES.some(zn=>inZ(zn,c));
   const pool = parseMana(S.mana);
   const dh = {type:c=>(d.cards[c]||[])[0], mv:c=>(d.cards[c]||[])[1], aura:c=>!!(d.cards[c]||[])[2]};
   function tutorsFor(card){
@@ -1943,7 +2217,9 @@ function evaluate(){
   }
   const lines = [];
   const P = (card, ok, need, tutorable=1) => ({card, ok:!!ok, need, tutorable});
+  const inList = c => !d.cards[c] || deckCards(d.id).includes(c);
   function line(id, name, pieces, cost, note){
+    if (pieces.some(p => !p.ok && !inList(p.card))) return;
     const missing = pieces.filter(p=>!p.ok);
     const short = canPay(pool, cost);
     const n = missing.length + (short>0?1:0);
@@ -1979,7 +2255,7 @@ function evaluate(){
   const seats = oppSeats();
   S.opps.forEach((o,i) => {
     if (!o.alive) return;
-    const txt = norm(o.name+" "+o.text);
+    const txt = norm(o.name+" "+o.text+" "+(o.tags||[]).join(" "));
     d.hate.forEach(([k,msg]) => { if (txt.includes(k)) flags.push(["bad", `Seat ${seats[i]}: ${msg}`]); });
     if (o.list) {
       const lst = norm(o.list);
@@ -1987,6 +2263,12 @@ function evaluate(){
       if (found.length) flags.push(["info", `Seat ${seats[i]} juega en su lista: ${[...new Set(found)].join(", ")}.`]);
     }
   });
+  // Grafdigger's Cage: las líneas de Dack y reanimación no funcionan
+  if (d.id==="hashaton") {
+    const cageSeat = S.opps.map((o,i)=>({o,i})).find(({o}) => o.alive && norm(o.name+" "+o.text+" "+(o.tags||[]).join(" ")).includes("grafdigger"));
+    if (cageSeat) { for (let k=flags.length-1;k>=0;k--) if (flags[k][0]!=="bad" && /Dack/.test(flags[k][1]) && !/Grafdigger/.test(flags[k][1])) flags.splice(k,1); }
+    if (cageSeat) lines.forEach(l => { if (["A","B","C","D","E","F"].includes(l.id) || /Dack|Reanimate|Shallow Grave/.test(l.name)) { l.n += 2; l.cage = true; l.detail = `<b>⚠ Grafdigger's Cage (Seat ${seats[cageSeat.i]}): no funciona mientras esté.</b> Sácala primero (Mental Misstep o Annul al lanzarla, Chain of Vapor, Otawara). · ` + l.detail; } });
+  }
   // Asiento
   const next = seats.find((s,i)=>S.opps[i].alive);
   const prevSeats = [...seats].reverse(); const prev = prevSeats.find(s=>S.opps[seatOwner(s)].alive);
@@ -1997,19 +2279,33 @@ function evaluate(){
 function update(){
   save();
   const {lines, flags} = evaluate();
-  $("#lines").innerHTML = lines.map(l => {
+  const lineHTML = l => {
     const cls = l.n===0 ? "ready" : (l.n===1 ? "one" : "far");
-    const pill = l.n===0 ? "Lista" : (l.n===1 ? "Falta 1" : `Faltan ${l.n}`);
+    const pill = l.cage ? "Bloqueada" : (l.n===0 ? "Lista" : (l.n===1 ? "Falta 1" : `Faltan ${l.n}`));
     return `<div class="ln ${cls}"><span class="pill">${pill}</span><span class="t">${esc(l.id)} · ${esc(l.name)}</span><span class="d">${l.detail}</span></div>`;
-  }).join("");
+  };
+  const shown = lines.filter(l=>!l.cage).slice(0,3), rest = lines.filter(l=>!shown.includes(l));
+  $("#lines").innerHTML = shown.map(lineHTML).join("") + (rest.length ? `<details class="lines-d"><summary class="small" style="cursor:pointer;color:var(--lapis);font-weight:600;padding:4px 0">Ver ${rest.length} líneas más${rest.some(l=>l.cage)?" (incluye bloqueadas)":""}</summary><div class="status">${rest.map(lineHTML).join("")}</div></details>` : "");
   $("#plan").innerHTML = planHTML(lines);
+  const best = lines.find(l=>l.id!=="0"), tb = $("#tb-best");
+  if (tb) {
+    if (!best) { tb.textContent = ""; tb.className = "tb-best"; }
+    else {
+      const miss = best.missing.map(m=>m.card.split(",")[0]);
+      tb.className = "tb-best" + (best.n===0?" go":(best.n===1?" one":""));
+      tb.textContent = best.cage ? `⚠ Grafdigger's Cage bloquea tus líneas de Dack` : best.n===0 ? `✓ Puedes ganar: ${best.id} · ${best.name}` : `${best.id} · ${best.name} — falta ${miss.length?miss.join(", "):""}${miss.length&&best.short>0?" + ":""}${best.short>0?best.short+" maná":""}`;
+    }
+  }
   renderMesaMull();
+  const ord = {bad:0,okf:1,info:2}; flags.sort((a,b)=>(ord[a[0]]??3)-(ord[b[0]]??3));
   $("#flags").innerHTML = flags.map(([k,m]) => `<div class="flag ${k==="okf"?"okf":(k==="info"?"info":"")}">${esc(m)}</div>`).join("");
 }
 function loadAll(){
-  syncGamebar(); $("#mana").value = S.mana||""; $("#life").value = S.life;
+  syncGamebar(); $("#mana").value = S.mana||""; $("#life").value = S.life; renderMana(); renderSteps(); renderMullSeg(); $("#mm-free-chk").checked = $("#mm-free").value==="1";
+  $("#p-setup").open = S.round===1 && !ZONES.some(z=>Z()[z].length) && !S.opps.some(o=>o.name);
+  $("#p-mull").open = S.round===1;
   $("#mesa-eyebrow").textContent = D().short+" · asistente de partida";
-  fillDatalist(); fillCmdrList(); ZONES.forEach(renderZone); renderOpps(); renderSeatline(); fillWho(); renderLog(); update();
+  fillDatalist(); fillCmdrList(); renderCards(); renderOpps(); renderSeatline(); fillWho(); renderQlog(); renderLog(); update();
 }
 $("#btn-clear").addEventListener("click", () => { const deck=S.deck, seat=S.seat; S = blank(); S.deck=deck; S.seat=seat; S.active=1; shots.fill(null); $("#ai-out").innerHTML=""; $("#ai-meta").textContent=""; convo=[]; loadAll(); });
 $("#btn-example").addEventListener("click", () => {
@@ -2071,14 +2367,15 @@ function stateText(){
   const zl = (t,a) => `${t}: ${a.length ? a.join("; ") : "(nada)"}`;
   const order = [1,2,3,4].map(s => `S${s}=${seatName(s)}${s===S.seat?" (YO)":""}${seatAlive(s)?"":" (eliminado)"}`).join(", ");
   const opp = S.opps.map((o,i) => {
-    let s = `Seat ${seats[i]}${o.name?" ("+o.name+")":""}${o.alive?"":" [ELIMINADO]"} · vida ${o.life}: ${o.text||"(sin datos)"}${shots[i]?" [captura adjunta]":""}`;
+    const tg = (o.tags||[]).map(k => hateLabel(d,k));
+    let s = `Seat ${seats[i]}${o.name?" ("+o.name+")":""}${o.alive?"":" [ELIMINADO]"} · vida ${o.life}${o.open!=null?` · maná abierto: ${o.open===3?"3 o más":o.open}`:""}${tg.length?` · en mesa: ${tg.join(", ")}`:""}: ${o.text||"(sin datos)"}${shots[i]?" [captura adjunta]":""}`;
     cmdrLookup(o.name).forEach(h => { s += `\n  Ficha ${h.n} (${h.c}, ${h.t}): ${h.plan} Stax: ${h.s||"?"} Cómo frenarlo: ${h.stop}`; });
     if (o.list) s += `\n  Lista pegada (puede estar recortada):\n  ${o.list.replace(/\n+/g," | ").slice(0,3500)}`;
     return s;
   }).join("\n");
   const log = S.log.slice(-40).map(e => e.sys ? `R${e.r}: ${e.t}` : `R${e.r} S${e.s}: ${e.t}`).join("\n");
   return [
-    `MAZO: ${d.short}`, `ASIENTOS (orden de turno): ${order}`, `MI ASIENTO: Seat ${S.seat}`, `RONDA: ${S.round}`,
+    `MAZO: ${d.short}`, ...(podOn(d.id).length ? [`CAMBIOS DE POD EN MI LISTA: ${podOn(d.id).map(p=>p.in+" en vez de "+p.out).join("; ")}`] : []), `ASIENTOS (orden de turno): ${order}`, `MI ASIENTO: Seat ${S.seat}`, `RONDA: ${S.round}`,
     `TURNO ACTUAL: Seat ${S.active}${S.active===S.seat?" (mío)":""}`,
     zl("MANO",z.hand), zl("CAMPO",z.field), zl("CEMENTERIO",z.grave), zl("EXILIO",z.exile),
     ...(S.escape && S.deck==="hashaton" ? ["SITUACIÓN: me contrarrestaron el trigger de Thassa's Oracle y Leveler ya exilió mi biblioteca. Necesito ganar antes de mi próximo paso de robo."] : []),
@@ -2204,6 +2501,7 @@ const DEFAULT_PLAN = {
 };
 function planHTML(lines){
   const out = [];
+  if (lines.some(l=>l.cage)) out.push(`<div class="planbox"><b>Hay Grafdigger's Cage: cambia de línea</b>Dack no pone criaturas y la reanimación falla. Gana con H (Leveler descartado + Thassa desde la mano) o G (Thassa + Consultation o Tainted Pact), o saca la jaula antes: Chain of Vapor, Otawara, Into the Flood Maw con regalo.</div>`);
   const ready = lines.filter(l=>l.n===0 && l.id!=="0");
   if (ready.length) {
     out.push(`<div class="planbox go"><b>Puedes ganar ahora: línea ${esc(ready[0].id)}</b>${esc(ready[0].name)}. Revisa quién tiene maná abierto y lanza la protección primero si la necesitas.</div>`);
@@ -2447,7 +2745,7 @@ const CMDRS = CMDR_DB.map(e => [e.k[0], e.n, e.t, e.plan]);
 
 const REMOVAL = {
   crystal:["Pyrokinesis","Cave-In","Firestorm","Gut Shot","Into the Flood Maw","Sink into Stupor","Snap","Snapback","Claim the Firstborn","Sigil of Sleep","Boseiju, Who Endures","Otawara, Soaring City"],
-  hashaton:["Swords to Plowshares","Snuff Out","Deadly Rollick","Snapback","Into the Flood Maw","Chain of Vapor","Toxic Deluge","Otawara, Soaring City"]
+  hashaton:["Annul","Swords to Plowshares","Snuff Out","Deadly Rollick","Snapback","Into the Flood Maw","Chain of Vapor","Toxic Deluge","Otawara, Soaring City"]
 };
 function readTable(){
   const seats = oppSeats();
@@ -2538,10 +2836,10 @@ window.addEventListener("hashchange", route);
 const ROLES = {
   hashaton: {
     accelFast: ["Lotus Petal","Chrome Mox","Mox Diamond","Dark Ritual","Cabal Ritual","Mana Vault","Sol Ring","Lion's Eye Diamond"],
-    accelSlow: ["Arcane Signet","Fellwar Stone","Mox Opal","Mox Amber","Smothering Tithe","Black Market Connections"],
+    accelSlow: ["Arcane Signet","Fellwar Stone","Mox Opal","Mox Amber","Smothering Tithe","Black Market Connections","Gleaming Splendor"],
     piece: ["Dack Fayden, Helping Hand","Lion's Eye Diamond","Entomb","Reanimate","Shallow Grave","The Underworld Cookbook","Careful Study","Thassa's Oracle","Demonic Consultation","Tainted Pact","Leveler"],
-    tutor: ["Hoarding Broodlord","Demonic Tutor","Vampiric Tutor","Imperial Seal","Grim Tutor","Mystical Tutor","Enlightened Tutor","Wishclaw Talisman","Intuition","Lim-Dûl's Vault","Scheming Symmetry","Tezzeret, Cruel Captain","Urza's Saga","Tolaria West"],
-    engine: ["Necropotence","Rhystic Study","Mystic Remora","Smothering Tithe","Black Market Connections"],
+    tutor: ["Hoarding Broodlord","Demonic Tutor","Vampiric Tutor","Imperial Seal","Grim Tutor","Mystical Tutor","Enlightened Tutor","Wishclaw Talisman","Intuition","Lim-Dûl's Vault","Scheming Symmetry","Tezzeret, Cruel Captain","Urza's Saga","Tolaria West","Merchant Scroll"],
+    engine: ["Necropotence","Rhystic Study","Mystic Remora","Smothering Tithe","Black Market Connections","Gleaming Splendor"],
     landColors: {"Underground Sea":"UB","Scrubland":"WB","Tundra":"WU","Watery Grave":"UB","Godless Shrine":"WB","Hallowed Fountain":"WU","Morphic Pool":"UB","Sea of Clouds":"WU","Vault of Champions":"WB","Tolaria West":"U","Otawara, Soaring City":"U","Ancient Tomb":"","Cavern of Souls":"","Urza's Saga":"","Gemstone Caverns":""},
     anyLand: ["City of Brass","Mana Confluence","Command Tower","Starting Town","Arid Mesa","Bloodstained Mire","Flooded Strand","Marsh Flats","Misty Rainforest","Polluted Delta","Scalding Tarn","Verdant Catacombs"],
     cmdColors: "WB", cmdCost: 2
