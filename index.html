@@ -444,10 +444,14 @@ body.is-dragging .zrow{border-style:dashed}
     <a class="brand" href="#inicio">Grimorio<span>.</span></a>
     <nav class="tabs" aria-label="Secciones">
       <a href="#inicio" data-tab="inicio">Mazos</a>
-      <a href="#hashaton" data-tab="hashaton">Hashaton</a>
-      <a href="#crystal" data-tab="crystal">Crystal</a>
       <a href="#mesa" data-tab="mesa">Mesa</a>
       <a href="#mulligan" data-tab="mulligan">Mulligan</a>
+      <a href="#hashaton" data-tab="hashaton">Hashaton</a>
+      <a href="#crystal" data-tab="crystal">Crystal</a>
+      <a href="#nick" data-tab="nick">Nick Fury</a>
+      <a href="#rocco" data-tab="rocco">Rocco</a>
+      <a href="#rograkh" data-tab="rograkh">Rograkh</a>
+      <a href="#kraum" data-tab="kraum">Kraum</a>
     </nav>
     <div class="search">
       <label class="sr" for="q">Buscar en los primers</label>
@@ -475,12 +479,36 @@ body.is-dragging .zrow{border-style:dashed}
         <p>Cada hechizo no criatura le pega a cada rival. Gana con Sewer-veillance Cam + Retraction Helix o con Breach + LED + Brain Freeze.</p>
         <div class="acts"><a class="btn primary" href="#crystal">Leer primer</a><a class="btn" href="#mesa" data-deck="crystal">Jugar con este</a></div>
       </div>
+      <div class="deck">
+        <div class="cmd">Nick Fury, Agent of S.H.I.E.L.D. · 5 colores</div>
+        <h3>Nick Fury &amp; el turbo de cinco colores</h3>
+        <p>Comandante de 1 maná. Gana con Thassa + Consultation, Breach + LED + Brain Freeze o Ad Nauseam, detrás de Silence y Grand Abolisher.</p>
+        <div class="acts"><a class="btn primary" href="#nick">Leer primer</a><a class="btn" href="#mesa" data-deck="nick">Jugar con este</a></div>
+      </div>
+      <div class="deck">
+        <div class="cmd">Rocco, Cabaretti Caterer · Naya</div>
+        <h3>Rocco &amp; la caja de herramientas</h3>
+        <p>Rocco busca criaturas desde la zona de mando. Kiki-Jiki + Felidar, Bell-Ringer o Recruiter; Food Chain + Squee.</p>
+        <div class="acts"><a class="btn primary" href="#rocco">Leer primer</a><a class="btn" href="#mesa" data-deck="rocco">Jugar con este</a></div>
+      </div>
+      <div class="deck">
+        <div class="cmd">Rograkh + Silas Renn · Grixis</div>
+        <h3>Rograkh &amp; Silas: storm</h3>
+        <p>Comandante gratis. Breach + LED + Brain Freeze, Breach + Grinding Station, Thassa + Consultation o Ad Nauseam.</p>
+        <div class="acts"><a class="btn primary" href="#rograkh">Leer primer</a><a class="btn" href="#mesa" data-deck="rograkh">Jugar con este</a></div>
+      </div>
+      <div class="deck">
+        <div class="cmd">Kraum + Tymna · Mardu + azul</div>
+        <h3>Kraum &amp; Tymna: Blue Farm</h3>
+        <p>Comandantes que roban. Thassa (o Fblthp y Mockingbird de respaldo), Breach o Ad Nauseam detrás de Silence y Orim's Chant.</p>
+        <div class="acts"><a class="btn primary" href="#kraum">Leer primer</a><a class="btn" href="#mesa" data-deck="kraum">Jugar con este</a></div>
+      </div>
       <div class="deck add">
         <div class="cmd">Próximo mazo</div>
         <p>Pásame la lista en el chat y lo agrego aquí con su primer y su chequeo de líneas.</p>
       </div>
     </div>
-    <p class="howto">En la pestaña Mulligan practicas manos de cualquiera de los dos mazos y te digo si coincidimos. Tu partida se guarda solo en este navegador. Para actualizar o agregar un mazo, pídemelo en el chat y publico la nueva versión en este mismo link.</p>
+    <p class="howto">En la pestaña Mulligan practicas manos de cualquiera de tus mazos y te digo si coincidimos. Tu partida se guarda solo en este navegador. Para actualizar o agregar un mazo, pídemelo en el chat y publico la nueva versión en este mismo link.</p>
   </div>
 </div>
 
@@ -1429,6 +1457,414 @@ body.is-dragging .zrow{border-style:dashed}
 
 </div>
 
+<div class="view" id="view-nick" hidden>
+<header class="hero">
+  <div class="eyebrow">cEDH · cinco colores · Primer</div>
+  <h1>Nick Fury <span class="amp">&amp;</span> el turbo de cinco colores</h1>
+  <p class="lede"><span class="card">Nick Fury, Agent of S.H.I.E.L.D.</span> cuesta un solo maná y abre los cinco colores. El mazo es un turbo: acelera, tutorea y gana con Thassa's Oracle, Underworld Breach o Ad Nauseam, detrás de Silence, Grand Abolisher y counters gratis.</p>
+  <div class="chips"><span class="chip"><b>Comandante:</b> Nick Fury {W} · 2/1</span><span class="chip"><b>Win 1:</b> Thassa + Consultation / Pact</span><span class="chip"><b>Win 2:</b> Breach + LED + Brain Freeze</span><span class="chip"><b>Motor:</b> Ad Nauseam, Necropotence</span></div>
+</header>
+
+<div class="wrap">
+<nav class="toc" aria-label="Índice">
+  <ol><li><a href="#n-idea">La idea</a></li><li><a href="#n-lineas">Cómo gana</a></li><li><a href="#n-tutores">Qué tutorear</a></li><li><a href="#n-proteccion">Protección e interacción</a></li><li><a href="#n-manos">Manos y mulligan</a></li><li><a href="#n-hate">Hate y respuestas</a></li><li><a href="#n-reglas">Reglas finas</a></li><li><a href="#n-lista">La lista por función</a></li></ol>
+</nav>
+<main>
+
+<section id="n-idea">
+  <h2><span class="n">01</span>La idea</h2>
+  <div class="thesis">
+    <p><span class="card">Nick Fury, Agent of S.H.I.E.L.D.</span> cuesta {W} y es 2/1. Su power-up ({W}{U}{B}{R}{G}) le pone dos contadores +1/+1 y mira las 7 de arriba para poner en el campo un Héroe, Equipo o Vehículo. En esta lista el único Héroe es <span class="card">Jennifer Walters</span>, así que el power-up es un extra.</p>
+    <p>Lo que importa: es la forma más barata de jugar <strong>los cinco colores</strong>. Entra en turno 1, es criatura legendaria para <span class="card">Mox Amber</span> y <span class="card">Relic of Legends</span>, se gira con <span class="card">Springleaf Drum</span> y es carne para <span class="card">Diabolic Intent</span> y <span class="card">Culling the Weak</span>: vuelve a la zona de mando.</p>
+    <p>El plan es turbo: acelerar, desarrollar un motor (<span class="card">Necropotence</span>, <span class="card">Rhystic Study</span>, <span class="card">Mystic Remora</span>), tutorear y ganar con Thassa, Breach o Ad Nauseam, protegido por counters gratis y piezas que apagan a la mesa en tu turno.</p>
+  </div>
+  <p>Las piezas de "silencio": <span class="card">Silence</span> (los rivales no lanzan hechizos este turno), <span class="card">Grand Abolisher</span> (en tu turno no lanzan hechizos ni activan habilidades de artefactos, criaturas o encantamientos), <span class="card">Jennifer Walters</span> y <span class="card">Voice of Victory</span> (en tu turno no lanzan hechizos). Con una de ellas resuelta, tu combo no tiene respuesta salvo habilidades.</p>
+  <p><span class="card">Valley Floodcaller</span> da flash a tus hechizos no criatura: Underworld Breach, Necropotence o Demonic Tutor en el end step del rival anterior a ti.</p>
+</section>
+
+<section id="n-lineas">
+  <h2><span class="n">02</span>Cómo gana</h2>
+  <div class="line">
+    <div class="head"><span class="id">1</span><span class="name">Thassa's Oracle + Demonic Consultation o Tainted Pact</span><div class="tags"><span class="tag">{U}{U} + {B} o {1}{B}</span><span class="tag g">gana al instante</span></div></div>
+    <ol><li>Lanza <span class="card">Thassa&#x27;s Oracle</span>. Con su trigger de entrada en la pila, mantén prioridad.</li><li>En respuesta, lanza <span class="card">Demonic Consultation</span> nombrando una carta que no esté en tu mazo (exilia toda la biblioteca) o <span class="card">Tainted Pact</span> sin quedarte con ninguna.</li><li>Resuelve el trigger de Thassa: biblioteca en 0, ganas.</li></ol>
+    <p>Este orden es el más seguro: si te contrarrestan a Thassa o su trigger (Stifle, Trickbind, Tishana's Tidebinder), todavía no exiliaste tu biblioteca. Si lanzas Consultation primero y te contrarrestan a Thassa, pierdes en tu próximo robo.</p>
+  </div>
+  <div class="line">
+    <div class="head"><span class="id">2</span><span class="name">Underworld Breach + Lion's Eye Diamond + Brain Freeze</span><div class="tags"><span class="tag">{1}{R} si Breach no está en mesa</span><span class="tag g">mill</span></div></div>
+    <ol><li><span class="card">Underworld Breach</span> en mesa. LED y Brain Freeze en mano o cementerio, y cartas en el cementerio para exiliar (3 por escape).</li><li>Lanza LED (desde el cementerio con escape: exilias 3). Sacrifícalo por 3 maná de un color descartando la mano.</li><li>Lanza <span class="card">Brain Freeze</span> con escape ({1}{U} + exiliar 3). Al principio apúntate a ti para llenar el cementerio; cuando el storm sea alto, apunta a cada rival.</li><li>Cada vuelta deja 1 maná de sobra y sube el storm. Repite hasta moler a toda la mesa.</li></ol>
+    <p class='muted'>Con la biblioteca vacía también puedes lanzar <span class="card">Thassa&#x27;s Oracle</span> desde el cementerio con escape ({U}{U}) y ganar.</p>
+  </div>
+  <div class="line">
+    <div class="head"><span class="id">3</span><span class="name">Ad Nauseam</span><div class="tags"><span class="tag">{3}{B}{B}</span><span class="tag g">encadena a 1 o 2</span></div></div>
+    <ol><li>Lanza <span class="card">Ad Nauseam</span>, idealmente en el end step del rival a tu derecha o en tu turno detrás de <span class="card">Silence</span> o <span class="card">Grand Abolisher</span>.</li><li>Revela cartas hasta quedarte con unas 10 de vida. El mazo tiene mucho de valor 0 a 2: con 40 de vida ves casi media biblioteca.</li><li>Con los moxes, Petal, rituales y LED que salgan, juega Breach + LED + Brain Freeze o Thassa + Consultation.</li></ol>
+    <p>Si lo lanzas en turno rival, la línea se termina en tu turno: necesitas aguantar hasta entonces sin perder las piezas a un Pyroclasm o una discard.</p>
+  </div>
+  <div class="line">
+    <div class="head"><span class="id">4</span><span class="name">Beseech the Mirror con bargain</span><div class="tags"><span class="tag">{1}{B}{B}{B}</span><span class="tag g">tutor + hechizo gratis</span></div></div>
+    <ol><li>Lanza Beseech sacrificando LED, Lotus Petal, un mox o un Treasure (bargain).</li><li>Busca la pieza que falta. Si vale 4 o menos la lanzas gratis: <span class="card">Underworld Breach</span>, <span class="card">Necropotence</span>, <span class="card">Thassa&#x27;s Oracle</span>, <span class="card">Demonic Consultation</span>, <span class="card">Tainted Pact</span>.</li><li>Si sacrificaste el LED, queda en el cementerio para la línea de Breach.</li></ol>
+    
+  </div>
+  <h3>Extras</h3>
+  <ul>
+    <li><span class="card">Flash Photography</span> crea un token copia de un permanente; si apunta a algo tuyo se lanza con flash. Una copia de Thassa's Oracle con la biblioteca vacía es otro trigger que gana; una copia de Necropotence o Rhystic Study es valor.</li>
+    <li><span class="card">Sevinne&#x27;s Reclamation</span> devuelve permanentes de valor 3 o menos de tu cementerio: LED, Petal, moxes o fetches después de un Ad Nauseam o de que te los rompan.</li>
+    <li><span class="card">Culling Ritual</span> destruye cada permanente no tierra de valor 2 o menos y te da maná por cada uno: rompe Esper Sentinel, Grafdigger's Cage, Cursed Totem, Null Rod o Drannith Magistrate y paga tu combo.</li>
+    <li><span class="card">Praetor&#x27;s Grasp</span> busca en la biblioteca de un rival y exilia una carta que puedes jugar: su Thassa, su Breach o su mejor tutor.</li>
+  </ul>
+</section>
+
+<section id="n-tutores">
+  <h2><span class="n">03</span>Qué tutorear</h2>
+<div class="tbl"><table><thead><tr><th>Tienes</th><th>Te falta</th><th>Busca con</th></tr></thead><tbody><tr><td>Thassa</td><td>Consultation o Pact</td><td>Demonic, Vampiric, Imperial Seal, Mystical Tutor</td></tr><tr><td>Consultation o Pact</td><td>Thassa's Oracle</td><td>Demonic, Vampiric, Imperial Seal, Gamble, Intuition, Beseech</td></tr><tr><td>Breach + LED</td><td>Brain Freeze</td><td>Mystical Tutor, Vampiric</td></tr><tr><td>LED + Brain Freeze</td><td>Underworld Breach</td><td>Enlightened Tutor, Beseech (gratis con bargain)</td></tr><tr><td>Mucho maná, nada de combo</td><td>Ad Nauseam</td><td>Mystical Tutor en el end step anterior a tu turno</td></tr><tr><td>Combo listo, mesa con counters</td><td>Protección</td><td>Silence, Grand Abolisher, Jennifer Walters (Demonic, Vampiric)</td></tr></tbody></table></div>
+<div class="tbl"><table><thead><tr><th>Tutor</th><th>Busca</th><th>Notas</th></tr></thead><tbody><tr><td>Demonic Tutor</td><td>Lo que sea, a la mano</td><td>Conjuro {1}{B}. Con Valley Floodcaller en mesa lo lanzas en el turno rival.</td></tr><tr><td>Vampiric Tutor / Imperial Seal</td><td>Lo que sea, al tope</td><td>Pierdes 2. Vampiric en el end step anterior a tu turno.</td></tr><tr><td>Mystical Tutor</td><td>Instantáneo o conjuro, al tope</td><td>Ad Nauseam, Consultation, Pact, Brain Freeze, Silence.</td></tr><tr><td>Enlightened Tutor</td><td>Artefacto o encantamiento, al tope</td><td>Underworld Breach, LED, Necropotence.</td></tr><tr><td>Diabolic Intent</td><td>Lo que sea, a la mano</td><td>Sacrifica una criatura: Nick vuelve a la zona de mando (impuesto +2).</td></tr><tr><td>Gamble</td><td>Lo que sea, a la mano</td><td>Después descartas una al azar. Juégalo con la mano casi vacía.</td></tr><tr><td>Intuition</td><td>3 cartas</td><td>El rival elige una para tu mano y el resto va al cementerio. Con Breach en mesa todo lo del cementerio se puede lanzar con escape.</td></tr><tr><td>Wishclaw Talisman</td><td>Lo que sea</td><td>Después el Talisman pasa a un rival. Úsalo solo si ganas ese turno.</td></tr><tr><td>Beseech the Mirror</td><td>Lo que sea</td><td>Con bargain lanzas gratis la carta si vale 4 o menos.</td></tr></tbody></table></div>
+
+</section>
+
+<section id="n-proteccion">
+  <h2><span class="n">04</span>Protección e interacción</h2>
+  <p>Antes de lanzar el combo, resuelve una pieza que apague a la mesa: <span class="card">Silence</span> en tu main phase, o <span class="card">Grand Abolisher</span>, <span class="card">Jennifer Walters</span> o <span class="card">Voice of Victory</span> desde antes. Si te la contestan, ya sabes qué counter gastaron.</p>
+  <div class="tbl"><table><thead><tr><th>Tipo</th><th>Cartas</th><th>Cuándo</th></tr></thead><tbody><tr><td>Gratis</td><td>Force of Will, Force of Negation, Pact of Negation, Fierce Guardianship, Deflecting Swat, Mindbreak Trap</td><td>Para proteger el combo o frenar un combo rival sin gastar maná.</td></tr><tr><td>Baratas</td><td>Mental Misstep, Flusterstorm, Swan Song, Pyroblast, Red Elemental Blast, An Offer You Can't Refuse, Redirect Lightning</td><td>Pyroblast y Red Elemental Blast responden a counters azules. Flusterstorm gana las peleas de storm.</td></tr><tr><td>Silencio</td><td>Silence, Grand Abolisher, Jennifer Walters, Voice of Victory</td><td>Abolisher también apaga habilidades. Voice y Jennifer solo hechizos.</td></tr><tr><td>Remoción</td><td>Deadly Rollick (gratis con tu comandante en mesa), Into the Flood Maw, Chain of Vapor, Snapback, Otawara, Culling Ritual</td><td>Para piezas de stax y combos rivales.</td></tr></tbody></table></div>
+
+  <div class="note"><p><strong>Contra Stifle o Trickbind en el trigger de Thassa:</strong> lanza Thassa primero y Consultation en respuesta. Si te contestan el trigger, todavía tienes la biblioteca y Consultation en mano.</p></div>
+</section>
+
+<section id="n-manos">
+  <h2><span class="n">05</span>Manos y mulligan</h2>
+  <p>Quieres <strong>2 o más fuentes de maná</strong> (tierra + aceleración), un tutor o pieza de combo, y si es posible un motor o protección. Nick entra en turno 1 casi siempre.</p>
+  <div class="hands">
+    <div class="hand keep"><span class="verdict">Quédate · win temprano</span><ul><li>Underground Sea</li><li>Lotus Petal</li><li>Dark Ritual</li><li>Ad Nauseam</li><li>Force of Will</li><li>Mox Diamond</li><li>Scalding Tarn</li></ul><p>T1: tierra + Mox Diamond + Petal + Dark Ritual = 5 maná para Ad Nauseam, con FoW de respaldo. Mejor en Seat 1 o contra mesas lentas.</p></div>
+    <div class="hand keep"><span class="verdict">Quédate · motor</span><ul><li>Volcanic Island</li><li>Sol Ring</li><li>Mystic Remora</li><li>Rhystic Study</li><li>Demonic Tutor</li><li>Swan Song</li><li>Mana Confluence</li></ul><p>Nick T1 + Remora. T2 Rhystic con Swan Song abierto. Demonic busca lo que falte.</p></div>
+    <div class="hand mull"><span class="verdict">Mulligan</span><ul><li>Thassa&#x27;s Oracle</li><li>Brain Freeze</li><li>Underworld Breach</li><li>Final Fortune</li><li>Snapback</li><li>Deadly Rollick</li><li>Tundra</li></ul><p>Una tierra sin aceleración y piezas que no se conectan. No llegas a nada antes del turno 4.</p></div>
+  </div>
+  <p>En Seat 2–4, <span class="card">Gemstone Caverns</span> empieza en mesa y vale un maná extra en turno 1.</p>
+</section>
+
+<section id="n-hate">
+  <h2><span class="n">06</span>Hate y respuestas</h2>
+<div class="tbl"><table><thead><tr><th>Pieza rival</th><th>Qué te apaga</th><th>Respuesta</th></tr></thead><tbody><tr><td>Grafdigger's Cage</td><td>Breach (no lanzas desde el cementerio)</td><td>Culling Ritual, Chain of Vapor, Into the Flood Maw. O gana con Thassa.</td></tr><tr><td>Rest in Peace, Leyline of the Void</td><td>Breach + LED</td><td>Gana con Thassa o Ad Nauseam.</td></tr><tr><td>Null Rod, Collector Ouphe</td><td>LED, moxes, Petal, Mana Vault, Wishclaw</td><td>Culling Ritual (Null Rod y Ouphe valen 2), Snapback, Deadly Rollick.</td></tr><tr><td>Rule of Law, Archon of Emeria, Eidolon of Rhetoric</td><td>Breach y Ad Nauseam</td><td>Chain of Vapor, Into the Flood Maw. Thassa + Consultation son dos hechizos: sácalos primero.</td></tr><tr><td>Drannith Magistrate</td><td>Nick desde la zona de mando</td><td>Culling Ritual, Deadly Rollick.</td></tr><tr><td>Opposition Agent</td><td>Tus tutores (se queda tus cartas)</td><td>Mátalo antes de tutorear.</td></tr><tr><td>Orcish Bowmasters</td><td>Robos extra (Necropotence, Rhystic, Remora)</td><td>Roba con calma; mátalo con Deadly Rollick.</td></tr><tr><td>Tishana's Tidebinder, Stifle, Trickbind</td><td>El trigger de Thassa</td><td>Thassa primero y Consultation en respuesta; Flash Photography para una segunda Thassa.</td></tr><tr><td>Esper Sentinel, Mystic Remora, Rhystic Study rivales</td><td>Te cobran tus hechizos</td><td>Paga o rómpelos con Culling Ritual.</td></tr></tbody></table></div>
+
+</section>
+
+<section id="n-reglas">
+  <h2><span class="n">07</span>Reglas finas</h2>
+<ul><li><b>Lion's Eye Diamond</b>: se activa a velocidad de instantáneo y descartas toda la mano al activarlo. No sirve para pagar un hechizo mientras lo lanzas.</li><li><b>Underworld Breach</b>: cada carta de tu cementerio tiene escape = su costo + exiliar otras 3 cartas del cementerio. Se sacrifica en el end step.</li><li><b>Thassa's Oracle</b>: al resolver su trigger compara tu devoción al azul con las cartas de tu biblioteca. Con la biblioteca en 0, ganas.</li><li><b>Demonic Consultation</b>: nombra una carta que no esté en tu mazo y exilias toda la biblioteca. <b>Tainted Pact</b>: en singleton puedes no quedarte con ninguna y exiliar todo.</li><li><b>Ad Nauseam</b>: instantáneo. Revelas de a una carta y pierdes vida igual a su valor de maná; paras cuando quieras. Las cartas de valor 0 (LED, Petal, moxes, Pact of Negation) salen gratis.</li><li><b>Beseech the Mirror</b>: si lo bargaineas (sacrificas un artefacto, encantamiento o token al lanzarlo), puedes lanzar gratis la carta buscada si su valor de maná es 4 o menos. Si no, va a tu mano.</li><li><b>Gemstone Caverns</b> solo empieza en mesa si no eres el primer jugador (Seat 2–4).</li><li><b>Final Fortune</b> y <b>Last Chance</b>: turno extra y pierdes al final de ese turno. Solo si ganas en el turno extra.</li><li><b>Pact of Negation</b>: si no pagas en tu próximo upkeep, pierdes. Úsalo solo en el turno en que ganas.</li><li><b>Nick sacrificado</b> (Diabolic Intent, Culling the Weak) puede volver a la zona de mando. El impuesto sube 2 cada vez que lo lanzas desde ahí.</li><li><b>Mox Amber</b> con Nick en mesa da {W}. <b>Relic of Legends</b> puede girar a Nick (o Tataru, Lotho, Jennifer) para un maná de cualquier color.</li><li><b>Deadly Rollick</b> es gratis si controlas tu comandante.</li></ul>
+</section>
+
+<section id="n-lista">
+  <h2><span class="n">08</span>La lista por función</h2>
+<div class="decklist"><div class="grp"><h4>Comandante</h4><ul><li>Nick Fury, Agent of S.H.I.E.L.D.</li></ul></div><div class="grp"><h4>Combo (7)</h4><ul><li>Thassa&#x27;s Oracle</li><li>Demonic Consultation</li><li>Tainted Pact</li><li>Underworld Breach</li><li>Lion&#x27;s Eye Diamond</li><li>Brain Freeze</li><li>Ad Nauseam</li></ul></div><div class="grp"><h4>Tutores (10)</h4><ul><li>Demonic Tutor</li><li>Vampiric Tutor</li><li>Imperial Seal</li><li>Mystical Tutor</li><li>Enlightened Tutor</li><li>Diabolic Intent</li><li>Gamble</li><li>Intuition</li><li>Wishclaw Talisman</li><li>Beseech the Mirror</li></ul></div><div class="grp"><h4>Motor y robo (9)</h4><ul><li>Necropotence</li><li>Rhystic Study</li><li>Mystic Remora</li><li>Esper Sentinel</li><li>Faerie Mastermind</li><li>Smothering Tithe</li><li>Gleaming Splendor</li><li>Tataru Taru</li><li>Lotho, Corrupt Shirriff</li></ul></div><div class="grp"><h4>Aceleración rápida (11)</h4><ul><li>Lotus Petal</li><li>Chrome Mox</li><li>Mox Diamond</li><li>Dark Ritual</li><li>Cabal Ritual</li><li>Rite of Flame</li><li>Mana Vault</li><li>Sol Ring</li><li>Elvish Spirit Guide</li><li>Simian Spirit Guide</li><li>Culling the Weak</li></ul></div><div class="grp"><h4>Aceleración lenta (7)</h4><ul><li>Arcane Signet</li><li>Mox Opal</li><li>Mox Amber</li><li>Springleaf Drum</li><li>Relic of Legends</li><li>Manamorphose</li><li>Deathrite Shaman</li></ul></div><div class="grp"><h4>Protección y counters (17)</h4><ul><li>Force of Will</li><li>Force of Negation</li><li>Pact of Negation</li><li>Fierce Guardianship</li><li>Deflecting Swat</li><li>Mindbreak Trap</li><li>Mental Misstep</li><li>Flusterstorm</li><li>Swan Song</li><li>Pyroblast</li><li>Red Elemental Blast</li><li>An Offer You Can&#x27;t Refuse</li><li>Redirect Lightning</li><li>Silence</li><li>Grand Abolisher</li><li>Jennifer Walters</li><li>Voice of Victory</li></ul></div><div class="grp"><h4>Remoción y respuestas (6)</h4><ul><li>Deadly Rollick</li><li>Into the Flood Maw</li><li>Chain of Vapor</li><li>Snapback</li><li>Culling Ritual</li><li>Praetor&#x27;s Grasp</li></ul></div><div class="grp"><h4>Utilidad (6)</h4><ul><li>Sevinne&#x27;s Reclamation</li><li>Final Fortune</li><li>Borne Upon a Wind</li><li>Flash Photography</li><li>Valley Floodcaller</li><li>Ragavan, Nimble Pilferer</li></ul></div><div class="grp"><h4>Tierras (26)</h4><ul><li>Ancient Tomb</li><li>Arid Mesa</li><li>Badlands</li><li>Bloodstained Mire</li><li>City of Brass</li><li>City of Traitors</li><li>Command Tower</li><li>Exotic Orchard</li><li>Flooded Strand</li><li>Gemstone Caverns</li><li>Gemstone Mine</li><li>Glimmervoid</li><li>Mana Confluence</li><li>Marsh Flats</li><li>Misty Rainforest</li><li>Otawara, Soaring City</li><li>Plateau</li><li>Polluted Delta</li><li>Scalding Tarn</li><li>Scrubland</li><li>Starting Town</li><li>Tundra</li><li>Underground Sea</li><li>Verdant Catacombs</li><li>Volcanic Island</li><li>Windswept Heath</li></ul></div></div>
+</section>
+
+</main>
+</div>
+
+</div>
+
+<div class="view" id="view-rocco" hidden>
+<header class="hero">
+  <div class="eyebrow">cEDH · Naya · Primer</div>
+  <h1>Rocco <span class="amp">&amp;</span> la caja de herramientas de criaturas</h1>
+  <p class="lede"><span class="card">Rocco, Cabaretti Caterer</span> es un tutor de criaturas que vive en la zona de mando. El mazo acelera con dorks y gana con Kiki-Jiki + Felidar Guardian, Village Bell-Ringer o Coercive Recruiter, o con Food Chain + Squee, protegido por criaturas que apagan a la mesa.</p>
+  <div class="chips"><span class="chip"><b>Comandante:</b> Rocco {X}{R}{G}{W} · 3/1</span><span class="chip"><b>Win 1:</b> Kiki-Jiki + Felidar / Bell-Ringer</span><span class="chip"><b>Win 2:</b> Food Chain + Squee</span><span class="chip"><b>Tutor:</b> Rocco X=3 a 5</span></div>
+</header>
+
+<div class="wrap">
+<nav class="toc" aria-label="Índice">
+  <ol><li><a href="#r-idea">La idea</a></li><li><a href="#r-lineas">Cómo gana</a></li><li><a href="#r-tutores">Qué tutorear</a></li><li><a href="#r-proteccion">Protección e interacción</a></li><li><a href="#r-manos">Manos y mulligan</a></li><li><a href="#r-hate">Hate y respuestas</a></li><li><a href="#r-reglas">Reglas finas</a></li><li><a href="#r-lista">La lista por función</a></li></ol>
+</nav>
+<main>
+
+<section id="r-idea">
+  <h2><span class="n">01</span>La idea</h2>
+  <div class="thesis">
+    <p><span class="card">Rocco, Cabaretti Caterer</span> cuesta {X}{R}{G}{W}. Al entrar, si lo lanzaste, busca una criatura de valor X o menos y la pone <strong>directo en el campo</strong>. Es un tutor de criaturas en la zona de mando: X=3 trae Village Bell-Ringer o The Jolly Balloon Man, X=4 Felidar Guardian, X=5 Kiki-Jiki.</p>
+    <p>El mazo es una caja de herramientas de criaturas: muchos dorks, maná que solo sirve para criaturas (<span class="card">Somberwald Sage</span>, <span class="card">Shaman of Forgotten Ways</span>, <span class="card">Gaea&#x27;s Cradle</span>, <span class="card">Badgermole Cub</span>), tutores de criatura y combos de dos cartas con Kiki-Jiki.</p>
+    <p>La protección también son criaturas: <span class="card">Grand Abolisher</span>, <span class="card">Jennifer Walters</span> y <span class="card">Voice of Victory</span> apagan a los rivales en tu turno; <span class="card">Hexing Squelcher</span> y <span class="card">Allosaurus Shepherd</span> hacen que tus hechizos (o los verdes) no se puedan contrarrestar; <span class="card">Delighted Halfling</span> protege los legendarios (Rocco, Kiki, Squee, Jolly).</p>
+  </div>
+</section>
+
+<section id="r-lineas">
+  <h2><span class="n">02</span>Cómo gana</h2>
+  <div class="line">
+    <div class="head"><span class="id">1</span><span class="name">Kiki-Jiki + Felidar Guardian</span><div class="tags"><span class="tag">Rocco X=5 busca a Kiki</span><span class="tag g">tokens con prisa infinitos</span></div></div>
+    <ol><li><span class="card">Kiki-Jiki, Mirror Breaker</span> en mesa (tiene prisa) y <span class="card">Felidar Guardian</span> en mesa o en mano.</li><li>Kiki copia a Felidar: el token entra con prisa y su trigger hace blink de Kiki, que vuelve enderezado.</li><li>Kiki copia a Felidar otra vez. Repite: infinitos Felidar con prisa. Ataca.</li></ol>
+    <p>Funciona igual si Felidar ya está en mesa: Kiki copia al Felidar del campo.</p>
+  </div>
+  <div class="line">
+    <div class="head"><span class="id">2</span><span class="name">Kiki-Jiki + Village Bell-Ringer</span><div class="tags"><span class="tag">{2}{W}, flash</span><span class="tag g">tokens con prisa infinitos</span></div></div>
+    <ol><li><span class="card">Kiki-Jiki, Mirror Breaker</span> en mesa y <span class="card">Village Bell-Ringer</span> en mesa o en mano (tiene flash).</li><li>Kiki copia a Bell-Ringer: el token entra y endereza todas tus criaturas, Kiki incluido.</li><li>Repite. Además se enderezan tus dorks cada vuelta: maná infinito para criaturas.</li></ol>
+    
+  </div>
+  <div class="line">
+    <div class="head"><span class="id">3</span><span class="name">Kiki-Jiki + Coercive Recruiter</span><div class="tags"><span class="tag">{4}{R}</span><span class="tag g">tokens con prisa infinitos</span></div></div>
+    <ol><li><span class="card">Kiki-Jiki, Mirror Breaker</span> en mesa y <span class="card">Coercive Recruiter</span> en mesa o en mano.</li><li>Kiki copia a Recruiter: el trigger del token apunta a Kiki, lo endereza y le da prisa.</li><li>Repite. Infinitos Recruiter con prisa.</li></ol>
+    
+  </div>
+  <div class="line">
+    <div class="head"><span class="id">4</span><span class="name">The Jolly Balloon Man + Village Bell-Ringer o Coercive Recruiter</span><div class="tags"><span class="tag">{1}{R}{W} + 1 por vuelta</span><span class="tag g">voladores infinitos</span></div></div>
+    <ol><li><span class="card">The Jolly Balloon Man</span> en mesa (tiene prisa) y Bell-Ringer o Recruiter en mesa. Necesitas un dork para pagar el {1} de cada vuelta.</li><li>Activa a Jolly ({1}, {T}, velocidad de conjuro): token 1/1 volador con prisa copia de Bell-Ringer.</li><li>El token endereza todas tus criaturas: Jolly y el dork que pagó. Repite: infinitos voladores 1/1 con prisa.</li></ol>
+    <p>Con Recruiter el token apunta a Jolly para enderezarlo; el dork lo pagas con otro token o con maná propio. Bell-Ringer es la versión limpia.</p>
+  </div>
+  <div class="line">
+    <div class="head"><span class="id">5</span><span class="name">Food Chain + Squee, the Immortal</span><div class="tags"><span class="tag">{2}{G} + {1}{R}{R}</span><span class="tag g">maná infinito para criaturas</span></div></div>
+    <ol><li><span class="card">Food Chain</span> y <span class="card">Squee, the Immortal</span> en mesa.</li><li>Exilia a Squee con Food Chain: 4 maná para criaturas. Lánzalo desde el exilio por 3. +1 por vuelta: maná infinito para criaturas.</li><li>Exilia a Rocco con Food Chain: va a la zona de mando. Relánzalo con X enorme y busca a Kiki-Jiki.</li><li>Repite con Rocco para buscar a Felidar Guardian (o Bell-Ringer). Gana con la línea 1.</li></ol>
+    <p>El maná de Food Chain solo sirve para hechizos de criatura. Rocco lo es, así que el impuesto no importa.</p>
+  </div>
+  <h3>Cerrar sin combate</h3>
+  <p>Todas las líneas con Kiki o Jolly ganan atacando: los tokens tienen prisa. Si un rival tiene bloqueadores voladores o efectos de niebla, los tokens de Felidar o Bell-Ringer también dan cuerpos para sacrificar con <span class="card">High Market</span> o <span class="card">Lazotep Quarry</span>.</p>
+  <div class="note"><p><strong>Sobre <span class="card">Phyrexian Dreadnought</span>:</strong> su trigger de entrada la sacrifica salvo que sacrifiques criaturas con 12 de poder. No tengo clara su función en esta lista; si la usas para algo concreto, dímelo y lo agrego.</p></div>
+</section>
+
+<section id="r-tutores">
+  <h2><span class="n">03</span>Qué tutorear</h2>
+<div class="tbl"><table><thead><tr><th>Tienes</th><th>Te falta</th><th>Busca con</th></tr></thead><tbody><tr><td>Kiki-Jiki en mesa</td><td>Felidar, Bell-Ringer o Recruiter</td><td>Rocco (X=4, X=3 o X=5), Imperial Recruiter, Eldritch Evolution, Finale of Devastation</td></tr><tr><td>Felidar, Bell-Ringer o Recruiter</td><td>Kiki-Jiki</td><td>Rocco X=5 (8 maná), Imperial Recruiter (Kiki es 2/2), Eldritch Evolution, Finale</td></tr><tr><td>Food Chain</td><td>Squee</td><td>Imperial Recruiter, Rocco X=3</td></tr><tr><td>Squee</td><td>Food Chain</td><td>Enlightened Tutor, Pia, Aether Ascetic, Academy Rector</td></tr><tr><td>Mucho maná, nada de combo</td><td>Rocco con X grande</td><td>Lanza a Rocco: él mismo es el tutor.</td></tr><tr><td>Combo listo, mesa con counters</td><td>Protección</td><td>Grand Abolisher, Jennifer Walters, Voice of Victory, Hexing Squelcher</td></tr></tbody></table></div>
+<div class="tbl"><table><thead><tr><th>Tutor</th><th>Busca</th><th>Notas</th></tr></thead><tbody><tr><td>Rocco</td><td>Criatura de valor X o menos, al campo</td><td>{X}{R}{G}{W}. Solo si lo lanzaste. Con Wirewood Symbiote lo devuelves a la mano y lo relanzas sin impuesto.</td></tr><tr><td>Imperial Recruiter</td><td>Criatura de fuerza 2 o menos, a la mano</td><td>Kiki-Jiki, Felidar, Bell-Ringer, Jolly y Squee califican.</td></tr><tr><td>Eldritch Evolution</td><td>Sacrificas una criatura: otra de hasta +2 de valor, al campo</td><td>Un dork de valor 1 → Bell-Ringer o Jolly (3); uno de 3 → Kiki-Jiki (5).</td></tr><tr><td>Finale of Devastation</td><td>Criatura de valor X o menos, al campo</td><td>{X}{G}{G}. Desde biblioteca o cementerio.</td></tr><tr><td>Summoner's Pact</td><td>Criatura verde, a la mano</td><td>Gratis ahora, {2}{G}{G} en tu upkeep. Solo verdes: dorks, Formidable Speaker, Pia, Somberwald Sage.</td></tr><tr><td>Formidable Speaker</td><td>Descartas una carta: una criatura a la mano</td><td>Además {1}, {T}: endereza otro permanente (Gaea's Cradle).</td></tr><tr><td>Pia, Aether Ascetic</td><td>Descartas una carta: un encantamiento a la mano</td><td>Food Chain, Utopia Sprawl, Wild Growth.</td></tr><tr><td>Enlightened Tutor</td><td>Artefacto o encantamiento, al tope</td><td>Food Chain, Birthing Pod, LED.</td></tr><tr><td>Birthing Pod / Vivien on the Hunt</td><td>Sacrificas una criatura: la siguiente en la curva</td><td>Escalera de dorks hacia Bell-Ringer, Felidar y Kiki.</td></tr><tr><td>Ranger-Captain of Eos</td><td>Criatura de valor 1 o menos, a la mano</td><td>Dorks. Sacrificado: los rivales no lanzan hechizos no criatura este turno.</td></tr><tr><td>Academy Rector / Arena Rector</td><td>Al morir: un encantamiento / un planeswalker al campo</td><td>Food Chain / Vivien. Sacrifícalos con Infernal Plunge, Collateral Damage, High Market o Lazotep Quarry.</td></tr><tr><td>Karmic Guide</td><td>Revive una criatura</td><td>La pieza que te mataron.</td></tr></tbody></table></div>
+
+</section>
+
+<section id="r-proteccion">
+  <h2><span class="n">04</span>Protección e interacción</h2>
+  <div class="tbl"><table><thead><tr><th>Tipo</th><th>Cartas</th><th>Para qué</th></tr></thead><tbody><tr><td>Silencio en tu turno</td><td>Grand Abolisher, Jennifer Walters, Voice of Victory, Silence</td><td>Baja una antes del combo. Abolisher también apaga habilidades de artefactos, criaturas y encantamientos.</td></tr><tr><td>No se puede contrarrestar</td><td>Hexing Squelcher (todos tus hechizos), Allosaurus Shepherd (verdes), Delighted Halfling (legendarios con su maná)</td><td>Rocco es verde y legendario: con Shepherd o Halfling no te lo contrarrestan.</td></tr><tr><td>Salvar piezas</td><td>Flare of Fortitude, Wirewood Symbiote</td><td>Flare: sacrifica una criatura blanca y tus permanentes ganan hexproof e indestructible. Symbiote devuelve un Elfo (Rocco es Elfo) a la mano.</td></tr><tr><td>Remoción</td><td>Fury, Pyrokinesis (gratis), Collateral Damage, Seal of Fire, Thunderclap, Boseiju</td><td>Mata Grand Abolisher, Drannith, Opposition Agent, dorks rivales.</td></tr><tr><td>Ranger-Captain of Eos</td><td>Sacrifícalo</td><td>Los rivales no lanzan hechizos no criatura este turno.</td></tr></tbody></table></div>
+
+  <div class="warn"><strong>El trigger de Rocco se puede contrarrestar</strong> (Stifle, Tishana's Tidebinder) aunque Rocco no. Si la mesa tiene eso, busca la pieza con Imperial Recruiter o Eldritch Evolution.</div>
+</section>
+
+<section id="r-manos">
+  <h2><span class="n">05</span>Manos y mulligan</h2>
+  <p>Quieres <strong>un dork o aceleración en turno 1</strong>, verde para Rocco y un camino a 6–8 maná en turno 2–3. Cualquier pieza de combo o tutor de criatura hace la mano mucho mejor.</p>
+  <div class="hands">
+    <div class="hand keep"><span class="verdict">Quédate · Rocco X=3 en T3</span><ul><li>Taiga</li><li>Birds of Paradise</li><li>Sol Ring</li><li>Village Bell-Ringer</li><li>Kiki-Jiki, Mirror Breaker</li><li>Savannah</li><li>Stomping Ground</li></ul><p>T1 Sol Ring. T2 Birds. T3 tienes 6: Rocco X=3 trae a Bell-Ringer. T4 Kiki-Jiki desde la mano y ganas.</p></div>
+    <div class="hand keep"><span class="verdict">Quédate · Food Chain</span><ul><li>Stomping Ground</li><li>Elvish Mystic</li><li>Food Chain</li><li>Squee, the Immortal</li><li>Grand Abolisher</li><li>Plateau</li><li>Lotus Petal</li></ul><p>T1 Mystic. T2 Food Chain. T3 Squee: maná infinito para criaturas. Con ese maná lanza primero Grand Abolisher y después relanza a Rocco para buscar Kiki y Felidar.</p></div>
+    <div class="hand mull"><span class="verdict">Mulligan</span><ul><li>Plateau</li><li>Felidar Guardian</li><li>Coercive Recruiter</li><li>Fury</li><li>Pyrokinesis</li><li>Karmic Guide</li><li>Sacred Foundry</li></ul><p>Sin verde ni dorks: Rocco no llega y las criaturas son caras.</p></div>
+  </div>
+</section>
+
+<section id="r-hate">
+  <h2><span class="n">06</span>Hate y respuestas</h2>
+<div class="tbl"><table><thead><tr><th>Pieza rival</th><th>Qué te apaga</th><th>Respuesta</th></tr></thead><tbody><tr><td>Grafdigger's Cage</td><td>Rocco, Finale, Eldritch Evolution, Pod, Vivien y Karmic Guide no ponen criaturas desde biblioteca o cementerio</td><td>Boseiju no la toca: necesitas que otro la saque o tutorear a la mano (Imperial Recruiter, Formidable Speaker, Summoner's Pact).</td></tr><tr><td>Torpor Orb, Hushbringer, Hushwing Gryff</td><td>Triggers de entrada: Rocco, Felidar, Bell-Ringer, Recruiter</td><td>Fury o Pyrokinesis para las criaturas. Food Chain + Squee sigue dando maná.</td></tr><tr><td>Cursed Totem</td><td>Kiki-Jiki, Jolly, Birthing Pod y todos los dorks</td><td>Gana con Food Chain + Squee; mata la Totem con lo que tengas.</td></tr><tr><td>Drannith Magistrate</td><td>Rocco desde la zona de mando</td><td>Fury, Pyrokinesis, Collateral Damage.</td></tr><tr><td>Opposition Agent, Aven Mindcensor</td><td>Tus búsquedas</td><td>Mátalos antes de lanzar a Rocco.</td></tr><tr><td>Toxic Deluge, Pyroclasm, Fire Covenant</td><td>Tus dorks</td><td>No sobreextiendas: guarda un Flare of Fortitude.</td></tr><tr><td>Orcish Bowmasters</td><td>Dorks de 1 resistencia</td><td>Fury, Pyrokinesis.</td></tr><tr><td>Tishana's Tidebinder, Stifle</td><td>El trigger de Rocco</td><td>Tutorea con Imperial Recruiter o Eldritch Evolution.</td></tr></tbody></table></div>
+
+</section>
+
+<section id="r-reglas">
+  <h2><span class="n">07</span>Reglas finas</h2>
+<ul><li><b>Rocco</b> solo busca si lo lanzaste: un blink o una reanimación no activan su trigger.</li><li>Si Rocco va al cementerio o al exilio, puedes devolverlo a la zona de mando. El impuesto sube 2 cada vez que lo lanzas desde ahí.</li><li><b>Kiki-Jiki</b> tiene prisa y su habilidad se puede activar cuando quieras (no es velocidad de conjuro). Los tokens se sacrifican al final del turno.</li><li><b>The Jolly Balloon Man</b> se activa solo a velocidad de conjuro y cuesta {1}.</li><li><b>Food Chain</b>: el maná solo paga hechizos de criatura. Squee se puede lanzar desde el cementerio y desde el exilio.</li><li><b>Summoner's Pact</b>: si no pagas {2}{G}{G} en tu próximo upkeep, pierdes.</li><li><b>Gemstone Caverns</b> solo empieza en mesa si no eres el primer jugador.</li><li><b>Final Fortune</b>: turno extra y pierdes al final de ese turno.</li></ul>
+</section>
+
+<section id="r-lista">
+  <h2><span class="n">08</span>La lista por función</h2>
+<div class="decklist"><div class="grp"><h4>Comandante</h4><ul><li>Rocco, Cabaretti Caterer</li></ul></div><div class="grp"><h4>Combo (7)</h4><ul><li>Kiki-Jiki, Mirror Breaker</li><li>Felidar Guardian</li><li>Village Bell-Ringer</li><li>Coercive Recruiter</li><li>The Jolly Balloon Man</li><li>Food Chain</li><li>Squee, the Immortal</li></ul></div><div class="grp"><h4>Tutores (14)</h4><ul><li>Summoner&#x27;s Pact</li><li>Eldritch Evolution</li><li>Finale of Devastation</li><li>Imperial Recruiter</li><li>Formidable Speaker</li><li>Enlightened Tutor</li><li>Pia, Aether Ascetic</li><li>Birthing Pod</li><li>Vivien on the Hunt</li><li>Arena Rector</li><li>Academy Rector</li><li>Ranger-Captain of Eos</li><li>Crop Rotation</li><li>Karmic Guide</li></ul></div><div class="grp"><h4>Motor y robo (3)</h4><ul><li>Esper Sentinel</li><li>Gaea&#x27;s Cradle</li><li>Badgermole Cub</li></ul></div><div class="grp"><h4>Aceleración rápida (16)</h4><ul><li>Lotus Petal</li><li>Chrome Mox</li><li>Mox Diamond</li><li>Mana Vault</li><li>Sol Ring</li><li>Elvish Spirit Guide</li><li>Simian Spirit Guide</li><li>Rite of Flame</li><li>Pyretic Ritual</li><li>Seething Song</li><li>Infernal Plunge</li><li>Metamorphosis</li><li>Open the Omenpaths</li><li>Lion&#x27;s Eye Diamond</li><li>_____ Goblin</li><li>Jeska&#x27;s Will</li></ul></div><div class="grp"><h4>Aceleración lenta (18)</h4><ul><li>Avacyn&#x27;s Pilgrim</li><li>Birds of Paradise</li><li>Elvish Mystic</li><li>Fyndhorn Elves</li><li>Llanowar Elves</li><li>Delighted Halfling</li><li>Bloom Tender</li><li>Ruby, Daring Tracker</li><li>Faeburrow Elder</li><li>Somberwald Sage</li><li>Shaman of Forgotten Ways</li><li>Utopia Sprawl</li><li>Wild Growth</li><li>Carpet of Flowers</li><li>Tinder Wall</li><li>Orcish Lumberjack</li><li>Treasonous Ogre</li><li>Nature&#x27;s Rhythm</li></ul></div><div class="grp"><h4>Protección y counters (8)</h4><ul><li>Grand Abolisher</li><li>Jennifer Walters</li><li>Voice of Victory</li><li>Silence</li><li>Hexing Squelcher</li><li>Allosaurus Shepherd</li><li>Flare of Fortitude</li><li>Wirewood Symbiote</li></ul></div><div class="grp"><h4>Remoción y respuestas (5)</h4><ul><li>Fury</li><li>Pyrokinesis</li><li>Collateral Damage</li><li>Seal of Fire</li><li>Thunderclap</li></ul></div><div class="grp"><h4>Utilidad (3)</h4><ul><li>Final Fortune</li><li>Phyrexian Dreadnought</li><li>Ragavan, Nimble Pilferer</li></ul></div><div class="grp"><h4>Tierras (26)</h4><ul><li>Ancient Tomb</li><li>Arid Mesa</li><li>Bloodstained Mire</li><li>Boseiju, Who Endures</li><li>Cavern of Souls</li><li>City of Brass</li><li>Command Tower</li><li>Flooded Strand</li><li>Gaea&#x27;s Cradle</li><li>Gemstone Caverns</li><li>High Market</li><li>Lazotep Quarry</li><li>Mana Confluence</li><li>Marsh Flats</li><li>Misty Rainforest</li><li>Plateau</li><li>Sacred Foundry</li><li>Savannah</li><li>Scalding Tarn</li><li>Starting Town</li><li>Stomping Ground</li><li>Taiga</li><li>Temple Garden</li><li>Verdant Catacombs</li><li>Windswept Heath</li><li>Wooded Foothills</li></ul></div></div>
+</section>
+
+</main>
+</div>
+
+</div>
+
+<div class="view" id="view-rograkh" hidden>
+<header class="hero">
+  <div class="eyebrow">cEDH · Grixis · Primer</div>
+  <h1>Rograkh <span class="amp">&amp;</span> Silas: storm de Grixis</h1>
+  <p class="lede"><span class="card">Rograkh, Son of Rohgahh</span> sale gratis y <span class="card">Silas Renn, Seeker Adept</span> recupera artefactos. El mazo es storm turbo: gana con Underworld Breach (con LED + Brain Freeze o con Grinding Station), Thassa's Oracle o Ad Nauseam.</p>
+  <div class="chips"><span class="chip"><b>Comandantes:</b> Rograkh {0} + Silas {1}{U}{B}</span><span class="chip"><b>Win 1:</b> Breach + LED + Brain Freeze</span><span class="chip"><b>Win 2:</b> Thassa + Consultation / Pact</span><span class="chip"><b>Win 3:</b> Breach + Grinding Station</span></div>
+</header>
+
+<div class="wrap">
+<nav class="toc" aria-label="Índice">
+  <ol><li><a href="#s-idea">La idea</a></li><li><a href="#s-lineas">Cómo gana</a></li><li><a href="#s-tutores">Qué tutorear</a></li><li><a href="#s-proteccion">Protección e interacción</a></li><li><a href="#s-manos">Manos y mulligan</a></li><li><a href="#s-hate">Hate y respuestas</a></li><li><a href="#s-reglas">Reglas finas</a></li><li><a href="#s-lista">La lista por función</a></li></ol>
+</nav>
+<main>
+
+<section id="s-idea">
+  <h2><span class="n">01</span>La idea</h2>
+  <div class="thesis">
+    <p><span class="card">Rograkh, Son of Rohgahh</span> cuesta {0}: 0/1 rojo con dañar primero, amenaza y arrollar. <span class="card">Silas Renn, Seeker Adept</span> cuesta {1}{U}{B}: 2/2 con toque mortal; cuando hace daño de combate a un jugador, eliges un artefacto de tu cementerio y lo puedes lanzar ese turno.</p>
+    <p>Rograkh es un comandante <strong>gratis</strong>: sale en turno 1 sin gastar nada y siempre tienes "un comandante en mesa" para <span class="card">Jeska&#x27;s Will</span> (eliges los dos modos) y <span class="card">Deadly Rollick</span> (gratis). Es criatura legendaria roja para <span class="card">Mox Amber</span>, carne para <span class="card">Diabolic Intent</span>, <span class="card">Culling the Weak</span>, <span class="card">Flare of Duplication</span> (alternativo gratis) y <span class="card">Phyrexian Tower</span>, y con <span class="card">Paradise Mantle</span> se gira por un maná de cualquier color.</p>
+    <p>El plan es storm de Grixis: acelerar, robar con Necropotence, Rhystic o Remora, y ganar con Underworld Breach, Thassa's Oracle o Ad Nauseam. Silas recupera LED, Grim Monolith o Lotus Petal si conecta.</p>
+  </div>
+</section>
+
+<section id="s-lineas">
+  <h2><span class="n">02</span>Cómo gana</h2>
+  <div class="line">
+    <div class="head"><span class="id">1</span><span class="name">Underworld Breach + Lion's Eye Diamond + Brain Freeze</span><div class="tags"><span class="tag">{1}{R} si Breach no está en mesa</span><span class="tag g">mill</span></div></div>
+    <ol><li><span class="card">Underworld Breach</span> en mesa. LED y Brain Freeze en mano o cementerio, y cartas en el cementerio para exiliar (3 por escape).</li><li>Lanza LED (con escape si está en el cementerio). Sacrifícalo por 3 maná de un color descartando la mano.</li><li>Lanza <span class="card">Brain Freeze</span> con escape ({1}{U} + exiliar 3). Primero apúntate a ti para llenar el cementerio; con storm alto, apunta a cada rival.</li><li>Cada vuelta deja 1 maná de sobra y sube el storm. Repite hasta moler a la mesa.</li></ol>
+    <p class='muted'>Con la biblioteca vacía puedes lanzar <span class="card">Thassa&#x27;s Oracle</span> con escape ({U}{U}) y ganar. Birgi ({R} por hechizo) y Storm-Kiln Artist (Treasure por instantáneo o conjuro) hacen que cada vuelta deje más maná.</p>
+  </div>
+  <div class="line">
+    <div class="head"><span class="id">2</span><span class="name">Thassa's Oracle + Demonic Consultation o Tainted Pact</span><div class="tags"><span class="tag">{U}{U} + {B} o {1}{B}</span><span class="tag g">gana al instante</span></div></div>
+    <ol><li>Lanza <span class="card">Thassa&#x27;s Oracle</span> y mantén prioridad con su trigger en la pila.</li><li>En respuesta, <span class="card">Demonic Consultation</span> nombrando una carta que no esté en tu mazo, o <span class="card">Tainted Pact</span> sin quedarte con ninguna.</li><li>Resuelve el trigger: biblioteca en 0, ganas.</li></ol>
+    <p>Ese orden te deja la biblioteca intacta si contrarrestan a Thassa o su trigger.</p>
+  </div>
+  <div class="line">
+    <div class="head"><span class="id">3</span><span class="name">Ad Nauseam</span><div class="tags"><span class="tag">{3}{B}{B}</span><span class="tag g">encadena a 1 o 2</span></div></div>
+    <ol><li>Lanza <span class="card">Ad Nauseam</span> en el end step del rival a tu derecha, o en tu turno con la mesa silenciada.</li><li>Revela hasta quedarte con unas 10 de vida. Las cartas de valor 0 (LED, Petal, moxes, Pact) salen gratis.</li><li>Con el maná que salga, juega la línea 1 o 2. <span class="card">Rain of Filth</span> convierte tus tierras en {B} extra para el final.</li></ol>
+    
+  </div>
+  <div class="line">
+    <div class="head"><span class="id">4</span><span class="name">Underworld Breach + Grinding Station + artefacto de 0</span><div class="tags"><span class="tag">{1}{R} + {2}</span><span class="tag g">storm y maná infinitos</span></div></div>
+    <ol><li><span class="card">Underworld Breach</span> y <span class="card">Grinding Station</span> en mesa, un artefacto de valor 0 (LED, Lotus Petal, Mox Amber, Mox Opal, Chrome Mox, Mox Diamond o Paradise Mantle) y al menos 3 cartas más en el cementerio.</li><li>Gira Grinding Station y sacrifica el artefacto: te mueles 3 cartas.</li><li>Lanza el artefacto desde el cementerio con escape (exilia 3). Al entrar, Grinding Station se endereza.</li><li>Repite: cada vuelta mueles 3 y exilias 3, y sube el storm. Para maná, lanza LED en una vuelta y actívalo por 3 en vez de sacrificarlo a la Station.</li><li>Cuando tengas storm y maná de sobra, lanza <span class="card">Brain Freeze</span> a cada rival, o <span class="card">Thassa&#x27;s Oracle</span> con la biblioteca vacía.</li></ol>
+    <p>Necesitas que el cementerio no se quede sin cartas para exiliar: con la Station apuntándote a ti siempre entran 3 por cada 3 que exilias.</p>
+  </div>
+  <h3>Otras piezas</h3>
+  <ul>
+    <li><span class="card">Mnemonic Betrayal</span>: lanzas este turno cartas del cementerio de los rivales, pagando con cualquier maná. Después de una ronda de interacción suele haber rituales, tutores y counters.</li>
+    <li><span class="card">Yawgmoth&#x27;s Will</span>: este turno lanzas cartas de tu cementerio (y lo que iría al cementerio se exilia). Sirve como una Breach de un uso después de un Ad Nauseam.</li>
+    <li><span class="card">Jeska&#x27;s Will</span>: {R} por cada carta en la mano de un rival y juegas las 3 de arriba de tu biblioteca. Con Rograkh en mesa haces las dos.</li>
+    <li><span class="card">Flare of Duplication</span>: sacrificando a Rograkh es gratis. Copia Ad Nauseam (otra ronda de revelar), Brain Freeze, Demonic Tutor o Jeska's Will.</li>
+    <li><span class="card">Copy Enchantment</span> copia Underworld Breach, Necropotence o Rhystic Study. <span class="card">Flash Photography</span> copia un permanente: otra Thassa con la biblioteca vacía.</li>
+    <li><span class="card">Imposter Mech</span> entra como copia de una criatura de un rival (su comandante, su motor).</li>
+    <li><span class="card">Last Chance</span>: turno extra y pierdes al final. Para cuando el combo está listo pero sin el maná de este turno.</li>
+  </ul>
+</section>
+
+<section id="s-tutores">
+  <h2><span class="n">03</span>Qué tutorear</h2>
+<div class="tbl"><table><thead><tr><th>Tienes</th><th>Te falta</th><th>Busca con</th></tr></thead><tbody><tr><td>Thassa</td><td>Consultation o Pact</td><td>Demonic, Vampiric, Imperial Seal, Mystical Tutor</td></tr><tr><td>Consultation o Pact</td><td>Thassa's Oracle</td><td>Demonic, Vampiric, Imperial Seal, Gamble, Beseech</td></tr><tr><td>Breach + LED</td><td>Brain Freeze</td><td>Mystical Tutor, Vampiric</td></tr><tr><td>LED + Brain Freeze</td><td>Underworld Breach</td><td>Beseech (gratis con bargain), Demonic</td></tr><tr><td>Mucho maná, nada de combo</td><td>Ad Nauseam</td><td>Mystical Tutor en el end step anterior a tu turno</td></tr><tr><td>Breach + artefacto de 0</td><td>Grinding Station</td><td>Demonic, Vampiric, Beseech (gratis)</td></tr></tbody></table></div>
+<div class="tbl"><table><thead><tr><th>Tutor</th><th>Busca</th><th>Notas</th></tr></thead><tbody><tr><td>Demonic Tutor</td><td>Lo que sea, a la mano</td><td>Conjuro {1}{B}.</td></tr><tr><td>Vampiric Tutor / Imperial Seal</td><td>Lo que sea, al tope</td><td>Pierdes 2. En el end step anterior a tu turno.</td></tr><tr><td>Mystical Tutor</td><td>Instantáneo o conjuro, al tope</td><td>Ad Nauseam, Consultation, Pact, Brain Freeze.</td></tr><tr><td>Diabolic Intent</td><td>Lo que sea, a la mano</td><td>Sacrifica una criatura: tu comandante vuelve a la zona de mando.</td></tr><tr><td>Gamble</td><td>Lo que sea, a la mano</td><td>Después descartas una al azar. Con la mano casi vacía.</td></tr><tr><td>Wishclaw Talisman</td><td>Lo que sea</td><td>Después pasa a un rival. Úsalo solo si ganas ese turno.</td></tr><tr><td>Beseech the Mirror</td><td>Lo que sea</td><td>Con bargain lanzas gratis la carta si vale 4 o menos.</td></tr></tbody></table></div>
+
+</section>
+
+<section id="s-proteccion">
+  <h2><span class="n">04</span>Protección e interacción</h2>
+<div class="tbl"><table><thead><tr><th>Tipo</th><th>Cartas</th><th>Para qué</th></tr></thead><tbody><tr><td>Gratis</td><td>Force of Will, Force of Negation, Pact of Negation, Fierce Guardianship, Deflecting Swat, Daze, Mindbreak Trap, Misdirection, Commandeer</td><td>Protege tu combo o frena el rival sin maná.</td></tr><tr><td>Baratas</td><td>Mental Misstep, Flusterstorm, Swan Song, Dispel, Pyroblast, Red Elemental Blast, An Offer You Can't Refuse</td><td>Flusterstorm gana las peleas de storm. Pyroblast y REB contra counters azules.</td></tr><tr><td>Estáticas</td><td>Defense Grid, Hexing Squelcher</td><td>Defense Grid: los hechizos de los rivales cuestan {3} más fuera de su turno. Squelcher: tus hechizos no se pueden contrarrestar.</td></tr><tr><td>Remoción</td><td>Deadly Rollick, Into the Flood Maw, Chain of Vapor, Snapback, Otawara</td><td>Piezas de stax y combos rivales.</td></tr></tbody></table></div>
+  <div class="note"><p><strong>Contra Stifle o Trickbind en el trigger de Thassa:</strong> lanza Thassa primero y Consultation en respuesta.</p></div>
+</section>
+
+<section id="s-manos">
+  <h2><span class="n">05</span>Manos y mulligan</h2>
+  <p>Rograkh sale gratis, así que lo que cuenta es el resto: <strong>2 o más fuentes de maná</strong>, un tutor o pieza, y si puedes un motor o protección.</p>
+  <div class="hands">
+    <div class="hand keep"><span class="verdict">Quédate · Ad Nauseam T1</span><ul><li>Badlands</li><li>Lotus Petal</li><li>Dark Ritual</li><li>Ad Nauseam</li><li>Force of Will</li><li>Mox Amber</li><li>Polluted Delta</li></ul><p>Rograkh gratis activa Mox Amber ({R}). T1: tierra + Petal + Dark Ritual + Amber = 5 para Ad Nauseam con FoW.</p></div>
+    <div class="hand keep"><span class="verdict">Quédate · motor</span><ul><li>Underground Sea</li><li>Sol Ring</li><li>Mystic Remora</li><li>Necropotence</li><li>Vampiric Tutor</li><li>Daze</li><li>Volcanic Island</li></ul><p>Remora T1, Necro T2 y Vampiric por lo que falte.</p></div>
+    <div class="hand mull"><span class="verdict">Mulligan</span><ul><li>Grinding Station</li><li>Copy Enchantment</li><li>Imposter Mech</li><li>Last Chance</li><li>Yawgmoth&#x27;s Will</li><li>Scalding Tarn</li><li>Commandeer</li></ul><p>Una tierra, cartas de valor tardío y nada que encadenar.</p></div>
+  </div>
+</section>
+
+<section id="s-hate">
+  <h2><span class="n">06</span>Hate y respuestas</h2>
+<div class="tbl"><table><thead><tr><th>Pieza rival</th><th>Qué te apaga</th><th>Respuesta</th></tr></thead><tbody><tr><td>Grafdigger's Cage</td><td>Breach y Yawgmoth's Will (no lanzas desde el cementerio)</td><td>Chain of Vapor, Into the Flood Maw, Snapback. O gana con Thassa o Ad Nauseam.</td></tr><tr><td>Rest in Peace, Leyline of the Void</td><td>Breach + LED</td><td>Thassa + Consultation.</td></tr><tr><td>Null Rod, Collector Ouphe</td><td>LED, moxes, Petal, Mana Vault, Wishclaw</td><td>Chain of Vapor, Into the Flood Maw, Snapback.</td></tr><tr><td>Rule of Law, Archon of Emeria, Eidolon of Rhetoric</td><td>Breach y Ad Nauseam</td><td>Rebótalos antes de tu turno de combo.</td></tr><tr><td>Drannith Magistrate</td><td>Tus comandantes desde la zona de mando</td><td>Deadly Rollick, rebote.</td></tr><tr><td>Opposition Agent</td><td>Tus tutores</td><td>Mátalo antes de tutorear.</td></tr><tr><td>Orcish Bowmasters rival</td><td>Robos extra (Necropotence, Rhystic, Remora)</td><td>Roba con calma.</td></tr><tr><td>Tishana's Tidebinder, Stifle, Trickbind</td><td>El trigger de Thassa</td><td>Thassa primero y Consultation en respuesta.</td></tr><tr><td>Torpor Orb, Cursed Totem</td><td>Poco: tu plan no depende de criaturas</td><td>—</td></tr></tbody></table></div>
+
+</section>
+
+<section id="s-reglas">
+  <h2><span class="n">07</span>Reglas finas</h2>
+<ul><li><b>Lion's Eye Diamond</b>: se activa a velocidad de instantáneo y descartas toda la mano al activarlo. No sirve para pagar un hechizo mientras lo lanzas.</li><li><b>Underworld Breach</b>: cada carta de tu cementerio tiene escape = su costo + exiliar otras 3 cartas del cementerio. Se sacrifica en el end step.</li><li><b>Thassa's Oracle</b>: al resolver su trigger compara tu devoción al azul con las cartas de tu biblioteca. Con la biblioteca en 0, ganas.</li><li><b>Demonic Consultation</b>: nombra una carta que no esté en tu mazo y exilias toda la biblioteca. <b>Tainted Pact</b>: en singleton puedes no quedarte con ninguna y exiliar todo.</li><li><b>Ad Nauseam</b>: instantáneo. Revelas de a una carta y pierdes vida igual a su valor de maná; paras cuando quieras. Las cartas de valor 0 (LED, Petal, moxes, Pact of Negation) salen gratis.</li><li><b>Beseech the Mirror</b>: si lo bargaineas (sacrificas un artefacto, encantamiento o token al lanzarlo), puedes lanzar gratis la carta buscada si su valor de maná es 4 o menos. Si no, va a tu mano.</li><li><b>Gemstone Caverns</b> solo empieza en mesa si no eres el primer jugador (Seat 2–4).</li><li><b>Final Fortune</b> y <b>Last Chance</b>: turno extra y pierdes al final de ese turno. Solo si ganas en el turno extra.</li><li><b>Pact of Negation</b>: si no pagas en tu próximo upkeep, pierdes. Úsalo solo en el turno en que ganas.</li><li><b>Rograkh</b> tiene indicador de color rojo: con él en mesa Mox Amber da {R}. <b>Silas</b> da {U} o {B}.</li><li><b>Silas</b> deja lanzar el artefacto solo ese turno, y paga su costo normal.</li><li><b>Grinding Station</b> se endereza con cualquier artefacto que entre, también un Treasure.</li><li><b>Deadly Rollick</b> es gratis si controlas un comandante: con Rograkh casi siempre.</li></ul>
+</section>
+
+<section id="s-lista">
+  <h2><span class="n">08</span>La lista por función</h2>
+<div class="decklist"><div class="grp"><h4>Comandantes</h4><ul><li>Rograkh, Son of Rohgahh</li><li>Silas Renn, Seeker Adept</li></ul></div><div class="grp"><h4>Combo (8)</h4><ul><li>Underworld Breach</li><li>Lion&#x27;s Eye Diamond</li><li>Brain Freeze</li><li>Thassa&#x27;s Oracle</li><li>Demonic Consultation</li><li>Tainted Pact</li><li>Ad Nauseam</li><li>Grinding Station</li></ul></div><div class="grp"><h4>Tutores (8)</h4><ul><li>Demonic Tutor</li><li>Vampiric Tutor</li><li>Imperial Seal</li><li>Mystical Tutor</li><li>Diabolic Intent</li><li>Gamble</li><li>Wishclaw Talisman</li><li>Beseech the Mirror</li></ul></div><div class="grp"><h4>Motor y robo (7)</h4><ul><li>Necropotence</li><li>Rhystic Study</li><li>Mystic Remora</li><li>Faerie Mastermind</li><li>Orcish Bowmasters</li><li>Birgi, God of Storytelling</li><li>Storm-Kiln Artist</li></ul></div><div class="grp"><h4>Aceleración rápida (13)</h4><ul><li>Lotus Petal</li><li>Chrome Mox</li><li>Mox Diamond</li><li>Dark Ritual</li><li>Cabal Ritual</li><li>Rite of Flame</li><li>Mana Vault</li><li>Sol Ring</li><li>Simian Spirit Guide</li><li>Culling the Weak</li><li>Grim Monolith</li><li>Rain of Filth</li><li>Jeska&#x27;s Will</li></ul></div><div class="grp"><h4>Aceleración lenta (6)</h4><ul><li>Arcane Signet</li><li>Fellwar Stone</li><li>Mox Opal</li><li>Mox Amber</li><li>Springleaf Drum</li><li>Paradise Mantle</li></ul></div><div class="grp"><h4>Protección y counters (19)</h4><ul><li>Force of Will</li><li>Force of Negation</li><li>Pact of Negation</li><li>Fierce Guardianship</li><li>Deflecting Swat</li><li>Daze</li><li>Mindbreak Trap</li><li>Misdirection</li><li>Commandeer</li><li>Mental Misstep</li><li>Flusterstorm</li><li>Swan Song</li><li>Dispel</li><li>Pyroblast</li><li>Red Elemental Blast</li><li>An Offer You Can&#x27;t Refuse</li><li>Defense Grid</li><li>Hexing Squelcher</li><li>Flare of Duplication</li></ul></div><div class="grp"><h4>Remoción y respuestas (4)</h4><ul><li>Deadly Rollick</li><li>Into the Flood Maw</li><li>Chain of Vapor</li><li>Snapback</li></ul></div><div class="grp"><h4>Utilidad (10)</h4><ul><li>Mnemonic Betrayal</li><li>Yawgmoth&#x27;s Will</li><li>Copy Enchantment</li><li>Flash Photography</li><li>Valley Floodcaller</li><li>Imposter Mech</li><li>Last Chance</li><li>Final Fortune</li><li>Borne Upon a Wind</li><li>Ragavan, Nimble Pilferer</li></ul></div><div class="grp"><h4>Tierras (23)</h4><ul><li>Ancient Tomb</li><li>Arid Mesa</li><li>Badlands</li><li>Blood Crypt</li><li>Bloodstained Mire</li><li>City of Brass</li><li>City of Traitors</li><li>Command Tower</li><li>Exotic Orchard</li><li>Flooded Strand</li><li>Gemstone Caverns</li><li>Mana Confluence</li><li>Marsh Flats</li><li>Misty Rainforest</li><li>Otawara, Soaring City</li><li>Phyrexian Tower</li><li>Polluted Delta</li><li>Scalding Tarn</li><li>Underground Sea</li><li>Verdant Catacombs</li><li>Volcanic Island</li><li>Watery Grave</li><li>Wooded Foothills</li></ul></div></div>
+</section>
+
+</main>
+</div>
+
+</div>
+
+<div class="view" id="view-kraum" hidden>
+<header class="hero">
+  <div class="eyebrow">cEDH · Mardu + azul · Primer</div>
+  <h1>Kraum <span class="amp">&amp;</span> Tymna: Blue Farm</h1>
+  <p class="lede"><span class="card">Tymna the Weaver</span> y <span class="card">Kraum, Ludevic&#x27;s Opus</span> roban cartas mientras el mazo acelera y tutorea. Gana con Thassa's Oracle, Underworld Breach o Ad Nauseam, detrás de Silence, Orim's Chant y counters gratis.</p>
+  <div class="chips"><span class="chip"><b>Comandantes:</b> Tymna {1}{W}{B} + Kraum {3}{U}{R}</span><span class="chip"><b>Win 1:</b> Thassa + Consultation / Pact</span><span class="chip"><b>Win 2:</b> Breach + LED + Brain Freeze</span><span class="chip"><b>Respaldo:</b> Fblthp, Mockingbird</span></div>
+</header>
+
+<div class="wrap">
+<nav class="toc" aria-label="Índice">
+  <ol><li><a href="#k-idea">La idea</a></li><li><a href="#k-lineas">Cómo gana</a></li><li><a href="#k-tutores">Qué tutorear</a></li><li><a href="#k-proteccion">Protección e interacción</a></li><li><a href="#k-manos">Manos y mulligan</a></li><li><a href="#k-hate">Hate y respuestas</a></li><li><a href="#k-reglas">Reglas finas</a></li><li><a href="#k-lista">La lista por función</a></li></ol>
+</nav>
+<main>
+
+<section id="k-idea">
+  <h2><span class="n">01</span>La idea</h2>
+  <div class="thesis">
+    <p><span class="card">Tymna the Weaver</span> ({1}{W}{B}, 2/2 vínculo vital): al inicio de tu segunda fase principal puedes pagar X vidas y robar X, donde X es la cantidad de rivales a los que hiciste daño de combate ese turno. <span class="card">Kraum, Ludevic&#x27;s Opus</span> ({3}{U}{R}, 4/4 volador con prisa): cada vez que un rival lanza su segundo hechizo del turno, robas una carta.</p>
+    <p>Es el "Blue Farm" de cuatro colores: los comandantes son <strong>motores de robo</strong>, no piezas de combo. Tymna conecta temprano con ayuda de Ragavan y Esper Sentinel; Kraum castiga a las mesas que encadenan hechizos.</p>
+    <p>El plan: desarrollar motores (Necropotence, Rhystic, Remora, Tataru Taru, Lotho, Smothering Tithe), robar hasta armar el combo y ganar con Thassa's Oracle, Underworld Breach o Ad Nauseam detrás de Silence, Orim's Chant, Grand Abolisher o Voice of Victory.</p>
+  </div>
+</section>
+
+<section id="k-lineas">
+  <h2><span class="n">02</span>Cómo gana</h2>
+  <div class="line">
+    <div class="head"><span class="id">1</span><span class="name">Underworld Breach + Lion's Eye Diamond + Brain Freeze</span><div class="tags"><span class="tag">{1}{R} si Breach no está en mesa</span><span class="tag g">mill</span></div></div>
+    <ol><li><span class="card">Underworld Breach</span> en mesa. LED y Brain Freeze en mano o cementerio, y cartas en el cementerio para exiliar (3 por escape).</li><li>Lanza LED (con escape si está en el cementerio). Sacrifícalo por 3 maná de un color descartando la mano.</li><li>Lanza <span class="card">Brain Freeze</span> con escape ({1}{U} + exiliar 3). Primero apúntate a ti para llenar el cementerio; con storm alto, apunta a cada rival.</li><li>Cada vuelta deja 1 maná de sobra y sube el storm. Repite hasta moler a la mesa.</li></ol>
+    <p class='muted'>Con la biblioteca vacía puedes lanzar <span class="card">Thassa&#x27;s Oracle</span> con escape ({U}{U}) y ganar. Birgi ({R} por hechizo) y Storm-Kiln Artist (Treasure por instantáneo o conjuro) hacen que cada vuelta deje más maná.</p>
+  </div>
+  <div class="line">
+    <div class="head"><span class="id">2</span><span class="name">Thassa's Oracle + Demonic Consultation o Tainted Pact</span><div class="tags"><span class="tag">{U}{U} + {B} o {1}{B}</span><span class="tag g">gana al instante</span></div></div>
+    <ol><li>Lanza <span class="card">Thassa&#x27;s Oracle</span> y mantén prioridad con su trigger en la pila.</li><li>En respuesta, <span class="card">Demonic Consultation</span> nombrando una carta que no esté en tu mazo, o <span class="card">Tainted Pact</span> sin quedarte con ninguna.</li><li>Resuelve el trigger: biblioteca en 0, ganas.</li></ol>
+    <p>Ese orden te deja la biblioteca intacta si contrarrestan a Thassa o su trigger.</p>
+  </div>
+  <div class="line">
+    <div class="head"><span class="id">3</span><span class="name">Ad Nauseam</span><div class="tags"><span class="tag">{3}{B}{B}</span><span class="tag g">encadena a 1 o 2</span></div></div>
+    <ol><li>Lanza <span class="card">Ad Nauseam</span> en el end step del rival a tu derecha, o en tu turno con la mesa silenciada.</li><li>Revela hasta quedarte con unas 10 de vida. Las cartas de valor 0 (LED, Petal, moxes, Pact) salen gratis.</li><li>Con el maná que salga, juega la línea 1 o 2. <span class="card">Rain of Filth</span> convierte tus tierras en {B} extra para el final.</li></ol>
+    
+  </div>
+  <div class="line">
+    <div class="head"><span class="id">4</span><span class="name">Fblthp, Impossibly Lost con la biblioteca vacía</span><div class="tags"><span class="tag">{1}{U}</span><span class="tag g">Thassa alternativa</span></div></div>
+    <ol><li><span class="card">Fblthp, Impossibly Lost</span> en mesa. Vacía tu biblioteca con Demonic Consultation o Tainted Pact en tu turno.</li><li>Haz daño de combate a un rival (Fblthp mismo, Tymna o Ragavan).</li><li>Su trigger roba dos y, como tu biblioteca no tiene cartas, ganas mientras se resuelve.</li></ol>
+    <p>Es más lenta que Thassa pero no depende de un trigger de entrada: sirve si te contestaron a Thassa o su trigger.</p>
+  </div>
+  <div class="line">
+    <div class="head"><span class="id">5</span><span class="name">Mockingbird como segunda Thassa</span><div class="tags"><span class="tag">{1}{U}</span><span class="tag g">trigger de entrada otra vez</span></div></div>
+    <ol><li>Si te contrarrestaron el trigger de Thassa y ya exiliaste la biblioteca, lanza <span class="card">Mockingbird</span> con X=1 (gastas 2 maná).</li><li>Entra como copia de Thassa's Oracle (que sigue en mesa): nuevo trigger de entrada con la biblioteca vacía.</li><li>Resuelve y ganas.</li></ol>
+    
+  </div>
+  <h3>Otras piezas</h3>
+  <ul>
+    <li><span class="card">Mnemonic Betrayal</span>: lanzas este turno las cartas de los cementerios rivales con cualquier maná.</li>
+    <li><span class="card">Jeska&#x27;s Will</span>: {R} por carta en la mano de un rival y juegas las 3 de arriba; con un comandante en mesa, las dos.</li>
+    <li><span class="card">Last Chance</span>: turno extra y pierdes al final, para cuando el combo está listo pero sin maná este turno.</li>
+    <li><span class="card">Valley Floodcaller</span>: tus hechizos no criatura tienen flash. Breach o Necropotence en el end step rival.</li>
+    <li><span class="card">Cavern of Souls</span> nombrando Merfolk (o Wizard) hace que no te contrarresten a Thassa.</li>
+  </ul>
+</section>
+
+<section id="k-tutores">
+  <h2><span class="n">03</span>Qué tutorear</h2>
+<div class="tbl"><table><thead><tr><th>Tienes</th><th>Te falta</th><th>Busca con</th></tr></thead><tbody><tr><td>Thassa</td><td>Consultation o Pact</td><td>Demonic, Vampiric, Imperial Seal, Mystical Tutor</td></tr><tr><td>Consultation o Pact</td><td>Thassa's Oracle</td><td>Demonic, Vampiric, Imperial Seal, Gamble, Beseech</td></tr><tr><td>Breach + LED</td><td>Brain Freeze</td><td>Mystical Tutor, Vampiric</td></tr><tr><td>LED + Brain Freeze</td><td>Underworld Breach</td><td>Beseech (gratis con bargain), Demonic</td></tr><tr><td>Mucho maná, nada de combo</td><td>Ad Nauseam</td><td>Mystical Tutor en el end step anterior a tu turno</td></tr><tr><td>Consultation y Thassa contestada</td><td>Segunda Thassa</td><td>Mockingbird (X=1), Fblthp</td></tr></tbody></table></div>
+<div class="tbl"><table><thead><tr><th>Tutor</th><th>Busca</th><th>Notas</th></tr></thead><tbody><tr><td>Demonic Tutor</td><td>Lo que sea, a la mano</td><td>Conjuro {1}{B}.</td></tr><tr><td>Vampiric Tutor / Imperial Seal</td><td>Lo que sea, al tope</td><td>Pierdes 2. En el end step anterior a tu turno.</td></tr><tr><td>Mystical Tutor</td><td>Instantáneo o conjuro, al tope</td><td>Ad Nauseam, Consultation, Pact, Brain Freeze.</td></tr><tr><td>Diabolic Intent</td><td>Lo que sea, a la mano</td><td>Sacrifica una criatura: tu comandante vuelve a la zona de mando.</td></tr><tr><td>Gamble</td><td>Lo que sea, a la mano</td><td>Después descartas una al azar. Con la mano casi vacía.</td></tr><tr><td>Wishclaw Talisman</td><td>Lo que sea</td><td>Después pasa a un rival. Úsalo solo si ganas ese turno.</td></tr><tr><td>Beseech the Mirror</td><td>Lo que sea</td><td>Con bargain lanzas gratis la carta si vale 4 o menos.</td></tr></tbody></table></div>
+
+</section>
+
+<section id="k-proteccion">
+  <h2><span class="n">04</span>Protección e interacción</h2>
+<div class="tbl"><table><thead><tr><th>Tipo</th><th>Cartas</th><th>Para qué</th></tr></thead><tbody><tr><td>Gratis</td><td>Force of Will, Force of Negation, Pact of Negation, Fierce Guardianship, Deflecting Swat, Mindbreak Trap, Misdirection</td><td>Protege el combo o frena el rival sin maná.</td></tr><tr><td>Baratas</td><td>Mental Misstep, Flusterstorm, Swan Song, Pyroblast, Red Elemental Blast, An Offer You Can't Refuse</td><td>Flusterstorm gana las peleas de storm.</td></tr><tr><td>Silencio</td><td>Silence, Orim's Chant, Grand Abolisher, Voice of Victory, Ranger-Captain of Eos</td><td>Silence y Orim's Chant: los rivales no lanzan hechizos este turno. Ranger-Captain sacrificado: no lanzan hechizos no criatura.</td></tr><tr><td>Otros</td><td>Hexing Squelcher</td><td>Tus hechizos no se pueden contrarrestar.</td></tr><tr><td>Remoción</td><td>Into the Flood Maw, Chain of Vapor, Snapback, Otawara</td><td>Piezas de stax y combos rivales.</td></tr></tbody></table></div>
+  <div class="note"><p><strong>Contra Stifle o Trickbind en el trigger de Thassa:</strong> lanza Thassa primero y Consultation en respuesta.</p></div>
+</section>
+
+<section id="k-manos">
+  <h2><span class="n">05</span>Manos y mulligan</h2>
+  <p>Quieres <strong>2–3 fuentes de maná</strong> con blanco y negro para Tymna en turno 2, y algo que conecte o robe. Con un tutor o una pieza de combo es keep casi siempre.</p>
+  <div class="hands">
+    <div class="hand keep"><span class="verdict">Quédate · Tymna T2</span><ul><li>Scrubland</li><li>Esper Sentinel</li><li>Ragavan, Nimble Pilferer</li><li>Mystic Remora</li><li>Demonic Tutor</li><li>Swan Song</li><li>Volcanic Island</li></ul><p>T1 Esper Sentinel. T2 Tymna o Ragavan + Remora. Demonic busca la pieza que falte.</p></div>
+    <div class="hand keep"><span class="verdict">Quédate · win temprano</span><ul><li>Underground Sea</li><li>Lotus Petal</li><li>Dark Ritual</li><li>Ad Nauseam</li><li>Pact of Negation</li><li>Mox Diamond</li><li>Polluted Delta</li></ul><p>T1 a 5 maná para Ad Nauseam con Pact de respaldo.</p></div>
+    <div class="hand mull"><span class="verdict">Mulligan</span><ul><li>Tundra</li><li>Last Chance</li><li>Mnemonic Betrayal</li><li>Final Fortune</li><li>Snapback</li><li>Mockingbird</li><li>Storm-Kiln Artist</li></ul><p>Una tierra y cartas que necesitan otras para funcionar.</p></div>
+  </div>
+</section>
+
+<section id="k-hate">
+  <h2><span class="n">06</span>Hate y respuestas</h2>
+<div class="tbl"><table><thead><tr><th>Pieza rival</th><th>Qué te apaga</th><th>Respuesta</th></tr></thead><tbody><tr><td>Grafdigger's Cage</td><td>Breach y Yawgmoth's Will (no lanzas desde el cementerio)</td><td>Chain of Vapor, Into the Flood Maw, Snapback. O gana con Thassa o Ad Nauseam.</td></tr><tr><td>Rest in Peace, Leyline of the Void</td><td>Breach + LED</td><td>Thassa + Consultation.</td></tr><tr><td>Null Rod, Collector Ouphe</td><td>LED, moxes, Petal, Mana Vault, Wishclaw</td><td>Chain of Vapor, Into the Flood Maw, Snapback.</td></tr><tr><td>Rule of Law, Archon of Emeria, Eidolon of Rhetoric</td><td>Breach y Ad Nauseam</td><td>Rebótalos antes de tu turno de combo.</td></tr><tr><td>Drannith Magistrate</td><td>Tus comandantes desde la zona de mando</td><td>Deadly Rollick, rebote.</td></tr><tr><td>Opposition Agent</td><td>Tus tutores</td><td>Mátalo antes de tutorear.</td></tr><tr><td>Orcish Bowmasters rival</td><td>Robos extra (Necropotence, Rhystic, Remora)</td><td>Roba con calma.</td></tr><tr><td>Tishana's Tidebinder, Stifle, Trickbind</td><td>El trigger de Thassa</td><td>Thassa primero y Consultation en respuesta.</td></tr></tbody></table></div>
+
+</section>
+
+<section id="k-reglas">
+  <h2><span class="n">07</span>Reglas finas</h2>
+<ul><li><b>Lion's Eye Diamond</b>: se activa a velocidad de instantáneo y descartas toda la mano al activarlo. No sirve para pagar un hechizo mientras lo lanzas.</li><li><b>Underworld Breach</b>: cada carta de tu cementerio tiene escape = su costo + exiliar otras 3 cartas del cementerio. Se sacrifica en el end step.</li><li><b>Thassa's Oracle</b>: al resolver su trigger compara tu devoción al azul con las cartas de tu biblioteca. Con la biblioteca en 0, ganas.</li><li><b>Demonic Consultation</b>: nombra una carta que no esté en tu mazo y exilias toda la biblioteca. <b>Tainted Pact</b>: en singleton puedes no quedarte con ninguna y exiliar todo.</li><li><b>Ad Nauseam</b>: instantáneo. Revelas de a una carta y pierdes vida igual a su valor de maná; paras cuando quieras. Las cartas de valor 0 (LED, Petal, moxes, Pact of Negation) salen gratis.</li><li><b>Beseech the Mirror</b>: si lo bargaineas (sacrificas un artefacto, encantamiento o token al lanzarlo), puedes lanzar gratis la carta buscada si su valor de maná es 4 o menos. Si no, va a tu mano.</li><li><b>Gemstone Caverns</b> solo empieza en mesa si no eres el primer jugador (Seat 2–4).</li><li><b>Final Fortune</b> y <b>Last Chance</b>: turno extra y pierdes al final de ese turno. Solo si ganas en el turno extra.</li><li><b>Pact of Negation</b>: si no pagas en tu próximo upkeep, pierdes. Úsalo solo en el turno en que ganas.</li><li><b>Tymna</b> cuenta rivales dañados por combate en el turno, no cuántas criaturas pegaron.</li><li><b>Kraum</b> roba por el segundo hechizo de cada rival en cada turno, también en turnos ajenos.</li><li><b>Fblthp</b>: el trigger es de daño de combate en tu turno, no de entrada.</li><li><b>Mockingbird</b> copia una criatura de valor igual o menor al maná que gastaste en él.</li></ul>
+</section>
+
+<section id="k-lista">
+  <h2><span class="n">08</span>La lista por función</h2>
+<div class="decklist"><div class="grp"><h4>Comandantes</h4><ul><li>Tymna the Weaver</li><li>Kraum, Ludevic&#x27;s Opus</li></ul></div><div class="grp"><h4>Combo (8)</h4><ul><li>Underworld Breach</li><li>Lion&#x27;s Eye Diamond</li><li>Brain Freeze</li><li>Thassa&#x27;s Oracle</li><li>Demonic Consultation</li><li>Tainted Pact</li><li>Ad Nauseam</li><li>Fblthp, Impossibly Lost</li></ul></div><div class="grp"><h4>Tutores (9)</h4><ul><li>Demonic Tutor</li><li>Vampiric Tutor</li><li>Imperial Seal</li><li>Mystical Tutor</li><li>Enlightened Tutor</li><li>Diabolic Intent</li><li>Gamble</li><li>Wishclaw Talisman</li><li>Beseech the Mirror</li></ul></div><div class="grp"><h4>Motor y robo (11)</h4><ul><li>Necropotence</li><li>Rhystic Study</li><li>Mystic Remora</li><li>Esper Sentinel</li><li>Faerie Mastermind</li><li>Orcish Bowmasters</li><li>Smothering Tithe</li><li>Tataru Taru</li><li>Lotho, Corrupt Shirriff</li><li>Birgi, God of Storytelling</li><li>Storm-Kiln Artist</li></ul></div><div class="grp"><h4>Aceleración rápida (12)</h4><ul><li>Lotus Petal</li><li>Chrome Mox</li><li>Mox Diamond</li><li>Dark Ritual</li><li>Cabal Ritual</li><li>Rite of Flame</li><li>Mana Vault</li><li>Sol Ring</li><li>Simian Spirit Guide</li><li>Culling the Weak</li><li>Rain of Filth</li><li>Jeska&#x27;s Will</li></ul></div><div class="grp"><h4>Aceleración lenta (4)</h4><ul><li>Arcane Signet</li><li>Fellwar Stone</li><li>Mox Opal</li><li>Mox Amber</li></ul></div><div class="grp"><h4>Protección y counters (19)</h4><ul><li>Force of Will</li><li>Force of Negation</li><li>Pact of Negation</li><li>Fierce Guardianship</li><li>Deflecting Swat</li><li>Mindbreak Trap</li><li>Misdirection</li><li>Mental Misstep</li><li>Flusterstorm</li><li>Swan Song</li><li>Pyroblast</li><li>Red Elemental Blast</li><li>An Offer You Can&#x27;t Refuse</li><li>Silence</li><li>Orim&#x27;s Chant</li><li>Grand Abolisher</li><li>Voice of Victory</li><li>Hexing Squelcher</li><li>Ranger-Captain of Eos</li></ul></div><div class="grp"><h4>Remoción y respuestas (3)</h4><ul><li>Into the Flood Maw</li><li>Chain of Vapor</li><li>Snapback</li></ul></div><div class="grp"><h4>Utilidad (7)</h4><ul><li>Mnemonic Betrayal</li><li>Last Chance</li><li>Final Fortune</li><li>Borne Upon a Wind</li><li>Valley Floodcaller</li><li>Mockingbird</li><li>Ragavan, Nimble Pilferer</li></ul></div><div class="grp"><h4>Tierras (25)</h4><ul><li>Ancient Tomb</li><li>Arid Mesa</li><li>Badlands</li><li>Bloodstained Mire</li><li>Cavern of Souls</li><li>City of Brass</li><li>Command Tower</li><li>Exotic Orchard</li><li>Flooded Strand</li><li>Gemstone Caverns</li><li>Mana Confluence</li><li>Marsh Flats</li><li>Misty Rainforest</li><li>Otawara, Soaring City</li><li>Plateau</li><li>Polluted Delta</li><li>Scalding Tarn</li><li>Scrubland</li><li>Starting Town</li><li>Tarnished Citadel</li><li>Tundra</li><li>Underground Sea</li><li>Verdant Catacombs</li><li>Volcanic Island</li><li>Windswept Heath</li></ul></div></div>
+</section>
+
+</main>
+</div>
+
+</div>
+
 <div class="view" id="view-mesa" hidden>
   <div class="turnbar" id="turnbar">
     <div class="tb-in">
@@ -1442,7 +1878,7 @@ body.is-dragging .zrow{border-style:dashed}
       <summary><span class="eyebrow" id="mesa-eyebrow">Asistente de partida</span><span class="setup-sum" id="setup-sum"></span></summary>
       <div class="setup-body">
         <div class="row">
-          <div class="fld"><label for="deck">Mazo</label><select id="deck"><option value="hashaton">Hashaton</option><option value="crystal">Crystal</option></select></div>
+          <div class="fld"><label for="deck">Mazo</label><select id="deck"><option value="hashaton">Hashaton</option><option value="crystal">Crystal</option><option value="nick">Nick Fury</option><option value="rocco">Rocco</option><option value="rograkh">Rograkh + Silas</option><option value="kraum">Kraum + Tymna</option></select></div>
           <div class="fld"><label>Tu asiento</label><div class="seg" id="seat-seg" role="group" aria-label="Tu asiento"></div></div>
         </div>
         <div class="row" id="flex-row-wrap">
@@ -1550,7 +1986,7 @@ body.is-dragging .zrow{border-style:dashed}
       <div class="mstats" id="m-stats"></div>
     </div>
     <div class="gamebar">
-      <div class="fld"><label for="m-deck">Mazo</label><select id="m-deck"><option value="hashaton">Hashaton</option><option value="crystal">Crystal</option></select></div>
+      <div class="fld"><label for="m-deck">Mazo</label><select id="m-deck"><option value="hashaton">Hashaton</option><option value="crystal">Crystal</option><option value="nick">Nick Fury</option><option value="rocco">Rocco</option><option value="rograkh">Rograkh + Silas</option><option value="kraum">Kraum + Tymna</option></select></div>
       <div class="fld"><label for="m-seat">Asiento</label><select id="m-seat"><option value="r">Al azar</option><option value="1">Seat 1</option><option value="2">Seat 2</option><option value="3">Seat 3</option><option value="4">Seat 4</option></select></div>
       <div class="fld"><label for="m-free">Mulligan gratis</label><select id="m-free"><option value="1">Sí, el primero</option><option value="0">No</option></select></div>
       <button class="btn primary" id="m-new" type="button">Nueva mano</button>
@@ -1620,13 +2056,14 @@ const SOURCES = {
     "Sol Ring":["",2],"Chrome Mox":["WURG",1],"Mox Diamond":["WURG",1],"Lotus Petal":["WURG",1],"Birds of Paradise":["WURG",1],"Noble Hierarch":["GWU",1]}
 };
 // Mox Amber: solo da maná de los colores de tus criaturas legendarias y planeswalkers en campo
-const LEGEND_COLORS = {"Hashaton, Scarab's Fist":"WB","Dack Fayden, Helping Hand":"W","Yuriko, Blade of the Mighty":"W","Teferi, Mage of Zhalfir":"U","Samut, Tyrant of Naktamun":"U"};
+const LEGEND_COLORS = {"Nick Fury, Agent of S.H.I.E.L.D.":"W","Rograkh, Son of Rohgahh":"R","Silas Renn, Seeker Adept":"UB","Tymna the Weaver":"WB","Kraum, Ludevic's Opus":"UR","Lotho, Corrupt Shirriff":"WB","Tataru Taru":"W","Jennifer Walters":"W","Birgi, God of Storytelling":"R","Fblthp, Impossibly Lost":"U","Ragavan, Nimble Pilferer":"R","Rocco, Cabaretti Caterer":"RGW","Squee, the Immortal":"R","The Jolly Balloon Man":"RW","Kiki-Jiki, Mirror Breaker":"R","Pia, Aether Ascetic":"G","Ruby, Daring Tracker":"RG","Hashaton, Scarab's Fist":"WB","Dack Fayden, Helping Hand":"W","Yuriko, Blade of the Mighty":"W","Teferi, Mage of Zhalfir":"U","Samut, Tyrant of Naktamun":"U"};
 function sourceOf(deckId, c){
   if (c === "Mox Amber") {
     const cols = [...new Set(((S.zones[deckId]||{}).field||[]).flatMap(x => (LEGEND_COLORS[x]||"").split("")).filter(Boolean))].join("");
     return cols ? [cols,1] : null;
   }
-  const S0 = SOURCES[deckId]||{}; if (S0[c]) return S0[c]; if (FETCH.includes(c)) return [deckId==="hashaton"?"WUB":"WURG",1]; return null; }
+  const S0 = SOURCES[deckId]||{}; if (S0[c]) return S0[c];
+  if (!SOURCES[deckId]) return genericSource(deckId, c); if (FETCH.includes(c)) return [deckId==="hashaton"?"WUB":"WURG",1]; return null; }
 // units: lista de strings de colores posibles por cada maná ("" = solo genérico)
 function payShort(units, cost){
   const pips = []; COLORS.forEach(c => { for (let i=0;i<(cost[c]||0);i++) pips.push(c); });
@@ -1912,6 +2349,253 @@ HATE: Cursed Totem, Null Rod/Collector Ouphe, Rule of Law/Archon/Eidolon/Deafeni
   }
 };
 
+/* ===================== Mazos nuevos (Nick Fury, Rocco, Rograkh+Silas, Kraum+Tymna) ===================== */
+const NEW_CARDS = {"nick": {"Nick Fury, Agent of S.H.I.E.L.D.": ["c", 1], "Ad Nauseam": ["i", 5], "An Offer You Can't Refuse": ["i", 1], "Ancient Tomb": ["l", 0], "Arcane Signet": ["a", 2], "Arid Mesa": ["l", 0], "Badlands": ["l", 0], "Beseech the Mirror": ["s", 4], "Bloodstained Mire": ["l", 0], "Borne Upon a Wind": ["i", 2], "Brain Freeze": ["i", 2], "Cabal Ritual": ["i", 2], "Chain of Vapor": ["i", 1], "Chrome Mox": ["a", 0], "City of Brass": ["l", 0], "City of Traitors": ["l", 0], "Command Tower": ["l", 0], "Culling Ritual": ["s", 4], "Culling the Weak": ["i", 1], "Dark Ritual": ["i", 1], "Deadly Rollick": ["i", 4], "Deathrite Shaman": ["c", 1], "Deflecting Swat": ["i", 3], "Demonic Consultation": ["i", 1], "Demonic Tutor": ["s", 2], "Diabolic Intent": ["s", 2], "Elvish Spirit Guide": ["c", 3], "Enlightened Tutor": ["i", 1], "Esper Sentinel": ["c", 1], "Exotic Orchard": ["l", 0], "Faerie Mastermind": ["c", 2], "Fierce Guardianship": ["i", 3], "Final Fortune": ["i", 2], "Flash Photography": ["s", 4], "Flooded Strand": ["l", 0], "Flusterstorm": ["i", 1], "Force of Negation": ["i", 3], "Force of Will": ["i", 5], "Gamble": ["s", 1], "Gemstone Caverns": ["l", 0], "Gemstone Mine": ["l", 0], "Gleaming Splendor": ["e", 2], "Glimmervoid": ["l", 0], "Grand Abolisher": ["c", 2], "Imperial Seal": ["s", 1], "Into the Flood Maw": ["i", 1], "Intuition": ["i", 3], "Jennifer Walters": ["c", 2], "Lion's Eye Diamond": ["a", 0], "Lotho, Corrupt Shirriff": ["c", 2], "Lotus Petal": ["a", 0], "Mana Confluence": ["l", 0], "Mana Vault": ["a", 1], "Manamorphose": ["i", 2], "Marsh Flats": ["l", 0], "Mental Misstep": ["i", 1], "Mindbreak Trap": ["i", 4], "Misty Rainforest": ["l", 0], "Mox Amber": ["a", 0], "Mox Diamond": ["a", 0], "Mox Opal": ["a", 0], "Mystic Remora": ["e", 1], "Mystical Tutor": ["i", 1], "Necropotence": ["e", 3], "Otawara, Soaring City": ["l", 0], "Pact of Negation": ["i", 0], "Plateau": ["l", 0], "Polluted Delta": ["l", 0], "Pyroblast": ["i", 1], "Red Elemental Blast": ["i", 1], "Redirect Lightning": ["i", 1], "Relic of Legends": ["a", 3], "Rhystic Study": ["e", 3], "Scalding Tarn": ["l", 0], "Scrubland": ["l", 0], "Sevinne's Reclamation": ["s", 1], "Silence": ["i", 1], "Simian Spirit Guide": ["c", 3], "Smothering Tithe": ["e", 4], "Snapback": ["i", 2], "Sol Ring": ["a", 1], "Springleaf Drum": ["a", 1], "Starting Town": ["l", 0], "Swan Song": ["i", 1], "Tainted Pact": ["i", 2], "Tataru Taru": ["c", 2], "Thassa's Oracle": ["c", 2], "Rite of Flame": ["s", 1], "Tundra": ["l", 0], "Underground Sea": ["l", 0], "Underworld Breach": ["e", 2], "Praetor's Grasp": ["s", 3], "Valley Floodcaller": ["c", 3], "Vampiric Tutor": ["i", 1], "Verdant Catacombs": ["l", 0], "Voice of Victory": ["c", 2], "Volcanic Island": ["l", 0], "Windswept Heath": ["l", 0], "Wishclaw Talisman": ["a", 2], "Ragavan, Nimble Pilferer": ["c", 1]}, "rocco": {"Rocco, Cabaretti Caterer": ["c", 3], "_____ Goblin": ["c", 3], "Academy Rector": ["c", 4], "Allosaurus Shepherd": ["c", 1], "Ancient Tomb": ["l", 0], "Arena Rector": ["c", 4], "Arid Mesa": ["l", 0], "Avacyn's Pilgrim": ["c", 1], "Badgermole Cub": ["c", 2], "Birds of Paradise": ["c", 1], "Birthing Pod": ["a", 4], "Bloodstained Mire": ["l", 0], "Bloom Tender": ["c", 2], "Boseiju, Who Endures": ["l", 0], "Cavern of Souls": ["l", 0], "Chrome Mox": ["a", 0], "City of Brass": ["l", 0], "Coercive Recruiter": ["c", 5], "Collateral Damage": ["i", 1], "Command Tower": ["l", 0], "Crop Rotation": ["i", 1], "Delighted Halfling": ["c", 2], "Eldritch Evolution": ["s", 3], "Elvish Mystic": ["c", 1], "Elvish Spirit Guide": ["c", 3], "Enlightened Tutor": ["i", 1], "Esper Sentinel": ["c", 1], "Faeburrow Elder": ["c", 3], "Carpet of Flowers": ["e", 1], "Felidar Guardian": ["c", 4], "Final Fortune": ["i", 2], "Finale of Devastation": ["s", 2], "Flare of Fortitude": ["i", 4], "Flooded Strand": ["l", 0], "Food Chain": ["e", 3], "Formidable Speaker": ["c", 3], "Fury": ["c", 5], "Fyndhorn Elves": ["c", 1], "Gaea's Cradle": ["l", 0], "Gemstone Caverns": ["l", 0], "Grand Abolisher": ["c", 2], "Hexing Squelcher": ["c", 2], "High Market": ["l", 0], "Imperial Recruiter": ["c", 3], "Infernal Plunge": ["s", 1], "Jennifer Walters": ["c", 2], "Jeska's Will": ["s", 3], "Karmic Guide": ["c", 5], "Kiki-Jiki, Mirror Breaker": ["c", 5], "Lazotep Quarry": ["l", 0], "Lion's Eye Diamond": ["a", 0], "Llanowar Elves": ["c", 1], "Lotus Petal": ["a", 0], "Mana Confluence": ["l", 0], "Mana Vault": ["a", 1], "Marsh Flats": ["l", 0], "Metamorphosis": ["s", 1], "Misty Rainforest": ["l", 0], "Mox Diamond": ["a", 0], "Nature's Rhythm": ["s", 2], "Open the Omenpaths": ["i", 3], "Orcish Lumberjack": ["c", 1], "Phyrexian Dreadnought": ["c", 1], "Pia, Aether Ascetic": ["c", 3], "Plateau": ["l", 0], "Pyretic Ritual": ["i", 2], "Pyrokinesis": ["i", 6], "Ranger-Captain of Eos": ["c", 3], "Ruby, Daring Tracker": ["c", 2], "Sacred Foundry": ["l", 0], "Savannah": ["l", 0], "Scalding Tarn": ["l", 0], "Seal of Fire": ["e", 1], "Seething Song": ["i", 3], "Shaman of Forgotten Ways": ["c", 3], "Silence": ["i", 1], "Simian Spirit Guide": ["c", 3], "Sol Ring": ["a", 1], "Somberwald Sage": ["c", 3], "Squee, the Immortal": ["c", 3], "Starting Town": ["l", 0], "Stomping Ground": ["l", 0], "Summoner's Pact": ["i", 0], "Taiga": ["l", 0], "Temple Garden": ["l", 0], "Rite of Flame": ["s", 1], "The Jolly Balloon Man": ["c", 3], "Thunderclap": ["i", 3], "Tinder Wall": ["c", 1], "Treasonous Ogre": ["c", 4], "Utopia Sprawl": ["e", 1], "Verdant Catacombs": ["l", 0], "Village Bell-Ringer": ["c", 3], "Vivien on the Hunt": ["p", 6], "Voice of Victory": ["c", 2], "Wild Growth": ["e", 1], "Windswept Heath": ["l", 0], "Wirewood Symbiote": ["c", 1], "Wooded Foothills": ["l", 0], "Ragavan, Nimble Pilferer": ["c", 1]}, "rograkh": {"Rograkh, Son of Rohgahh": ["c", 0], "Silas Renn, Seeker Adept": ["c", 3], "Ad Nauseam": ["i", 5], "An Offer You Can't Refuse": ["i", 1], "Ancient Tomb": ["l", 0], "Arcane Signet": ["a", 2], "Arid Mesa": ["l", 0], "Badlands": ["l", 0], "Beseech the Mirror": ["s", 4], "Birgi, God of Storytelling": ["c", 3], "Blood Crypt": ["l", 0], "Bloodstained Mire": ["l", 0], "Borne Upon a Wind": ["i", 2], "Brain Freeze": ["i", 2], "Cabal Ritual": ["i", 2], "Chain of Vapor": ["i", 1], "Chrome Mox": ["a", 0], "City of Brass": ["l", 0], "City of Traitors": ["l", 0], "Command Tower": ["l", 0], "Commandeer": ["i", 7], "Copy Enchantment": ["e", 3], "Culling the Weak": ["i", 1], "Dark Ritual": ["i", 1], "Daze": ["i", 2], "Deadly Rollick": ["i", 4], "Defense Grid": ["a", 2], "Deflecting Swat": ["i", 3], "Demonic Consultation": ["i", 1], "Demonic Tutor": ["s", 2], "Diabolic Intent": ["s", 2], "Dispel": ["i", 1], "Exotic Orchard": ["l", 0], "Faerie Mastermind": ["c", 2], "Fellwar Stone": ["a", 2], "Fierce Guardianship": ["i", 3], "Final Fortune": ["i", 2], "Flare of Duplication": ["i", 3], "Flash Photography": ["s", 4], "Flooded Strand": ["l", 0], "Flusterstorm": ["i", 1], "Force of Negation": ["i", 3], "Force of Will": ["i", 5], "Gamble": ["s", 1], "Gemstone Caverns": ["l", 0], "Grim Monolith": ["a", 2], "Grinding Station": ["a", 2], "Hexing Squelcher": ["c", 2], "Imperial Seal": ["s", 1], "Imposter Mech": ["a", 2], "Into the Flood Maw": ["i", 1], "Jeska's Will": ["s", 3], "Last Chance": ["s", 2], "Lion's Eye Diamond": ["a", 0], "Lotus Petal": ["a", 0], "Mana Confluence": ["l", 0], "Mana Vault": ["a", 1], "Marsh Flats": ["l", 0], "Mental Misstep": ["i", 1], "Mindbreak Trap": ["i", 4], "Misdirection": ["i", 5], "Misty Rainforest": ["l", 0], "Mnemonic Betrayal": ["s", 3], "Mox Amber": ["a", 0], "Mox Diamond": ["a", 0], "Mox Opal": ["a", 0], "Mystic Remora": ["e", 1], "Mystical Tutor": ["i", 1], "Necropotence": ["e", 3], "Orcish Bowmasters": ["c", 2], "Otawara, Soaring City": ["l", 0], "Pact of Negation": ["i", 0], "Paradise Mantle": ["a", 0], "Phyrexian Tower": ["l", 0], "Polluted Delta": ["l", 0], "Pyroblast": ["i", 1], "Ragavan, Nimble Pilferer": ["c", 1], "Rain of Filth": ["i", 1], "Red Elemental Blast": ["i", 1], "Rhystic Study": ["e", 3], "Rite of Flame": ["s", 1], "Scalding Tarn": ["l", 0], "Simian Spirit Guide": ["c", 3], "Snapback": ["i", 2], "Sol Ring": ["a", 1], "Springleaf Drum": ["a", 1], "Storm-Kiln Artist": ["c", 4], "Swan Song": ["i", 1], "Tainted Pact": ["i", 2], "Thassa's Oracle": ["c", 2], "Underground Sea": ["l", 0], "Underworld Breach": ["e", 2], "Valley Floodcaller": ["c", 3], "Vampiric Tutor": ["i", 1], "Verdant Catacombs": ["l", 0], "Volcanic Island": ["l", 0], "Watery Grave": ["l", 0], "Wishclaw Talisman": ["a", 2], "Wooded Foothills": ["l", 0], "Yawgmoth's Will": ["s", 3]}, "kraum": {"Tymna the Weaver": ["c", 3], "Kraum, Ludevic's Opus": ["c", 5], "Ad Nauseam": ["i", 5], "An Offer You Can't Refuse": ["i", 1], "Ancient Tomb": ["l", 0], "Arcane Signet": ["a", 2], "Arid Mesa": ["l", 0], "Badlands": ["l", 0], "Beseech the Mirror": ["s", 4], "Birgi, God of Storytelling": ["c", 3], "Bloodstained Mire": ["l", 0], "Borne Upon a Wind": ["i", 2], "Brain Freeze": ["i", 2], "Cabal Ritual": ["i", 2], "Cavern of Souls": ["l", 0], "Chain of Vapor": ["i", 1], "Chrome Mox": ["a", 0], "City of Brass": ["l", 0], "Command Tower": ["l", 0], "Culling the Weak": ["i", 1], "Dark Ritual": ["i", 1], "Deflecting Swat": ["i", 3], "Demonic Consultation": ["i", 1], "Demonic Tutor": ["s", 2], "Diabolic Intent": ["s", 2], "Enlightened Tutor": ["i", 1], "Esper Sentinel": ["c", 1], "Exotic Orchard": ["l", 0], "Faerie Mastermind": ["c", 2], "Fblthp, Impossibly Lost": ["c", 2], "Fierce Guardianship": ["i", 3], "Final Fortune": ["i", 2], "Flooded Strand": ["l", 0], "Flusterstorm": ["i", 1], "Force of Negation": ["i", 3], "Force of Will": ["i", 5], "Gamble": ["s", 1], "Gemstone Caverns": ["l", 0], "Grand Abolisher": ["c", 2], "Hexing Squelcher": ["c", 2], "Imperial Seal": ["s", 1], "Into the Flood Maw": ["i", 1], "Jeska's Will": ["s", 3], "Last Chance": ["s", 2], "Lion's Eye Diamond": ["a", 0], "Lotho, Corrupt Shirriff": ["c", 2], "Lotus Petal": ["a", 0], "Mana Confluence": ["l", 0], "Mana Vault": ["a", 1], "Marsh Flats": ["l", 0], "Mental Misstep": ["i", 1], "Mindbreak Trap": ["i", 4], "Misdirection": ["i", 5], "Misty Rainforest": ["l", 0], "Mnemonic Betrayal": ["s", 3], "Mockingbird": ["c", 1], "Mox Amber": ["a", 0], "Mox Diamond": ["a", 0], "Mox Opal": ["a", 0], "Mystic Remora": ["e", 1], "Mystical Tutor": ["i", 1], "Necropotence": ["e", 3], "Orcish Bowmasters": ["c", 2], "Orim's Chant": ["i", 1], "Otawara, Soaring City": ["l", 0], "Pact of Negation": ["i", 0], "Plateau": ["l", 0], "Polluted Delta": ["l", 0], "Silence": ["i", 1], "Pyroblast": ["i", 1], "Ragavan, Nimble Pilferer": ["c", 1], "Rain of Filth": ["i", 1], "Ranger-Captain of Eos": ["c", 3], "Red Elemental Blast": ["i", 1], "Rhystic Study": ["e", 3], "Rite of Flame": ["s", 1], "Scalding Tarn": ["l", 0], "Scrubland": ["l", 0], "Fellwar Stone": ["a", 2], "Simian Spirit Guide": ["c", 3], "Smothering Tithe": ["e", 4], "Snapback": ["i", 2], "Sol Ring": ["a", 1], "Starting Town": ["l", 0], "Storm-Kiln Artist": ["c", 4], "Swan Song": ["i", 1], "Tainted Pact": ["i", 2], "Tarnished Citadel": ["l", 0], "Tataru Taru": ["c", 2], "Thassa's Oracle": ["c", 2], "Tundra": ["l", 0], "Underground Sea": ["l", 0], "Underworld Breach": ["e", 2], "Valley Floodcaller": ["c", 3], "Vampiric Tutor": ["i", 1], "Verdant Catacombs": ["l", 0], "Voice of Victory": ["c", 2], "Volcanic Island": ["l", 0], "Windswept Heath": ["l", 0], "Wishclaw Talisman": ["a", 2]}};
+const NEW_ROLES = {"nick": {"piece": ["Thassa's Oracle", "Demonic Consultation", "Tainted Pact", "Underworld Breach", "Lion's Eye Diamond", "Brain Freeze", "Ad Nauseam"], "tutor": ["Demonic Tutor", "Vampiric Tutor", "Imperial Seal", "Mystical Tutor", "Enlightened Tutor", "Diabolic Intent", "Gamble", "Intuition", "Wishclaw Talisman", "Beseech the Mirror"], "engine": ["Necropotence", "Rhystic Study", "Mystic Remora", "Esper Sentinel", "Faerie Mastermind", "Smothering Tithe", "Gleaming Splendor", "Tataru Taru", "Lotho, Corrupt Shirriff"], "accelFast": ["Lotus Petal", "Chrome Mox", "Mox Diamond", "Dark Ritual", "Cabal Ritual", "Rite of Flame", "Mana Vault", "Sol Ring", "Elvish Spirit Guide", "Simian Spirit Guide", "Culling the Weak"], "accelSlow": ["Arcane Signet", "Mox Opal", "Mox Amber", "Springleaf Drum", "Relic of Legends", "Manamorphose", "Deathrite Shaman"], "prot": ["Force of Will", "Force of Negation", "Pact of Negation", "Fierce Guardianship", "Deflecting Swat", "Mindbreak Trap", "Mental Misstep", "Flusterstorm", "Swan Song", "Pyroblast", "Red Elemental Blast", "An Offer You Can't Refuse", "Redirect Lightning", "Silence", "Grand Abolisher", "Jennifer Walters", "Voice of Victory"], "removal": ["Deadly Rollick", "Into the Flood Maw", "Chain of Vapor", "Snapback", "Culling Ritual", "Praetor's Grasp"], "other": ["Sevinne's Reclamation", "Final Fortune", "Borne Upon a Wind", "Flash Photography", "Valley Floodcaller", "Ragavan, Nimble Pilferer"]}, "rocco": {"piece": ["Kiki-Jiki, Mirror Breaker", "Felidar Guardian", "Village Bell-Ringer", "Coercive Recruiter", "The Jolly Balloon Man", "Food Chain", "Squee, the Immortal"], "tutor": ["Summoner's Pact", "Eldritch Evolution", "Finale of Devastation", "Imperial Recruiter", "Formidable Speaker", "Enlightened Tutor", "Pia, Aether Ascetic", "Birthing Pod", "Vivien on the Hunt", "Arena Rector", "Academy Rector", "Ranger-Captain of Eos", "Crop Rotation", "Karmic Guide"], "engine": ["Esper Sentinel", "Gaea's Cradle", "Badgermole Cub"], "accelFast": ["Lotus Petal", "Chrome Mox", "Mox Diamond", "Mana Vault", "Sol Ring", "Elvish Spirit Guide", "Simian Spirit Guide", "Rite of Flame", "Pyretic Ritual", "Seething Song", "Infernal Plunge", "Metamorphosis", "Open the Omenpaths", "Lion's Eye Diamond", "_____ Goblin", "Jeska's Will"], "accelSlow": ["Avacyn's Pilgrim", "Birds of Paradise", "Elvish Mystic", "Fyndhorn Elves", "Llanowar Elves", "Delighted Halfling", "Bloom Tender", "Ruby, Daring Tracker", "Faeburrow Elder", "Somberwald Sage", "Shaman of Forgotten Ways", "Utopia Sprawl", "Wild Growth", "Carpet of Flowers", "Tinder Wall", "Orcish Lumberjack", "Treasonous Ogre", "Nature's Rhythm"], "prot": ["Grand Abolisher", "Jennifer Walters", "Voice of Victory", "Silence", "Hexing Squelcher", "Allosaurus Shepherd", "Flare of Fortitude", "Wirewood Symbiote"], "removal": ["Fury", "Pyrokinesis", "Collateral Damage", "Seal of Fire", "Thunderclap"], "other": ["Final Fortune", "Phyrexian Dreadnought", "Ragavan, Nimble Pilferer"]}, "rograkh": {"piece": ["Underworld Breach", "Lion's Eye Diamond", "Brain Freeze", "Thassa's Oracle", "Demonic Consultation", "Tainted Pact", "Ad Nauseam", "Grinding Station"], "tutor": ["Demonic Tutor", "Vampiric Tutor", "Imperial Seal", "Mystical Tutor", "Diabolic Intent", "Gamble", "Wishclaw Talisman", "Beseech the Mirror"], "engine": ["Necropotence", "Rhystic Study", "Mystic Remora", "Faerie Mastermind", "Orcish Bowmasters", "Birgi, God of Storytelling", "Storm-Kiln Artist"], "accelFast": ["Lotus Petal", "Chrome Mox", "Mox Diamond", "Dark Ritual", "Cabal Ritual", "Rite of Flame", "Mana Vault", "Sol Ring", "Simian Spirit Guide", "Culling the Weak", "Grim Monolith", "Rain of Filth", "Jeska's Will"], "accelSlow": ["Arcane Signet", "Fellwar Stone", "Mox Opal", "Mox Amber", "Springleaf Drum", "Paradise Mantle"], "prot": ["Force of Will", "Force of Negation", "Pact of Negation", "Fierce Guardianship", "Deflecting Swat", "Daze", "Mindbreak Trap", "Misdirection", "Commandeer", "Mental Misstep", "Flusterstorm", "Swan Song", "Dispel", "Pyroblast", "Red Elemental Blast", "An Offer You Can't Refuse", "Defense Grid", "Hexing Squelcher", "Flare of Duplication"], "removal": ["Deadly Rollick", "Into the Flood Maw", "Chain of Vapor", "Snapback"], "other": ["Mnemonic Betrayal", "Yawgmoth's Will", "Copy Enchantment", "Flash Photography", "Valley Floodcaller", "Imposter Mech", "Last Chance", "Final Fortune", "Borne Upon a Wind", "Ragavan, Nimble Pilferer"]}, "kraum": {"piece": ["Underworld Breach", "Lion's Eye Diamond", "Brain Freeze", "Thassa's Oracle", "Demonic Consultation", "Tainted Pact", "Ad Nauseam", "Fblthp, Impossibly Lost"], "tutor": ["Demonic Tutor", "Vampiric Tutor", "Imperial Seal", "Mystical Tutor", "Enlightened Tutor", "Diabolic Intent", "Gamble", "Wishclaw Talisman", "Beseech the Mirror"], "engine": ["Necropotence", "Rhystic Study", "Mystic Remora", "Esper Sentinel", "Faerie Mastermind", "Orcish Bowmasters", "Smothering Tithe", "Tataru Taru", "Lotho, Corrupt Shirriff", "Birgi, God of Storytelling", "Storm-Kiln Artist"], "accelFast": ["Lotus Petal", "Chrome Mox", "Mox Diamond", "Dark Ritual", "Cabal Ritual", "Rite of Flame", "Mana Vault", "Sol Ring", "Simian Spirit Guide", "Culling the Weak", "Rain of Filth", "Jeska's Will"], "accelSlow": ["Arcane Signet", "Fellwar Stone", "Mox Opal", "Mox Amber"], "prot": ["Force of Will", "Force of Negation", "Pact of Negation", "Fierce Guardianship", "Deflecting Swat", "Mindbreak Trap", "Misdirection", "Mental Misstep", "Flusterstorm", "Swan Song", "Pyroblast", "Red Elemental Blast", "An Offer You Can't Refuse", "Silence", "Orim's Chant", "Grand Abolisher", "Voice of Victory", "Hexing Squelcher", "Ranger-Captain of Eos"], "removal": ["Into the Flood Maw", "Chain of Vapor", "Snapback"], "other": ["Mnemonic Betrayal", "Last Chance", "Final Fortune", "Borne Upon a Wind", "Valley Floodcaller", "Mockingbird", "Ragavan, Nimble Pilferer"]}};
+const pickIn = (deckId, list) => list.filter(c => NEW_CARDS[deckId][c]);
+const STORM_ALIASES = {"led":"Lion's Eye Diamond","freeze":"Brain Freeze","bf":"Brain Freeze","breach":"Underworld Breach","thassa":"Thassa's Oracle","oracle":"Thassa's Oracle","consult":"Demonic Consultation","consultation":"Demonic Consultation","pact":"Tainted Pact","tainted":"Tainted Pact","adnaus":"Ad Nauseam","ad":"Ad Nauseam","naus":"Ad Nauseam","fow":"Force of Will","fon":"Force of Negation","fierce":"Fierce Guardianship","swat":"Deflecting Swat","petal":"Lotus Petal","dt":"Demonic Tutor","demonic":"Demonic Tutor","vamp":"Vampiric Tutor","vampiric":"Vampiric Tutor","seal":"Imperial Seal","mystical":"Mystical Tutor","et":"Enlightened Tutor","enlightened":"Enlightened Tutor","intent":"Diabolic Intent","diabolic":"Diabolic Intent","wishclaw":"Wishclaw Talisman","beseech":"Beseech the Mirror","necro":"Necropotence","rhystic":"Rhystic Study","remora":"Mystic Remora","sentinel":"Esper Sentinel","mastermind":"Faerie Mastermind","rag":"Ragavan, Nimble Pilferer","ragavan":"Ragavan, Nimble Pilferer","reb":"Red Elemental Blast","abolisher":"Grand Abolisher","voice":"Voice of Victory","jennifer":"Jennifer Walters","she-hulk":"Jennifer Walters","ssg":"Simian Spirit Guide","esg":"Elvish Spirit Guide","tomb":"Ancient Tomb","otawara":"Otawara, Soaring City","dr":"Dark Ritual","ritual":"Dark Ritual","cabal":"Cabal Ritual","rite":"Rite of Flame","jeska":"Jeska's Will","mnemonic":"Mnemonic Betrayal","betrayal":"Mnemonic Betrayal","birgi":"Birgi, God of Storytelling","kiln":"Storm-Kiln Artist","station":"Grinding Station","grinding":"Grinding Station","mantle":"Paradise Mantle","monolith":"Grim Monolith","yawg":"Yawgmoth's Will","fblthp":"Fblthp, Impossibly Lost","mock":"Mockingbird","tataru":"Tataru Taru","lotho":"Lotho, Corrupt Shirriff","floodcaller":"Valley Floodcaller","rollick":"Deadly Rollick","misstep":"Mental Misstep","flust":"Flusterstorm","swan":"Swan Song","tithe":"Smothering Tithe","splendor":"Gleaming Splendor","grasp":"Praetor's Grasp","culling":"Culling Ritual","photo":"Flash Photography","sevinne":"Sevinne's Reclamation","drum":"Springleaf Drum","relic":"Relic of Legends","nick":"Nick Fury, Agent of S.H.I.E.L.D.","fury":"Nick Fury, Agent of S.H.I.E.L.D.","rograkh":"Rograkh, Son of Rohgahh","silas":"Silas Renn, Seeker Adept","tymna":"Tymna the Weaver","kraum":"Kraum, Ludevic's Opus","squelcher":"Hexing Squelcher","bowmasters":"Orcish Bowmasters","ranger":"Ranger-Captain of Eos","chant":"Orim's Chant","last":"Last Chance"};
+const ROCCO_ALIASES = {"rocco":"Rocco, Cabaretti Caterer","kiki":"Kiki-Jiki, Mirror Breaker","felidar":"Felidar Guardian","bell":"Village Bell-Ringer","ringer":"Village Bell-Ringer","recruiter":"Coercive Recruiter","coercive":"Coercive Recruiter","jolly":"The Jolly Balloon Man","balloon":"The Jolly Balloon Man","chain":"Food Chain","food":"Food Chain","squee":"Squee, the Immortal","pod":"Birthing Pod","evo":"Eldritch Evolution","eldritch":"Eldritch Evolution","finale":"Finale of Devastation","imperial":"Imperial Recruiter","speaker":"Formidable Speaker","pia":"Pia, Aether Ascetic","vivien":"Vivien on the Hunt","karmic":"Karmic Guide","cradle":"Gaea's Cradle","badger":"Badgermole Cub","halfling":"Delighted Halfling","shepherd":"Allosaurus Shepherd","allosaurus":"Allosaurus Shepherd","sage":"Somberwald Sage","shaman":"Shaman of Forgotten Ways","symbiote":"Wirewood Symbiote","birds":"Birds of Paradise","pilgrim":"Avacyn's Pilgrim","mystic":"Elvish Mystic","fyndhorn":"Fyndhorn Elves","llanowar":"Llanowar Elves","ruby":"Ruby, Daring Tracker","squelcher":"Hexing Squelcher","abolisher":"Grand Abolisher","voice":"Voice of Victory","jennifer":"Jennifer Walters","ranger":"Ranger-Captain of Eos","flare":"Flare of Fortitude","et":"Enlightened Tutor","summoner":"Summoner's Pact","petal":"Lotus Petal","led":"Lion's Eye Diamond","tomb":"Ancient Tomb","rag":"Ragavan, Nimble Pilferer","ragavan":"Ragavan, Nimble Pilferer","sprawl":"Utopia Sprawl","carpet":"Carpet of Flowers","ogre":"Treasonous Ogre","jeska":"Jeska's Will","boseiju":"Boseiju, Who Endures","dreadnought":"Phyrexian Dreadnought","rector":"Academy Rector"};
+const FREE_PROT = ["Force of Will","Force of Negation","Pact of Negation","Fierce Guardianship","Deflecting Swat","Mindbreak Trap","Daze","Misdirection","Commandeer","Snapback","Pyrokinesis","Fury","Flare of Fortitude"];
+const CHEAP_PROT = ["Mental Misstep","Flusterstorm","Swan Song","Dispel","Pyroblast","Red Elemental Blast","An Offer You Can't Refuse","Redirect Lightning","Silence","Orim's Chant","Grand Abolisher","Jennifer Walters","Voice of Victory","Hexing Squelcher","Defense Grid","Ranger-Captain of Eos","Allosaurus Shepherd","Flare of Duplication"];
+const STORM_TUTOR_MAP = {"Demonic Tutor":{any:1},"Vampiric Tutor":{any:1},"Imperial Seal":{any:1},"Mystical Tutor":{types:["i","s"]},"Enlightened Tutor":{types:["a","e"]},"Diabolic Intent":{any:1},"Gamble":{any:1},"Intuition":{any:1},"Wishclaw Talisman":{any:1,field:1},"Beseech the Mirror":{any:1}};
+const tutorsIn = (deckId, map) => Object.fromEntries(Object.entries(map).filter(([t]) => NEW_CARDS[deckId][t]));
+const STORM_HATE = [
+  ["grafdigger","Grafdigger's Cage: no lanzas desde el cementerio. Breach y Yawgmoth's Will apagados: gana con Thassa o Ad Nauseam, o rebótala."],
+  ["rest in peace","Rest in Peace: sin Breach. Gana con Thassa + Consultation."],["leyline of the void","Leyline of the Void: sin Breach."],["bojuka bog","Bojuka Bog en su lista: te puede vaciar el cementerio en respuesta a Breach."],
+  ["null rod","Null Rod: apaga LED, moxes, Petal, Mana Vault y Wishclaw."],["collector ouphe","Collector Ouphe: apaga LED, moxes, Petal, Mana Vault y Wishclaw."],["stony silence","Stony Silence: apaga artefactos."],
+  ["rule of law","Rule of Law: un hechizo por turno. Sácalo antes de tu turno de combo."],["archon of emeria","Archon of Emeria: un hechizo por turno."],["eidolon of rhetoric","Eidolon of Rhetoric: un hechizo por turno."],["deafening silence","Deafening Silence: un hechizo no criatura por turno."],["ethersworn canonist","Ethersworn Canonist: un hechizo no artefacto por turno."],
+  ["drannith","Drannith Magistrate: no lanzas tu comandante desde la zona de mando."],
+  ["opposition agent","Opposition Agent: se queda con lo que busques. Mátalo antes de tutorear."],["aven mindcensor","Aven Mindcensor: tus búsquedas solo ven 4 cartas."],
+  ["bowmasters","Orcish Bowmasters: cada robo extra te hace daño y le da ejército (Necropotence, Rhystic, Remora)."],["notion thief","Notion Thief: te roba los robos extra."],
+  ["tidebinder","Tishana's Tidebinder: contrarresta el trigger de Thassa. Thassa primero y Consultation en respuesta."],["stifle","Stifle: puede contrarrestar el trigger de Thassa."],["trickbind","Trickbind: puede contrarrestar el trigger de Thassa."],
+  ["esper sentinel","Esper Sentinel rival: te cobra el primer hechizo no criatura."],["mystic remora","Mystic Remora rival: cada hechizo no criatura le da carta salvo que pagues 4."],["rhystic study","Rhystic Study rival: paga 1 o le das carta."],
+  ["grand abolisher","Grand Abolisher rival: en su turno no puedes responder. Sácalo antes de que intente ganar."],["voice of victory","Voice of Victory rival: no lanzas hechizos en su turno."],
+  ["teferi, time raveler","Teferi, Time Raveler: solo lanzas a velocidad de conjuro. Ad Nauseam y Breach en tu turno."]
+];
+function stormEval(st, h, o){
+  const {inZ, line, P, deck:d} = h;
+  const any = (zs,c) => zs.some(z=>inZ(z,c));
+  const flags = [];
+  const brF = inZ("field","Underworld Breach"), brH = inZ("hand","Underworld Breach");
+  line("1","Breach + LED + Brain Freeze",[
+    P("Underworld Breach",brF||brH,"en campo o mano"),
+    P("Lion's Eye Diamond",any(["hand","grave","field"],"Lion's Eye Diamond"),"en mano, cementerio o campo"),
+    P("Brain Freeze",any(["hand","grave"],"Brain Freeze"),"en mano o cementerio"),
+    P("Cementerio con 6+ cartas",st.grave.length>=6||inZ("hand","Lion's Eye Diamond"),"(o LED en mano para descartar la mano)",0)
+  ], brF?{}:{gen:1,R:1}, "Primero apúntate para llenar el cementerio; con storm alto, apunta a cada rival. Con la biblioteca vacía, Thassa con escape también gana.");
+  const ex = ["Demonic Consultation","Tainted Pact"].find(c=>inZ("hand",c));
+  const thF = inZ("field","Thassa's Oracle");
+  line("2","Thassa + "+(ex==="Tainted Pact"?"Tainted Pact":"Demonic Consultation"),[
+    P("Thassa's Oracle",inZ("hand","Thassa's Oracle")||(brF&&inZ("grave","Thassa's Oracle")),"en la mano (o en el cementerio con Breach)"),
+    P(ex||"Demonic Consultation",!!ex,"en la mano (o Tainted Pact)")
+  ], add({U:2}, ex==="Tainted Pact"?{gen:1,B:1}:{B:1}), "Lanza Thassa y, con su trigger en la pila, Consultation o Pact en respuesta. Así, si te contestan a Thassa, todavía tienes la biblioteca.");
+  line("3","Ad Nauseam",[P("Ad Nauseam",inZ("hand","Ad Nauseam"),"en la mano")], {gen:3,B:2},
+    `Tienes ${st.life} de vida: revela hasta quedarte con unas 10 y encadena a la línea 1 o 2.` + (st.mine?"":" Es instantáneo: lánzalo en el end step del rival anterior a ti."));
+  if (o && o.extra) o.extra(st, h, flags);
+  // flags comunes
+  const eng = st.field.filter(c=>["Necropotence","Rhystic Study","Mystic Remora","Smothering Tithe","Tataru Taru","Lotho, Corrupt Shirriff","Gleaming Splendor","Esper Sentinel"].includes(c));
+  if (eng.length) flags.push(["okf",`Motor en mesa: ${eng.join(", ")}.`]);
+  const sil = st.hand.filter(c=>["Silence","Orim's Chant"].includes(c)), sil2 = st.field.filter(c=>["Grand Abolisher","Jennifer Walters","Voice of Victory"].includes(c));
+  if (sil2.length && st.mine) flags.push(["okf",`${sil2.join(", ")} en mesa: los rivales no lanzan hechizos en tu turno${sil2.includes("Grand Abolisher")?" ni activan habilidades de artefactos, criaturas o encantamientos":""}.`]);
+  else if (sil.length) flags.push(["info",`${sil.join(" / ")} en mano: lánzalo en tu main phase antes del combo.`]);
+  if (inZ("hand","Beseech the Mirror")) flags.push(["info","Beseech the Mirror: sacrifica LED, Petal, un mox o un Treasure al lanzarlo (bargain) y lanza gratis la pieza si vale 4 o menos."]);
+  if (inZ("field","Valley Floodcaller")) flags.push(["okf","Valley Floodcaller: tus hechizos no criatura tienen flash. Breach, Necropotence o Demonic en el end step rival."]);
+  if (st.hand.some(c=>["Final Fortune","Last Chance"].includes(c))) flags.push(["info","Final Fortune / Last Chance: úsalos solo si ganas en el turno extra."]);
+  if (inZ("hand","Ad Nauseam") && st.life < 20) flags.push(["bad",`Con ${st.life} de vida Ad Nauseam ve pocas cartas.`]);
+  if (thF && inZ("hand","Mockingbird")) flags.push(["okf","Mockingbird con X=1 entra como copia de Thassa: un segundo trigger si te contestaron el primero."]);
+  if (thF && inZ("hand","Flash Photography")) flags.push(["okf","Flash Photography sobre Thassa: un token copia y un nuevo trigger de entrada."]);
+  return flags;
+}
+const NICK = "Nick Fury, Agent of S.H.I.E.L.D.";
+DECKS.nick = {
+  id:"nick", short:"Nick Fury", commander:NICK, cmdCost:{W:1}, colors:"WUBRG",
+  cards: NEW_CARDS.nick, aliases: STORM_ALIASES,
+  freeProtection: pickIn("nick", FREE_PROT.concat(["Deadly Rollick"])), cheapProtection: pickIn("nick", CHEAP_PROT), splitSecond: [],
+  tutors: tutorsIn("nick", STORM_TUTOR_MAP),
+  hate: STORM_HATE,
+  example: {zones:{hand:["Thassa's Oracle","Demonic Consultation","Force of Will","Silence","Volcanic Island"],field:[NICK,"Tundra","Underground Sea","Sol Ring","Arcane Signet"],grave:["Flooded Strand"],exile:[]}},
+  summary: `MAZO: Nick Fury, Agent of S.H.I.E.L.D. ({W}, 2/1; power-up {W}{U}{B}{R}{G}: dos contadores +1/+1 y mira 7 cartas para poner en el campo un Héroe, Equipo o Vehículo; el único Héroe de la lista es Jennifer Walters). Comandante de 1 maná para jugar 5 colores; carne para Diabolic Intent y Culling the Weak; legendario para Mox Amber y Relic of Legends.
+WIN 1: Thassa's Oracle + Demonic Consultation o Tainted Pact (Thassa primero, Consultation con el trigger en la pila).
+WIN 2: Underworld Breach + Lion's Eye Diamond + Brain Freeze.
+WIN 3: Ad Nauseam encadenando a 1 o 2. Beseech the Mirror con bargain lanza gratis cartas de valor 4 o menos.
+EXTRAS: Flash Photography (copia de Thassa = otro trigger), Valley Floodcaller (flash a no criaturas), Sevinne's Reclamation, Culling Ritual (rompe stax de valor ≤2), Praetor's Grasp.
+PROTECCIÓN: Silence, Grand Abolisher, Jennifer Walters, Voice of Victory, FoW, FoN, Pact, Fierce, Deflecting Swat, Mindbreak Trap, Mental Misstep, Flusterstorm, Swan Song, Pyroblast, REB, An Offer You Can't Refuse, Redirect Lightning.
+TUTORES: Demonic, Vampiric, Imperial Seal, Mystical, Enlightened, Diabolic Intent, Gamble, Intuition, Wishclaw, Beseech.`,
+  evaluate(st, h){ return stormEval(st, h, {}); },
+  mullPlans(has, m){
+    const p = [];
+    if (has("Thassa's Oracle") && (has("Demonic Consultation")||has("Tainted Pact"))) p.push("Win: Thassa + "+(has("Demonic Consultation")?"Consultation":"Tainted Pact")+" con 3–4 maná.");
+    if (has("Ad Nauseam") && m.t1>=5) p.push("Win turno 1: Ad Nauseam con 5 maná.");
+    else if (has("Ad Nauseam")) p.push("Ad Nauseam cuando llegues a 5 maná.");
+    if (has("Underworld Breach") && has("Lion's Eye Diamond") && has("Brain Freeze")) p.push("Breach + LED + Brain Freeze completo.");
+    return p;
+  },
+  mullGuide: `<ul><li>Nick en turno 1 casi siempre: lo que cuenta es tener 2+ fuentes de maná.</li><li>Una pieza de combo (Thassa, Consultation/Pact, Breach, LED, Brain Freeze, Ad Nauseam) o un tutor.</li><li>Motor (Necro, Rhystic, Remora) cuenta como plan en manos lentas.</li><li>Silence, Abolisher, Jennifer o Voice + counters gratis suben mucho la mano.</li><li>En Seat 2–4, Gemstone Caverns es un maná extra en turno 1.</li></ul>`
+};
+const RG = "Rograkh, Son of Rohgahh", SILAS = "Silas Renn, Seeker Adept";
+DECKS.rograkh = {
+  id:"rograkh", short:"Rograkh + Silas", commander:RG, cmdCost:{}, partner:{name:SILAS, cost:{gen:1,U:1,B:1}}, colors:"UBR",
+  cards: NEW_CARDS.rograkh, aliases: STORM_ALIASES,
+  freeProtection: pickIn("rograkh", FREE_PROT.concat(["Deadly Rollick"])), cheapProtection: pickIn("rograkh", CHEAP_PROT), splitSecond: [],
+  tutors: tutorsIn("rograkh", STORM_TUTOR_MAP),
+  hate: STORM_HATE,
+  example: {zones:{hand:["Underworld Breach","Grinding Station","Force of Will","Dark Ritual","Volcanic Island"],field:[RG,"Underground Sea","Mox Amber","Sol Ring"],grave:["Lotus Petal","Scalding Tarn","Gamble","Snapback"],exile:[]}},
+  summary: `MAZO: Rograkh, Son of Rohgahh ({0}, rojo 0/1, dañar primero, amenaza, arrollar, partner) + Silas Renn, Seeker Adept ({1}{U}{B}, 2/2 toque mortal; al hacer daño de combate a un jugador, puedes lanzar ese turno un artefacto de tu cementerio). Rograkh sale gratis: comandante para Jeska's Will y Deadly Rollick, legendario rojo para Mox Amber, carne para Diabolic Intent, Culling the Weak, Flare of Duplication y Phyrexian Tower; con Paradise Mantle se gira por maná.
+WIN 1: Underworld Breach + LED + Brain Freeze. WIN 2: Thassa's Oracle + Demonic Consultation o Tainted Pact. WIN 3: Ad Nauseam.
+WIN 4: Underworld Breach + Grinding Station + artefacto de valor 0 (LED, Petal, Mox Amber, Mox Opal, Chrome Mox, Mox Diamond, Paradise Mantle): sacrifica el artefacto con la Station (te mueles 3), relánzalo con escape (exilia 3), la Station se endereza; storm y maná (LED) infinitos; termina con Brain Freeze o Thassa.
+EXTRAS: Mnemonic Betrayal, Yawgmoth's Will, Jeska's Will, Birgi, Storm-Kiln Artist, Rain of Filth, Copy Enchantment, Flash Photography, Imposter Mech, Last Chance, Final Fortune, Valley Floodcaller.
+PROTECCIÓN: FoW, FoN, Pact, Fierce, Swat, Daze, Mindbreak Trap, Misdirection, Commandeer, Snapback, Mental Misstep, Flusterstorm, Swan Song, Dispel, Pyroblast, REB, An Offer You Can't Refuse, Defense Grid, Hexing Squelcher, Deadly Rollick.`,
+  evaluate(st, h){
+    return stormEval(st, h, {extra(st, h, flags){
+      const {inZ, line, P} = h; const any = (zs,c) => zs.some(z=>inZ(z,c));
+      const zero = ["Lion's Eye Diamond","Lotus Petal","Mox Amber","Mox Opal","Chrome Mox","Mox Diamond","Paradise Mantle"].find(c=>any(["hand","field","grave"],c));
+      const brF = inZ("field","Underworld Breach"), gsF = inZ("field","Grinding Station");
+      line("4","Breach + Grinding Station + artefacto de 0",[
+        P("Underworld Breach",brF||inZ("hand","Underworld Breach"),"en campo o mano"),
+        P("Grinding Station",gsF||inZ("hand","Grinding Station"),"en campo o mano"),
+        P(zero||"Lotus Petal",!!zero,"(o LED, Mox Amber, Mox Opal, Chrome Mox, Mox Diamond, Paradise Mantle)"),
+        P("Cementerio con 3+ cartas",st.grave.length>=3,"para el primer escape",0)
+      ], add(brF?{}:{gen:1,R:1}, gsF?{}:{gen:2}), "Sacrifica el artefacto con la Station (te mueles 3), relánzalo con escape, la Station se endereza. Mete LED en las vueltas para maná. Cierra con Brain Freeze o Thassa con la biblioteca vacía.");
+      if (inZ("field",RG) && inZ("hand","Flare of Duplication")) flags.push(["okf","Flare of Duplication es gratis sacrificando a Rograkh: copia Brain Freeze, Demonic Tutor, Jeska's Will o Ad Nauseam."]);
+      if (inZ("field",SILAS)) flags.push(["info","Silas en mesa: si conecta en combate, lanzas este turno un artefacto de tu cementerio (LED, Grim Monolith, Petal)."]);
+      if (inZ("hand","Jeska's Will")) flags.push(["info","Jeska's Will: con un comandante en mesa eliges los dos modos (maná por cartas del rival + 3 de arriba)."]);
+    }});
+  },
+  mullPlans(has, m){
+    const p = DECKS.nick.mullPlans(has, m);
+    if (has("Underworld Breach") && has("Grinding Station")) p.push("Breach + Grinding Station: falta un artefacto de 0 y cementerio.");
+    return p;
+  },
+  mullGuide: `<ul><li>Rograkh sale gratis: cuenta el resto de la mano.</li><li>2+ fuentes de maná y una pieza (Breach, LED, Brain Freeze, Thassa, Consultation/Pact, Ad Nauseam, Grinding Station) o un tutor.</li><li>Rograkh hace que Mox Amber dé {R} desde el turno 1.</li><li>Motor (Necro, Rhystic, Remora) cuenta como plan en manos lentas.</li><li>Counters gratis (FoW, Pact, Fierce, Daze) suben mucho la mano.</li></ul>`
+};
+const TYMNA = "Tymna the Weaver", KRAUM = "Kraum, Ludevic's Opus";
+DECKS.kraum = {
+  id:"kraum", short:"Kraum + Tymna", commander:TYMNA, cmdCost:{gen:1,W:1,B:1}, partner:{name:KRAUM, cost:{gen:3,U:1,R:1}}, colors:"WUBR",
+  cards: NEW_CARDS.kraum, aliases: STORM_ALIASES,
+  freeProtection: pickIn("kraum", FREE_PROT), cheapProtection: pickIn("kraum", CHEAP_PROT), splitSecond: [],
+  tutors: tutorsIn("kraum", STORM_TUTOR_MAP),
+  hate: STORM_HATE,
+  example: {zones:{hand:["Thassa's Oracle","Tainted Pact","Fierce Guardianship","Mockingbird","Scrubland"],field:[TYMNA,"Underground Sea","Volcanic Island","Arcane Signet"],grave:["Polluted Delta"],exile:[]}},
+  summary: `MAZO: Tymna the Weaver ({1}{W}{B}, 2/2 vínculo vital; al inicio de tu segunda fase principal puedes pagar X vidas y robar X, X = rivales dañados en combate este turno) + Kraum, Ludevic's Opus ({3}{U}{R}, 4/4 volador con prisa; cuando un rival lanza su segundo hechizo del turno, robas). Blue Farm: los comandantes son motores de robo.
+WIN 1: Thassa's Oracle + Demonic Consultation o Tainted Pact. WIN 2: Underworld Breach + LED + Brain Freeze. WIN 3: Ad Nauseam.
+RESPALDO: Fblthp, Impossibly Lost (cuando haces daño de combate a un rival en tu turno roba 2 y, si tu biblioteca está vacía, ganas). Mockingbird ({X}{U}) con X=1 entra como copia de Thassa: segundo trigger.
+EXTRAS: Mnemonic Betrayal, Jeska's Will, Last Chance, Final Fortune, Birgi, Storm-Kiln Artist, Rain of Filth, Valley Floodcaller, Cavern of Souls para Thassa.
+MOTORES: Necropotence, Rhystic Study, Mystic Remora, Esper Sentinel, Tataru Taru, Lotho, Smothering Tithe, Faerie Mastermind, Orcish Bowmasters.
+PROTECCIÓN: Silence, Orim's Chant, Grand Abolisher, Voice of Victory, Ranger-Captain of Eos, Hexing Squelcher, FoW, FoN, Pact, Fierce, Swat, Mindbreak Trap, Misdirection, Mental Misstep, Flusterstorm, Swan Song, Pyroblast, REB, An Offer You Can't Refuse.`,
+  evaluate(st, h){
+    return stormEval(st, h, {extra(st, h, flags){
+      const {inZ, line, P} = h;
+      const ex = ["Demonic Consultation","Tainted Pact"].find(c=>inZ("hand",c));
+      const fbF = inZ("field","Fblthp, Impossibly Lost");
+      line("4","Fblthp con la biblioteca vacía",[
+        P("Fblthp, Impossibly Lost",fbF||inZ("hand","Fblthp, Impossibly Lost"),"en campo o mano"),
+        P(ex||"Demonic Consultation",!!ex,"en la mano (o Tainted Pact)"),
+        P("Daño de combate a un rival",st.mine,"en tu turno",0)
+      ], add(fbF?{}:{gen:1,U:1}, ex==="Tainted Pact"?{gen:1,B:1}:{B:1}), "Vacía la biblioteca antes del daño de combate; el trigger de Fblthp roba dos y ganas mientras se resuelve.");
+      if (inZ("field",TYMNA) && st.mine) flags.push(["info","Tymna en mesa: conecta con lo que puedas para robar en tu segunda fase principal."]);
+      if (inZ("field",KRAUM)) flags.push(["okf","Kraum en mesa: robas cada vez que un rival lanza su segundo hechizo del turno."]);
+    }});
+  },
+  mullPlans(has, m){
+    const p = DECKS.nick.mullPlans(has, m);
+    if (m.cmdTurn && m.cmdTurn <= 2) p.push(`Tymna en turno ${m.cmdTurn}.`);
+    return p;
+  },
+  mullGuide: `<ul><li>Tymna en turno 2: blanco y negro y 3 maná.</li><li>Una pieza de combo (Thassa, Consultation/Pact, Breach, LED, Brain Freeze, Ad Nauseam) o un tutor.</li><li>Algo que conecte temprano (Ragavan, Esper Sentinel) hace robar a Tymna.</li><li>Motor (Necro, Rhystic, Remora, Tataru, Lotho) cuenta como plan.</li><li>Silence, Orim's Chant, Abolisher y counters gratis suben la mano.</li></ul>`
+};
+const ROCCO = "Rocco, Cabaretti Caterer", KIKI = "Kiki-Jiki, Mirror Breaker";
+const ROCCO_DORKS = ["Avacyn's Pilgrim","Birds of Paradise","Elvish Mystic","Fyndhorn Elves","Llanowar Elves","Delighted Halfling","Bloom Tender","Ruby, Daring Tracker","Faeburrow Elder","Somberwald Sage","Shaman of Forgotten Ways","Badgermole Cub"];
+const ROCCO_GREEN = ["Avacyn's Pilgrim","Birds of Paradise","Elvish Mystic","Fyndhorn Elves","Llanowar Elves","Delighted Halfling","Bloom Tender","Badgermole Cub","Faeburrow Elder","Formidable Speaker","Pia, Aether Ascetic","Somberwald Sage","Shaman of Forgotten Ways","Allosaurus Shepherd","Wirewood Symbiote","Tinder Wall","Ruby, Daring Tracker","Elvish Spirit Guide"];
+const ROCCO_POW2 = ["Kiki-Jiki, Mirror Breaker","Felidar Guardian","Village Bell-Ringer","The Jolly Balloon Man","Squee, the Immortal","Grand Abolisher","Jennifer Walters","Voice of Victory","Hexing Squelcher","Formidable Speaker","Pia, Aether Ascetic","Ranger-Captain of Eos","Esper Sentinel","Allosaurus Shepherd"].concat(ROCCO_DORKS);
+DECKS.rocco = {
+  id:"rocco", short:"Rocco", commander:ROCCO, cmdCost:{R:1,G:1,W:1}, colors:"RGW",
+  cards: NEW_CARDS.rocco, aliases: ROCCO_ALIASES,
+  freeProtection: pickIn("rocco", FREE_PROT), cheapProtection: pickIn("rocco", CHEAP_PROT.concat(["Wirewood Symbiote","Delighted Halfling"])), splitSecond: [],
+  tutors: {
+    "Imperial Recruiter":{fn:c=>ROCCO_POW2.includes(c)},
+    "Eldritch Evolution":{types:["c"]},"Finale of Devastation":{types:["c"]},
+    "Summoner's Pact":{fn:c=>ROCCO_GREEN.includes(c)},"Formidable Speaker":{types:["c"]},
+    "Enlightened Tutor":{types:["a","e"]},"Pia, Aether Ascetic":{types:["e"]},
+    "Birthing Pod":{types:["c"],field:1},"Vivien on the Hunt":{types:["c"],field:1}
+  },
+  // Rocco como tutor: X = valor de la criatura
+  cmdTutor(card, dh){ return dh.type(card)==="c" ? {R:1,G:1,W:1,gen:dh.mv(card)} : null; },
+  hate: [
+    ["grafdigger","Grafdigger's Cage: Rocco, Finale, Eldritch Evolution, Pod, Vivien y Karmic Guide no ponen criaturas desde biblioteca o cementerio. Tutorea a la mano (Imperial Recruiter, Formidable Speaker, Summoner's Pact)."],
+    ["torpor orb","Torpor Orb: sin triggers de entrada. Rocco, Felidar, Bell-Ringer y Recruiter apagados; Food Chain + Squee sigue dando maná."],["hushbringer","Hushbringer: sin triggers de entrada (Rocco, Felidar, Bell-Ringer, Recruiter)."],["hushwing gryff","Hushwing Gryff: sin triggers de entrada."],
+    ["cursed totem","Cursed Totem: apaga Kiki-Jiki, Jolly, Birthing Pod y todos los dorks."],
+    ["null rod","Null Rod: apaga Birthing Pod, Sol Ring, Mana Vault, Petal."],["collector ouphe","Collector Ouphe: apaga Birthing Pod y rocas."],
+    ["drannith","Drannith Magistrate: no lanzas a Rocco desde la zona de mando. Fury, Pyrokinesis, Collateral Damage."],
+    ["opposition agent","Opposition Agent: se queda con lo que busques. Mátalo antes de Rocco."],["aven mindcensor","Aven Mindcensor: Rocco solo ve 4 cartas."],
+    ["tidebinder","Tishana's Tidebinder: contrarresta el trigger de Rocco. Tutorea con Imperial Recruiter o Eldritch Evolution."],["stifle","Stifle: puede contrarrestar el trigger de Rocco."],
+    ["toxic deluge","Toxic Deluge: barre tus dorks. No sobreextiendas; Flare of Fortitude te salva."],["pyroclasm","Pyroclasm: barre tus dorks."],["fire covenant","Fire Covenant: barre tus criaturas."],
+    ["bowmasters","Orcish Bowmasters: mata dorks de 1 resistencia."],
+    ["grand abolisher","Grand Abolisher rival: en su turno no puedes responder."],["voice of victory","Voice of Victory rival: no lanzas hechizos en su turno."],
+    ["esper sentinel","Esper Sentinel rival: te cobra el primer hechizo no criatura."],["rhystic study","Rhystic Study rival: paga 1 o le das carta."]
+  ],
+  example: {zones:{hand:["Felidar Guardian","Silence","Eldritch Evolution","Taiga"],field:["Birds of Paradise","Sol Ring","Savannah","Stomping Ground","Llanowar Elves"],grave:["Wooded Foothills"],exile:[]}},
+  summary: `MAZO: Rocco, Cabaretti Caterer ({X}{R}{G}{W}, 3/1; al entrar, si lo lanzaste, busca una criatura de valor X o menos y la pone en el campo). Tutor de criaturas en la zona de mando: X=3 Village Bell-Ringer o The Jolly Balloon Man, X=4 Felidar Guardian, X=5 Kiki-Jiki.
+WIN 1: Kiki-Jiki + Felidar Guardian (el token hace blink de Kiki). WIN 2: Kiki-Jiki + Village Bell-Ringer (el token endereza todo). WIN 3: Kiki-Jiki + Coercive Recruiter (el token endereza a Kiki). Todos dan tokens con prisa infinitos: gana atacando.
+WIN 4: The Jolly Balloon Man ({1},{T}, velocidad de conjuro: token 1/1 volador con prisa copia) + Village Bell-Ringer o Coercive Recruiter, con un dork para pagar el {1}.
+WIN 5: Food Chain + Squee, the Immortal: maná infinito para criaturas; exilia a Rocco con Food Chain, vuelve a la zona de mando, relánzalo con X enorme para buscar Kiki y después Felidar.
+TUTORES: Rocco, Imperial Recruiter (fuerza ≤2: Kiki, Felidar, Bell-Ringer, Jolly, Squee), Eldritch Evolution, Finale of Devastation, Summoner's Pact (verdes), Formidable Speaker, Pia, Enlightened Tutor, Birthing Pod, Vivien on the Hunt, Academy Rector (Food Chain), Arena Rector (Vivien), Ranger-Captain of Eos, Karmic Guide, Crop Rotation (Gaea's Cradle).
+MANÁ: muchos dorks, Somberwald Sage y Shaman of Forgotten Ways (solo criaturas), Gaea's Cradle, Badgermole Cub (+{G} al girar criaturas por maná), rituales.
+PROTECCIÓN: Grand Abolisher, Jennifer Walters, Voice of Victory, Silence, Hexing Squelcher (tus hechizos no se contrarrestan), Allosaurus Shepherd (verdes), Delighted Halfling (legendarios), Ranger-Captain of Eos, Flare of Fortitude, Wirewood Symbiote (Rocco es Elfo: vuelve a la mano y lo relanzas sin impuesto). REMOCIÓN: Fury, Pyrokinesis, Collateral Damage, Seal of Fire, Thunderclap, Boseiju.`,
+  evaluate(st, h){
+    const {inZ, line, P, cmdr} = h;
+    const on = c => inZ("field",c)||inZ("hand",c);
+    const handCost = (c, base) => inZ("hand",c) ? base : {};
+    const kikiCost = handCost(KIKI, {gen:2,R:3});
+    const partners = [["Felidar Guardian",{gen:3,W:1},"El token de Felidar hace blink de Kiki, que vuelve enderezado."],["Village Bell-Ringer",{gen:2,W:1},"El token de Bell-Ringer endereza todas tus criaturas, Kiki incluido."],["Coercive Recruiter",{gen:4,R:1},"El token de Recruiter apunta a Kiki: lo endereza y le da prisa."]];
+    partners.forEach(([c,cc,note],i) => line(String(i+1), `Kiki-Jiki + ${c}`, [P(KIKI,on(KIKI),"en campo o mano"), P(c,on(c),"en campo o mano")], add(kikiCost, handCost(c,cc)), note+" Tokens con prisa infinitos: ataca."));
+    const dork = ROCCO_DORKS.find(c=>inZ("field",c));
+    const jp = ["Village Bell-Ringer","Coercive Recruiter"].find(on);
+    line("4","Jolly Balloon Man + "+(jp||"Village Bell-Ringer"),[P("The Jolly Balloon Man",on("The Jolly Balloon Man"),"en campo o mano"),P(jp||"Village Bell-Ringer",!!jp,"en campo o mano (o Coercive Recruiter)"),P("Un dork en mesa",!!dork,"para pagar el {1} de cada vuelta",0)],
+      add(handCost("The Jolly Balloon Man",{gen:1,R:1,W:1}), jp?handCost(jp, jp==="Village Bell-Ringer"?{gen:2,W:1}:{gen:4,R:1}):{}, {gen:1}), "Jolly se activa a velocidad de conjuro. Cada token endereza a Jolly y al dork que pagó.");
+    const sq = ["field","hand","grave","exile"].some(z=>inZ(z,"Squee, the Immortal"));
+    line("5","Food Chain + Squee",[P("Food Chain",on("Food Chain"),"en campo o mano"),P("Squee, the Immortal",sq,"en campo, mano, cementerio o exilio"),P(ROCCO,cmdr.ok,"en campo o zona de mando, para cerrar",0)],
+      add(handCost("Food Chain",{gen:2,G:1}), inZ("field","Squee, the Immortal")?{}:{gen:1,R:2}), "Maná infinito para criaturas. Exilia a Rocco con Food Chain, relánzalo con X grande: Kiki y después Felidar.");
+    const flags = [];
+    if (cmdr.zone || inZ("hand",ROCCO)) {
+      const kF = inZ("field",KIKI);
+      if (kF && !partners.some(([c])=>on(c))) flags.push(["info","Kiki en mesa: Rocco con X=3 trae Bell-Ringer (o X=4 Felidar). Gana en el acto."]);
+      else if (!kF && partners.some(([c])=>on(c))) flags.push(["info","Tienes la pareja de Kiki: Rocco con X=5 lo trae directo al campo (tiene prisa)."]);
+    }
+    if (inZ("field","Gaea's Cradle")) flags.push(["okf",`Gaea's Cradle: ${st.field.filter(c=>(this.cards[c]||[])[0]==="c").length} maná verde por tus criaturas.`]);
+    if (inZ("field","Badgermole Cub")) flags.push(["okf","Badgermole Cub: cada criatura que gires por maná da {G} extra."]);
+    const prot = st.field.filter(c=>["Grand Abolisher","Jennifer Walters","Voice of Victory","Hexing Squelcher","Allosaurus Shepherd"].includes(c));
+    if (prot.length) flags.push(["okf",`Protección en mesa: ${prot.join(", ")}.`]);
+    if (inZ("field","Wirewood Symbiote") && inZ("field",ROCCO)) flags.push(["info","Wirewood Symbiote puede devolver a Rocco (Elfo) a tu mano: lo relanzas sin impuesto y busca otra criatura."]);
+    if (st.sick && inZ("field","The Jolly Balloon Man")) flags.push(["info","Jolly tiene prisa: puede activarse el turno que entra."]);
+    return flags;
+  },
+  mullPlans(has, m){
+    const p = [];
+    if (has(KIKI) && ["Felidar Guardian","Village Bell-Ringer","Coercive Recruiter"].some(has)) p.push("Kiki-Jiki + su pareja en mano: win cuando tengas el maná.");
+    if (has("Food Chain") && has("Squee, the Immortal")) p.push("Food Chain + Squee: win con 6 maná.");
+    if (m.t3 >= 6) p.push("Rocco con X=3 en turno 3 o antes.");
+    return p;
+  },
+  mullGuide: `<ul><li>Un dork o aceleración en turno 1 y verde para Rocco.</li><li>Llegar a 6–8 maná en turno 3 (Rocco X=3 a 5).</li><li>Una pieza de combo (Kiki, Felidar, Bell-Ringer, Recruiter, Jolly, Food Chain, Squee) o un tutor de criatura.</li><li>Grand Abolisher, Jennifer, Voice o Silence suben mucho la mano.</li><li>Sin verde ni dorks es mulligan aunque tengas piezas.</li></ul>`
+};
+/* Fuentes de maná genéricas para los mazos nuevos */
+const LAND_COLORS = {"Underground Sea":"UB","Scrubland":"WB","Tundra":"WU","Badlands":"BR","Plateau":"RW","Savannah":"GW","Taiga":"RG","Tropical Island":"GU","Volcanic Island":"UR","Bayou":"BG","Watery Grave":"UB","Blood Crypt":"BR","Sacred Foundry":"RW","Stomping Ground":"RG","Temple Garden":"GW","Breeding Pool":"GU","Godless Shrine":"WB","Hallowed Fountain":"WU","Otawara, Soaring City":"U","Boseiju, Who Endures":"G"};
+const COLORLESS_LANDS = {"Ancient Tomb":2,"City of Traitors":2,"Cavern of Souls":1,"Gemstone Caverns":1,"High Market":1,"Lazotep Quarry":1,"Phyrexian Tower":1,"Urza's Saga":1};
+const ROCKS = {"Sol Ring":["",2],"Mana Vault":["",3],"Grim Monolith":["",3],"Arcane Signet":["*",1],"Fellwar Stone":["*",1],"Chrome Mox":["*",1],"Mox Diamond":["*",1],"Mox Opal":["*",1],"Lotus Petal":["*",1],"Relic of Legends":["*",1],
+  "Birds of Paradise":["*",1],"Avacyn's Pilgrim":["W",1],"Elvish Mystic":["G",1],"Fyndhorn Elves":["G",1],"Llanowar Elves":["G",1],"Delighted Halfling":["*",1],"Bloom Tender":["G",1],"Faeburrow Elder":["GW",2],"Ruby, Daring Tracker":["RG",1],
+  "Utopia Sprawl":["*",1],"Wild Growth":["G",1],"Somberwald Sage":["*",3],"Shaman of Forgotten Ways":["*",2],"Badgermole Cub":["",0]};
+function genericSource(deckId, c){
+  const d = DECKS[deckId]; if (!d || !d.colors) return null;
+  const t = (d.cards[c]||[])[0], all = d.colors;
+  if (c === "Gaea's Cradle") { const n = ((S.zones[deckId]||{}).field||[]).filter(x=>(d.cards[x]||[])[0]==="c").length; return n ? ["G", n] : null; }
+  if (LAND_COLORS[c]) return [LAND_COLORS[c],1];
+  if (COLORLESS_LANDS[c]) return ["",COLORLESS_LANDS[c]];
+  if (t === "l") return [all,1];
+  if (c === "Springleaf Drum") { const n = ((S.zones[deckId]||{}).field||[]).some(x=>(d.cards[x]||[])[0]==="c"); return n ? [all,1] : null; }
+  const r = ROCKS[c]; if (r && r[1]) return [r[0]==="*"?all:r[0], r[1]];
+  return null;
+}
+
 /* ===================== Slot flex ===================== */
 const FLEX = {
   "Grand Abolisher": "Grand Abolisher ({W}{W}): en el turno de su controlador, sus oponentes no lanzan hechizos ni activan habilidades de artefactos, criaturas o encantamientos. Revelado por Dack: dáselo al jugador activo en turno rival.",
@@ -1932,12 +2616,17 @@ function deckCards(deckId){
 const TUTOR_COST = {
   "Demonic Tutor":{gen:1,B:1},"Vampiric Tutor":{B:1},"Imperial Seal":{B:1},"Grim Tutor":{gen:1,B:2},"Lim-Dûl's Vault":{U:1,B:1},"Scheming Symmetry":{B:1},
   "Mystical Tutor":{U:1},"Enlightened Tutor":{W:1},"Intuition":{gen:2,U:1},"Merchant Scroll":{gen:1,U:1},"Tolaria West":{gen:1,U:2},"Gamble":{R:1},
-  "Hoarding Broodlord":{gen:2,U:1}
+  "Hoarding Broodlord":{gen:2,U:1},
+  "Diabolic Intent":{gen:1,B:1},"Beseech the Mirror":{gen:1,B:3},"Imperial Recruiter":{gen:2,R:1},"Eldritch Evolution":{gen:1,G:2},"Summoner's Pact":{},
+  "Formidable Speaker":{gen:2,G:1},"Pia, Aether Ascetic":{gen:2,G:1}
 };
 // Tutores que dejan la carta arriba de la biblioteca: no la tienes este turno salvo que robes
 const TOP_TUTORS = ["Vampiric Tutor","Imperial Seal","Scheming Symmetry","Mystical Tutor","Enlightened Tutor","Lim-Dûl's Vault"];
-function tutorCost(t, onField){
+function tutorCost(t, onField, mv){
   if (t === "Wishclaw Talisman") return onField ? {gen:1} : {gen:2};
+  if (t === "Finale of Devastation") return {G:2, gen: mv||0};
+  if (t === "Birthing Pod") return onField ? {gen:1,G:1} : null;
+  if (t === "Vivien on the Hunt") return onField ? {} : {gen:4,G:2};
   if (t === "Tezzeret, Cruel Captain" || t === "Urza's Saga") return onField ? {} : null;
   return TUTOR_COST[t] || null;
 }
@@ -1958,7 +2647,7 @@ try {
 const shots = [null,null,null];
 function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e) {} }
 const D = () => DECKS[S.deck];
-const Z = () => S.zones[S.deck];
+const Z = () => (S.zones[S.deck] = S.zones[S.deck] || blankZones());
 const oppSeats = () => { const r=[]; for (let k=1;k<=3;k++) r.push(((S.seat-1+k)%4)+1); return r; };
 const seatOwner = seat => seat===S.seat ? -1 : oppSeats().indexOf(seat);
 const seatAlive = seat => { const i = seatOwner(seat); return i<0 ? true : S.opps[i].alive; };
@@ -2035,7 +2724,7 @@ $("#zones").addEventListener("click", e => {
   const zl = e.target.closest(".zl"); if (zl) { selZone = zl.dataset.z; renderCards(); return; }
   const chip = e.target.closest(".cchip"); if (!chip) return;
   e.stopPropagation(); closeMenu();
-  const c = chip.dataset.c, from = zoneOf(c), d = D(), isCmd = c === d.commander;
+  const c = chip.dataset.c, from = zoneOf(c), d = D(), isCmd = c === d.commander || (d.partner && c === d.partner.name);
   menu = document.createElement("div"); menu.className = "chipmenu";
   const tapOpt = from==="field" && sourceOf(S.deck,c) ? `<button type="button" data-tap="1">${tappedL().includes(c)?"Enderezar":"Girar (ya la usé)"}</button>` : "";
   menu.innerHTML = `<div class="cm-t">${esc(c)}</div>` + tapOpt + ZONES.filter(z=>z!==from).map(z => `<button type="button" data-to="${z}">→ ${ZLABEL[z]}</button>`).join("")
@@ -2150,7 +2839,7 @@ let manaMinus = false;
 function manaObj(){ return parseMana(S.mana); }
 function manaToStr(m){ return (m.gen?String(m.gen):"") + COLORS.concat(["C"]).map(k=>k.repeat(m[k]||0)).join(""); }
 function renderMana(){
-  const m = manaObj(), cols = D().id==="hashaton" ? ["W","U","B","C","gen"] : ["W","U","R","G","C","gen"];
+  const m = manaObj(), cols = D().id==="hashaton" ? ["W","U","B","C","gen"] : (D().colors ? D().colors.split("").concat(["C","gen"]) : ["W","U","R","G","C","gen"]);
   $("#mana-btns").innerHTML = cols.map(k => `<button type="button" class="mb${m[k]?" on":""}" data-k="${k}" aria-label="${k==="gen"?"Genérico":k}">${k==="gen"?"◇":k}<b>${m[k]||0}</b></button>`).join("")
     + `<button type="button" class="mb${manaMinus?" on":""}" id="mana-minus" aria-pressed="${manaMinus}" title="Restar">−</button>`;
   $("#mana").value = S.mana;
@@ -2176,7 +2865,11 @@ function renderSteps(){
 /* ===================== Rivales ===================== */
 const QUICK_HATE = {
   hashaton:["grafdigger","drannith","opposition agent","bowmasters","grand abolisher","vexing bauble","teferi, time raveler","hushbringer","stifle"],
-  crystal:["cursed totem","rule of law","drannith","bowmasters","grand abolisher","null rod","rest in peace","esper sentinel"]
+  crystal:["cursed totem","rule of law","drannith","bowmasters","grand abolisher","null rod","rest in peace","esper sentinel"],
+  nick:["grafdigger","rule of law","opposition agent","bowmasters","null rod","drannith","tidebinder","rest in peace","grand abolisher","esper sentinel"],
+  rograkh:["grafdigger","rule of law","opposition agent","bowmasters","null rod","rest in peace","tidebinder","drannith","grand abolisher","esper sentinel"],
+  kraum:["grafdigger","rule of law","opposition agent","bowmasters","null rod","rest in peace","tidebinder","drannith","grand abolisher","esper sentinel"],
+  rocco:["grafdigger","torpor orb","cursed totem","drannith","opposition agent","toxic deluge","tidebinder","hushbringer","bowmasters","null rod"]
 };
 const hateLabel = (d,k) => { const h = d.hate.find(x=>x[0]===k); return h ? h[1].split(":")[0].replace(/ rival$/,"") : k; };
 function countCards(list){ return list.split("\n").filter(l=>/^\s*\d+\s+\S/.test(l)).length; }
@@ -2358,9 +3051,14 @@ function evaluate(){
     Object.entries(d.tutors).forEach(([t,T]) => {
       const onField = inZ("field",t), have = T.field ? (onField||inZ("hand",t)) : inZ("hand",t);
       if (!have) return;
-      if (T.any || (T.types && T.types.includes(dh.type(card))) || (T.fn && T.fn(card,dh))) out.push({label:T.label||t, cost:tutorCost(t, onField), top:TOP_TUTORS.includes(t)});
+      if (T.any || (T.types && T.types.includes(dh.type(card))) || (T.fn && T.fn(card,dh))) out.push({label:T.label||t, cost:tutorCost(t, onField, dh.mv(card)), top:TOP_TUTORS.includes(t)});
     });
     if (inZ("grave",card) && inZ("hand","Noxious Revival")) out.push({label:"Noxious Revival (al tope)", cost:{}});
+    if (d.cmdTutor && !["field","grave","exile"].some(z=>inZ(z,d.commander))) {
+      const base = d.cmdTutor(card, dh);
+      if (base) { const fromZone = !inZ("hand",d.commander); const tx = fromZone ? 2*(((S.tax||{})[S.deck])||0) : 0;
+        out.push({label:`${d.commander.split(",")[0]} con X=${dh.mv(card)}`, cost:add(base,{gen:tx})}); }
+    }
     out.forEach(o => { o.ok = !o.cost || payShort(units, o.cost) === 0; });
     return out.sort((a,b) => b.ok - a.ok);
   }
@@ -2396,6 +3094,10 @@ function evaluate(){
   const flags = d.evaluate(st, {inZ, inLib, line, P, deck:d, cmdr}) || [];
   if (cmdZone) flags.unshift(["info", `${cmdName.split(",")[0]} está en la zona de mando: lo cuento como disponible por ${costStr(cmdr.extra)}${tax?` (con impuesto de ${2*tax})`:""}.`]);
   else if (!cmdF) flags.unshift(["bad", `${cmdName.split(",")[0]} no está en campo ni en la zona de mando: ponlo en la zona donde esté.`]);
+  if (d.partner) {
+    const pn = d.partner.name, pF = inZ("field",pn), pZ = !pF && !ZONES.some(zn=>inZ(zn,pn));
+    if (pZ) flags.splice(1, 0, ["info", `${pn.split(",")[0]} está en la zona de mando: ${costStr(d.partner.cost)}.`]);
+  }
   // Protección y split second
   const ss = st.hand.filter(c=>d.splitSecond.includes(c));
   if (ss.length) flags.push(["info", `Split second en mano: ${ss.join(", ")}.`]);
@@ -2592,7 +3294,8 @@ $("#qa-form").addEventListener("submit", e => { e.preventDefault(); const q = $(
 
 /* ===================== Búsqueda ===================== */
 const INDEX = [];
-[["hashaton","Hashaton"],["crystal","Crystal"]].forEach(([v,label]) => {
+const DECK_VIEWS = [["hashaton","Hashaton"],["crystal","Crystal"],["nick","Nick Fury"],["rocco","Rocco"],["rograkh","Rograkh + Silas"],["kraum","Kraum + Tymna"]];
+DECK_VIEWS.forEach(([v,label]) => {
   document.querySelectorAll(`#view-${v} section[id]`).forEach(sec => {
     const h2 = sec.querySelector("h2"); const secTitle = h2 ? h2.textContent.replace(/^\d+/,"").trim() : sec.id;
     sec.querySelectorAll("p, li, tr, .line, .piece, .hand, h3").forEach(b => {
@@ -2608,7 +3311,8 @@ const INDEX = [];
 function search(q){
   const terms = norm(q).split(/\s+/).filter(t=>t.length>1);
   if (!terms.length) return [];
-  const pref = (location.hash||"").includes("crystal") || (!$("#view-crystal").hidden) ? "Crystal" : (!$("#view-hashaton").hidden ? "Hashaton" : (S.deck==="crystal"?"Crystal":"Hashaton"));
+  const vis = DECK_VIEWS.find(([v]) => !$("#view-"+v).hidden);
+  const pref = vis ? vis[1] : (DECK_VIEWS.find(([v])=>v===S.deck)||["","Hashaton"])[1];
   return INDEX.map(r => { const n = norm(r.text); let score = 0; for (const t of terms) { if (!n.includes(t)) return null; score += (n.split(t).length-1); } if (norm(r.sec).includes(terms[0])) score += 3; if (r.deck===pref) score += 2; return {r,score}; })
     .filter(Boolean).sort((a,b)=>b.score-a.score).slice(0,12).map(x=>x.r);
 }
@@ -2637,7 +3341,20 @@ document.addEventListener("click", e => { if (!e.target.closest(".search")) res.
 document.addEventListener("keydown", e => { const t = document.activeElement.tagName; if (e.key === "/" && t!=="INPUT" && t!=="TEXTAREA" && t!=="SELECT") { e.preventDefault(); qIn.focus(); } });
 
 /* ===================== Plan sugerido ===================== */
+const STORM_DEFAULT = (z, cmd) => {
+  const f = z.field, h = z.hand;
+  if (!f.some(c=>["Necropotence","Rhystic Study","Mystic Remora"].includes(c)) && h.some(c=>["Necropotence","Rhystic Study","Mystic Remora"].includes(c))) return ["Baja tu motor", "Necropotence, Rhystic Study o Mystic Remora: roba hacia Thassa + Consultation, Breach + LED + Brain Freeze o Ad Nauseam. Deja maná para un counter si puedes."];
+  return ["Junta las piezas", `Tutorea la pieza que te falte de la línea más cercana (mira Líneas). Guarda Silence o un counter gratis para el turno del combo.${cmd?" "+cmd:""}`];
+};
 const DEFAULT_PLAN = {
+  nick(z){ return z.field.includes("Nick Fury, Agent of S.H.I.E.L.D.") ? STORM_DEFAULT(z) : ["Baja a Nick Fury", "Cuesta {W}: activa Mox Amber y Relic of Legends, y es carne para Diabolic Intent y Culling the Weak."]; },
+  rograkh(z){ return z.field.includes("Rograkh, Son of Rohgahh") ? STORM_DEFAULT(z) : ["Baja a Rograkh", "Es gratis: activa Mox Amber ({R}), Jeska's Will y Deadly Rollick, y es carne para Diabolic Intent."]; },
+  kraum(z){ return z.field.includes("Tymna the Weaver") ? STORM_DEFAULT(z, "Ataca con lo que conecte para que Tymna robe.") : ["Baja a Tymna", "Con Ragavan o Esper Sentinel conectando, Tymna roba cada turno."]; },
+  rocco(z){
+    const f = z.field, dorks = f.filter(c=>ROCCO_DORKS.includes(c)).length;
+    if (!dorks) return ["Baja dorks", "Rocco necesita 6–8 maná: Birds, elfos, Delighted Halfling o Utopia Sprawl primero."];
+    return ["Prepara a Rocco", "Rocco con X=3 trae Bell-Ringer o Jolly, X=4 Felidar, X=5 Kiki-Jiki. Junta una pareja en mano y baja protección (Abolisher, Jennifer, Voice) antes."];
+  },
   crystal(z){
     const f = z.field;
     if (!f.includes("Crystal, Inhuman Princess")) return ["Baja a Crystal", "Es tu motor y tu fuente de daño. Si puedes, protégela con maná abierto para Fierce Guardianship o Deflecting Swat (gratis con ella en mesa)."];
@@ -2906,7 +3623,11 @@ const CMDRS = CMDR_DB.map(e => [e.k[0], e.n, e.t, e.plan]);
 
 const REMOVAL = {
   crystal:["Pyrokinesis","Cave-In","Firestorm","Gut Shot","Into the Flood Maw","Sink into Stupor","Snap","Snapback","Claim the Firstborn","Sigil of Sleep","Boseiju, Who Endures","Otawara, Soaring City"],
-  hashaton:["Annul","Swords to Plowshares","Snuff Out","Deadly Rollick","Snapback","Into the Flood Maw","Chain of Vapor","Toxic Deluge","Otawara, Soaring City"]
+  hashaton:["Annul","Swords to Plowshares","Snuff Out","Deadly Rollick","Snapback","Into the Flood Maw","Chain of Vapor","Toxic Deluge","Otawara, Soaring City"],
+  nick:["Deadly Rollick","Into the Flood Maw","Chain of Vapor","Snapback","Culling Ritual","Otawara, Soaring City","Praetor's Grasp"],
+  rograkh:["Deadly Rollick","Into the Flood Maw","Chain of Vapor","Snapback","Otawara, Soaring City","Imposter Mech"],
+  kraum:["Into the Flood Maw","Chain of Vapor","Snapback","Otawara, Soaring City"],
+  rocco:["Fury","Pyrokinesis","Collateral Damage","Seal of Fire","Thunderclap","Boseiju, Who Endures"]
 };
 function readTable(){
   const seats = oppSeats();
@@ -2983,7 +3704,7 @@ ${opp}`;
 });
 
 /* ===================== Router ===================== */
-const VIEWS = ["inicio","hashaton","crystal","mesa","mulligan"];
+const VIEWS = ["inicio","mesa","mulligan"].concat(DECK_VIEWS.map(x=>x[0]));
 function route(){
   const h = (location.hash||"#inicio").slice(1);
   let view = VIEWS.includes(h) ? h : null, target = null;
@@ -3017,6 +3738,22 @@ const ROLES = {
     cmdColors: "RG", cmdCost: 3
   }
 };
+ROLES.nick = {accelFast:["Lotus Petal", "Chrome Mox", "Mox Diamond", "Dark Ritual", "Cabal Ritual", "Rite of Flame", "Mana Vault", "Sol Ring", "Elvish Spirit Guide", "Simian Spirit Guide", "Culling the Weak"],accelSlow:["Arcane Signet", "Mox Opal", "Mox Amber", "Springleaf Drum", "Relic of Legends", "Manamorphose", "Deathrite Shaman"],piece:["Thassa's Oracle", "Demonic Consultation", "Tainted Pact", "Underworld Breach", "Lion's Eye Diamond", "Brain Freeze", "Ad Nauseam"],tutor:["Demonic Tutor", "Vampiric Tutor", "Imperial Seal", "Mystical Tutor", "Enlightened Tutor", "Diabolic Intent", "Gamble", "Intuition", "Wishclaw Talisman", "Beseech the Mirror"],engine:["Necropotence", "Rhystic Study", "Mystic Remora", "Esper Sentinel", "Faerie Mastermind", "Smothering Tithe", "Gleaming Splendor", "Tataru Taru", "Lotho, Corrupt Shirriff"],
+  landColors:Object.assign({}, LAND_COLORS, Object.fromEntries(Object.keys(COLORLESS_LANDS).map(k=>[k,""]))), anyLand:Object.keys(NEW_CARDS.nick).filter(c=>NEW_CARDS.nick[c][0]==="l" && !LAND_COLORS[c] && !COLORLESS_LANDS[c] && c!=="Gaea's Cradle"),
+  colorAccel:Object.fromEntries(["Lotus Petal","Lion's Eye Diamond","Manamorphose","Birds of Paradise","Arcane Signet","Fellwar Stone","Dark Ritual","Cabal Ritual","Rite of Flame","Simian Spirit Guide","Elvish Spirit Guide","Culling the Weak","Rain of Filth","Seething Song","Pyretic Ritual","Delighted Halfling","Utopia Sprawl"].filter(c=>NEW_CARDS.nick[c]).map(c=>[c,({"Dark Ritual":"B","Cabal Ritual":"B","Culling the Weak":"B","Rain of Filth":"B","Rite of Flame":"R","Simian Spirit Guide":"R","Seething Song":"R","Pyretic Ritual":"R","Elvish Spirit Guide":"G"})[c]||"WUBRG"])),
+  cmdColors:"W", cmdCost:1};
+ROLES.rograkh = {accelFast:["Lotus Petal", "Chrome Mox", "Mox Diamond", "Dark Ritual", "Cabal Ritual", "Rite of Flame", "Mana Vault", "Sol Ring", "Simian Spirit Guide", "Culling the Weak", "Grim Monolith", "Rain of Filth", "Jeska's Will"],accelSlow:["Arcane Signet", "Fellwar Stone", "Mox Opal", "Mox Amber", "Springleaf Drum", "Paradise Mantle"],piece:["Underworld Breach", "Lion's Eye Diamond", "Brain Freeze", "Thassa's Oracle", "Demonic Consultation", "Tainted Pact", "Ad Nauseam", "Grinding Station"],tutor:["Demonic Tutor", "Vampiric Tutor", "Imperial Seal", "Mystical Tutor", "Diabolic Intent", "Gamble", "Wishclaw Talisman", "Beseech the Mirror"],engine:["Necropotence", "Rhystic Study", "Mystic Remora", "Faerie Mastermind", "Orcish Bowmasters", "Birgi, God of Storytelling", "Storm-Kiln Artist"],
+  landColors:Object.assign({}, LAND_COLORS, Object.fromEntries(Object.keys(COLORLESS_LANDS).map(k=>[k,""]))), anyLand:Object.keys(NEW_CARDS.rograkh).filter(c=>NEW_CARDS.rograkh[c][0]==="l" && !LAND_COLORS[c] && !COLORLESS_LANDS[c] && c!=="Gaea's Cradle"),
+  colorAccel:Object.fromEntries(["Lotus Petal","Lion's Eye Diamond","Manamorphose","Birds of Paradise","Arcane Signet","Fellwar Stone","Dark Ritual","Cabal Ritual","Rite of Flame","Simian Spirit Guide","Elvish Spirit Guide","Culling the Weak","Rain of Filth","Seething Song","Pyretic Ritual","Delighted Halfling","Utopia Sprawl"].filter(c=>NEW_CARDS.rograkh[c]).map(c=>[c,({"Dark Ritual":"B","Cabal Ritual":"B","Culling the Weak":"B","Rain of Filth":"B","Rite of Flame":"R","Simian Spirit Guide":"R","Seething Song":"R","Pyretic Ritual":"R","Elvish Spirit Guide":"G"})[c]||"UBR"])),
+  cmdColors:"", cmdCost:0};
+ROLES.kraum = {accelFast:["Lotus Petal", "Chrome Mox", "Mox Diamond", "Dark Ritual", "Cabal Ritual", "Rite of Flame", "Mana Vault", "Sol Ring", "Simian Spirit Guide", "Culling the Weak", "Rain of Filth", "Jeska's Will"],accelSlow:["Arcane Signet", "Fellwar Stone", "Mox Opal", "Mox Amber"],piece:["Underworld Breach", "Lion's Eye Diamond", "Brain Freeze", "Thassa's Oracle", "Demonic Consultation", "Tainted Pact", "Ad Nauseam", "Fblthp, Impossibly Lost"],tutor:["Demonic Tutor", "Vampiric Tutor", "Imperial Seal", "Mystical Tutor", "Enlightened Tutor", "Diabolic Intent", "Gamble", "Wishclaw Talisman", "Beseech the Mirror"],engine:["Necropotence", "Rhystic Study", "Mystic Remora", "Esper Sentinel", "Faerie Mastermind", "Orcish Bowmasters", "Smothering Tithe", "Tataru Taru", "Lotho, Corrupt Shirriff", "Birgi, God of Storytelling", "Storm-Kiln Artist"],
+  landColors:Object.assign({}, LAND_COLORS, Object.fromEntries(Object.keys(COLORLESS_LANDS).map(k=>[k,""]))), anyLand:Object.keys(NEW_CARDS.kraum).filter(c=>NEW_CARDS.kraum[c][0]==="l" && !LAND_COLORS[c] && !COLORLESS_LANDS[c] && c!=="Gaea's Cradle"),
+  colorAccel:Object.fromEntries(["Lotus Petal","Lion's Eye Diamond","Manamorphose","Birds of Paradise","Arcane Signet","Fellwar Stone","Dark Ritual","Cabal Ritual","Rite of Flame","Simian Spirit Guide","Elvish Spirit Guide","Culling the Weak","Rain of Filth","Seething Song","Pyretic Ritual","Delighted Halfling","Utopia Sprawl"].filter(c=>NEW_CARDS.kraum[c]).map(c=>[c,({"Dark Ritual":"B","Cabal Ritual":"B","Culling the Weak":"B","Rain of Filth":"B","Rite of Flame":"R","Simian Spirit Guide":"R","Seething Song":"R","Pyretic Ritual":"R","Elvish Spirit Guide":"G"})[c]||"WUBR"])),
+  cmdColors:"WB", cmdCost:3};
+ROLES.rocco = {accelFast:["Lotus Petal", "Chrome Mox", "Mox Diamond", "Mana Vault", "Sol Ring", "Elvish Spirit Guide", "Simian Spirit Guide", "Rite of Flame", "Pyretic Ritual", "Seething Song", "Infernal Plunge", "Metamorphosis", "Open the Omenpaths", "Lion's Eye Diamond", "_____ Goblin", "Jeska's Will"],accelSlow:["Avacyn's Pilgrim", "Birds of Paradise", "Elvish Mystic", "Fyndhorn Elves", "Llanowar Elves", "Delighted Halfling", "Bloom Tender", "Ruby, Daring Tracker", "Faeburrow Elder", "Somberwald Sage", "Shaman of Forgotten Ways", "Utopia Sprawl", "Wild Growth", "Carpet of Flowers", "Tinder Wall", "Orcish Lumberjack", "Treasonous Ogre", "Nature's Rhythm"],piece:["Kiki-Jiki, Mirror Breaker", "Felidar Guardian", "Village Bell-Ringer", "Coercive Recruiter", "The Jolly Balloon Man", "Food Chain", "Squee, the Immortal"],tutor:["Summoner's Pact", "Eldritch Evolution", "Finale of Devastation", "Imperial Recruiter", "Formidable Speaker", "Enlightened Tutor", "Pia, Aether Ascetic", "Birthing Pod", "Vivien on the Hunt", "Arena Rector", "Academy Rector", "Ranger-Captain of Eos", "Crop Rotation", "Karmic Guide"],engine:["Esper Sentinel", "Gaea's Cradle", "Badgermole Cub"],
+  landColors:Object.assign({}, LAND_COLORS, Object.fromEntries(Object.keys(COLORLESS_LANDS).map(k=>[k,""]))), anyLand:Object.keys(NEW_CARDS.rocco).filter(c=>NEW_CARDS.rocco[c][0]==="l" && !LAND_COLORS[c] && !COLORLESS_LANDS[c] && c!=="Gaea's Cradle"),
+  colorAccel:Object.fromEntries(["Lotus Petal","Lion's Eye Diamond","Manamorphose","Birds of Paradise","Arcane Signet","Fellwar Stone","Dark Ritual","Cabal Ritual","Rite of Flame","Simian Spirit Guide","Elvish Spirit Guide","Culling the Weak","Rain of Filth","Seething Song","Pyretic Ritual","Delighted Halfling","Utopia Sprawl"].filter(c=>NEW_CARDS.rocco[c]).map(c=>[c,({"Dark Ritual":"B","Cabal Ritual":"B","Culling the Weak":"B","Rain of Filth":"B","Rite of Flame":"R","Simian Spirit Guide":"R","Seething Song":"R","Pyretic Ritual":"R","Elvish Spirit Guide":"G"})[c]||"RGW"])),
+  cmdColors:"RGW", cmdCost:6};
 ROLES.hashaton.colorAccel = {"Lotus Petal":"WUB","Dark Ritual":"B","Cabal Ritual":"B","Lion's Eye Diamond":"WUB","Arcane Signet":"WUB","Fellwar Stone":"WUB"};
 
 const MKEY = "grimorio-mulligan-v1";
@@ -3025,7 +3762,7 @@ try { const s = JSON.parse(localStorage.getItem(MKEY)||"null"); if (s) M = Objec
 const msave = () => { try { localStorage.setItem(MKEY, JSON.stringify({deck:M.deck,seatMode:M.seatMode,free:M.free,stats:M.stats})); } catch(e) {} };
 let H = null; // {seat, mulls, cards:[...7], bottom:Set, phase:"decide"|"bottom"|"done", choice}
 
-function libraryOf(deckId){ const d = DECKS[deckId]; return deckCards(deckId).filter(c => c !== d.commander); }
+function libraryOf(deckId){ const d = DECKS[deckId]; return deckCards(deckId).filter(c => c !== d.commander && !(d.partner && c === d.partner.name)); }
 function shuffle(a){ for (let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 function roleOf(deckId, c){
   const R = ROLES[deckId], d = DECKS[deckId];
@@ -3076,6 +3813,8 @@ function analyze(deckId, cards, seat){
     if (has("Dack Fayden, Helping Hand") && t2>=6) plans.push("Hard cast de Dack en turno 2.");
     if (has("Thassa's Oracle") && (has("Demonic Consultation")||has("Tainted Pact"))) plans.push("Thassa + "+(has("Demonic Consultation")?"Consultation":"Tainted Pact")+" en cuanto tengas 3–4 maná.");
     if (has("Dack Fayden, Helping Hand") && has("Leveler")) risks.push("Dack y Leveler en mano: Dack ya no encuentra a Leveler. Necesitas Consultation o Tainted Pact.");
+  } else if (d.mullPlans) {
+    plans.push(...d.mullPlans(has, {t1, t2, t3, cmdTurn}));
   } else {
     if (cmdTurn===1) plans.push("Crystal turno 1.");
     else if (cmdTurn===2) plans.push("Crystal turno 2.");
@@ -3093,7 +3832,7 @@ function analyze(deckId, cards, seat){
   const planCount = pieces.length + tutors.length;
   reasons.push(`Combo/tutores: ${planCount}${planCount?` (${pieces.concat(tutors).join(", ")})`:""}. Motores: ${engines.length}. Protección: ${prot.length}.`);
   if (has("Gemstone Caverns") && seat===1) risks.push("Gemstone Caverns no sirve en Seat 1: es una tierra que solo da incoloro.");
-  if (has("Mox Opal") && fast.concat(slow).filter(c=>ROLES.hashaton.accelFast.concat(ROLES.hashaton.accelSlow).includes(c)).length < 3) risks.push("Mox Opal probablemente sin metalcraft.");
+  if (has("Mox Opal") && fast.concat(slow).filter(c=>(d.cards[c]||[])[0]==="a").length < 3) risks.push("Mox Opal probablemente sin metalcraft.");
   if (has("Chrome Mox") && !imprintable.length) risks.push("Chrome Mox sin nada que imprintar: solo acepta una carta que no sea tierra ni artefacto, y no conviene una pieza de combo.");
   else if (has("Chrome Mox")) risks.push(R.engine.includes(imprintable[0]) ? `Chrome Mox: la única carta imprintable es ${imprintable[0]}, que es tu motor. Piensa si vale la pena el maná.` : `Chrome Mox: imprinta ${imprintable[0]} (nunca una tierra ni un artefacto). Da maná de sus colores.`);
   if (has("Mox Diamond") && !fast.includes("Mox Diamond")) risks.push("Mox Diamond pide descartar una tierra: con una sola tierra pierdes tu land drop.");
@@ -3151,7 +3890,7 @@ function mRender(){
   $("#m-bottom-actions").hidden = H.phase!=="bottom";
   $("#m-ai-actions").hidden = H.phase!=="done" || !aiReady();
   // guía
-  $("#m-guide").innerHTML = M.deck==="crystal"
+  $("#m-guide").innerHTML = d.mullGuide ? d.mullGuide : M.deck==="crystal"
     ? `<ul><li>Crystal en turno 1 o 2: necesitas rojo y verde, y 3 maná.</li><li>Una pieza de combo (Cam, Helix/Knack, Breach, LED, Brain Freeze, Ascendancy) o un tutor (Enlightened, Gamble, Intuition, Kellan).</li><li>Un motor de Curiosity vale casi como una pieza: roba 3 por hechizo.</li><li>Protección gratis (Fierce, Swat, FoW, Pact) sube mucho la mano.</li><li>En Seat 2–4, Gemstone Caverns es un maná extra en turno 1.</li></ul>`
     : `<ul><li>3 maná en turno 2–3, con blanco y negro para Hashaton.</li><li>Una pieza de win (Dack, LED, Entomb, Reanimate, Thassa + Consultation/Pact) o un tutor negro.</li><li>Entomb + Reanimate con 2 maná en turno 1 es un keep automático.</li><li>Motores (Necro, Rhystic, Remora) cuentan como plan en manos lentas.</li><li>Dack y Leveler juntos en mano son una mala señal.</li></ul>`;
   mStats();
