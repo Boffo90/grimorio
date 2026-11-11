@@ -2113,7 +2113,7 @@ function canPay(pool, cost){
 // Fuentes de maná del campo: [colores posibles, cantidad]. "" = incoloro.
 const FETCH = ["Arid Mesa","Bloodstained Mire","Flooded Strand","Marsh Flats","Misty Rainforest","Polluted Delta","Scalding Tarn","Verdant Catacombs","Windswept Heath","Wooded Foothills"];
 const SOURCES = {
-  hashaton: {"Underground Sea":["UB",1],"Scrubland":["WB",1],"Tundra":["WU",1],"Watery Grave":["UB",1],"Godless Shrine":["WB",1],"Hallowed Fountain":["WU",1],"Morphic Pool":["UB",1],"Sea of Clouds":["WU",1],"Vault of Champions":["WB",1],
+  hashaton: {"Underground Sea":["UB",1],"Scrubland":["WB",1],"Tundra":["WU",1],"Watery Grave":["UB",1],"Godless Shrine":["WB",1],"Hallowed Fountain":["WU",1],"Morphic Pool":["UB",1],"Sea of Clouds":["WU",1],"Vault of Champions":["WB",1],"Tarnished Citadel":["WUB",1],
     "Tolaria West":["U",1],"Otawara, Soaring City":["U",1],"Ancient Tomb":["",2],"Cavern of Souls":["",1],"Urza's Saga":["",1],"Gemstone Caverns":["",1],"City of Brass":["WUB",1],"Mana Confluence":["WUB",1],"Command Tower":["WUB",1],"Starting Town":["WUB",1],
     "Sol Ring":["",2],"Mana Vault":["",3],"Arcane Signet":["WUB",1],"Fellwar Stone":["WUB",1],"Chrome Mox":["WUB",1],"Mox Diamond":["WUB",1],"Mox Opal":["WUB",1],"Lotus Petal":["WUB",1]},
   crystal: {"Plateau":["RW",1],"Savannah":["GW",1],"Taiga":["RG",1],"Tropical Island":["GU",1],"Tundra":["WU",1],"Volcanic Island":["UR",1],"Breeding Pool":["GU",1],"Boseiju, Who Endures":["G",1],"Otawara, Soaring City":["U",1],
@@ -2163,25 +2163,28 @@ DECKS.hashaton = {
     "Tolaria West":["l",0],"Otawara, Soaring City":["l",0],"Underground Sea":["l",0],"Scrubland":["l",0],"Tundra":["l",0],"Watery Grave":["l",0],"Godless Shrine":["l",0],"Hallowed Fountain":["l",0],
     "Morphic Pool":["l",0],"Sea of Clouds":["l",0],"Vault of Champions":["l",0],"Arid Mesa":["l",0],"Bloodstained Mire":["l",0],"Flooded Strand":["l",0],"Marsh Flats":["l",0],"Misty Rainforest":["l",0],
     "Polluted Delta":["l",0],"Scalding Tarn":["l",0],"Verdant Catacombs":["l",0],
-    "Gleaming Splendor":["e",2],"Flicker of Fate":["i",2],"Stifle":["i",1],"Merchant Scroll":["s",2],"Annul":["i",1]
+    "Gleaming Splendor":["e",2],"Flicker of Fate":["i",2],
+    "Blind Obedience":["e",2],"Daze":["i",2],"Frantic Search":["i",3],"Goryo's Vengeance":["i",2],"Tarnished Citadel":["l",0]
   },
-  pod: [
-    {in:"Gleaming Splendor", out:"Black Market Connections", when:"Mesas que roban mucho (Tivit, Aang, Rhystic Study, Mystic Remora). Treasures en turno rival, sin pagar vida."},
-    {in:"Flicker of Fate", out:"Twincast", when:"Rivales con Trickbind, Stifle o Tishana's Tidebinder: salida si te contrarrestan el trigger de Thassa. Funciona con Grafdigger's Cage."},
-    {in:"Stifle", out:"Copy Enchantment", when:"Comandantes de triggers (Tivit, Aang, Arcum Dagsson) o loops de Underworld Breach."},
-    {in:"Merchant Scroll", out:"Scheming Symmetry", when:"Mesas de control: busca cualquier instantáneo azul (Force of Will, Mental Misstep, Stifle, Annul, Chain of Vapor, Trickbind)."},
-    {in:"Annul", out:"Shallow Grave", when:"Rivales con Grafdigger's Cage, Vexing Bauble, Cursed Totem o combos de artefactos y encantamientos (Arcum, Tivit, Underworld Breach)."}
+  // Banca: el jugador elige qué carta de la lista sale
+  side: [
+    {c:"Gemstone Caverns", when:"Seat 2–4: empieza en mesa y es un maná extra en turno 1. En Seat 1 no sirve."},
+    {c:"Black Market Connections", when:"Mesas lentas que roban poco: valor garantizado en tu turno (cuesta vida)."},
+    {c:"Damping Sphere", when:"Contra storm (Breach + LED, rituales). Te frena también a ti."},
+    {c:"Extirpate", when:"Contra combos de cementerio y Breach rival; split second abre la ventana para LED + Dack."},
+    {c:"Praetor's Grasp", when:"Busca en la biblioteca de un rival su Thassa, su Breach o su mejor tutor."},
+    {c:"Spell Snare", when:"Mesas con muchas piezas de valor 2 (Thassa, Breach, Necropotence de otros, Kitten no)."},
+    {c:"Twincast", when:"Copiar un tutor, Entomb o Reanimate, o el tutor de un rival."}
   ],
-  aliases: {"splendor":"Gleaming Splendor","flicker":"Flicker of Fate","scroll":"Merchant Scroll","merchant":"Merchant Scroll","led":"Lion's Eye Diamond","cookbook":"The Underworld Cookbook","thassa":"Thassa's Oracle","thoracle":"Thassa's Oracle","dack":"Dack Fayden, Helping Hand","hashaton":"Hashaton, Scarab's Fist","abolisher":"Grand Abolisher","consult":"Demonic Consultation","consultation":"Demonic Consultation","pact":"Tainted Pact","fow":"Force of Will","fon":"Force of Negation","fierce":"Fierce Guardianship","stp":"Swords to Plowshares","swords":"Swords to Plowshares","dt":"Demonic Tutor","vamp":"Vampiric Tutor","necro":"Necropotence","rhystic":"Rhystic Study","remora":"Mystic Remora","tezz":"Tezzeret, Cruel Captain","saga":"Urza's Saga","tomb":"Ancient Tomb","vault":"Mana Vault","petal":"Lotus Petal","grace":"Angel's Grace","trickbind":"Trickbind","teferi":"Teferi, Mage of Zhalfir","yuriko":"Yuriko, Blade of the Mighty","samut":"Samut, Tyrant of Naktamun","spider":"Superior Spider-Man","spiderman":"Superior Spider-Man","spider-man":"Superior Spider-Man","broodlord":"Hoarding Broodlord","hoarding":"Hoarding Broodlord","slimed":"Trickbind","unseat":"Praetor's Grasp","grasp":"Praetor's Grasp"},
+  aliases: {"splendor":"Gleaming Splendor","flicker":"Flicker of Fate","goryo":"Goryo's Vengeance","goryos":"Goryo's Vengeance","frantic":"Frantic Search","blind":"Blind Obedience","obedience":"Blind Obedience","citadel":"Tarnished Citadel","daze":"Daze","broodlord":"Hoarding Broodlord","led":"Lion's Eye Diamond","cookbook":"The Underworld Cookbook","thassa":"Thassa's Oracle","thoracle":"Thassa's Oracle","dack":"Dack Fayden, Helping Hand","hashaton":"Hashaton, Scarab's Fist","abolisher":"Grand Abolisher","consult":"Demonic Consultation","consultation":"Demonic Consultation","pact":"Tainted Pact","fow":"Force of Will","fon":"Force of Negation","fierce":"Fierce Guardianship","stp":"Swords to Plowshares","swords":"Swords to Plowshares","dt":"Demonic Tutor","vamp":"Vampiric Tutor","necro":"Necropotence","rhystic":"Rhystic Study","remora":"Mystic Remora","tezz":"Tezzeret, Cruel Captain","saga":"Urza's Saga","tomb":"Ancient Tomb","vault":"Mana Vault","petal":"Lotus Petal","grace":"Angel's Grace","trickbind":"Trickbind","teferi":"Teferi, Mage of Zhalfir","yuriko":"Yuriko, Blade of the Mighty","samut":"Samut, Tyrant of Naktamun","spider":"Superior Spider-Man","spiderman":"Superior Spider-Man","spider-man":"Superior Spider-Man","broodlord":"Hoarding Broodlord","hoarding":"Hoarding Broodlord","slimed":"Trickbind","unseat":"Praetor's Grasp","grasp":"Praetor's Grasp"},
   freeProtection: ["Force of Will","Force of Negation","Pact of Negation","Fierce Guardianship","Mindbreak Trap","Misdirection","Commandeer","Snapback","Deadly Rollick"],
-  cheapProtection: ["Mental Misstep","Flusterstorm","Swan Song","Dispel","Spell Snare","Strix Serenade","An Offer You Can't Refuse","Silence","Orim's Chant","Stifle","Annul","Grand Abolisher","Teferi, Mage of Zhalfir","Yuriko, Blade of the Mighty","Samut, Tyrant of Naktamun"],
+  cheapProtection: ["Mental Misstep","Flusterstorm","Swan Song","Dispel","Spell Snare","Strix Serenade","An Offer You Can't Refuse","Silence","Orim's Chant","Grand Abolisher","Teferi, Mage of Zhalfir","Yuriko, Blade of the Mighty","Samut, Tyrant of Naktamun"],
   splitSecond: ["Angel's Grace","Trickbind","Extirpate"],
   tutors: {
     "Demonic Tutor":{any:1},"Vampiric Tutor":{any:1},"Imperial Seal":{any:1},"Grim Tutor":{any:1},"Wishclaw Talisman":{any:1},"Lim-Dûl's Vault":{any:1},"Scheming Symmetry":{any:1},
     "Mystical Tutor":{types:["i","s"]},"Enlightened Tutor":{types:["a","e"]},
     "Tezzeret, Cruel Captain":{fn:(c,d)=>d.type(c)==="a"&&d.mv(c)<=1,field:1},"Urza's Saga":{fn:(c,d)=>d.type(c)==="a"&&d.mv(c)<=1,field:1},
     "Tolaria West":{fn:(c,d)=>d.mv(c)===0},
-    "Merchant Scroll":{fn:c=>BLUE_INSTANTS.includes(c)},
     "Hoarding Broodlord":{fn:(c,d)=>d.type(c)!=="c",label:"Hoarding Broodlord descartada con Hashaton (la juegas desde el exilio)"}
   },
   hate: [
@@ -2234,11 +2237,12 @@ DECKS.hashaton = {
     mana:"UB2"
   },
   summary: `MAZO: Hashaton, Scarab's Fist (WB, comandante). Cada vez que descartas una carta de criatura puedes pagar {2}{U}: token copia con sus triggers. Win real: Dack Fayden, Helping Hand ({4}{W}{W}) en el 99: al entrar revela hasta X criaturas (X = oponentes), las pone en juego y regala una a cada rival; tú controlas sus triggers de entrada. Solo hay 3 criaturas más: Grand Abolisher, Leveler, Thassa's Oracle. Leveler arriba (exilia biblioteca), Thassa abajo → ganas.
-LÍNEAS: A) Hashaton + LED en campo + Dack en mano: LED (habilidad de maná) por UUU descartando → paga 2U → gana, instantáneo. B) Entomb + Reanimate. C) Entomb + Shallow Grave (instantáneo). D) Hashaton + Careful Study o The Underworld Cookbook + 2U. E) Cleanup con más de 7 cartas/Necropotence. F) Hard cast 6 con dos fuentes de blanco (Cavern nombrando Human). LED NO sirve para pagar a Dack: solo se activa a velocidad de instantáneo, nunca mientras lanzas un hechizo, y descarta la mano. G) Thassa + Demonic Consultation/Tainted Pact en respuesta al trigger. H) Hashaton descarta Leveler y luego Thassa.
+LÍNEAS: A) Hashaton + LED en campo + Dack en mano: LED (habilidad de maná) por UUU descartando → paga 2U → gana, instantáneo. B) Entomb + Reanimate. C) Entomb + Shallow Grave (instantáneo). C2) Entomb + Goryo's Vengeance (instantáneo, {1}{B}, Dack es legendario, sin perder vida). D) Hashaton + Careful Study, Frantic Search (desendereza 3 tierras) o The Underworld Cookbook + 2U. E) Cleanup con más de 7 cartas/Necropotence. F) Hard cast 6 con dos fuentes de blanco (Cavern nombrando Human). LED NO sirve para pagar a Dack: solo se activa a velocidad de instantáneo, nunca mientras lanzas un hechizo, y descarta la mano. G) Thassa + Demonic Consultation/Tainted Pact en respuesta al trigger. H) Hashaton descarta Leveler y luego Thassa.
 SPLIT SECOND: Angel's Grace, Trickbind, Extirpate: lánzalo, mantén prioridad, LED descartando Dack: el combo resuelve encima sin respuesta. Solo LED sirve.
 CASOS: Abolisher en campo antes de Dack lo protege. Thassa en mano → lanzarla tras Leveler. Leveler fuera → Pact/Consultation de respaldo. Thassa exiliada → no hay win con Dack. 2 oponentes: Dack puede saltarse una pieza. 1 oponente: no es combo.
-TUTORES: Demonic/Vampiric/Imperial/Grim/Wishclaw/Lim-Dûl/Scheming cualquiera; Mystical instantáneo/conjuro; Enlightened artefacto/encantamiento; Tezzeret -3 y Urza's Saga artefacto ≤1; Tolaria West valor 0. Intuition: Dack + Reanimate + Shallow Grave.
-PROTECCIÓN: FoW, FoN, Pact, Fierce Guardianship y Deadly Rollick gratis con comandante en campo, Mindbreak Trap, Misdirection, Commandeer, Snapback, Snuff Out, Silence, Orim's Chant.
+TUTORES: Demonic/Vampiric/Imperial/Grim/Wishclaw/Lim-Dûl/Scheming cualquiera; Mystical instantáneo/conjuro; Enlightened artefacto/encantamiento; Tezzeret -3 y Urza's Saga artefacto ≤1; Tolaria West valor 0. Intuition: Dack + Reanimate + Shallow Grave (o Goryo's Vengeance). Hoarding Broodlord (revelado por Dack o descartado con Hashaton): por defecto Flicker of Fate.
+PROTECCIÓN: FoW, FoN, Pact, Fierce Guardianship y Deadly Rollick gratis con comandante en campo, Mindbreak Trap, Misdirection, Commandeer, Snapback, Snuff Out, Daze, Silence, Orim's Chant.
+LISTA ACTUAL (nov 2026): slot flex = Hoarding Broodlord (sin Grand Abolisher). Incluye Gleaming Splendor, Flicker of Fate (salida si contrarrestan el trigger de Thassa: 2 maná), Goryo's Vengeance, Frantic Search, Daze, Blind Obedience (artefactos y criaturas rivales entran girados: Treasures, Arcum), Cursed Totem (apaga habilidades activadas de criaturas: Arcum Dagsson), Tarnished Citadel. Banca: Black Market Connections, Damping Sphere, Extirpate, Gemstone Caverns, Grand Abolisher, Praetor's Grasp, Spell Snare, Superior Spider-Man, Teferi, Twincast, Yuriko.
 ABOLISHER: tú eliges qué criatura recibe cada rival. Abolisher solo protege en el turno de quien lo controla: si combas en el turno de un rival, dáselo al jugador activo y los otros dos no pueden responder; pero si después tienes que lanzar algo (Thassa desde la mano, Pact), no se lo des al activo. En tu propio turno no protege. Conviene combar en upkeep/end step rival con LED o Cookbook. Thassa en mano + LED: descarta Dack y Thassa juntas (dos triggers, {4}{U}{U}). Thassa en el cementerio: no lances Dack. I) Hard cast Leveler + Thassa, 7 maná.
 HATE: Hushbringer/Torpor Orb/Elesh Norn, Containment Priest, Strict Proctor, Grafdigger's Cage, RIP/Leyline, Stifle/Tidebinder, Drannith, Rule of Law, Opposition Agent.
 Lista base: Taiga Watanabe, ganador del 16th God of Commander (Hareruya).`,
@@ -2258,13 +2262,16 @@ Lista base: Taiga Watanabe, ganador del 16th God of Commander (Hareruya).`,
     if (dackG) {
       line("B","Reanimate a Dack",[P("Reanimate",inZ("hand","Reanimate"),"en la mano")],{B:1},"Pierdes 6 vidas."+(st.life<=6?" ⚠ Tu vida no alcanza.":"")+warn);
       line("C","Shallow Grave a Dack",[P("Shallow Grave",inZ("hand","Shallow Grave"),"en la mano")],{gen:1,B:1},"Dack debe ser la criatura de arriba del cementerio."+warn);
+      line("C2","Goryo's Vengeance a Dack",[P("Goryo's Vengeance",inZ("hand","Goryo's Vengeance"),"en la mano")],{gen:1,B:1},"Instantáneo: Dack es legendario. Se exilia al final del turno, pero el trigger ya ganó."+warn);
     } else {
       line("B","Entomb + Reanimate",[P("Entomb",inZ("hand","Entomb"),"en la mano"),P("Reanimate",inZ("hand","Reanimate"),"en la mano"),P("Dack Fayden, Helping Hand",inLib("Dack Fayden, Helping Hand"),"en la biblioteca",0)],{B:2},"Pierdes 6 vidas."+(st.life<=6?" ⚠ Tu vida no alcanza.":"")+warn);
       line("C","Entomb + Shallow Grave",[P("Entomb",inZ("hand","Entomb"),"en la mano"),P("Shallow Grave",inZ("hand","Shallow Grave"),"en la mano"),P("Dack Fayden, Helping Hand",inLib("Dack Fayden, Helping Hand"),"en la biblioteca",0)],{gen:1,B:2},"Todo instantáneo."+warn);
+      line("C2","Entomb + Goryo's Vengeance",[P("Entomb",inZ("hand","Entomb"),"en la mano"),P("Goryo's Vengeance",inZ("hand","Goryo's Vengeance"),"en la mano"),P("Dack Fayden, Helping Hand",inLib("Dack Fayden, Helping Hand"),"en la biblioteca",0)],{gen:1,B:2},"Todo instantáneo, sin perder vida (Dack es legendario)."+warn);
     }
-    const cookF = inZ("field","The Underworld Cookbook"), cookH = inZ("hand","The Underworld Cookbook"), study = inZ("hand","Careful Study");
-    line("D","Hashaton + Cookbook / Careful Study",[P("Hashaton, Scarab's Fist",cmdr.ok,"en campo o zona de mando",0),P("Dack Fayden, Helping Hand",dackH,"en la mano"),P(cookF||cookH?"The Underworld Cookbook":(study?"Careful Study":"The Underworld Cookbook"),cookF||cookH||study,"como descarte")],
-      add(cmdr.extra, cookF?{gen:2,U:1}:(cookH?{gen:3,U:1}:{gen:2,U:2})),"Cookbook en campo: descarte instantáneo."+cmdr.note+warn);
+    const cookF = inZ("field","The Underworld Cookbook"), cookH = inZ("hand","The Underworld Cookbook"), study = inZ("hand","Careful Study") || inZ("hand","Frantic Search");
+    const studyName = inZ("hand","Frantic Search") ? "Frantic Search" : "Careful Study";
+    line("D","Hashaton + Cookbook / Careful Study / Frantic Search",[P("Hashaton, Scarab's Fist",cmdr.ok,"en campo o zona de mando",0),P("Dack Fayden, Helping Hand",dackH,"en la mano"),P(cookF||cookH?"The Underworld Cookbook":(study?studyName:"The Underworld Cookbook"),cookF||cookH||study,"como descarte")],
+      add(cmdr.extra, cookF?{gen:2,U:1}:(cookH?{gen:3,U:1}:(studyName==="Frantic Search"&&!cookF&&!cookH?{gen:2,U:1}:{gen:2,U:2}))),(cookF?"Cookbook en campo: descarte instantáneo.":(studyName==="Frantic Search"&&!cookH?"Frantic Search desendereza hasta 3 tierras: casi gratis.":"Cookbook en campo: descarte instantáneo."))+cmdr.note+warn);
     line("F","Hard cast de Dack",[P("Dack Fayden, Helping Hand",dackH,"en la mano")],{gen:4,W:2},(ledF||ledH?"LED no paga a Dack: no se activa mientras lanzas y descartaría la mano. ":"")+(fx==="Teferi, Mage of Zhalfir"&&fxF?"Teferi te da flash: lánzalo en el end step rival. ":"")+(inZ("field","Cavern of Souls")?"Cavern: nombra Human.":"")+warn);
     const ex = exiler || "Demonic Consultation";
     line("G","Thassa + "+(exiler||"Consultation / Pact"),[P("Thassa's Oracle",inZ("hand","Thassa's Oracle"),"en la mano"),P(ex,!!exiler,"en la mano")],ex==="Tainted Pact"?{U:2,gen:1,B:1}:{U:2,B:1},"Exilia en respuesta al trigger de Thassa.");
@@ -2301,6 +2308,10 @@ Lista base: Taiga Watanabe, ganador del 16th God of Commander (Hareruya).`,
       else if (fxLib) flags.push(["info","Samut rinde bajándola antes ({1}{U}). Si Dack la revela, no protege y le da split second al rival que la recibe."]);
     } else if (fx==="Hoarding Broodlord") {
       if (fxLib) flags.push(["info","Si Dack revela a Broodlord, apila Thassa abajo, Leveler al medio y Broodlord arriba. Contra Trickbind busca Flicker of Fate si la juegas (parpadea a Thassa o a Leveler y vuelven bajo tu control), o Into the Flood Maw para rebotar a Thassa y volver a lanzarla o descartarla. Contra Stifle o Tidebinder, Pact of Negation." + (hashF?" Fierce Guardianship también es gratis con Hashaton.":"")]);
+      const oppTxt = norm(S.opps.filter(o=>o.alive).map(o=>o.name+" "+o.text).join(" "));
+      if (/arcum/.test(oppTxt) && inZ("hand","Cursed Totem")) flags.push(["okf","Cursed Totem apaga a Arcum Dagsson (su habilidad es activada). A ti no te frena: lo de Hashaton es un trigger."]);
+      if (/(tivit|aang|arcum)/.test(oppTxt) && inZ("hand","Blind Obedience")) flags.push(["okf","Blind Obedience: los Treasures de Tivit y Aang y los artefactos de Arcum entran girados."]);
+      if (inZ("hand","Goryo's Vengeance") && inZ("grave","Dack Fayden, Helping Hand")) flags.push(["okf","Goryo's Vengeance ({1}{B}, instantáneo) devuelve a Dack: gana en el end step rival o en respuesta."]);
       if (fxH && (hashF || cmdr.zone)) flags.push(["okf","Broodlord en mano: descártala con Hashaton (Cookbook, LED, Careful Study) y paga {2}{U}: el token te busca cualquier carta a velocidad de instantáneo."]);
     } else if (fx==="Superior Spider-Man") {
       if (inZ("grave","Thassa's Oracle") && (fxH)) flags.push(["okf","Thassa en el cementerio + Spider-Man en mano: Leveler vacía tu biblioteca y Spider-Man entra como copia de Thassa y gana."]);
@@ -2710,14 +2721,14 @@ const FLEX = {
   "Yuriko, Blade of the Mighty": "Yuriko, Blade of the Mighty ({3}{W}): durante el combate, ningún jugador (tampoco tú) puede lanzar hechizos ni activar habilidades que no sean de maná. Comba con LED (habilidad de maná) en el inicio de combate de cualquier turno: revelada por Dack bloquea las respuestas a Leveler y Thassa; en tu campo antes bloquea todo el combo. En combate no sirven Cookbook ni lanzar Thassa.",
   "Teferi, Mage of Zhalfir": "Teferi, Mage of Zhalfir ({2}{U}{U}{U}, flash): tus cartas de criatura tienen flash; cada oponente solo lanza hechizos a velocidad de conjuro. Revelado por Dack: dáselo al rival que menos interactúa; sus oponentes (tú incluido) quedan a velocidad de conjuro en cualquier turno. En tu campo: nadie responde con hechizos y puedes hard castear Dack con flash.",
   "Samut, Tyrant of Naktamun": "Samut, Tyrant of Naktamun ({1}{U}): tus instantáneos y conjuros tienen split second. Bájala antes: Entomb, Reanimate, Consultation y Pact no se pueden responder, y cualquier instantáneo abre una ventana para LED + Dack. Revelada por Dack no protege y le da split second al rival que la recibe.",
-  "Hoarding Broodlord": "Hoarding Broodlord ({5}{B}{B}{B}, convoke): al entrar busca cualquier carta y la exilia; puedes jugarla aunque otro controle a Broodlord. Revelada por Dack: apila su trigger arriba de Leveler y busca Pact of Negation, Fierce Guardianship o Tainted Pact antes de que se exilie la biblioteca. Descartada con Hashaton por {2}{U}: tutor de cualquier carta a velocidad de instantáneo. No bloquea a nadie.",
+  "Hoarding Broodlord": "Hoarding Broodlord ({5}{B}{B}{B}, convoke): al entrar busca cualquier carta y la exilia; puedes jugarla aunque otro controle a Broodlord. Revelada por Dack: apila su trigger arriba de Leveler y busca antes de que se exilie la biblioteca. Por defecto Flicker of Fate ({1}{W}, necesitas un blanco que no venga de LED): si contrarrestan el trigger de Thassa, la exilias y vuelve con trigger nuevo, 2 maná en total. Si no tienes blanco: Into the Flood Maw ({U}, pero relanzar Thassa cuesta {U}{U}); contra Stifle o Tidebinder, Fierce Guardianship o Pact (Force of Will no, la mano queda vacía tras LED). Descartada con Hashaton por {2}{U}: tutor de cualquier carta a velocidad de instantáneo. No bloquea a nadie.",
   "Superior Spider-Man": "Superior Spider-Man ({2}{U}{B}): entra como copia de una criatura de cualquier cementerio. Es un segundo Dack si Dack está en un cementerio, o la Thassa/Leveler que falta. No protege."
 };
 const flexOf = deckId => deckId === "hashaton" ? (S.flex && FLEX[S.flex] ? S.flex : "Grand Abolisher") : null;
-const podOn = deckId => { const d = DECKS[deckId]; return (d.pod||[]).filter(p => ((S.pod||{})[deckId]||[]).includes(p.in)); };
+const podOn = deckId => { const d = DECKS[deckId], m = ((S.side||{})[deckId])||{}; return (d.side||[]).filter(x => m[x.c] && d.cards[m[x.c]]).map(x => ({in:x.c, out:m[x.c], when:x.when})); };
 function deckCards(deckId){
   const d = DECKS[deckId], fx = flexOf(deckId), on = podOn(deckId);
-  const podIn = (d.pod||[]).map(p=>p.in), onIn = on.map(p=>p.in), onOut = on.map(p=>p.out);
+  const podIn = (d.side||[]).map(p=>p.c), onIn = on.map(p=>p.in), onOut = on.map(p=>p.out);
   return Object.keys(d.cards).filter(c => !(FLEX[c] && c !== fx) && !(podIn.includes(c) && !onIn.includes(c)) && !onOut.includes(c));
 }
 
@@ -2742,11 +2753,12 @@ function tutorCost(t, onField, mv){
 const KEY = "grimorio-partida-v2";
 const blankZones = () => ({hand:[],field:[],grave:[],exile:[],tapped:[]});
 const blankOpp = () => ({name:"",text:"",list:"",life:40,alive:true});
-const blank = () => ({pod:{hashaton:[],crystal:[]},flex:"Grand Abolisher",deck:"crystal",seat:1,round:1,active:1,sick:false,tax:{hashaton:0,crystal:0},mana:"",life:40,zones:{hashaton:blankZones(),crystal:blankZones()},opps:[blankOpp(),blankOpp(),blankOpp()],log:[]});
+const blank = () => ({listV:2,side:{},flex:"Hoarding Broodlord",deck:"crystal",seat:1,round:1,active:1,sick:false,tax:{hashaton:0,crystal:0},mana:"",life:40,zones:{hashaton:blankZones(),crystal:blankZones()},opps:[blankOpp(),blankOpp(),blankOpp()],log:[]});
 let S = blank();
 try {
   const saved = JSON.parse(localStorage.getItem(KEY)||"null");
-  if (saved && saved.zones) { S = Object.assign(blank(), saved); S.zones = Object.assign(blank().zones, saved.zones); }
+  if (saved && saved.zones) { S = Object.assign(blank(), saved); S.zones = Object.assign(blank().zones, saved.zones);
+    if (S.listV !== 2) { S.listV = 2; S.flex = "Hoarding Broodlord"; S.side = {}; } }
   else {
     const old = JSON.parse(localStorage.getItem("grimorio-mesa-hashaton-v1")||"null");
     if (old && old.hand) { S.deck="hashaton"; S.zones.hashaton = {hand:old.hand,field:old.field,grave:old.grave,exile:old.exile}; S.mana=old.mana||""; }
@@ -3082,12 +3094,15 @@ function renderSetupSum(){
 }
 function renderPod(){
   const d = D(), box = $("#pod-row");
-  if (!d.pod || !d.pod.length) { box.innerHTML = ""; return; }
-  const on = (S.pod = S.pod||{})[d.id] = (S.pod[d.id]||[]);
-  box.innerHTML = `<label style="display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)">Cartas según el pod</label>` + d.pod.map(p => `<label class="pd"><input type="checkbox" data-in="${esc(p.in)}" ${on.includes(p.in)?"checked":""}><span><b>${esc(p.in)} en vez de ${esc(p.out)}</b><span>${esc(p.when)}</span></span></label>`).join("");
-  box.querySelectorAll("input[data-in]").forEach(x => x.addEventListener("change", () => {
-    const arr = S.pod[d.id], k = arr.indexOf(x.dataset.in);
-    if (x.checked && k<0) arr.push(x.dataset.in); if (!x.checked && k>=0) arr.splice(k,1);
+  if (!d.side || !d.side.length) { box.innerHTML = ""; return; }
+  const m = (S.side = S.side||{})[d.id] = (S.side[d.id]||{});
+  const sideNames = d.side.map(x=>x.c);
+  const main = Object.keys(d.cards).filter(c => !sideNames.includes(c) && !FLEX[c] && c !== d.commander).sort();
+  box.innerHTML = `<label style="display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)">Banca: cartas según el pod</label>`
+    + d.side.map(x => `<div class="pd"><span style="flex:1"><b>${esc(x.c)}</b><span>${esc(x.when)}</span>
+      <select data-side="${esc(x.c)}" style="margin-top:6px;width:100%"><option value="">No la uso</option>${main.map(c=>`<option value="${esc(c)}" ${m[x.c]===c?"selected":""}>Entra por ${esc(c)}</option>`).join("")}</select></span></div>`).join("");
+  box.querySelectorAll("select[data-side]").forEach(x => x.addEventListener("change", () => {
+    const k = x.dataset.side; if (x.value) m[k] = x.value; else delete m[k];
     fillDatalist(); renderCards(); renderSetupSum(); update();
   }));
 }
@@ -3842,7 +3857,7 @@ const ROLES = {
   hashaton: {
     accelFast: ["Lotus Petal","Chrome Mox","Mox Diamond","Dark Ritual","Cabal Ritual","Mana Vault","Sol Ring","Lion's Eye Diamond"],
     accelSlow: ["Arcane Signet","Fellwar Stone","Mox Opal","Mox Amber","Smothering Tithe","Black Market Connections","Gleaming Splendor"],
-    piece: ["Dack Fayden, Helping Hand","Lion's Eye Diamond","Entomb","Reanimate","Shallow Grave","The Underworld Cookbook","Careful Study","Thassa's Oracle","Demonic Consultation","Tainted Pact","Leveler"],
+    piece: ["Dack Fayden, Helping Hand","Lion's Eye Diamond","Entomb","Reanimate","Shallow Grave","Goryo's Vengeance","The Underworld Cookbook","Careful Study","Frantic Search","Thassa's Oracle","Demonic Consultation","Tainted Pact","Leveler"],
     tutor: ["Hoarding Broodlord","Demonic Tutor","Vampiric Tutor","Imperial Seal","Grim Tutor","Mystical Tutor","Enlightened Tutor","Wishclaw Talisman","Intuition","Lim-Dûl's Vault","Scheming Symmetry","Tezzeret, Cruel Captain","Urza's Saga","Tolaria West","Merchant Scroll"],
     engine: ["Necropotence","Rhystic Study","Mystic Remora","Smothering Tithe","Black Market Connections","Gleaming Splendor"],
     landColors: {"Underground Sea":"UB","Scrubland":"WB","Tundra":"WU","Watery Grave":"UB","Godless Shrine":"WB","Hallowed Fountain":"WU","Morphic Pool":"UB","Sea of Clouds":"WU","Vault of Champions":"WB","Tolaria West":"U","Otawara, Soaring City":"U","Ancient Tomb":"","Cavern of Souls":"","Urza's Saga":"","Gemstone Caverns":""},
