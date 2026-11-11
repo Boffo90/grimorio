@@ -3291,6 +3291,13 @@ async function askClaude(input, opts={}){
 })();
 try { $("#api-pass").value = localStorage.getItem("grimorio-pass")||""; } catch(e) {}
 $("#api-pass").addEventListener("input", e => { try { localStorage.setItem("grimorio-pass", e.target.value); } catch(_) {} });
+function cmdLine(d, z){
+  const where = c => z.field.includes(c) ? "en el campo" : z.hand.includes(c) ? "en la mano" : z.grave.includes(c) ? "en el cementerio" : z.exile.includes(c) ? "en el exilio" : "en la zona de mando";
+  const tax = ((S.tax||{})[S.deck])||0;
+  let t = `MI COMANDANTE: ${d.commander} — ${where(d.commander)}${where(d.commander)==="en la zona de mando"?` (impuesto +${2*tax}, cuesta ${costStr(add(d.cmdCost||{}, {gen:2*tax}))}${d.id==="rocco"?" + X":""})`:""}`;
+  if (d.partner) t += `\nMI OTRO COMANDANTE: ${d.partner.name} — ${where(d.partner.name)}`;
+  return t;
+}
 function stateText(){
   const z = Z(), d = D(), seats = oppSeats();
   const zl = (t,a) => `${t}: ${a.length ? a.join("; ") : "(nada)"}`;
@@ -3308,9 +3315,11 @@ function stateText(){
     `TURNO ACTUAL: Seat ${S.active}${S.active===S.seat?" (mío)":""}`,
     zl("MANO",z.hand), zl("CAMPO",z.field), zl("CEMENTERIO",z.grave), zl("EXILIO",z.exile),
     ...(S.escape && S.deck==="hashaton" ? ["SITUACIÓN: me contrarrestaron el trigger de Thassa's Oracle y Leveler ya exilió mi biblioteca. Necesito ganar antes de mi próximo paso de robo."] : []),
+    cmdLine(d, z),
     `MANÁ DISPONIBLE (sin LED): ${manaUnits().length} — ${fieldSources().filter(x=>!x.tapped).map(x=>x.c+" ("+srcLabel(x.src)+")").join(", ")||"nada en el campo"}${S.mana?"; extra: "+S.mana:""}${fieldSources().some(x=>x.tapped)?"; giradas: "+fieldSources().filter(x=>x.tapped).map(x=>x.c).join(", "):""}`, `MI VIDA: ${S.life}`, `MI COMANDANTE ENTRÓ ESTE TURNO: ${S.sick?"sí":"no"}`,
     "RIVALES:\n"+opp, "BITÁCORA:\n"+(log||"(vacía)"),
-    "CHEQUEO AUTOMÁTICO:\n"+evaluate().lines.map(l=>`${l.id} ${l.name}: ${l.n===0?"lista":"faltan "+l.n}`).join("\n")
+    "CHEQUEO AUTOMÁTICO (lo que falta NO está en mano ni campo; está en la biblioteca salvo que diga otra zona):\n"+evaluate().lines.map(l=>`${l.id} ${l.name}: ${l.n===0?"lista (piezas y maná)":(l.missing.length?`faltan ${l.missing.length} carta${l.missing.length>1?"s":""}`:"piezas listas")+(l.short>0?` y ${l.short} maná`:"")}${l.missing&&l.missing.length?" — falta: "+l.missing.map(m=>m.card+(m.tutorsAll&&m.tutorsAll.length?` (tutores disponibles: ${m.tutorsAll.map(t=>t.label+(t.ok?"":" sin maná")).join(", ")})`:" (sin tutor disponible ahora)")).join("; "):""}`).join("\n"),
+    "FUERA DE MANO Y CAMPO (no las tengo; solo accesibles tutoreando o robando): todo lo demás de la lista"
   ].join("\n");
 }
 function md(s){
@@ -3329,7 +3338,7 @@ function md(s){
 async function ask(question){
   if (!aiReady()) return;
   const d = D();
-  const rules = `Eres un coach experto de cEDH ayudando a Seba en una partida online en vivo. Responde en español de Chile, directo y concreto, máximo ~200 palabras salvo que la jugada exija más. Nombres de cartas en inglés. Reglas a respetar: usa siempre el nombre Oracle de las cartas. Chrome Mox solo puede imprintar una carta que no sea tierra ni artefacto (y da maná de sus colores); Mox Diamond pide descartar una carta de tierra; Mox Opal necesita metalcraft; Gemstone Caverns solo empieza en mesa si no eres el primer jugador; Lotus Petal y LED son de un solo uso; LED solo se activa a velocidad de instantáneo (nunca para pagar un hechizo mientras se lanza) y descarta toda la mano. No propongas jugadas ilegales. No inventes cartas que no estén en su mano o campo; asume que lo no listado de su mazo está en la biblioteca. Ten en cuenta el orden de asientos: quién juega después de él (más maná abierto al responder), quién antes, y qué anotó en la bitácora. Si hay listas de rivales, úsalas para estimar sus respuestas y win cons.
+  const rules = `Eres un coach experto de cEDH ayudando a Seba en una partida online en vivo. Responde en español de Chile, directo y concreto, máximo ~200 palabras salvo que la jugada exija más. Nombres de cartas en inglés. Reglas a respetar: usa siempre el nombre Oracle de las cartas. Chrome Mox solo puede imprintar una carta que no sea tierra ni artefacto (y da maná de sus colores); Mox Diamond pide descartar una carta de tierra; Mox Opal necesita metalcraft; Gemstone Caverns solo empieza en mesa si no eres el primer jugador; Lotus Petal y LED son de un solo uso; LED solo se activa a velocidad de instantáneo (nunca para pagar un hechizo mientras se lanza) y descarta toda la mano. No propongas jugadas ilegales. REGLA CLAVE: solo tiene disponibles las cartas listadas en MANO y CAMPO (y las de CEMENTERIO/EXILIO solo si algo permite usarlas). Todo lo demás de su lista está en la BIBLIOTECA: nunca digas ni supongas que lo tiene en mano o en mesa. Si una jugada necesita una carta de la biblioteca, di con qué tutor de su mano/campo (o comandante) la busca y cuánto cuesta, o que necesita robarla. Las descripciones del mazo de abajo son el plan general, no lo que tiene ahora. Antes de responder, revisa que cada carta que nombres como "en mano" o "en mesa" aparezca en esas listas. Ten en cuenta el orden de asientos: quién juega después de él (más maná abierto al responder), quién antes, y qué anotó en la bitácora. Si hay listas de rivales, úsalas para estimar sus respuestas y win cons.
 Formato: **Jugada:** pasos numerados. **Riesgos:** qué puede hacer cada rival (por seat) y cómo cubrirlo. **Si no ganas ahora:** qué tutorear, qué guardar y a quién frenar. Si no hay victoria segura, dilo y propone la mejor jugada.
 
 ${d.summary}${flexOf(d.id)?`\nSLOT FLEX QUE JUEGA: ${FLEX[flexOf(d.id)]}`:""}
