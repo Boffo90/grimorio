@@ -362,6 +362,18 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 body.is-dragging{cursor:grabbing}
 body.is-dragging .zrow{border-style:dashed}
 .zrow.drop-over,#zseg button.drop-over{border-color:var(--gold);background:var(--gold-soft);border-style:solid}
+.gobox{border-radius:10px;padding:12px 14px;margin-bottom:12px;border:1px solid var(--line);border-left-width:5px}
+.gobox b{display:block;font-family:var(--f-display);font-weight:400;font-size:19px;line-height:1.2}
+.gobox .gosub{display:block;font-size:12.5px;color:var(--muted);margin:2px 0 6px}
+.gobox ul{margin:0;padding-left:18px;font-size:13.5px;display:grid;gap:4px}
+.gobox.green{border-color:var(--good);background:var(--good-soft)}.gobox.green b{color:var(--good)}
+.gobox.yellow{border-color:var(--gold);background:var(--gold-soft)}.gobox.yellow b{color:var(--gold)}
+.gobox.red{border-color:var(--bad);background:var(--bad-soft)}.gobox.red b{color:var(--bad)}
+.gplan{margin:10px 0 12px;padding-left:20px;font-size:13.5px;display:grid;gap:6px}
+.gopp{border-top:1px solid var(--line);padding-top:10px;margin-top:10px}
+.gopp h4{margin:0 0 6px;font-size:13px;font-weight:700;color:var(--lapis)}
+.gopp p{margin:0 0 5px;font-size:13.5px}
+#p-guide{margin-top:16px}
 
 
 /* ---- Mulligan ---- */
@@ -2021,6 +2033,10 @@ body.is-dragging .zrow{border-style:dashed}
           <h3 style="margin:16px 0 8px">Líneas</h3>
           <div class="status" id="lines"></div>
         </div>
+        <details class="panel" id="p-guide" hidden open>
+          <summary><h3>Guía contra esta mesa</h3></summary>
+          <div id="guide"></div>
+        </details>
         <div class="panel" id="ai-panel">
           <h3>Análisis de Claude</h3>
           <p class="small" id="ai-hint">Envío tu asiento, los turnos, tu estado, la bitácora, las listas y capturas de los rivales junto con el primer del mazo.</p>
@@ -2205,7 +2221,9 @@ DECKS.hashaton = {
     ["bowmasters","Orcish Bowmasters: cada robo extra (Brainstorm, Careful Study, Rhystic) te hace daño y le da ejército."],
     ["vexing bauble","Vexing Bauble: contrarresta tus hechizos gratis (Force of Will, Pact of Negation, Fierce Guardianship). Mental Misstep o Annul la frenan."],
     ["teferi, time raveler","Teferi, Time Raveler: solo lanzas a velocidad de conjuro. Pierdes la ventana de split second en turno rival."],
-    ["voice of victory","Voice of Victory: no puedes lanzar hechizos en el turno de su controlador."]
+    ["voice of victory","Voice of Victory: no puedes lanzar hechizos en el turno de su controlador."],
+    ["trickbind","Trickbind: contrarresta el trigger de Thassa y no se le puede responder (split second). Silence antes, tu propio split second, o una salida lista."],
+    ["arcum activo","Arcum listo para activar: en respuesta a Dack busca Grafdigger's Cage o Torpor Orb. Mátalo, baja Cursed Totem o ve con Angel's Grace."]
   ],
   escape(st, h, fx){
     const {inZ, line, P} = h;
@@ -2243,6 +2261,7 @@ SPLIT SECOND: Angel's Grace, Trickbind, Extirpate: lánzalo, mantén prioridad, 
 CASOS: Abolisher en campo antes de Dack lo protege. Thassa en mano → lanzarla tras Leveler. Leveler fuera → Pact/Consultation de respaldo. Thassa exiliada → no hay win con Dack. 2 oponentes: Dack puede saltarse una pieza. 1 oponente: no es combo.
 TUTORES: Demonic/Vampiric/Imperial/Grim/Wishclaw/Lim-Dûl/Scheming cualquiera; Mystical instantáneo/conjuro; Enlightened artefacto/encantamiento; Tezzeret -3 y Urza's Saga artefacto ≤1; Tolaria West valor 0. Intuition: Dack + Reanimate + Shallow Grave (o Goryo's Vengeance). Hoarding Broodlord (revelado por Dack o descartado con Hashaton): por defecto Flicker of Fate.
 PROTECCIÓN: FoW, FoN, Pact, Fierce Guardianship y Deadly Rollick gratis con comandante en campo, Mindbreak Trap, Misdirection, Commandeer, Snapback, Snuff Out, Daze, Silence, Orim's Chant.
+PRINCIPIOS: la línea Hashaton + LED + Dack no lanza hechizos: los counters no la tocan; solo la paran Trickbind/Stifle/Tidebinder, habilidades activadas en respuesta (Arcum buscando Cage o Torpor Orb) y el hate ya en mesa. Con un split second propio en la pila (Angel's Grace: lánzala, mantén prioridad, activa LED) nadie puede lanzar hechizos NI activar habilidades: es la versión determinista. Silence u Orim's Chant antes del combo frena Trickbind. Al resolver Dack, ordeno los triggers: Broodlord arriba (busca Flicker of Fate), Leveler, Thassa; con Opposition Agent en mesa, Broodlord al final. Si combo en el end step del rival anterior a mí y me contrarrestan a Thassa, robo de la biblioteca vacía en mi turno: necesito una salida instantánea en mi upkeep. En Seat 1 turnos 1–2 casi nadie tiene maná para Trickbind: Hashaton + LED + Dack con W y B gana salvo counter gratis a Hashaton. Si el trigger de Thassa se contrarresta con Thassa ya destruida igual habría ganado (0 devoción ≥ 0 cartas): lo que importa es el trigger.
 LISTA ACTUAL (nov 2026): slot flex = Hoarding Broodlord (sin Grand Abolisher). Incluye Gleaming Splendor, Flicker of Fate (salida si contrarrestan el trigger de Thassa: 2 maná), Goryo's Vengeance, Frantic Search, Daze, Blind Obedience (artefactos y criaturas rivales entran girados: Treasures, Arcum), Cursed Totem (apaga habilidades activadas de criaturas: Arcum Dagsson), Tarnished Citadel. Banca: Black Market Connections, Damping Sphere, Extirpate, Gemstone Caverns, Grand Abolisher, Praetor's Grasp, Spell Snare, Superior Spider-Man, Teferi, Twincast, Yuriko.
 ABOLISHER: tú eliges qué criatura recibe cada rival. Abolisher solo protege en el turno de quien lo controla: si combas en el turno de un rival, dáselo al jugador activo y los otros dos no pueden responder; pero si después tienes que lanzar algo (Thassa desde la mano, Pact), no se lo des al activo. En tu propio turno no protege. Conviene combar en upkeep/end step rival con LED o Cookbook. Thassa en mano + LED: descarta Dack y Thassa juntas (dos triggers, {4}{U}{U}). Thassa en el cementerio: no lances Dack. I) Hard cast Leveler + Thassa, 7 maná.
 HATE: Hushbringer/Torpor Orb/Elesh Norn, Containment Priest, Strict Proctor, Grafdigger's Cage, RIP/Leyline, Stifle/Tidebinder, Drannith, Rule of Law, Opposition Agent.
@@ -3015,7 +3034,9 @@ function countCards(list){ return list.split("\n").filter(l=>/^\s*\d+\s+\S/.test
 function oppTagKeys(o){
   const d = D(), lst = norm(o.list||"");
   const inList = d.hate.map(h=>h[0]).filter(k => lst && lst.includes(k));
-  return [...new Set([...inList, ...QUICK_HATE[d.id]])].filter(k => d.hate.some(h=>h[0]===k));
+  const kit = cmdrLookup(o.name).flatMap(h => KIT[h.n]||[]);
+  o._kit = kit;
+  return [...new Set([...kit, ...inList, ...QUICK_HATE[d.id]])].filter(k => d.hate.some(h=>h[0]===k));
 }
 const tagsOpen = [false,false,false];
 function quickOppNames(){
@@ -3041,7 +3062,7 @@ function renderOpps(){
       ${o.name.trim() ? "" : `<div class="otags qpick"><span class="ol">Rápido</span>${quickOppNames().map(n=>`<button type="button" class="tg" data-pick="${esc(n)}">${esc(n.split(",")[0])}</button>`).join("")}</div>`}
       <div class="ostopw" id="oi${i}"></div>
       <div class="otags"><span class="ol">Abierto</span>${[0,1,2,3].map(v=>`<button type="button" class="tg mo" data-open="${v}" aria-pressed="${o.open===v}">${v===3?"3+":v}</button>`).join("")}</div>
-      <div class="otags"><span class="ol">En mesa</span>${keys.filter(k => tagsOpen[i] || o.tags.includes(k) || lst.includes(k) || QUICK_HATE[d.id].indexOf(k) > -1 && QUICK_HATE[d.id].indexOf(k) < 4).map(k=>`<button type="button" class="tg${lst.includes(k)?" inl":""}" data-tag="${esc(k)}" aria-pressed="${o.tags.includes(k)}" title="${lst.includes(k)?"Está en su lista":""}">${esc(hateLabel(d,k))}</button>`).join("")}<button type="button" class="tg more" data-more="${i}">${tagsOpen[i]?"Menos":"+ más"}</button></div>
+      <div class="otags"><span class="ol">En mesa</span>${keys.filter(k => tagsOpen[i] || o.tags.includes(k) || lst.includes(k) || (o._kit||[]).includes(k) || (!(o._kit||[]).length && QUICK_HATE[d.id].indexOf(k) > -1 && QUICK_HATE[d.id].indexOf(k) < 4)).map(k=>`<button type="button" class="tg${lst.includes(k)?" inl":""}" data-tag="${esc(k)}" aria-pressed="${o.tags.includes(k)}" title="${lst.includes(k)?"Está en su lista":""}">${esc(hateLabel(d,k))}</button>`).join("")}<button type="button" class="tg more" data-more="${i}">${tagsOpen[i]?"Menos":"+ más"}</button></div>
       <details><summary>Notas, lista y captura${o.text||n?" · con datos":""}</summary>
         <div class="fld" style="margin-top:6px"><label for="ot${i}">Su mesa ahora</label><textarea id="ot${i}" placeholder="Cartas clave, cartas en mano…">${esc(o.text)}</textarea></div>
         <div class="fld"><label for="ox${i}">Lista (Moxfield → Export → Copy as plain text) <span class="cnt">${n?`· ${n} líneas`:"· opcional"}</span></label><textarea id="ox${i}" placeholder="1 Sol Ring&#10;1 Kinnan, Bonder Prodigy&#10;…" style="min-height:90px">${esc(o.list||"")}</textarea></div>
@@ -3186,6 +3207,114 @@ function renderMullSeg(){
 $("#mm-seg").addEventListener("click", e => { const b = e.target.closest("button[data-n]"); if (!b) return; $("#mm-n").value = b.dataset.n; renderMullSeg(); renderMesaMull(); });
 $("#mm-free-chk").addEventListener("change", e => { $("#mm-free").value = e.target.checked ? "1" : "0"; renderMesaMull(); });
 
+/* ===================== Guía de pod y semáforo (Hashaton) ===================== */
+const KIT = {
+  "Tivit, Seller of Secrets":["trickbind","grafdigger","drannith","opposition agent","teferi, time raveler","voice of victory","vexing bauble","bowmasters"],
+  "Avatar Aang":["opposition agent","grand abolisher","voice of victory","bowmasters","tidebinder"],
+  "Arcum Dagsson":["arcum activo","grafdigger","torpor orb","stifle"]
+};
+const MATCHUP = { hashaton: {
+  "Arcum Dagsson": {
+    peligro:"Combo de artefactos. Cuando Arcum puede girarse (sin mareo, o con Lightning Greaves) y tiene una criatura artefacto, busca cualquier artefacto no criatura a velocidad de instantáneo.",
+    frena:"En respuesta al trigger de Dack puede buscar Grafdigger's Cage o Torpor Orb. Es azul: espera counters gratis y quizás Stifle.",
+    resp:"Cursed Totem lo apaga del todo. Snuff Out (gratis con un Swamp), Swords to Plowshares, Deadly Rollick o Toxic Deluge con X=2 lo matan. Blind Obedience hace que él y sus artefactos entren girados.",
+    ventana:"Ve cuando Arcum esté girado, con mareo, muerto o bajo Cursed Totem. Si puede activar, solo con split second (Angel's Grace): ahí tampoco puede activar."},
+  "Avatar Aang": {
+    peligro:"Rápido. Moonmist lo transforma y con Underworld Breach + LED + Brain Freeze gana ese turno. Respaldo: Thassa's Oracle + Demonic Consultation.",
+    frena:"Opposition Agent con flash (se queda con lo que busques, también la búsqueda de Broodlord), Orcish Bowmasters, Voice of Victory y Grand Abolisher (en su turno no activas LED), counters y Pyroblast o Red Elemental Blast contra tus hechizos azules.",
+    resp:"Counter para Underworld Breach (Swan Song, Force of Negation) o para Moonmist (Dispel). Trickbind al trigger de su Thassa cuando ya exilió su biblioteca: pierde él. Snuff Out mata a Aang sin transformar (no es negro), a Voice y a Abolisher. Swords to Plowshares para Opposition Agent.",
+    ventana:"Tu línea de LED no lanza hechizos: sus counters y Pyroblast no la tocan. No tutorees con Opposition Agent en mesa y no combes en su turno si tiene Grand Abolisher."},
+  "Tivit, Seller of Secrets": {
+    peligro:"Control lento con stax. Gana con Thassa's Oracle + Consultation o con Displacer Kitten. Tivit cuesta 6.",
+    frena:"Trickbind al trigger de Thassa (split second: no se responde), Grafdigger's Cage, Drannith Magistrate, Teferi, Time Raveler, Voice of Victory, Vexing Bauble, Opposition Agent y Mana Drain.",
+    resp:"Mental Misstep contrarresta Cage y Vexing Bauble al lanzarlas. Chain of Vapor, Otawara o Into the Flood Maw (con regalo) las rebotan. Snuff Out mata a Drannith, Voice, Displacer Kitten y Grand Arbiter. Tu Trickbind al trigger de su Thassa.",
+    ventana:"Si juega justo antes que tú, su end step es tu ventana clásica; pero si ahí te contrarrestan a Thassa, robas de la biblioteca vacía en tu turno. Ve con Silence antes o con split second, o cuando tenga menos de 2 abiertos (Trickbind cuesta {1}{U})."}
+}};
+const POD_PLAN = { hashaton: [
+  "<b>Tu mejor línea es Hashaton + LED + Dack.</b> No lanza hechizos, así que los counters no sirven contra ella. Solo la paran Trickbind o Stifle, Arcum activando, y el hate ya en mesa (Grafdigger's Cage, Torpor Orb).",
+  "<b>Versión blindada:</b> lanza Angel's Grace, mantén prioridad y activa LED encima. Con split second en la pila nadie lanza hechizos ni activa habilidades: ni Trickbind ni Arcum.",
+  "<b>Segunda mejor:</b> Silence u Orim's Chant primero, en tu turno. Si resuelve, ve. Si lo contrarrestan, ya gastaron un counter.",
+  "<b>Seat 1, turnos 1–2:</b> nadie tiene maná para Trickbind. Hashaton + LED + Dack con dos manás (W y B) gana salvo un counter gratis a Hashaton. Mulliganea hacia eso, o hacia Entomb + Reanimate o Goryo's Vengeance.",
+  "<b>Orden de triggers con Broodlord:</b> Broodlord arriba (busca Flicker of Fate), después Leveler, después Thassa. Si hay Opposition Agent en mesa, deja a Broodlord al final para que no encuentre nada.",
+  "<b>End step del rival anterior a ti:</b> si ahí te contrarrestan a Thassa, tienes que salir en tu upkeep con un instantáneo (Flicker of Fate) antes de robar.",
+  "<b>Qué bajar temprano:</b> Mystic Remora (tres mazos azules), Cursed Totem si aparece Arcum, Blind Obedience.",
+  "<b>Para qué guardar los counters:</b> Underworld Breach de Aang, la pieza de prisa o el combo de Arcum, y la Thassa rival (mejor Trickbind a su trigger)."
+]};
+function matchupsNow(){
+  const M0 = MATCHUP[S.deck]; if (!M0) return [];
+  const seats = oppSeats(), out = [];
+  S.opps.forEach((o,i) => { if (!o.alive) return; cmdrLookup(o.name).forEach(h => { if (M0[h.n]) out.push({seat:seats[i], n:h.n, m:M0[h.n]}); }); });
+  return out;
+}
+function renderGuide(){
+  const box = $("#guide"), pan = $("#p-guide"); if (!box) return;
+  const ms = matchupsNow();
+  if (!ms.length) { pan.hidden = true; return; }
+  pan.hidden = false;
+  box.innerHTML = `<ol class="gplan">${(POD_PLAN[S.deck]||[]).map(x=>`<li>${x}</li>`).join("")}</ol>` +
+    ms.map(x => `<div class="gopp"><h4>Seat ${x.seat} · ${esc(x.n)}</h4>
+      <p><b>Peligro:</b> ${esc(x.m.peligro)}</p><p><b>Cómo te frena:</b> ${esc(x.m.frena)}</p><p><b>Tus respuestas:</b> ${esc(x.m.resp)}</p><p><b>Cuándo ir:</b> ${esc(x.m.ventana)}</p></div>`).join("");
+}
+// Semáforo: ¿puedo intentar ganar ahora?
+function goCheck(lines){
+  if (S.deck !== "hashaton") return "";
+  const z = Z(), seats = oppSeats(), mine = S.active === S.seat;
+  const ready = lines.find(l => l.n===0 && !l.cage && ["A","D","H"].includes(l.id)) || lines.find(l => l.n===0 && !l.cage && l.id!=="0");
+  if (!ready) return "";
+  const who = key => S.opps.map((o,i)=>({o,i})).filter(({o}) => o.alive && norm(o.name+" "+(o.text||"")+" "+(o.tags||[]).join(" ")).includes(key)).map(({i})=>seats[i]);
+  const tagged = key => S.opps.map((o,i)=>({o,i})).filter(({o}) => o.alive && ((o.tags||[]).includes(key) || norm(o.text||"").includes(key))).map(({i})=>seats[i]);
+  const red = [], yel = [], grn = [];
+  const usesDack = /Dack|Reanimate|Grave|Goryo/.test(ready.name) || ["A","B","C","C2","D","E","F"].includes(ready.id);
+  const usesLED = ready.id==="A" || (ready.id==="H" && (z.field.includes("Lion's Eye Diamond")||z.hand.includes("Lion's Eye Diamond")));
+  [["torpor orb","Torpor Orb"],["hushbringer","Hushbringer"],["hushwing","Hushwing Gryff"],["elesh norn","Elesh Norn"],["containment priest","Containment Priest"]].forEach(([k,n]) => { const s = tagged(k); if (s.length) red.push(`${n} en mesa (Seat ${s.join(", ")}): tus triggers de entrada no funcionan. Sácalo primero.`); });
+  const act = tagged("arcum activo");
+  const ss = z.hand.filter(c => ["Angel's Grace","Extirpate"].includes(c));
+  const units = manaUnits(), cost = ready.cost || {};
+  const canGrace = z.hand.includes("Angel's Grace") && payShort(units, add(cost,{W:1}))===0;
+  const sil = ["Silence","Orim's Chant"].find(c => z.hand.includes(c) && payShort(units, add(cost,{W:1}))===0);
+  const abolTurn = !mine && tagged("grand abolisher").includes(S.active);
+  const voiceTurn = !mine && tagged("voice of victory").includes(S.active);
+  const tef = tagged("teferi, time raveler").length > 0;
+  if (abolTurn && usesLED) red.push(`Es el turno del Seat ${S.active} y tiene Grand Abolisher: no puedes activar LED ahora.`);
+  const noSpells = voiceTurn || (tef && !mine);
+  if (act.length && !(canGrace && !noSpells)) red.push(`Arcum (Seat ${act.join(", ")}) puede activar: en respuesta a Dack busca Grafdigger's Cage o Torpor Orb. Mátalo, baja Cursed Totem o ve con Angel's Grace (split second).`);
+  if (canGrace && !noSpells) grn.push("Tienes Angel's Grace y el maná: lánzala, mantén prioridad y activa LED encima. Nadie puede responder con hechizos ni habilidades.");
+  else if (sil && mine) grn.push(`${sil} primero: si resuelve, nadie lanza Trickbind ni counters este turno.${act.length?"":" Arcum todavía podría activar si está listo."}`);
+  if (noSpells) yel.push(voiceTurn ? `Seat ${S.active} tiene Voice of Victory: en su turno no puedes lanzar hechizos (ni Angel's Grace, ni Flicker of Fate).` : "Teferi, Time Raveler: solo lanzas hechizos en tu turno principal. Tus salidas instantáneas no funcionan ahora.");
+  const early = S.round === 1 && S.seat === 1 && mine;
+  if (!grn.length && !early) {
+    const tb = S.opps.map((o,i)=>({o,i})).filter(({o}) => o.alive && (((o.tags||[]).includes("trickbind")) || cmdrLookup(o.name).some(h=>h.n==="Tivit, Seller of Secrets")) && (o.open==null || o.open>=2));
+    if (tb.length) yel.push(`Seat ${tb.map(({i})=>seats[i]).join(", ")} puede tener Trickbind (${tb[0].o.open==null?"no marcaste su maná abierto":"2 o más abiertos"}): te contrarresta a Thassa sin respuesta.`);
+    const st2 = tagged("stifle").concat(tagged("tidebinder")); if (st2.length) yel.push(`Seat ${[...new Set(st2)].join(", ")} puede tener Stifle o Tishana's Tidebinder.`);
+  }
+  if (usesDack) {
+    const flick = z.hand.includes("Flicker of Fate"), broodLib = flexOf("hashaton")==="Hoarding Broodlord" && !ZONES.some(k=>z[k].includes("Hoarding Broodlord"));
+    const wExtra = payShort(units, add(cost,{gen:1,W:1}))===0;
+    if (!grn.length) {
+      if ((flick || broodLib) && wExtra) yel.push(`Salida lista: ${flick?"Flicker of Fate en mano":"Broodlord busca Flicker of Fate"} y te sobra {1}{W}.`);
+      else yel.push(`Sin salida si te contrarrestan a Thassa${(flick||broodLib)?": te falta {1}{W} aparte del maná de LED para Flicker of Fate":""}.`);
+    }
+    if (tagged("opposition agent").length && broodLib) yel.push("Opposition Agent en mesa: ordena el trigger de Broodlord al final (Leveler, Thassa, Broodlord).");
+    const prev = ((S.seat + 2) % 4) + 1;
+    if (!mine && S.active === prev && !grn.length) yel.push("Es el turno del rival anterior a ti: si aquí te contrarrestan a Thassa, tienes que salir en tu upkeep con un instantáneo antes de robar.");
+  }
+  if (S.round <= 2 && S.seat === 1 && mine && !red.length) grn.push("Turno temprano en Seat 1: casi nadie tiene maná para Trickbind o Stifle.");
+  const level = red.length ? "red" : (grn.length && !yel.filter(y=>/Trickbind|Stifle/.test(y)).length ? "green" : (grn.length ? "green" : "yellow"));
+  const title = level==="red" ? "No vayas todavía" : (level==="green" ? "Ve: tienes la ventana" : "Puedes ir, con riesgo");
+  return `<div class="gobox ${level}"><b>${title}</b><span class="gosub">Línea ${esc(ready.id)} · ${esc(ready.name)}</span><ul>${(red.length ? red.concat(yel) : grn.concat(yel)).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`;
+}
+// Mesa por enlace: ?deck=hashaton&seat=1&rivales=Arcum Dagsson|Avatar Aang|Tivit
+function applyPreset(){
+  let q; try { q = new URLSearchParams(location.search); } catch(e) { return; }
+  const r = q.get("rivales"); if (!r) return;
+  const deck = q.get("deck"), seat = +q.get("seat");
+  if (deck && DECKS[deck]) S.deck = deck;
+  if (seat >= 1 && seat <= 4) S.seat = seat;
+  r.split("|").slice(0,3).forEach((n,i) => { const h = cmdrLookup(n)[0]; S.opps[i] = Object.assign(blankOpp(), {name: h ? h.n : n.trim()}); if (h) pushRecent(h.n); });
+  S.round = 1; S.active = 1; S.zones[S.deck] = blankZones(); S.log = []; S.life = 40; S.mana = "";
+  try { history.replaceState(null, "", location.pathname + location.hash); } catch(e) {}
+}
+
 /* ===================== Motor ===================== */
 function evaluate(){
   const d = D(), z = Z();
@@ -3228,7 +3357,7 @@ function evaluate(){
     }).join(", "));
     detail.push(`Costo: ${costStr(cost)}` + (short>0 ? ` · te faltan ${short} maná` : " · alcanza"));
     if (note) detail.push(esc(note));
-    lines.push({id,name,n,short,detail:detail.join(" · "),missing:missing.map(mm=>{ const all = mm.tutorable?tutorsFor(mm.card):[];
+    lines.push({id,name,n,short,cost,detail:detail.join(" · "),missing:missing.map(mm=>{ const all = mm.tutorable?tutorsFor(mm.card):[];
       return {card:mm.card, tutorsAll:all, tutors:all.filter(o=>o.ok).map(o=>o.label), tutorsTop:all.filter(o=>o.ok&&o.top).map(o=>o.label), tutorsNow:all.filter(o=>!o.top && o.ok && (!o.cost || payShort(units, add(cost, o.cost))===0)).map(o=>o.label)}; })});
   }
   const cmdName = d.commander;
@@ -3289,7 +3418,8 @@ function update(){
   };
   const shown = lines.filter(l=>!l.cage).slice(0,3), rest = lines.filter(l=>!shown.includes(l));
   $("#lines").innerHTML = shown.map(lineHTML).join("") + (rest.length ? `<details class="lines-d"><summary class="small" style="cursor:pointer;color:var(--lapis);font-weight:600;padding:4px 0">Ver ${rest.length} líneas más${rest.some(l=>l.cage)?" (incluye bloqueadas)":""}</summary><div class="status">${rest.map(lineHTML).join("")}</div></details>` : "");
-  $("#plan").innerHTML = planHTML(lines);
+  $("#plan").innerHTML = goCheck(lines) + planHTML(lines);
+  renderGuide();
   const best = lines.find(l=>l.id!=="0"), tb = $("#tb-best");
   if (tb) {
     if (!best) { tb.textContent = ""; tb.className = "tb-best"; }
@@ -3398,7 +3528,8 @@ function stateText(){
     `MANÁ DISPONIBLE (sin LED): ${manaUnits().length} — ${fieldSources().filter(x=>!x.tapped).map(x=>x.c+" ("+srcLabel(x.src)+")").join(", ")||"nada en el campo"}${S.mana?"; extra: "+S.mana:""}${fieldSources().some(x=>x.tapped)?"; giradas: "+fieldSources().filter(x=>x.tapped).map(x=>x.c).join(", "):""}`, `MI VIDA: ${S.life}`, `MI COMANDANTE ENTRÓ ESTE TURNO: ${S.sick?"sí":"no"}`,
     "RIVALES:\n"+opp, "BITÁCORA:\n"+(log||"(vacía)"),
     "CHEQUEO AUTOMÁTICO (lo que falta NO está en mano ni campo; está en la biblioteca salvo que diga otra zona):\n"+evaluate().lines.map(l=>`${l.id} ${l.name}: ${l.n===0?"lista (piezas y maná)":(l.missing.length?`faltan ${l.missing.length} carta${l.missing.length>1?"s":""}`:"piezas listas")+(l.short>0?` y ${l.short} maná`:"")}${l.missing&&l.missing.length?" — falta: "+l.missing.map(m=>m.card+(m.tutorsAll&&m.tutorsAll.length?` (tutores disponibles: ${m.tutorsAll.map(t=>t.label+(t.ok?"":" sin maná")).join(", ")})`:" (sin tutor disponible ahora)")).join("; "):""}`).join("\n"),
-    "FUERA DE MANO Y CAMPO (no las tengo; solo accesibles tutoreando o robando): todo lo demás de la lista"
+    "FUERA DE MANO Y CAMPO (no las tengo; solo accesibles tutoreando o robando): todo lo demás de la lista",
+    ...(matchupsNow().length ? ["GUÍA CONTRA ESTA MESA:\n" + (POD_PLAN[d.id]||[]).map(x=>"- "+x.replace(/<[^>]+>/g,"")).join("\n") + "\n" + matchupsNow().map(x=>`Seat ${x.seat} ${x.n} — Peligro: ${x.m.peligro} Cómo me frena: ${x.m.frena} Mis respuestas: ${x.m.resp} Cuándo ir: ${x.m.ventana}`).join("\n")] : [])
   ].join("\n");
 }
 function md(s){
@@ -4140,7 +4271,7 @@ El jugador eligió: ${last?last.choice:"keep"}.`;
 $("#m-deck").value = M.deck; $("#m-seat").value = M.seatMode; $("#m-free").value = String(M.free);
 mNew();
 
-loadAll(); route();
+applyPreset(); loadAll(); route();
 
 </script>
 
