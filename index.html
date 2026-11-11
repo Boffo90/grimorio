@@ -1951,6 +1951,7 @@ body.is-dragging .zrow{border-style:dashed}
         </div>
         <div id="pod-row" class="podbox"></div>
         <div class="row" style="margin-top:10px">
+          <button class="btn primary" id="btn-rematch" type="button">Revancha (misma mesa)</button>
           <button class="btn" id="btn-clear" type="button">Nueva partida</button>
           <button class="btn" id="btn-example" type="button">Cargar ejemplo</button>
         </div>
@@ -1978,7 +1979,7 @@ body.is-dragging .zrow{border-style:dashed}
           </div>
           <div class="zones" id="zones"></div>
           <div class="pick">
-            <input id="pick-q" list="cards" placeholder="Filtrar o escribir (led, fow, dt)… Enter añade" autocomplete="off" enterkeyhint="done">
+            <input id="pick-q" list="cards" placeholder="Filtra, escribe o pega varias separadas por coma (led, fow, dt)" autocomplete="off" enterkeyhint="done">
           </div>
           <div class="palette" id="palette"></div>
           <div class="quick">
@@ -2766,6 +2767,9 @@ try {
 } catch(e) {}
 const shots = [null,null,null];
 function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e) {} }
+const RECENT_KEY = "grimorio-rivales-recientes";
+function recentOpps(){ try { return JSON.parse(localStorage.getItem(RECENT_KEY)||"[]"); } catch(e) { return []; } }
+function pushRecent(name){ const n = (name||"").trim(); if (!n || !cmdrLookup(n).length) return; const r = recentOpps().filter(x=>x!==n); r.unshift(n); try { localStorage.setItem(RECENT_KEY, JSON.stringify(r.slice(0,10))); } catch(e) {} }
 const D = () => DECKS[S.deck];
 const Z = () => (S.zones[S.deck] = S.zones[S.deck] || blankZones());
 const oppSeats = () => { const r=[]; for (let k=1;k<=3;k++) r.push(((S.seat-1+k)%4)+1); return r; };
@@ -2830,6 +2834,21 @@ $("#palette").addEventListener("click", e => {
   if ($("#pick-q").value) { $("#pick-q").value = ""; renderPalette(); }
 });
 $("#pick-q").addEventListener("input", renderPalette);
+$("#pick-q").addEventListener("paste", e => {
+  const t = (e.clipboardData && e.clipboardData.getData("text")) || "";
+  if (!/[\n,;]/.test(t)) return;
+  e.preventDefault();
+  t.split(/[\n,;]+/).map(x=>x.replace(/^\s*\d+x?\s+/,"")).map(canon).filter(Boolean).forEach(c => { const z = zoneOf(c); if (z !== selZone) { if (z) Z()[z].splice(Z()[z].indexOf(c),1); Z()[selZone].push(c); } });
+  $("#pick-q").value = ""; renderCards(); update();
+});
+// Atajos de teclado (computador): N pasa turno, 1-4 zona, / buscar
+document.addEventListener("keydown", e => {
+  if ($("#view-mesa").hidden || e.ctrlKey || e.metaKey || e.altKey) return;
+  const tag = (e.target.tagName||"").toLowerCase(); if (["input","textarea","select"].includes(tag)) return;
+  if (e.key === "n" || e.key === "N") { e.preventDefault(); $("#btn-next").click(); }
+  else if (["1","2","3","4"].includes(e.key)) { selZone = ZONES[+e.key-1]; renderCards(); }
+  else if (e.key === "/") { e.preventDefault(); $("#pick-q").focus(); }
+});
 $("#pick-q").addEventListener("keydown", e => {
   if (e.key !== "Enter") return; e.preventDefault();
   const v = $("#pick-q").value; if (!v.trim()) return;
@@ -2999,6 +3018,11 @@ function oppTagKeys(o){
   return [...new Set([...inList, ...QUICK_HATE[d.id]])].filter(k => d.hate.some(h=>h[0]===k));
 }
 const tagsOpen = [false,false,false];
+function quickOppNames(){
+  const used = S.opps.map(o=>o.name.trim()).filter(Boolean);
+  const top = CMDR_DB.slice().sort((a,b)=>(a.top||99)-(b.top||99)).slice(0,8).map(e=>e.n);
+  return [...new Set(recentOpps().concat(top))].filter(n=>!used.includes(n)).slice(0,10);
+}
 function renderOpps(){
   const wrap = $("#opps"); wrap.innerHTML = "";
   const seats = oppSeats(), d = D();
@@ -3014,6 +3038,7 @@ function renderOpps(){
         <div class="step" id="ols${i}" aria-label="Vida"></div>
         <button type="button" class="out" id="oa${i}">${o.alive?"Fuera":"Volvió"}</button>
       </div>
+      ${o.name.trim() ? "" : `<div class="otags qpick"><span class="ol">Rápido</span>${quickOppNames().map(n=>`<button type="button" class="tg" data-pick="${esc(n)}">${esc(n.split(",")[0])}</button>`).join("")}</div>`}
       <div class="ostopw" id="oi${i}"></div>
       <div class="otags"><span class="ol">Abierto</span>${[0,1,2,3].map(v=>`<button type="button" class="tg mo" data-open="${v}" aria-pressed="${o.open===v}">${v===3?"3+":v}</button>`).join("")}</div>
       <div class="otags"><span class="ol">En mesa</span>${keys.filter(k => tagsOpen[i] || o.tags.includes(k) || lst.includes(k) || QUICK_HATE[d.id].indexOf(k) > -1 && QUICK_HATE[d.id].indexOf(k) < 4).map(k=>`<button type="button" class="tg${lst.includes(k)?" inl":""}" data-tag="${esc(k)}" aria-pressed="${o.tags.includes(k)}" title="${lst.includes(k)?"Está en su lista":""}">${esc(hateLabel(d,k))}</button>`).join("")}<button type="button" class="tg more" data-more="${i}">${tagsOpen[i]?"Menos":"+ más"}</button></div>
@@ -3025,6 +3050,8 @@ function renderOpps(){
       </details>`;
     wrap.appendChild(el);
     stepper(el.querySelector(`#ols${i}`), () => o.life, v => { o.life = v; }, [-5,-1,1]);
+    el.querySelectorAll("[data-pick]").forEach(b => b.addEventListener("click", () => { o.name = b.dataset.pick; pushRecent(o.name); renderOpps(); renderSeatline(); fillWho(); update(); }));
+    el.querySelector(`#on${i}`).addEventListener("change", e => { pushRecent(e.target.value); if (e.target.value.trim()) renderOpps(); });
     el.querySelector(`#on${i}`).addEventListener("input", e => { o.name = e.target.value; renderOppInfo(i); renderSeatline(); fillWho(); update(); });
     el.querySelector(`#oa${i}`).addEventListener("click", () => { o.alive = !o.alive; renderOpps(); renderSeatline(); update(); });
     el.querySelector(".stag").addEventListener("click", ev => { setActive(+ev.currentTarget.dataset.act); });
@@ -3283,6 +3310,11 @@ function loadAll(){
   $("#mesa-eyebrow").textContent = D().short+" · asistente de partida";
   fillDatalist(); fillCmdrList(); renderCards(); renderOpps(); renderSeatline(); fillWho(); renderQlog(); renderLog(); update();
 }
+$("#btn-rematch").addEventListener("click", () => {
+  const keep = {deck:S.deck, seat:S.seat, flex:S.flex, side:S.side, listV:S.listV, opps:S.opps.map(o=>({name:o.name, list:o.list||"", text:"", life:40, alive:true, tags:[], open:null}))};
+  S = Object.assign(blank(), keep); S.active = 1; shots.fill(null); $("#ai-out").innerHTML=""; $("#ai-meta").textContent=""; convo=[]; loadAll();
+  $("#p-setup").open = false; $("#p-mull").open = true;
+});
 $("#btn-clear").addEventListener("click", () => { const deck=S.deck, seat=S.seat; S = blank(); S.deck=deck; S.seat=seat; S.active=1; shots.fill(null); $("#ai-out").innerHTML=""; $("#ai-meta").textContent=""; convo=[]; loadAll(); });
 $("#btn-example").addEventListener("click", () => {
   const d = D(); const ex = JSON.parse(JSON.stringify(d.example));
