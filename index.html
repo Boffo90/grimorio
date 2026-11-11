@@ -3655,7 +3655,11 @@ const CMDR_DB = [
    plan:"Toolbox de criaturas: Rocco las busca. Food Chain + Squee, Kiki-Jiki + Felidar Guardian, Birthing Pod, Karmic Guide. Protección con Grand Abolisher y Silence.",
    stop:"Remoción a Rocco y a Kiki-Jiki. Cursed Totem frena varios combos.",
    s:"Algo: Grand Abolisher, Silence, Esper Sentinel."},
-  {k:["aang"], n:"Aang, at the Crossroads", c:"WUG", t:"combo", top:37,
+  {k:["avatar aang","master of elements","aang, master","aang"], n:"Avatar Aang", c:"WUBRG", t:"combo", top:37,
+   plan:"Avatar Aang ({R}{G}{W}{U}, 4/4 volador) se transforma en Aang, Master of Elements cuando haces los cuatro bending en un turno, o al instante con Moonmist (transforma a todos los Humanos). Master of Elements: tus hechizos cuestan {W}{U}{B}{R}{G} menos. Con eso Underworld Breach + LED + Brain Freeze sale casi gratis; respaldo Thassa's Oracle + Demonic Consultation o Tainted Pact. En cada upkeep puede volver a transformarse: gana 4, roba 4 y hace 4 de daño a cada rival.",
+   stop:"Contrarresta Moonmist (instantáneo verde) o saca a Aang en respuesta. Rompe la Breach o vacía su cementerio. Contra Thassa, Stifle/Trickbind al trigger.",
+   s:"Algo: Grand Abolisher, Voice of Victory, Esper Sentinel, Opposition Agent, Orcish Bowmasters."},
+  {k:["crossroads","aang, at"], n:"Aang, at the Crossroads", c:"WUG", t:"combo", top:37,
    plan:"Al entrar pone una criatura de valor 4 o menos del tope: cadena de Clones hasta ganar.",
    stop:"Counter a Aang o Stifle a su trigger.", s:"No."},
   {k:["raph","mikey"], n:"Raph & Mikey, Troublemakers", c:"RG", t:"tempo", top:38,
@@ -3734,7 +3738,9 @@ const COLOR_THREAT = {
 function cmdrLookup(name){
   const t = norm(name||""); if (!t) return [];
   const seen = new Set();
-  return CMDR_DB.filter(e => (e.k.some(k => t.includes(k)) || t.includes(norm(e.n))) && !seen.has(e.n) && seen.add(e.n));
+  const exact = CMDR_DB.filter(e => t.includes(norm(e.n)));
+  let rest = t; exact.forEach(e => { rest = rest.split(norm(e.n)).join(" "); seen.add(e.n); });
+  return exact.concat(CMDR_DB.filter(e => !seen.has(e.n) && e.k.some(k => rest.includes(k)) && seen.add(e.n)));
 }
 const CMDRS = CMDR_DB.map(e => [e.k[0], e.n, e.t, e.plan]);
 
