@@ -552,6 +552,7 @@ body.is-dragging .zrow{border-style:dashed}
     <li><a href="#interaccion">Interacción</a></li>
     <li><a href="#hate">Hate y respuestas</a></li>
     <li><a href="#reglas">Reglas finas</a></li>
+    <li><a href="#trucos">Trucos y plan por etapas</a></li>
     <li><a href="#flex">Slot flex</a></li>
     <li><a href="#lista">Lista por función</a></li>
     <li><a href="#pod">Cartas según el pod</a></li>
@@ -1049,8 +1050,35 @@ body.is-dragging .zrow{border-style:dashed}
     <li><strong>Wishclaw Talisman</strong> pasa a un oponente después de usarlo. Solo si ganas ese turno.</li>
     <li><strong>Pact of Negation</strong>: si no puedes pagar en tu upkeep, pierdes. Solo en el turno ganador.</li>
     <li><strong>Morphic Pool y Sea of Clouds</strong> entran sin girar con dos o más oponentes. Starting Town entra sin girar en tus turnos 1–3.</li>
-    <li><strong>Mox Amber</strong> necesita una criatura o planeswalker legendario: Hashaton, Dack o Tezzeret.</li>
+    <li><strong>Mox Amber</strong> da maná solo de los colores de tus criaturas legendarias y planeswalkers: con Hashaton {W} o {B}, con Dack {W}. Tezzeret es incoloro y no le da nada.</li>
   </ul>
+
+  <h3 id="trucos">Trucos avanzados</h3>
+  <ul>
+    <li><strong>Con Hashaton + LED en mesa y Dack en mano ganas en respuesta a lo que sea.</strong> LED es habilidad de maná: no usa la pila. Si apuntan a Hashaton con remoción o un rival intenta ganar, activas LED en respuesta y el trigger ya existe aunque Hashaton muera.</li>
+    <li><strong>LED es todo o nada; The Underworld Cookbook conserva tu mano.</strong> Si esperas un Stifle al trigger de Hashaton, descarta con el Cookbook: Dack queda en el cementerio y todavía tienes Reanimate, Shallow Grave o Goryo's Vengeance en la mano.</li>
+    <li><strong>Split second propio = determinista.</strong> Angel's Grace en la pila y LED encima: nadie lanza hechizos ni activa habilidades (tampoco un comandante que busque hate, como Arcum Dagsson). Trickbind también sirve si hay alguna habilidad en la pila para apuntarle.</li>
+    <li><strong>Angel's Grace tiene un segundo uso:</strong> si te contrarrestaron a Thassa y tu biblioteca está vacía, lánzala en tu upkeep. Ese turno no pierdes al robar y tienes el turno entero para Reanimate, relanzar a Thassa o lo que tengas.</li>
+    <li><strong>Flicker of Fate hace tres cosas:</strong> repite el trigger de Thassa (vuelve bajo tu control aunque la tenga un rival); repite el trigger de Dack si te lo contrarrestaron y Dack es la carta (reanimado o lanzado), no el token; y salva a Hashaton de una remoción.</li>
+    <li><strong>Borne Upon a Wind</strong> ({1}{U}): ese turno lanzas todo con flash. Dack a mano en el end step rival, Reanimate como instantáneo, o Thassa en tu upkeep después de rebotarla.</li>
+    <li><strong>Tutores de LED y Cookbook:</strong> Tezzeret (−3), Urza's Saga (capítulo III) y Enlightened Tutor buscan los dos. Tolaria West (transmutar) busca LED, Lotus Petal, un mox o Pact of Negation.</li>
+    <li><strong>Hoarding Broodlord descartado con Hashaton</strong> ({2}{U}) es un tutor instantáneo que deja la carta jugable desde el exilio. Busca lo que te falte: LED si tienes a Dack en mano (se lanza gratis y descartas a Dack), Demonic Consultation si tienes a Thassa, o protección.</li>
+    <li><strong>Contra Opposition Agent no busques.</strong> Entomb, Intuition, Tezzeret, Urza's Saga y todos los tutores son búsquedas. Dack revela, no busca. Lim-Dûl's Vault y Brainstorm tampoco buscan.</li>
+    <li><strong>Vexing Bauble contrarresta lo que lanzas sin pagar maná:</strong> LED, Lotus Petal y los moxes incluidos, además de tus counters gratis. Si la ves venir, baja LED antes.</li>
+    <li><strong>Drannith Magistrate</strong> también impide lanzar la carta que Broodlord dejó en el exilio, no solo a Hashaton.</li>
+    <li><strong>Orcish Bowmasters</strong> castiga Brainstorm, Careful Study, Frantic Search, Rhystic Study y Mystic Remora. Necropotence no roba: pone cartas en tu mano, así que no lo dispara.</li>
+    <li><strong>Cavern of Souls:</strong> nombra Human para lanzar a Dack sin que lo contrarresten, o Merfolk si vas por Thassa a mano.</li>
+  </ul>
+
+  <h3>Plan por etapas</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Etapa</th><th>Qué buscas</th><th>Cómo</th></tr></thead>
+    <tbody>
+      <tr><td>Turnos 1–2</td><td>Ganar antes de que haya maná para Stifle o Trickbind</td><td>Hashaton + LED + Dack con dos manás de color, o Entomb + Reanimate o Goryo's Vengeance. En Seat 1 es cuando más vale.</td></tr>
+      <tr><td>Turnos 3–5</td><td>Armar la versión blindada</td><td>Motor (Mystic Remora, Rhystic Study, Necropotence), piezas de control según la mesa (Cursed Totem, Blind Obedience) y tutores hacia lo que falte: primero la pieza de combo, después Angel's Grace o Silence.</td></tr>
+      <tr><td>Partida larga</td><td>Ganar sin lanzar nada</td><td>Con Hashaton y Necropotence, llena la mano con Dack y descártalo en el cleanup dejando {2}{U} sin girar. O espera a que dos rivales se peleen la pila y gana en respuesta.</td></tr>
+    </tbody>
+  </table></div>
 </section>
 
 <section id="flex">
@@ -2211,15 +2239,15 @@ DECKS.hashaton = {
     ["grafdigger","Grafdigger's Cage: Dack no saca criaturas de la biblioteca y falla la reanimación."],
     ["rest in peace","Rest in Peace: sin reanimación. Usa Hashaton + descarte."],["leyline of the void","Leyline of the Void: sin reanimación."],
     ["tidebinder","Tishana's Tidebinder: puede contrarrestar el trigger de Dack o Hashaton."],["stifle","Stifle: contrarresta un trigger."],
-    ["drannith","Drannith Magistrate: no puedes lanzar Hashaton desde la zona de mando."],
+    ["drannith","Drannith Magistrate: no puedes lanzar Hashaton desde la zona de mando ni la carta que Hoarding Broodlord deja en el exilio."],
     ["rule of law","Rule of Law: un hechizo por turno."],["archon of emeria","Archon of Emeria: un hechizo por turno."],
     ["bojuka","Bojuka Bog: no dejes a Dack en el cementerio."],["soul-guide","Soul-Guide Lantern: no dejes a Dack en el cementerio."],
-    ["opposition agent","Opposition Agent: te roba los tutores (Dack revela, no busca)."],
+    ["opposition agent","Opposition Agent: te roba toda búsqueda (tutores, Entomb, Intuition, Tezzeret, Urza's Saga, Broodlord). Dack revela, no busca; Lim-Dûl's Vault y Brainstorm tampoco buscan."],
     ["containment priest","Containment Priest: exilia a Abolisher, Leveler y Thassa cuando Dack las pone (y frena Reanimate). Tiene flash."],
     ["strict proctor","Strict Proctor: pagas {2} por cada trigger de entrada (Dack, Leveler, Thassa) o se contrarresta."],
     ["grand abolisher","Grand Abolisher rival: en su turno no puedes lanzar hechizos ni activar habilidades. Sácalo antes de que intente ganar."],
     ["bowmasters","Orcish Bowmasters: cada robo extra (Brainstorm, Careful Study, Rhystic) te hace daño y le da ejército."],
-    ["vexing bauble","Vexing Bauble: contrarresta tus hechizos gratis (Force of Will, Pact of Negation, Fierce Guardianship). Mental Misstep o Annul la frenan."],
+    ["vexing bauble","Vexing Bauble: contrarresta lo que lanzas sin pagar maná: Force of Will, Pact of Negation, Fierce Guardianship y también LED, Lotus Petal y los moxes. LED tiene que estar ya en mesa."],
     ["teferi, time raveler","Teferi, Time Raveler: solo lanzas a velocidad de conjuro. Pierdes la ventana de split second en turno rival."],
     ["voice of victory","Voice of Victory: no puedes lanzar hechizos en el turno de su controlador."],
     ["trickbind","Trickbind: contrarresta el trigger de Thassa y no se le puede responder (split second). Silence antes, tu propio split second, o una salida lista."],
@@ -2248,6 +2276,8 @@ DECKS.hashaton = {
     const flags = [];
     flags.push(["bad", st.mine ? "Te contrarrestaron a Thassa y tu biblioteca está vacía: pierdes en tu próximo paso de robo. Pasó en tu turno, así que tienes el resto del turno y los turnos rivales." : "Te contrarrestaron a Thassa y tu biblioteca está vacía: pierdes en tu próximo paso de robo. Pasó en turno rival: en tu upkeep todavía no puedes lanzar criaturas, así que usa R1 o R3, que son instantáneas."]);
     flags.push(["info","Thassa es tuya aunque la controle un rival: rebotarla la manda a tu mano y matarla la manda a tu cementerio. Swords to Plowshares no sirve, la exilia. Ephemerate y Cloudshift tampoco: solo apuntan a criaturas que controlas. Flicker of Fate sí."]);
+    if (have("Angel's Grace")) flags.push(["okf","Angel's Grace en tu upkeep ({W}): ese turno no pierdes al robar de la biblioteca vacía. Te da el turno entero para Reanimate, relanzar a Thassa o lo que tengas."]);
+    if (have("Borne Upon a Wind")) flags.push(["okf","Borne Upon a Wind ({1}{U}): ese turno Reanimate y Thassa se lanzan como instantáneos, también en tu upkeep."]);
     if (!bounce && !have("Snuff Out")) flags.push(["bad","No tienes rebote ni Snuff Out a mano. Tus tutores no sirven: la biblioteca está vacía."]);
     return flags;
   },
@@ -2261,7 +2291,7 @@ SPLIT SECOND: Angel's Grace, Trickbind, Extirpate: lánzalo, mantén prioridad, 
 CASOS: Abolisher en campo antes de Dack lo protege. Thassa en mano → lanzarla tras Leveler. Leveler fuera → Pact/Consultation de respaldo. Thassa exiliada → no hay win con Dack. 2 oponentes: Dack puede saltarse una pieza. 1 oponente: no es combo.
 TUTORES: Demonic/Vampiric/Imperial/Grim/Wishclaw/Lim-Dûl/Scheming cualquiera; Mystical instantáneo/conjuro; Enlightened artefacto/encantamiento; Tezzeret -3 y Urza's Saga artefacto ≤1; Tolaria West valor 0. Intuition: Dack + Reanimate + Shallow Grave (o Goryo's Vengeance). Hoarding Broodlord (revelado por Dack o descartado con Hashaton): por defecto Flicker of Fate.
 PROTECCIÓN: FoW, FoN, Pact, Fierce Guardianship y Deadly Rollick gratis con comandante en campo, Mindbreak Trap, Misdirection, Commandeer, Snapback, Snuff Out, Daze, Silence, Orim's Chant.
-PRINCIPIOS: la línea Hashaton + LED + Dack no lanza hechizos: los counters no la tocan; solo la paran Trickbind/Stifle/Tidebinder, habilidades activadas en respuesta (Arcum buscando Cage o Torpor Orb) y el hate ya en mesa. Con un split second propio en la pila (Angel's Grace: lánzala, mantén prioridad, activa LED) nadie puede lanzar hechizos NI activar habilidades: es la versión determinista. Silence u Orim's Chant antes del combo frena Trickbind. Al resolver Dack, ordeno los triggers: Broodlord arriba (busca Flicker of Fate), Leveler, Thassa; con Opposition Agent en mesa, Broodlord al final. Si combo en el end step del rival anterior a mí y me contrarrestan a Thassa, robo de la biblioteca vacía en mi turno: necesito una salida instantánea en mi upkeep. En Seat 1 turnos 1–2 casi nadie tiene maná para Trickbind: Hashaton + LED + Dack con W y B gana salvo counter gratis a Hashaton. Si el trigger de Thassa se contrarresta con Thassa ya destruida igual habría ganado (0 devoción ≥ 0 cartas): lo que importa es el trigger.
+TRUCOS: con Hashaton + LED en mesa y Dack en mano se gana en respuesta a cualquier cosa (LED es habilidad de maná), incluso a remoción sobre Hashaton. LED descarta toda la mano; The Underworld Cookbook la conserva (mejor si se espera Stifle: quedan Reanimate/Shallow Grave/Goryo's Vengeance). Angel's Grace en el upkeep propio evita perder por robar con biblioteca vacía ese turno. Flicker of Fate repite el trigger de Thassa, repite el de Dack si Dack es la carta y no el token, y salva a Hashaton. Borne Upon a Wind da flash a todo ese turno. Vexing Bauble contrarresta LED/Petal/moxes lanzados por 0. Drannith impide lanzar la carta exiliada por Broodlord. Opposition Agent roba búsquedas (no afecta a Dack, Lim-Dûl's Vault ni Brainstorm). Bowmasters no se dispara con Necropotence. PLAN POR ETAPAS: T1-2 carrera (ganar antes de que haya maná para Stifle/Trickbind); T3-5 motor de cartas + Cursed Totem/Blind Obedience + armar combo con Angel's Grace o Silence; partida larga: Hashaton + Necropotence, descartar a Dack en el cleanup con {2}{U} abierto, o ganar en respuesta cuando dos rivales pelean la pila.\nla línea Hashaton + LED + Dack no lanza hechizos: los counters no la tocan; solo la paran Trickbind/Stifle/Tidebinder, habilidades activadas en respuesta (Arcum buscando Cage o Torpor Orb) y el hate ya en mesa. Con un split second propio en la pila (Angel's Grace: lánzala, mantén prioridad, activa LED) nadie puede lanzar hechizos NI activar habilidades: es la versión determinista. Silence u Orim's Chant antes del combo frena Trickbind. Al resolver Dack, ordeno los triggers: Broodlord arriba (busca Flicker of Fate), Leveler, Thassa; con Opposition Agent en mesa, Broodlord al final. Si combo en el end step del rival anterior a mí y me contrarrestan a Thassa, robo de la biblioteca vacía en mi turno: necesito una salida instantánea en mi upkeep. En Seat 1 turnos 1–2 casi nadie tiene maná para Trickbind: Hashaton + LED + Dack con W y B gana salvo counter gratis a Hashaton. Si el trigger de Thassa se contrarresta con Thassa ya destruida igual habría ganado (0 devoción ≥ 0 cartas): lo que importa es el trigger.
 LISTA ACTUAL (nov 2026): slot flex = Hoarding Broodlord (sin Grand Abolisher). Incluye Gleaming Splendor, Flicker of Fate (salida si contrarrestan el trigger de Thassa: 2 maná), Goryo's Vengeance, Frantic Search, Daze, Blind Obedience (artefactos y criaturas rivales entran girados: Treasures, Arcum), Cursed Totem (apaga habilidades activadas de criaturas: Arcum Dagsson), Tarnished Citadel. Banca: Black Market Connections, Damping Sphere, Extirpate, Gemstone Caverns, Grand Abolisher, Praetor's Grasp, Spell Snare, Superior Spider-Man, Teferi, Twincast, Yuriko.
 ABOLISHER: tú eliges qué criatura recibe cada rival. Abolisher solo protege en el turno de quien lo controla: si combas en el turno de un rival, dáselo al jugador activo y los otros dos no pueden responder; pero si después tienes que lanzar algo (Thassa desde la mano, Pact), no se lo des al activo. En tu propio turno no protege. Conviene combar en upkeep/end step rival con LED o Cookbook. Thassa en mano + LED: descarta Dack y Thassa juntas (dos triggers, {4}{U}{U}). Thassa en el cementerio: no lances Dack. I) Hard cast Leveler + Thassa, 7 maná.
 HATE: Hushbringer/Torpor Orb/Elesh Norn, Containment Priest, Strict Proctor, Grafdigger's Cage, RIP/Leyline, Stifle/Tidebinder, Drannith, Rule of Law, Opposition Agent.
@@ -2332,6 +2362,9 @@ Lista base: Taiga Watanabe, ganador del 16th God of Commander (Hareruya).`,
       if (/arcum/.test(oppTxt) && inZ("hand","Cursed Totem")) flags.push(["okf","Cursed Totem apaga a Arcum Dagsson (su habilidad es activada). A ti no te frena: lo de Hashaton es un trigger."]);
       if (/(tivit|aang|arcum)/.test(oppTxt) && inZ("hand","Blind Obedience")) flags.push(["okf","Blind Obedience: los Treasures de Tivit y Aang y los artefactos de Arcum entran girados."]);
       if (inZ("hand","Goryo's Vengeance") && inZ("grave","Dack Fayden, Helping Hand")) flags.push(["okf","Goryo's Vengeance ({1}{B}, instantáneo) devuelve a Dack: gana en el end step rival o en respuesta."]);
+      if (inZ("field","Dack Fayden, Helping Hand") && inZ("hand","Flicker of Fate")) flags.push(["okf","Dack (la carta) está en mesa: si te contrarrestaron su trigger, Flicker of Fate ({1}{W}) lo hace entrar de nuevo y lo repite."]);
+      if (hashF && (ledF||ledH) && dackH) flags.push(["okf","Hashaton + LED + Dack listos: puedes ganar en respuesta a lo que sea, también a una remoción sobre Hashaton. LED no usa la pila."]);
+      if (inZ("hand","Angel's Grace") && !(hashF && (ledF||ledH) && dackH)) flags.push(["info","Angel's Grace: guárdala para el turno del combo (lánzala, mantén prioridad y activa LED encima). También te salva un turno si quedas con la biblioteca vacía."]);
       if (fxH && (hashF || cmdr.zone)) flags.push(["okf","Broodlord en mano: descártala con Hashaton (Cookbook, LED, Careful Study) y paga {2}{U}: el token te busca cualquier carta a velocidad de instantáneo."]);
     } else if (fx==="Superior Spider-Man") {
       if (inZ("grave","Thassa's Oracle") && (fxH)) flags.push(["okf","Thassa en el cementerio + Spider-Man en mano: Leveler vacía tu biblioteca y Spider-Man entra como copia de Thassa y gana."]);
@@ -3277,6 +3310,10 @@ function goCheck(lines){
   const tef = tagged("teferi, time raveler").length > 0;
   if (abolTurn && usesLED) red.push(`Es el turno del Seat ${S.active} y tiene Grand Abolisher: no puedes activar LED ahora.`);
   const noSpells = voiceTurn || (tef && !mine);
+  const vb = tagged("vexing bauble");
+  if (vb.length && usesLED && !z.field.includes("Lion's Eye Diamond")) red.push(`Vexing Bauble (Seat ${vb.join(", ")}): te contrarresta LED al lanzarlo. Descarta con The Underworld Cookbook o saca la Bauble primero.`);
+  const dr = tagged("drannith");
+  if (dr.length && flexOf("hashaton")==="Hoarding Broodlord") yel.push(`Drannith Magistrate (Seat ${dr.join(", ")}): no podrás lanzar lo que Broodlord deje en el exilio. No cuentes con esa salida.`);
   if (act.length && !(canGrace && !noSpells)) red.push(`Arcum (Seat ${act.join(", ")}) puede activar: en respuesta a Dack busca Grafdigger's Cage o Torpor Orb. Mátalo, baja Cursed Totem o ve con Angel's Grace (split second).`);
   if (canGrace && !noSpells) grn.push("Tienes Angel's Grace y el maná: lánzala, mantén prioridad y activa LED encima. Nadie puede responder con hechizos ni habilidades.");
   else if (sil && mine) grn.push(`${sil} primero: si resuelve, nadie lanza Trickbind ni counters este turno.${act.length?"":" Arcum todavía podría activar si está listo."}`);
