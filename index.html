@@ -475,6 +475,68 @@ header.hero.has-art > .art.wide > span{background-position:center 28%}
 .catmeta .cx1{border-color:#3d8b57;color:#2c6b41}.catmeta .cx3{border-color:#b0563c;color:#93432c}
 .catmeta .hasp{border-color:var(--gold);color:var(--gold);background:var(--gold-soft)}
 #catalog{margin-top:18px}
+/* ===== Wiki ===== */
+.navh{display:none}
+.crumbs{font-size:13px;color:var(--muted);margin-bottom:14px}
+.crumbs a{color:var(--lapis);text-decoration:none}.crumbs a:hover{text-decoration:underline}
+.crumbs span{margin:0 2px;color:var(--muted)}.crumbs b{color:var(--ink);font-weight:600}
+.infobox{float:right;width:300px;margin:4px 0 22px 30px;border:1px solid var(--line);background:var(--paper);border-radius:8px;font-size:14px;overflow:hidden;clear:right}
+.infobox .ib-t{background:var(--lapis);color:#fff;font-family:var(--f-display);font-size:19px;text-align:center;padding:10px 12px;line-height:1.25}
+.infobox .ib-cards{justify-content:center;margin:14px 10px 8px;gap:6px}
+.infobox .ib-cards .cimg{width:calc(50% - 3px);max-width:150px}
+.infobox .ib-cards .cimg:only-child{width:170px;max-width:170px}
+.infobox dl{margin:0;display:grid;grid-template-columns:104px minmax(0,1fr)}
+.infobox dt,.infobox dd{margin:0;padding:7px 12px;border-top:1px solid var(--line);line-height:1.4}
+.infobox dt{font-weight:700;color:var(--muted);font-size:12.5px;background:var(--bg)}
+.infobox a{color:var(--lapis)}
+@media (max-width:900px){.infobox{float:none;width:auto;margin:0 0 20px}.infobox .ib-cards .cimg,.infobox .ib-cards .cimg:only-child{width:120px;max-width:120px}}
+.wrap.one{grid-template-columns:minmax(0,1fr);max-width:960px}
+main::after{content:"";display:block;clear:both}
+.seealso{clear:both}
+.seealso ul{padding-left:20px}.seealso li{margin:4px 0}.seealso a{color:var(--lapis);font-weight:600}.seealso span{color:var(--muted);font-size:14px}
+.cats{clear:both;margin-top:28px;border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:10px 14px;font-size:13.5px;display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center}
+.cats span{font-weight:700;color:var(--muted)}
+.cats a{color:var(--lapis);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:2px 10px;background:var(--bg)}
+.cats a:hover{border-color:var(--lapis)}
+.rev{font-size:12.5px;color:var(--muted);margin-top:10px}
+.stubn{clear:none}
+.toc-m{display:none;border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:10px 14px;margin:0 0 22px;font-size:14.5px}
+.toc-m summary{font-weight:700;cursor:pointer}
+.toc-m ol{margin:8px 0 2px;padding-left:22px}.toc-m li{margin:5px 0}.toc-m a{color:var(--lapis);text-decoration:none}
+@media (max-width:860px){.toc-m{display:block}}
+.gref{color:inherit;text-decoration:underline dotted var(--gold);text-underline-offset:3px;position:relative;cursor:help}
+@media (hover:hover){.gref:hover::after,.gref:focus-visible::after{content:attr(data-def);position:absolute;left:0;top:calc(100% + 6px);z-index:40;width:270px;max-width:70vw;background:var(--ink);color:var(--bg);font:400 13px/1.45 var(--f-body);padding:8px 10px;border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,.3);white-space:normal;text-transform:none;letter-spacing:0}}
+#view-glosario tr:target td{background:var(--gold-soft)}
+/* Portada */
+.welcome{display:flex;gap:24px;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;border:1px solid var(--line);background:var(--paper);border-radius:12px;padding:26px 28px}
+.welcome h1{margin:4px 0 8px}.welcome .lede{margin:0;max-width:60ch}
+.wstats{margin:14px 0 0;font-size:14px;color:var(--muted)}.wstats b{color:var(--ink)}
+.wacts{display:flex;flex-direction:column;gap:8px;min-width:220px}
+.wacts .btn{text-align:center;justify-content:center}
+.portal{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:18px}
+@media (max-width:820px){.portal{grid-template-columns:minmax(0,1fr)}.wacts{flex:1 1 100%}}
+.pbox{border:1px solid var(--line);background:var(--paper);border-radius:10px;padding:18px 20px;min-width:0}
+.pbox h2{font-family:var(--f-display);font-weight:400;font-size:22px;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.pbox h3{font-family:var(--f-display);font-weight:400;font-size:24px;margin:12px 0 2px}.pbox h3 a{color:var(--ink);text-decoration:none}
+.pbox p{font-size:14.5px;margin:6px 0}.pbox .fmeta{color:var(--muted);font-size:13px}
+.pbox ul{margin:0;padding-left:18px;font-size:14.5px}.pbox li{margin:8px 0}.pbox li a{color:var(--lapis);white-space:nowrap}
+.featart .art{height:170px;border-radius:8px}
+kbd{font:600 12px var(--f-mono,monospace);border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:1px 6px;background:var(--bg)}
+/* Barra lateral tipo wiki en pantallas anchas */
+@media (min-width:1180px){
+  body{padding-left:236px!important}
+  .topbar{position:fixed;top:0;left:0;bottom:0;width:236px;margin:0;padding:22px 14px 18px;border-bottom:0;border-right:1px solid var(--line);overflow-y:auto;z-index:20}
+  .topbar .in{flex-direction:column;align-items:stretch;flex-wrap:nowrap;gap:16px;max-width:none}
+  .brand{font-size:24px;white-space:normal;padding:0 8px}.brand small{display:block;margin:2px 0 0}
+  .search{order:1;flex:none}.tabs{order:2;flex-direction:column;overflow:visible;gap:1px}
+  .tabs a{padding:7px 10px!important;font-size:14.5px}
+  .navh{display:block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:14px 10px 4px}
+  .navh:first-child{padding-top:2px}
+  .results{right:auto;width:min(460px,calc(100vw - 260px))}
+  .turnbar{left:236px}
+  .view{padding-left:28px;padding-right:28px}
+}
+main .thesis,main .line,main .note,main .warn,main .tip,main .hand,main .piece{display:flow-root}
 
 
 /* ---- Mulligan ---- */
@@ -556,14 +618,18 @@ header.hero.has-art > .art.wide > span{background-position:center 28%}
   <div class="in">
     <a class="brand" href="#inicio">Grimorio<span>.</span> <small>Wiki cEDH</small></a>
     <nav class="tabs" aria-label="Secciones">
-      <a href="#inicio" data-tab="inicio">Inicio</a>
+      <span class="navh">Navegación</span>
+      <a href="#inicio" data-tab="inicio">Portada</a>
       <a href="#elegir" data-tab="elegir">Elegir mazo</a>
+      <a href="#inicio" id="nav-random" data-tab="_r">Artículo aleatorio</a>
+      <span class="navh">Contenido</span>
       <a href="#mazos" data-tab="mazos">Mazos</a>
       <a href="#meta" data-tab="meta">Meta</a>
       <a href="#combos" data-tab="combos">Combos</a>
       <a href="#politica" data-tab="politica">Política</a>
       <a href="#glosario" data-tab="glosario">Glosario</a>
       <a href="#reglas" data-tab="reglas">Reglas</a>
+      <span class="navh">Herramientas</span>
       <a href="#mulligan" data-tab="mulligan">Mulligan</a>
       <a href="#mesa" data-tab="mesa" class="owner-only" hidden>Mesa</a>
     </nav>
@@ -577,9 +643,24 @@ header.hero.has-art > .art.wide > span{background-position:center 28%}
 
 <div class="view" id="view-inicio">
   <div class="home">
-    <div class="eyebrow">cEDH en español</div>
-    <h1>Grimorio <span class="amp">·</span> Wiki cEDH</h1>
-    <p class="lede">Commander competitivo explicado en español: qué se juega, cómo se gana, cómo se frena y cómo se conversa una mesa de cuatro. Busca cualquier carta o regla desde la barra de arriba (tecla /).</p>
+    <div class="welcome">
+      <div>
+        <div class="eyebrow">cEDH en español</div>
+        <h1>Bienvenido a Grimorio</h1>
+        <p class="lede">La wiki de Commander competitivo en español: qué se juega, cómo se gana, cómo se frena y cómo se conversa una mesa de cuatro.</p>
+        <p class="wstats" id="wstats"></p>
+      </div>
+      <div class="wacts"><a class="btn primary" href="#elegir">Soy nuevo: elige mi mazo</a><a class="btn" href="#mazos">Ver los mazos</a><button type="button" class="btn" id="home-random">Artículo aleatorio</button></div>
+    </div>
+    <div class="portal">
+      <section class="pbox" id="featured" aria-label="Artículo destacado"></section>
+      <section class="pbox" aria-label="¿Sabías que…?">
+        <h2>¿Sabías que…?</h2>
+        <ul id="dyk"></ul>
+        <p><button type="button" class="btn" id="dyk-more">Otros datos</button></p>
+      </section>
+    </div>
+    <h2 class="grp">Explora la wiki</h2>
     <div class="decks">
       <a class="deck sec has-art feat" href="#elegir"><div class="art" data-art="Demonic Tutor" role="img" aria-label="Ilustración de Demonic Tutor"></div><div class="cmd">¿Eres nuevo?</div><h3>Elige tu mazo</h3><p>Responde seis preguntas sobre cómo te gusta jugar y te recomiendo tres mazos para empezar.</p></a>
       <a class="deck sec has-art" href="#meta"><div class="art" data-art="Rhystic Study" role="img" aria-label="Ilustración de Rhystic Study"></div><div class="cmd">Estado del formato</div><h3>Meta</h3><p>Arquetipos, los 20 mazos más jugados con sus números, staples y cambios en la lista de prohibidas.</p></a>
@@ -590,9 +671,31 @@ header.hero.has-art > .art.wide > span{background-position:center 28%}
       <a class="deck sec has-art" href="#reglas"><div class="art" data-art="Stifle" role="img" aria-label="Ilustración de Stifle"></div><div class="cmd">Reglas</div><h3>Reglas e interacciones</h3><p>La pila, habilidades de maná, qué detiene qué, piezas de stax y preguntas frecuentes.</p></a>
       <a class="deck sec has-art" href="#mulligan"><div class="art" data-art="Serum Powder" role="img" aria-label="Ilustración de Serum Powder"></div><div class="cmd">Práctica</div><h3>Entrenador de mulligan</h3><p>Roba manos de los mazos de la wiki, decide si te quedas y compara con el análisis.</p></a>
     </div>
+    <div class="portal">
+      <section class="pbox" aria-label="Novedades">
+        <h2>Novedades</h2>
+        <ul class="news">
+          <li><b>12 nov 2026</b> · Catálogo de 54 mazos con filtros, del top del meta a los fringe.</li>
+          <li><b>12 nov 2026</b> · Primers nuevos: Kinnan, Rograkh + Thrasios, Sisay, Thrasios + Tymna, Magda, Tivit, Vivi, Ral, Etali, Dargo + Tymna y Winota.</li>
+          <li><b>12 nov 2026</b> · Cuestionario «Elige tu mazo» para quienes empiezan.</li>
+          <li><b>12 nov 2026</b> · Secciones de Meta, Combos, Política, Glosario y Reglas.</li>
+        </ul>
+      </section>
+      <section class="pbox" aria-label="Cómo usar la wiki">
+        <h2>Cómo usar la wiki</h2>
+        <ul class="news">
+          <li>Busca cualquier carta, regla o mazo con la tecla <kbd>/</kbd>.</li>
+          <li>Los nombres de cartas muestran la carta al pasar el mouse o al tocarlos.</li>
+          <li>Los términos con subrayado punteado enlazan al <a href="#glosario">glosario</a>.</li>
+          <li>Cada mazo tiene su artículo, con ficha, categorías y mazos parecidos.</li>
+        </ul>
+      </section>
+    </div>
     <p class="howto">Sitio hecho por jugadores para la comunidad hispanohablante. Los datos del meta se actualizan con cada versión; revisa la fecha en cada página. Contenido no oficial de fans, permitido bajo la Política de Contenido de Fans de Wizards of the Coast. No está aprobado ni respaldado por Wizards. Los nombres e imágenes de cartas son propiedad de Wizards of the Coast LLC; las imágenes se cargan desde Scryfall, con crédito a cada ilustrador.</p>
   </div>
 </div>
+
+<div class="view" id="view-mazo" hidden><div id="stub"></div></div>
 
 <div class="view" id="view-mazos" hidden>
   <div class="home">
@@ -651,7 +754,7 @@ header.hero.has-art > .art.wide > span{background-position:center 28%}
 </section>
 <section id="meta-top">
   <h2><span class="n">03</span>Los mazos más jugados</h2>
-<p>Datos de torneos de los <strong>últimos 6 meses</strong> (consultado el 12 de noviembre de 2026; fuente: MythicHub con datos de TopDeck.gg). «Conversión» es el porcentaje de veces que el mazo pasa al corte.</p><div class="tbl wtbl"><table><thead><tr><th>#</th><th>Comandante</th><th>Colores</th><th>Presencia</th><th>Conversión</th><th>Cómo juega</th></tr></thead><tbody><tr><td data-label="#">1</td><td data-label="Comandante"><strong>Kraum, Ludevic's Opus + Tymna the Weaver</strong><div class="thumbs sm"><img class="cimg" alt="" title="Kraum, Ludevic&#x27;s Opus" data-card="Kraum, Ludevic&#x27;s Opus" width="146" height="204"><img class="cimg" alt="" title="Tymna the Weaver" data-card="Tymna the Weaver" width="146" height="204"></div></td><td data-label="Colores">WUBR</td><td data-label="Presencia">7,38%</td><td data-label="Conversión">27,5%</td><td data-label="Cómo juega"><strong>Midrange («Blue Farm»).</strong> Comandantes que roban. Thassa's Oracle, Underworld Breach o Ad Nauseam detrás de Silence y counters gratis. <a href="#kraum">Primer</a>.</td></tr><tr><td data-label="#">2</td><td data-label="Comandante"><strong>Kinnan, Bonder Prodigy</strong><div class="thumbs sm"><img class="cimg" alt="" title="Kinnan, Bonder Prodigy" data-card="Kinnan, Bonder Prodigy" width="146" height="204"></div></td><td data-label="Colores">UG</td><td data-label="Presencia">7,09%</td><td data-label="Conversión">26,7%</td><td data-label="Cómo juega"><strong>Midrange de maná grande.</strong> Kinnan duplica el maná de dorks y piedras. Basalt Monolith le da maná infinito y su habilidad lo convierte en criaturas. <a href="#kinnan">Primer</a>.</td></tr><tr><td data-label="#">3</td><td data-label="Comandante"><strong>Rograkh, Son of Rohgahh + Thrasios, Triton Hero</strong><div class="thumbs sm"><img class="cimg" alt="" title="Rograkh, Son of Rohgahh" data-card="Rograkh, Son of Rohgahh" width="146" height="204"><img class="cimg" alt="" title="Thrasios, Triton Hero" data-card="Thrasios, Triton Hero" width="146" height="204"></div></td><td data-label="Colores">URG</td><td data-label="Presencia">5,18%</td><td data-label="Conversión">27,4%</td><td data-label="Cómo juega"><strong>Turbo / midrange.</strong> Rograkh gratis habilita Mox Amber, Springleaf Drum y Culling the Weak. Underworld Breach y maná infinito con Thrasios de salida. <a href="#rogthras">Primer</a>.</td></tr><tr><td data-label="#">4</td><td data-label="Comandante"><strong>Rograkh, Son of Rohgahh + Silas Renn, Seeker Adept</strong><div class="thumbs sm"><img class="cimg" alt="" title="Rograkh, Son of Rohgahh" data-card="Rograkh, Son of Rohgahh" width="146" height="204"><img class="cimg" alt="" title="Silas Renn, Seeker Adept" data-card="Silas Renn, Seeker Adept" width="146" height="204"></div></td><td data-label="Colores">UBR</td><td data-label="Presencia">4,71%</td><td data-label="Conversión">23,9%</td><td data-label="Cómo juega"><strong>Turbo.</strong> Grixis rápido: Breach + Lion's Eye Diamond + Brain Freeze, Thassa's Oracle o Ad Nauseam. <a href="#rograkh">Primer</a>.</td></tr><tr><td data-label="#">5</td><td data-label="Comandante"><strong>Sisay, Weatherlight Captain</strong><div class="thumbs sm"><img class="cimg" alt="" title="Sisay, Weatherlight Captain" data-card="Sisay, Weatherlight Captain" width="146" height="204"></div></td><td data-label="Colores">WUBRG</td><td data-label="Presencia">4,22%</td><td data-label="Conversión">27,4%</td><td data-label="Cómo juega"><strong>Caja de herramientas.</strong> Sisay busca permanentes legendarios a velocidad de instantáneo: piezas de stax, respuestas y el combo. <a href="#sisay">Primer</a>.</td></tr><tr><td data-label="#">6</td><td data-label="Comandante"><strong>Thrasios, Triton Hero + Tymna the Weaver</strong><div class="thumbs sm"><img class="cimg" alt="" title="Thrasios, Triton Hero" data-card="Thrasios, Triton Hero" width="146" height="204"><img class="cimg" alt="" title="Tymna the Weaver" data-card="Tymna the Weaver" width="146" height="204"></div></td><td data-label="Colores">WUBG</td><td data-label="Presencia">2,97%</td><td data-label="Conversión">27,1%</td><td data-label="Cómo juega"><strong>Midrange.</strong> El midrange clásico de cuatro colores: valor, interacción y Thrasios como salida de maná infinito. <a href="#tnt">Primer</a>.</td></tr><tr><td data-label="#">7</td><td data-label="Comandante"><strong>Ral, Monsoon Mage</strong><div class="thumbs sm"><img class="cimg" alt="" title="Ral, Monsoon Mage" data-card="Ral, Monsoon Mage" width="146" height="204"></div></td><td data-label="Colores">UR</td><td data-label="Presencia">2,19%</td><td data-label="Conversión">24,9%</td><td data-label="Cómo juega"><strong>Storm.</strong> Abarata instantáneos y conjuros; se transforma en planeswalker y encadena hechizos. <a href="#ral">Primer</a>.</td></tr><tr><td data-label="#">8</td><td data-label="Comandante"><strong>Vivi Ornitier</strong><div class="thumbs sm"><img class="cimg" alt="" title="Vivi Ornitier" data-card="Vivi Ornitier" width="146" height="204"></div></td><td data-label="Colores">UR</td><td data-label="Presencia">2,19%</td><td data-label="Conversión">23,1%</td><td data-label="Cómo juega"><strong>Storm / combo.</strong> Genera maná según su fuerza y castiga cada hechizo no criatura. Con Curiosity roba en cadena. <a href="#vivi">Primer</a>.</td></tr><tr><td data-label="#">9</td><td data-label="Comandante"><strong>Dargo, the Shipwrecker + Tymna the Weaver</strong><div class="thumbs sm"><img class="cimg" alt="" title="Dargo, the Shipwrecker" data-card="Dargo, the Shipwrecker" width="146" height="204"><img class="cimg" alt="" title="Tymna the Weaver" data-card="Tymna the Weaver" width="146" height="204"></div></td><td data-label="Colores">WBR</td><td data-label="Presencia">2,04%</td><td data-label="Conversión">22,6%</td><td data-label="Cómo juega"><strong>Midrange con sacrificio.</strong> Dargo se abarata con cada sacrificio; con un altar hace loops. Tymna aporta robo. <a href="#dargo">Primer</a>.</td></tr><tr><td data-label="#">10</td><td data-label="Comandante"><strong>Magda, Brazen Outlaw</strong><div class="thumbs sm"><img class="cimg" alt="" title="Magda, Brazen Outlaw" data-card="Magda, Brazen Outlaw" width="146" height="204"></div></td><td data-label="Colores">R</td><td data-label="Presencia">1,99%</td><td data-label="Conversión">30,6%</td><td data-label="Cómo juega"><strong>Mono rojo de tesoros.</strong> Los enanos hacen tesoros al girarse; cinco tesoros buscan un artefacto o Dragón directo al campo. <a href="#magda">Primer</a>.</td></tr><tr><td data-label="#">11</td><td data-label="Comandante"><strong>Ishai, Ojutai Dragonspeaker + Rograkh</strong><div class="thumbs sm"><img class="cimg" alt="" title="Ishai, Ojutai Dragonspeaker" data-card="Ishai, Ojutai Dragonspeaker" width="146" height="204"><img class="cimg" alt="" title="Rograkh" data-card="Rograkh" width="146" height="204"></div></td><td data-label="Colores">WUR</td><td data-label="Presencia">1,87%</td><td data-label="Conversión">23,0%</td><td data-label="Cómo juega"><strong>Midrange Jeskai.</strong> Rograkh para el maná rápido, Ishai crece con cada hechizo rival. Underworld Breach con protección blanca.</td></tr><tr><td data-label="#">12</td><td data-label="Comandante"><strong>Etali, Primal Conqueror</strong><div class="thumbs sm"><img class="cimg" alt="" title="Etali, Primal Conqueror" data-card="Etali, Primal Conqueror" width="146" height="204"></div></td><td data-label="Colores">RG</td><td data-label="Presencia">1,86%</td><td data-label="Conversión">17,4%</td><td data-label="Cómo juega"><strong>Turbo de maná.</strong> Rituales y dorks para lanzar a Etali lo antes posible y transformarlo. <a href="#etali">Primer</a>.</td></tr><tr><td data-label="#">13</td><td data-label="Comandante"><strong>Thrasios, Triton Hero + Yoshimaru, Ever Faithful</strong><div class="thumbs sm"><img class="cimg" alt="" title="Thrasios, Triton Hero" data-card="Thrasios, Triton Hero" width="146" height="204"><img class="cimg" alt="" title="Yoshimaru, Ever Faithful" data-card="Yoshimaru, Ever Faithful" width="146" height="204"></div></td><td data-label="Colores">WUG</td><td data-label="Presencia">1,57%</td><td data-label="Conversión">23,4%</td><td data-label="Cómo juega"><strong>Midrange Bant.</strong> Yoshimaru crece con cada legendario; Thrasios es la salida de maná.</td></tr><tr><td data-label="#">14</td><td data-label="Comandante"><strong>Crystal, Inhuman Princess</strong><div class="thumbs sm"><img class="cimg" alt="" title="Crystal, Inhuman Princess" data-card="Crystal, Inhuman Princess" width="146" height="204"></div></td><td data-label="Colores">WURG</td><td data-label="Presencia">1,52%</td><td data-label="Conversión">26,8%</td><td data-label="Cómo juega"><strong>Storm de Curiosity.</strong> Cada hechizo no criatura le pega a cada rival. Sewer-veillance Cam + Retraction Helix o Breach. <a href="#crystal">Primer</a>.</td></tr><tr><td data-label="#">15</td><td data-label="Comandante"><strong>Tayam, Luminous Enigma</strong><div class="thumbs sm"><img class="cimg" alt="" title="Tayam, Luminous Enigma" data-card="Tayam, Luminous Enigma" width="146" height="204"></div></td><td data-label="Colores">WBG</td><td data-label="Presencia">1,50%</td><td data-label="Conversión">23,4%</td><td data-label="Cómo juega"><strong>Loops de cementerio.</strong> Recursión con contadores: loops deterministas con piezas baratas.</td></tr><tr><td data-label="#">16</td><td data-label="Comandante"><strong>Ob Nixilis, Captive Kingpin</strong><div class="thumbs sm"><img class="cimg" alt="" title="Ob Nixilis, Captive Kingpin" data-card="Ob Nixilis, Captive Kingpin" width="146" height="204"></div></td><td data-label="Colores">BR</td><td data-label="Presencia">1,36%</td><td data-label="Conversión">18,6%</td><td data-label="Cómo juega"><strong>Combo de daño.</strong> Crece y exilia cartas cada vez que un rival pierde exactamente 1 vida.</td></tr><tr><td data-label="#">17</td><td data-label="Comandante"><strong>Nick Fury, Agent of S.H.I.E.L.D.</strong><div class="thumbs sm"><img class="cimg" alt="" title="Nick Fury, Agent of S.H.I.E.L.D." data-card="Nick Fury, Agent of S.H.I.E.L.D." width="146" height="204"></div></td><td data-label="Colores">WUBRG</td><td data-label="Presencia">1,34%</td><td data-label="Conversión">28,9%</td><td data-label="Cómo juega"><strong>Turbo de cinco colores.</strong> Comandante de 1 maná. Thassa's Oracle, Breach o Ad Nauseam detrás de Silence. <a href="#nick">Primer</a>.</td></tr><tr><td data-label="#">18</td><td data-label="Comandante"><strong>Tivit, Seller of Secrets</strong><div class="thumbs sm"><img class="cimg" alt="" title="Tivit, Seller of Secrets" data-card="Tivit, Seller of Secrets" width="146" height="204"></div></td><td data-label="Colores">WUB</td><td data-label="Presencia">1,15%</td><td data-label="Conversión">25,5%</td><td data-label="Cómo juega"><strong>Control.</strong> Control Esper. Tivit + Time Sieve da turnos infinitos. <a href="#tivit">Primer</a>.</td></tr><tr><td data-label="#">19</td><td data-label="Comandante"><strong>Kefka, Court Mage</strong><div class="thumbs sm"><img class="cimg" alt="" title="Kefka, Court Mage" data-card="Kefka, Court Mage" width="146" height="204"></div></td><td data-label="Colores">UBR</td><td data-label="Presencia">1,14%</td><td data-label="Conversión">22,0%</td><td data-label="Cómo juega"><strong>Midrange Grixis.</strong> Descarte y ventaja de cartas en Grixis.</td></tr><tr><td data-label="#">20</td><td data-label="Comandante"><strong>Winota, Joiner of Forces</strong><div class="thumbs sm"><img class="cimg" alt="" title="Winota, Joiner of Forces" data-card="Winota, Joiner of Forces" width="146" height="204"></div></td><td data-label="Colores">WR</td><td data-label="Presencia">1,07%</td><td data-label="Conversión">19,2%</td><td data-label="Cómo juega"><strong>Stax agresivo.</strong> Piezas de stax no Humano que atacan y disparan a Winota para sacar Humanos del mazo. <a href="#winota">Primer</a>.</td></tr></tbody></table></div><h3>Fuera del top 20 con buena conversión</h3><p>Muestras más chicas, así que tómalo como señal y no como ranking:</p><div class="tbl wtbl"><table><thead><tr><th>Comandante</th><th>Presencia</th><th>Conversión</th></tr></thead><tbody><tr><td data-label="Comandante">Dihada, Binder of Wills</td><td data-label="Presencia">0,40%</td><td data-label="Conversión">39,4%</td></tr><tr><td data-label="Comandante">Scion of the Ur-Dragon</td><td data-label="Presencia">0,68%</td><td data-label="Conversión">32,3%</td></tr><tr><td data-label="Comandante">Malcolm, Keen-Eyed Navigator + Tana, the Bloodsower</td><td data-label="Presencia">0,41%</td><td data-label="Conversión">30,9%</td></tr><tr><td data-label="Comandante">Derevi, Empyrial Tactician</td><td data-label="Presencia">0,43%</td><td data-label="Conversión">30,5%</td></tr><tr><td data-label="Comandante">Arcum Dagsson</td><td data-label="Presencia">0,76%</td><td data-label="Conversión">30,2%</td></tr><tr><td data-label="Comandante">Zirda, the Dawnwaker</td><td data-label="Presencia">0,64%</td><td data-label="Conversión">29,8%</td></tr><tr><td data-label="Comandante">Rocco, Cabaretti Caterer (<a href="#rocco">primer</a>)</td><td data-label="Presencia">0,63%</td><td data-label="Conversión">26,9%</td></tr><tr><td data-label="Comandante">Hashaton, Scarab's Fist (<a href="#hashaton">primer</a>)</td><td data-label="Presencia">0,42%</td><td data-label="Conversión">15,3%</td></tr></tbody></table></div>
+<p>Datos de torneos de los <strong>últimos 6 meses</strong> (consultado el 12 de noviembre de 2026; fuente: MythicHub con datos de TopDeck.gg). «Conversión» es el porcentaje de veces que el mazo pasa al corte.</p><div class="tbl wtbl"><table><thead><tr><th>#</th><th>Comandante</th><th>Colores</th><th>Presencia</th><th>Conversión</th><th>Cómo juega</th></tr></thead><tbody><tr><td data-label="#">1</td><td data-label="Comandante"><strong>Kraum, Ludevic's Opus + Tymna the Weaver</strong><div class="thumbs sm"><img class="cimg" alt="" title="Kraum, Ludevic&#x27;s Opus" data-card="Kraum, Ludevic&#x27;s Opus" width="146" height="204"><img class="cimg" alt="" title="Tymna the Weaver" data-card="Tymna the Weaver" width="146" height="204"></div></td><td data-label="Colores">WUBR</td><td data-label="Presencia">7,38%</td><td data-label="Conversión">27,5%</td><td data-label="Cómo juega"><strong>Midrange («Blue Farm»).</strong> Comandantes que roban. Thassa's Oracle, Underworld Breach o Ad Nauseam detrás de Silence y counters gratis. <a href="#kraum">Primer</a>.</td></tr><tr><td data-label="#">2</td><td data-label="Comandante"><strong>Kinnan, Bonder Prodigy</strong><div class="thumbs sm"><img class="cimg" alt="" title="Kinnan, Bonder Prodigy" data-card="Kinnan, Bonder Prodigy" width="146" height="204"></div></td><td data-label="Colores">UG</td><td data-label="Presencia">7,09%</td><td data-label="Conversión">26,7%</td><td data-label="Cómo juega"><strong>Midrange de maná grande.</strong> Kinnan duplica el maná de dorks y piedras. Basalt Monolith le da maná infinito y su habilidad lo convierte en criaturas. <a href="#kinnan">Primer</a>.</td></tr><tr><td data-label="#">3</td><td data-label="Comandante"><strong>Rograkh, Son of Rohgahh + Thrasios, Triton Hero</strong><div class="thumbs sm"><img class="cimg" alt="" title="Rograkh, Son of Rohgahh" data-card="Rograkh, Son of Rohgahh" width="146" height="204"><img class="cimg" alt="" title="Thrasios, Triton Hero" data-card="Thrasios, Triton Hero" width="146" height="204"></div></td><td data-label="Colores">URG</td><td data-label="Presencia">5,18%</td><td data-label="Conversión">27,4%</td><td data-label="Cómo juega"><strong>Turbo / midrange.</strong> Rograkh gratis habilita Mox Amber, Springleaf Drum y Culling the Weak. Underworld Breach y maná infinito con Thrasios de salida. <a href="#rogthras">Primer</a>.</td></tr><tr><td data-label="#">4</td><td data-label="Comandante"><strong>Rograkh, Son of Rohgahh + Silas Renn, Seeker Adept</strong><div class="thumbs sm"><img class="cimg" alt="" title="Rograkh, Son of Rohgahh" data-card="Rograkh, Son of Rohgahh" width="146" height="204"><img class="cimg" alt="" title="Silas Renn, Seeker Adept" data-card="Silas Renn, Seeker Adept" width="146" height="204"></div></td><td data-label="Colores">UBR</td><td data-label="Presencia">4,71%</td><td data-label="Conversión">23,9%</td><td data-label="Cómo juega"><strong>Turbo.</strong> Grixis rápido: Breach + Lion's Eye Diamond + Brain Freeze, Thassa's Oracle o Ad Nauseam. <a href="#rograkh">Primer</a>.</td></tr><tr><td data-label="#">5</td><td data-label="Comandante"><strong>Sisay, Weatherlight Captain</strong><div class="thumbs sm"><img class="cimg" alt="" title="Sisay, Weatherlight Captain" data-card="Sisay, Weatherlight Captain" width="146" height="204"></div></td><td data-label="Colores">WUBRG</td><td data-label="Presencia">4,22%</td><td data-label="Conversión">27,4%</td><td data-label="Cómo juega"><strong>Caja de herramientas.</strong> Sisay busca permanentes legendarios a velocidad de instantáneo: piezas de stax, respuestas y el combo. <a href="#sisay">Primer</a>.</td></tr><tr><td data-label="#">6</td><td data-label="Comandante"><strong>Thrasios, Triton Hero + Tymna the Weaver</strong><div class="thumbs sm"><img class="cimg" alt="" title="Thrasios, Triton Hero" data-card="Thrasios, Triton Hero" width="146" height="204"><img class="cimg" alt="" title="Tymna the Weaver" data-card="Tymna the Weaver" width="146" height="204"></div></td><td data-label="Colores">WUBG</td><td data-label="Presencia">2,97%</td><td data-label="Conversión">27,1%</td><td data-label="Cómo juega"><strong>Midrange.</strong> El midrange clásico de cuatro colores: valor, interacción y Thrasios como salida de maná infinito. <a href="#tnt">Primer</a>.</td></tr><tr><td data-label="#">7</td><td data-label="Comandante"><strong>Ral, Monsoon Mage</strong><div class="thumbs sm"><img class="cimg" alt="" title="Ral, Monsoon Mage" data-card="Ral, Monsoon Mage" width="146" height="204"></div></td><td data-label="Colores">UR</td><td data-label="Presencia">2,19%</td><td data-label="Conversión">24,9%</td><td data-label="Cómo juega"><strong>Storm.</strong> Abarata instantáneos y conjuros; se transforma en planeswalker y encadena hechizos. <a href="#ral">Primer</a>.</td></tr><tr><td data-label="#">8</td><td data-label="Comandante"><strong>Vivi Ornitier</strong><div class="thumbs sm"><img class="cimg" alt="" title="Vivi Ornitier" data-card="Vivi Ornitier" width="146" height="204"></div></td><td data-label="Colores">UR</td><td data-label="Presencia">2,19%</td><td data-label="Conversión">23,1%</td><td data-label="Cómo juega"><strong>Storm / combo.</strong> Genera maná según su fuerza y castiga cada hechizo no criatura. Con Curiosity roba en cadena. <a href="#vivi">Primer</a>.</td></tr><tr><td data-label="#">9</td><td data-label="Comandante"><strong>Dargo, the Shipwrecker + Tymna the Weaver</strong><div class="thumbs sm"><img class="cimg" alt="" title="Dargo, the Shipwrecker" data-card="Dargo, the Shipwrecker" width="146" height="204"><img class="cimg" alt="" title="Tymna the Weaver" data-card="Tymna the Weaver" width="146" height="204"></div></td><td data-label="Colores">WBR</td><td data-label="Presencia">2,04%</td><td data-label="Conversión">22,6%</td><td data-label="Cómo juega"><strong>Midrange con sacrificio.</strong> Dargo se abarata con cada sacrificio; con un altar hace loops. Tymna aporta robo. <a href="#dargo">Primer</a>.</td></tr><tr><td data-label="#">10</td><td data-label="Comandante"><strong>Magda, Brazen Outlaw</strong><div class="thumbs sm"><img class="cimg" alt="" title="Magda, Brazen Outlaw" data-card="Magda, Brazen Outlaw" width="146" height="204"></div></td><td data-label="Colores">R</td><td data-label="Presencia">1,99%</td><td data-label="Conversión">30,6%</td><td data-label="Cómo juega"><strong>Mono rojo de tesoros.</strong> Los enanos hacen tesoros al girarse; cinco tesoros buscan un artefacto o Dragón directo al campo. <a href="#magda">Primer</a>.</td></tr><tr><td data-label="#">11</td><td data-label="Comandante"><strong>Ishai, Ojutai Dragonspeaker + Rograkh</strong><div class="thumbs sm"><img class="cimg" alt="" title="Ishai, Ojutai Dragonspeaker" data-card="Ishai, Ojutai Dragonspeaker" width="146" height="204"><img class="cimg" alt="" title="Rograkh" data-card="Rograkh" width="146" height="204"></div></td><td data-label="Colores">WUR</td><td data-label="Presencia">1,87%</td><td data-label="Conversión">23,0%</td><td data-label="Cómo juega"><strong>Midrange Jeskai.</strong> Rograkh para el maná rápido, Ishai crece con cada hechizo rival. Underworld Breach con protección blanca. <a href="#m-ishai-rograkh">Artículo</a>.</td></tr><tr><td data-label="#">12</td><td data-label="Comandante"><strong>Etali, Primal Conqueror</strong><div class="thumbs sm"><img class="cimg" alt="" title="Etali, Primal Conqueror" data-card="Etali, Primal Conqueror" width="146" height="204"></div></td><td data-label="Colores">RG</td><td data-label="Presencia">1,86%</td><td data-label="Conversión">17,4%</td><td data-label="Cómo juega"><strong>Turbo de maná.</strong> Rituales y dorks para lanzar a Etali lo antes posible y transformarlo. <a href="#etali">Primer</a>.</td></tr><tr><td data-label="#">13</td><td data-label="Comandante"><strong>Thrasios, Triton Hero + Yoshimaru, Ever Faithful</strong><div class="thumbs sm"><img class="cimg" alt="" title="Thrasios, Triton Hero" data-card="Thrasios, Triton Hero" width="146" height="204"><img class="cimg" alt="" title="Yoshimaru, Ever Faithful" data-card="Yoshimaru, Ever Faithful" width="146" height="204"></div></td><td data-label="Colores">WUG</td><td data-label="Presencia">1,57%</td><td data-label="Conversión">23,4%</td><td data-label="Cómo juega"><strong>Midrange Bant.</strong> Yoshimaru crece con cada legendario; Thrasios es la salida de maná. <a href="#m-thrasios-yoshimaru">Artículo</a>.</td></tr><tr><td data-label="#">14</td><td data-label="Comandante"><strong>Crystal, Inhuman Princess</strong><div class="thumbs sm"><img class="cimg" alt="" title="Crystal, Inhuman Princess" data-card="Crystal, Inhuman Princess" width="146" height="204"></div></td><td data-label="Colores">WURG</td><td data-label="Presencia">1,52%</td><td data-label="Conversión">26,8%</td><td data-label="Cómo juega"><strong>Storm de Curiosity.</strong> Cada hechizo no criatura le pega a cada rival. Sewer-veillance Cam + Retraction Helix o Breach. <a href="#crystal">Primer</a>.</td></tr><tr><td data-label="#">15</td><td data-label="Comandante"><strong>Tayam, Luminous Enigma</strong><div class="thumbs sm"><img class="cimg" alt="" title="Tayam, Luminous Enigma" data-card="Tayam, Luminous Enigma" width="146" height="204"></div></td><td data-label="Colores">WBG</td><td data-label="Presencia">1,50%</td><td data-label="Conversión">23,4%</td><td data-label="Cómo juega"><strong>Loops de cementerio.</strong> Recursión con contadores: loops deterministas con piezas baratas. <a href="#m-tayam-luminous-enigma">Artículo</a>.</td></tr><tr><td data-label="#">16</td><td data-label="Comandante"><strong>Ob Nixilis, Captive Kingpin</strong><div class="thumbs sm"><img class="cimg" alt="" title="Ob Nixilis, Captive Kingpin" data-card="Ob Nixilis, Captive Kingpin" width="146" height="204"></div></td><td data-label="Colores">BR</td><td data-label="Presencia">1,36%</td><td data-label="Conversión">18,6%</td><td data-label="Cómo juega"><strong>Combo de daño.</strong> Crece y exilia cartas cada vez que un rival pierde exactamente 1 vida. <a href="#m-ob-nixilis-captive-kingpin">Artículo</a>.</td></tr><tr><td data-label="#">17</td><td data-label="Comandante"><strong>Nick Fury, Agent of S.H.I.E.L.D.</strong><div class="thumbs sm"><img class="cimg" alt="" title="Nick Fury, Agent of S.H.I.E.L.D." data-card="Nick Fury, Agent of S.H.I.E.L.D." width="146" height="204"></div></td><td data-label="Colores">WUBRG</td><td data-label="Presencia">1,34%</td><td data-label="Conversión">28,9%</td><td data-label="Cómo juega"><strong>Turbo de cinco colores.</strong> Comandante de 1 maná. Thassa's Oracle, Breach o Ad Nauseam detrás de Silence. <a href="#nick">Primer</a>.</td></tr><tr><td data-label="#">18</td><td data-label="Comandante"><strong>Tivit, Seller of Secrets</strong><div class="thumbs sm"><img class="cimg" alt="" title="Tivit, Seller of Secrets" data-card="Tivit, Seller of Secrets" width="146" height="204"></div></td><td data-label="Colores">WUB</td><td data-label="Presencia">1,15%</td><td data-label="Conversión">25,5%</td><td data-label="Cómo juega"><strong>Control.</strong> Control Esper. Tivit + Time Sieve da turnos infinitos. <a href="#tivit">Primer</a>.</td></tr><tr><td data-label="#">19</td><td data-label="Comandante"><strong>Kefka, Court Mage</strong><div class="thumbs sm"><img class="cimg" alt="" title="Kefka, Court Mage" data-card="Kefka, Court Mage" width="146" height="204"></div></td><td data-label="Colores">UBR</td><td data-label="Presencia">1,14%</td><td data-label="Conversión">22,0%</td><td data-label="Cómo juega"><strong>Midrange Grixis.</strong> Descarte y ventaja de cartas en Grixis. <a href="#m-kefka-court-mage">Artículo</a>.</td></tr><tr><td data-label="#">20</td><td data-label="Comandante"><strong>Winota, Joiner of Forces</strong><div class="thumbs sm"><img class="cimg" alt="" title="Winota, Joiner of Forces" data-card="Winota, Joiner of Forces" width="146" height="204"></div></td><td data-label="Colores">WR</td><td data-label="Presencia">1,07%</td><td data-label="Conversión">19,2%</td><td data-label="Cómo juega"><strong>Stax agresivo.</strong> Piezas de stax no Humano que atacan y disparan a Winota para sacar Humanos del mazo. <a href="#winota">Primer</a>.</td></tr></tbody></table></div><h3>Fuera del top 20 con buena conversión</h3><p>Muestras más chicas, así que tómalo como señal y no como ranking:</p><div class="tbl wtbl"><table><thead><tr><th>Comandante</th><th>Presencia</th><th>Conversión</th></tr></thead><tbody><tr><td data-label="Comandante">Dihada, Binder of Wills</td><td data-label="Presencia">0,40%</td><td data-label="Conversión">39,4%</td></tr><tr><td data-label="Comandante">Scion of the Ur-Dragon</td><td data-label="Presencia">0,68%</td><td data-label="Conversión">32,3%</td></tr><tr><td data-label="Comandante">Malcolm, Keen-Eyed Navigator + Tana, the Bloodsower</td><td data-label="Presencia">0,41%</td><td data-label="Conversión">30,9%</td></tr><tr><td data-label="Comandante">Derevi, Empyrial Tactician</td><td data-label="Presencia">0,43%</td><td data-label="Conversión">30,5%</td></tr><tr><td data-label="Comandante">Arcum Dagsson</td><td data-label="Presencia">0,76%</td><td data-label="Conversión">30,2%</td></tr><tr><td data-label="Comandante">Zirda, the Dawnwaker</td><td data-label="Presencia">0,64%</td><td data-label="Conversión">29,8%</td></tr><tr><td data-label="Comandante">Rocco, Cabaretti Caterer (<a href="#rocco">primer</a>)</td><td data-label="Presencia">0,63%</td><td data-label="Conversión">26,9%</td></tr><tr><td data-label="Comandante">Hashaton, Scarab's Fist (<a href="#hashaton">primer</a>)</td><td data-label="Presencia">0,42%</td><td data-label="Conversión">15,3%</td></tr></tbody></table></div>
 </section>
 <section id="meta-staples">
   <h2><span class="n">04</span>Cartas que vas a ver siempre</h2>
@@ -4529,7 +4632,7 @@ res.addEventListener("click", e => {
   const a = e.target.closest("a"); if (!a) return; e.preventDefault();
   const r = INDEX[+a.dataset.i]; res.hidden = true; qIn.blur();
   history.replaceState(null,"","#"+r.anchor); route();
-  setTimeout(()=>{ r.el.scrollIntoView({behavior:"smooth",block:"center"}); r.el.style.outline="2px solid var(--gold)"; setTimeout(()=>r.el.style.outline="",2200); }, 30);
+  if (r.el) setTimeout(()=>{ r.el.scrollIntoView({behavior:"smooth",block:"center"}); r.el.style.outline="2px solid var(--gold)"; setTimeout(()=>r.el.style.outline="",2200); }, 30);
 });
 qIn.addEventListener("keydown", e => { if (e.key==="Escape") { res.hidden = true; qIn.blur(); } if (e.key==="Enter") { const f = res.querySelector("a"); if (f) f.click(); } });
 document.addEventListener("click", e => { if (!e.target.closest(".search")) res.hidden = true; });
@@ -4906,23 +5009,25 @@ ${opp}`;
 });
 
 /* ===================== Router ===================== */
-const VIEWS = ["inicio","elegir","mazos","meta","combos","politica","glosario","reglas","mesa","mulligan","lock"].concat(DECK_VIEWS.map(x=>x[0]));
+const VIEWS = ["inicio","elegir","mazos","mazo","meta","combos","politica","glosario","reglas","mesa","mulligan","lock"].concat(DECK_VIEWS.map(x=>x[0]));
 function route(){
   const h = (location.hash||"#inicio").slice(1);
-  let view = VIEWS.includes(h) ? h : null, target = null;
+  let view = VIEWS.includes(h) ? h : null, target = null, stubName = "";
+  if (h.startsWith("m-")) { try { const d = deckBySlug(h.slice(2)); if (d && d.primer) { history.replaceState(null,"","#"+d.primer); return route(); } if (d) { renderStub(d); view = "mazo"; stubName = d.n; } } catch(e) { view = "inicio"; } }
+  if (view === "mazo" && !stubName) view = "mazos";
   if (!view) { target = document.getElementById(h); const v = target && target.closest(".view"); view = v ? v.id.replace("view-","") : "inicio"; }
   if (view === "lock") view = "mesa";
   if (view === "mesa" && !isOwner()) view = "lock";
   VIEWS.forEach(v => document.getElementById("view-"+v).hidden = v !== view);
-  const tab = DECK_VIEWS.some(x=>x[0]===view) ? "mazos" : view;
+  const tab = (view === "mazo" || DECK_VIEWS.some(x=>x[0]===view)) ? "mazos" : view;
   document.querySelectorAll(".tabs a").forEach(a => { if (a.dataset.tab===tab) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
   const names = {inicio:"",elegir:"Elige tu mazo",mazos:"Mazos",meta:"Meta",combos:"Combos",politica:"Política",glosario:"Glosario",reglas:"Reglas e interacciones",mulligan:"Mulligan",mesa:"Mesa",lock:"Mesa"};
-  const dv = DECK_VIEWS.find(x=>x[0]===view); const nm = dv ? dv[1] : names[view];
+  const dv = DECK_VIEWS.find(x=>x[0]===view); const nm = stubName || (dv ? dv[1] : names[view]);
   document.title = (nm ? nm+" · " : "") + "Grimorio · Wiki cEDH en español";
   if (target) target.scrollIntoView(); else window.scrollTo(0,0);
 }
 window.addEventListener("hashchange", route);
-const setTb = () => { const t = document.querySelector(".topbar"); if (t) document.documentElement.style.setProperty("--tb", t.offsetHeight+"px"); };
+const setTb = () => { const t = document.querySelector(".topbar"); if (t) document.documentElement.style.setProperty("--tb", (getComputedStyle(t).position === "fixed" ? 0 : t.offsetHeight)+"px"); };
 setTb(); window.addEventListener("resize", setTb);
 $("#lock-form").addEventListener("submit", async e => {
   e.preventDefault();
@@ -5376,10 +5481,13 @@ function renderCatalog(){
     <p>${esc(d.txt)}</p>
     <p class="catwin"><b>Gana con:</b> ${esc(d.win)}.</p>
     <div class="catmeta"><span class="cx cx${d.cx}">${CX_L[d.cx]}</span>${d.sh ? `<span>Presencia ${d.sh}</span><span>Conversión ${d.cv}</span>` : `<span>Poco jugado hoy</span>`}${d.primer ? `<span class="hasp">Primer completo</span>` : ""}</div>
-    <div class="acts">${d.primer ? `<a class="btn primary" href="#${d.primer}">Leer primer</a>` : ""}<a class="btn${d.primer?"":" primary"}" href="${e16url(d)}" target="_blank" rel="noopener">Listas en EDHTop16</a>${d.primer && DECKS[d.primer] ? `<a class="btn owner-only" ${isOwner()?"":"hidden"} href="#mesa" data-deck="${d.primer}">Jugar con este</a>` : ""}</div>
+    <div class="acts"><a class="btn primary" href="${deckHref(d)}">${d.primer ? "Leer primer" : "Ver artículo"}</a><a class="btn" href="${e16url(d)}" target="_blank" rel="noopener">Listas en EDHTop16</a>${d.primer && DECKS[d.primer] ? `<a class="btn owner-only" ${isOwner()?"":"hidden"} href="#mesa" data-deck="${d.primer}">Jugar con este</a>` : ""}</div>
   </article>`).join("") || `<p class="small">Ningún mazo calza con esos filtros.</p>`;
   decorateMana(box); watchArt(box);
 }
+const slugOf = t => norm(t).replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+const deckHref = d => "#" + (d.primer || "m-" + slugOf(d.n));
+const deckBySlug = sl => QDECKS.find(d => slugOf(d.n) === sl);
 const QA = {};
 function quizScore(d){
   let s = 0; const why = [];
@@ -5407,7 +5515,7 @@ function renderQuizOut(){
     <div class="qbody"><div class="cmd">${i===0?"Mejor calce":"Opción "+(i+1)} · ${esc(colName(d.col).replace(/./g, m => "{"+m+"}"))} · ${{t:"Turbo",m:"Midrange",s:"Stax",c:"Control"}[d.plan]}</div>
     <h3>${esc(d.n)}</h3><p>${esc(d.txt)}</p>
     ${why.length?`<p class="qwhy"><b>Por qué:</b> ${esc(why.slice(0,4).join(" · "))}.</p>`:""}
-    <div class="acts">${d.primer?`<a class="btn primary" href="#${d.primer}">Leer primer</a>`:`<a class="btn primary" href="#meta-top">Ver en el meta</a>`}<a class="btn" href="${e16url(d)}" target="_blank" rel="noopener">Listas en EDHTop16</a></div></div></article>`).join("")
+    <div class="acts"><a class="btn primary" href="${deckHref(d)}">${d.primer ? "Leer primer" : "Ver artículo"}</a><a class="btn" href="${e16url(d)}" target="_blank" rel="noopener">Listas en EDHTop16</a></div></div></article>`).join("")
     + `<p class="small"><button type="button" class="btn" id="quiz-reset">Empezar de nuevo</button></p>`;
   decorateMana(out); watchImgs(out); watchArt(out);
   $("#quiz-reset").addEventListener("click", () => { Object.keys(QA).forEach(k => delete QA[k]); renderQuiz(); $("#view-elegir").scrollIntoView(); });
@@ -5440,7 +5548,7 @@ const DECK_CMDRS = {hashaton:["Hashaton, Scarab's Fist"],crystal:["Crystal, Inhu
 const thumbsEl = (cards, cls) => { const d = document.createElement("div"); d.className = "thumbs " + (cls||""); cards.forEach(c => { const im = document.createElement("img"); im.className = "cimg"; im.alt = ""; im.title = c; im.dataset.card = c; im.width = 146; im.height = 204; d.appendChild(im); }); return d; };
 Object.entries(DECK_CMDRS).forEach(([id, cards]) => {
   const a = document.querySelector(`#view-mazos .deck a.primary[href="#${id}"]`); if (a) { const deck = a.closest(".deck"); deck.classList.add("has-art"); deck.insertBefore(artEl(cards), deck.firstChild); }
-  const hero = document.querySelector(`#view-${id} header.hero`); if (hero) { hero.classList.add("has-art"); hero.insertBefore(artEl(cards, "wide"), hero.firstChild); hero.appendChild(thumbsEl(cards)); }
+  const hero = document.querySelector(`#view-${id} header.hero`); if (hero) { hero.classList.add("has-art"); hero.insertBefore(artEl(cards, "wide"), hero.firstChild); }
 });
 ["meta","combos","politica","glosario","reglas","mazos","inicio","elegir"].concat(DECK_VIEWS.map(x=>x[0])).forEach(v => { const el = document.getElementById("view-"+v); if (!el) return; decorateCards(el); decorateMana(el); });
 watchImgs(document); watchArt(document);
@@ -5455,6 +5563,157 @@ document.querySelectorAll("#cat-filters [data-f]").forEach(g => g.addEventListen
 $("#cat-q").addEventListener("input", e => { CF.q = e.target.value; renderCatalog(); });
 $("#catalog").addEventListener("click", e => { const a = e.target.closest("a[data-deck]"); if (a) { S.deck = a.dataset.deck; save(); loadAll(); } });
 renderCatalog();
+
+/* ===================== Wiki: fichas, categorías, esbozos, glosario, portada ===================== */
+const COL_NAME = {W:"Blanco",U:"Azul",B:"Negro",R:"Rojo",G:"Verde"};
+const pipsOf = col => col.replace(/./g, m => "{"+m+"}");
+function infobox(d){
+  return `<aside class="infobox" aria-label="Ficha del mazo">
+    <div class="ib-t">${esc(d.n)}</div>
+    <div class="thumbs ib-cards">${d.cards.map(c => `<img class="cimg" alt="" title="${esc(c)}" data-card="${esc(c)}" width="146" height="204">`).join("")}</div>
+    <dl>
+      <dt>${d.cards.length > 1 ? "Comandantes" : "Comandante"}</dt><dd>${d.cards.map(esc).join("<br>")}</dd>
+      <dt>Colores</dt><dd>${pipsOf(d.col)}</dd>
+      <dt>Arquetipo</dt><dd><a href="#mazos" data-cat="plan:${d.plan}">${PLAN_L[d.plan]}</a></dd>
+      <dt>Nivel</dt><dd><a href="#mazos" data-cat="tier:${tierOf(d)}">${TIER_L[tierOf(d)]}</a></dd>
+      <dt>Dificultad</dt><dd>${CX_L[d.cx]}</dd>
+      ${d.sh ? `<dt>Presencia</dt><dd>${d.sh}</dd><dt>Conversión</dt><dd>${d.cv}</dd>` : `<dt>Presencia</dt><dd>Poco jugado hoy</dd>`}
+      <dt>Gana con</dt><dd>${esc(d.win)}</dd>
+      <dt>Listas</dt><dd><a href="${e16url(d)}" target="_blank" rel="noopener">EDHTop16</a></dd>
+    </dl>
+  </aside>`;
+}
+function related(d, n){
+  return QDECKS.filter(x => x !== d).map(x => ({x, s: (x.plan === d.plan ? 2 : 0) + [...x.col].filter(c => d.col.includes(c)).length - Math.abs(x.col.length - d.col.length) * 0.5 + (x.est[0] === d.est[0] ? 1.5 : 0)})).sort((a,b) => b.s - a.s || a.x.pop - b.x.pop).slice(0, n||4).map(o => o.x);
+}
+function articleFoot(d){
+  const cats = [["plan:"+d.plan, PLAN_L[d.plan]], ["tier:"+tierOf(d), TIER_L[tierOf(d)]], ["cx:"+d.cx, CX_L[d.cx]]].concat(d.col.length <= 2 ? [["col:"+d.col.length, d.col.length === 1 ? "Un color" : "Dos colores"]] : []).concat([...d.col].map(c => ["col:"+c, COL_NAME[c]]));
+  return `<section class="seealso"><h2>Ver también</h2><ul>${related(d).map(x => `<li><a href="${deckHref(x)}">${esc(x.n)}</a> <span>· ${PLAN_L[x.plan]} · ${pipsOf(x.col)}</span></li>`).join("")}<li><a href="#combos">Combos</a> <span>· las líneas de victoria paso a paso</span></li></ul></section>
+  <footer class="cats"><span>Categorías:</span> <a href="#mazos" data-cat="">Mazos</a>${cats.map(([k,l]) => `<a href="#mazos" data-cat="${k}">${esc(l)}</a>`).join("")}</footer>
+  <p class="rev">Última revisión: 12 de noviembre de 2026.</p>`;
+}
+const crumbs = parts => `<nav class="crumbs" aria-label="Ruta"><a href="#inicio">Portada</a>${parts.map(([h,l]) => ` <span>›</span> ${h ? `<a href="${h}">${esc(l)}</a>` : `<b>${esc(l)}</b>`}`).join("")}</nav>`;
+const COMBO_LINKS = [["Thassa's Oracle","#cb-oracle"],["Underworld Breach","#cb-breach"],["Breach","#cb-breach"],["Ad Nauseam","#cb-adnaus"],["Dualcaster","#cb-dualcaster"],["Kiki-Jiki","#cb-kiki"],["Food Chain","#cb-foodchain"],["Isochron Scepter","#cb-scepter"],["Basalt Monolith","#cb-kinnan"],["Time Sieve","#cb-tivit"]];
+const PLAN_TXT = {t:"Es un mazo <strong>turbo</strong>: busca ganar en los primeros turnos, antes de que la mesa tenga la interacción lista. Acepta mulligans agresivos y lleva poca defensa.", m:"Es un mazo <strong>midrange</strong>: frena a los más rápidos, acumula cartas y gana con protección cuando la mesa se quedó sin respuestas.", s:"Es un mazo de <strong>stax</strong>: baja permanentes que limitan lo que todos pueden hacer y gana por debajo de sus propias piezas.", c:"Es un mazo de <strong>control</strong>: responde las amenazas de la mesa y cierra la partida tarde, cuando ya nadie puede detenerlo."};
+function renderStub(d){
+  const links = COMBO_LINKS.filter(([k]) => d.win.includes(k)).filter((x,i,a) => a.findIndex(y => y[1] === x[1]) === i);
+  const who = [];
+  who.push(d.cx === 1 ? "Buen primer mazo: el plan es claro y se aprende en pocas partidas." : d.cx === 2 ? "Dificultad media: conviene conocer las líneas antes de sentarse a una mesa." : "Mazo difícil: premia la práctica y castiga los errores de secuencia.");
+  who.push(d.int === 1 ? "Lleva poca interacción: se concentra en su propio plan." : d.int === 2 ? "Interacción equilibrada: puede frenar un intento de ganar y proteger el suyo." : "Mucha interacción: casi siempre tiene una respuesta.");
+  who.push(d.cmd === 3 ? "El comandante es el centro del mazo: sin él en mesa, el plan se frena." : d.cmd === 2 ? "El comandante ayuda, pero el mazo funciona sin él." : "El mazo no depende del comandante: lo importante son las 99.");
+  who.push(d.col.length === 1 ? "Un solo color: la base de maná es la más barata del formato." : d.col.length === 2 ? "Dos colores: base de maná simple y barata." : d.col.length >= 4 ? "Cuatro o cinco colores: acceso a las mejores cartas, con una base de maná exigente." : "Tres colores: buen equilibrio entre opciones y consistencia.");
+  $("#stub").innerHTML = `<header class="hero has-art">
+    <div class="art wide" data-art="${esc(d.cards.join("|"))}" role="img" aria-label="Ilustración de ${esc(d.cards.join(" y "))}"></div>
+    ${crumbs([["#mazos","Mazos"],["",d.n]])}
+    <div class="eyebrow">cEDH · ${PLAN_L[d.plan]} · ${TIER_L[tierOf(d)]}</div>
+    <h1>${esc(d.n)}</h1>
+    <p class="lede">${esc(d.txt)}</p>
+  </header>
+  <div class="wrap one"><main>
+    ${infobox(d)}
+    <div class="note stubn"><p><strong>Este artículo es un esbozo.</strong> Todavía no tiene primer completo: resume el plan del mazo y enlaza a listas reales. Si lo juegas y quieres ayudar a ampliarlo, avisa.</p></div>
+    <section id="st-plan"><h2><span class="n">01</span>Cómo juega</h2><p>${esc(d.txt)}</p><p>${PLAN_TXT[d.plan]}</p></section>
+    <section id="st-win"><h2><span class="n">02</span>Cómo gana</h2><p><strong>Líneas principales:</strong> ${esc(d.win)}.</p>${links.length ? `<p>Paso a paso en Combos: ${links.map(([k,h]) => `<a href="${h}">${esc(k === "Breach" ? "Underworld Breach" : k)}</a>`).join(" · ")}.</p>` : ""}</section>
+    <section id="st-who"><h2><span class="n">03</span>Para quién es</h2><ul>${who.map(x => `<li>${x}</li>`).join("")}</ul></section>
+    <section id="st-list"><h2><span class="n">04</span>Listas y números</h2><p>${d.sh ? `${d.sh} de presencia y ${d.cv} de conversión en torneos de los últimos seis meses.` : "Hoy tiene poca presencia en torneos grandes, pero sigue siendo un mazo válido para aprender el formato."} Revisa las listas con mejores resultados en <a href="${e16url(d)}" target="_blank" rel="noopener">EDHTop16</a>.</p></section>
+    ${articleFoot(d)}
+  </main></div>`;
+  const st = $("#stub"); decorateCards(st); decorateMana(st); watchImgs(st); watchArt(st); glossLink(st);
+}
+// Glosario: términos enlazados con definición al pasar el mouse
+const GLOSS = [];
+(function buildGloss(){
+  const allow = ["turbo","midrange","stax","wincon","outlet","tutor","fast mana","dork","ritual","free spell","pitch","hatebear","silver bullet","cantrip","wheel","bounce","blink","pile","loop","storm count","fizzle","apnap","top deck","pod","table talk","kingmaking","spite play","top cut","conversion rate","proxy","split second","priority","mana value","commander tax","color identity","trigger"];
+  document.querySelectorAll("#view-glosario tbody tr").forEach(tr => {
+    const c = tr.cells; if (!c.length) return; const head = c[0].textContent.trim(), def = c[c.length-1].textContent.trim();
+    tr.id = "g-" + slugOf(head);
+    head.split("/").map(x => norm(x)).forEach(t => { if (allow.includes(t)) GLOSS.push({t, id: tr.id, def, label: head}); });
+  });
+  GLOSS.sort((a,b) => b.t.length - a.t.length);
+})();
+const GLOSS_RE = GLOSS.length ? new RegExp("(?<![\\p{L}\\p{N}])(" + GLOSS.map(g => g.t.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join("|") + ")(s|es)?(?![\\p{L}\\p{N}])", "giu") : null;
+function glossLink(root){
+  if (!GLOSS_RE) return;
+  const scopes = root.querySelectorAll ? root.querySelectorAll("section, .thesis, .lede") : [];
+  scopes.forEach(sc => {
+    if (sc.closest("#view-glosario") || sc.dataset.gl) return; sc.dataset.gl = "1";
+    const seen = new Set();
+    const w = document.createTreeWalker(sc, NodeFilter.SHOW_TEXT, {acceptNode: n => (n.nodeValue.length > 3 && !SKIP_TAGS.has(n.parentNode.nodeName) && !n.parentNode.closest("a,button,h1,h2,h3,label,summary,th,.cref,.gref,.toc,.chips,.tags,.eyebrow,.infobox,.cats,.crumbs,.id,.name,.seealso,.pbox,.catmeta,.cmd")) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT});
+    const nodes = []; while (w.nextNode()) nodes.push(w.currentNode);
+    nodes.forEach(n => {
+      const txt = n.nodeValue; GLOSS_RE.lastIndex = 0; let m, last = 0, frag = null;
+      while ((m = GLOSS_RE.exec(txt))) {
+        const g = GLOSS.find(x => x.t === norm(m[1])); if (!g || seen.has(g.id)) continue; seen.add(g.id);
+        frag = frag || document.createDocumentFragment();
+        if (m.index > last) frag.appendChild(document.createTextNode(txt.slice(last, m.index)));
+        const a = document.createElement("a"); a.className = "gref"; a.href = "#" + g.id; a.dataset.def = g.def; a.textContent = m[0]; frag.appendChild(a);
+        last = m.index + m[0].length;
+      }
+      if (frag) { if (last < txt.length) frag.appendChild(document.createTextNode(txt.slice(last))); n.parentNode.replaceChild(frag, n); }
+    });
+  });
+}
+// Artículos existentes: ruta, ficha, índice móvil, categorías
+const WIKI_TITLES = {meta:"Meta",combos:"Combos",politica:"Política",glosario:"Glosario",reglas:"Reglas e interacciones"};
+function wikify(){
+  DECK_VIEWS.forEach(([id]) => {
+    const v = $("#view-"+id), d = QDECKS.find(x => x.primer === id); if (!v || !d) return;
+    const hero = v.querySelector("header.hero"), main = v.querySelector("main"); if (!hero || !main) return;
+    const eb = hero.querySelector(".eyebrow"); if (eb) eb.insertAdjacentHTML("beforebegin", crumbs([["#mazos","Mazos"],["",d.n]]));
+    main.insertAdjacentHTML("afterbegin", infobox(d)); main.insertAdjacentHTML("beforeend", articleFoot(d));
+  });
+  Object.entries(WIKI_TITLES).forEach(([id, t]) => {
+    const v = $("#view-"+id); if (!v) return; const hero = v.querySelector("header.hero"), main = v.querySelector("main");
+    const eb = hero && hero.querySelector(".eyebrow"); if (eb) eb.insertAdjacentHTML("beforebegin", crumbs([["",t]]));
+    if (main) main.insertAdjacentHTML("beforeend", `<footer class="cats"><span>Categorías:</span> <a href="#inicio">Guías</a>${Object.entries(WIKI_TITLES).filter(([k]) => k !== id).map(([k,l]) => `<a href="#${k}">${l}</a>`).join("")}</footer><p class="rev">Última revisión: 12 de noviembre de 2026.</p>`);
+  });
+  document.querySelectorAll(".view .wrap").forEach(w => { const toc = w.querySelector("nav.toc ol"), main = w.querySelector("main"); if (!toc || !main || main.querySelector(".toc-m")) return;
+    const det = document.createElement("details"); det.className = "toc-m"; det.innerHTML = "<summary>Contenidos</summary>"; det.appendChild(toc.cloneNode(true)); const ib = main.querySelector(".infobox"); (ib || main).insertAdjacentElement(ib ? "afterend" : "afterbegin", det);
+    det.addEventListener("click", e => { if (e.target.closest("a")) det.open = false; }); });
+  document.querySelectorAll(".view").forEach(v => { if (!["view-mesa","view-mulligan","view-lock","view-mazo"].includes(v.id)) { const ib = v.querySelectorAll(".infobox, .seealso, .cats"); ib.forEach(x => { decorateMana(x); }); glossLink(v); } });
+  watchImgs(document);
+}
+document.addEventListener("click", e => {
+  const a = e.target.closest && e.target.closest("a[data-cat]"); if (!a) return;
+  Object.keys(CF).forEach(k => CF[k] = ""); const [k, v] = (a.dataset.cat || "").split(":"); if (k) CF[k] = v;
+  const cq = $("#cat-q"); if (cq) cq.value = "";
+  document.querySelectorAll("#cat-filters [data-f]").forEach(g => g.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.v === CF[g.dataset.f]))));
+  renderCatalog();
+});
+// Artículo aleatorio
+function randomArticle(){ const all = QDECKS.map(deckHref).concat(Object.keys(WIKI_TITLES).map(k => "#"+k)); const cur = location.hash; let h; do { h = all[Math.floor(Math.random()*all.length)]; } while (h === cur && all.length > 1); location.hash = h; }
+["#nav-random","#home-random"].forEach(s => { const b = $(s); if (b) b.addEventListener("click", e => { e.preventDefault(); randomArticle(); }); });
+// Portada
+const DYK = [
+  ["Lion's Eye Diamond es una habilidad de maná: no usa la pila y nadie puede responder a su activación.","#rg-mana"],
+  ["Matar a Thassa's Oracle en respuesta a su trigger no evita la victoria si la biblioteca ya está vacía.","#rg-oracle"],
+  ["Quedarte sin biblioteca no te hace perder de inmediato: pierdes recién cuando intentas robar.","#rg-oracle"],
+  ["Con un hechizo de split second en la pila todavía puedes activar habilidades de maná, y las habilidades disparadas se disparan igual.","#rg-mana"],
+  ["Mox Amber no da maná si tu único legendario es incoloro.","#rg-faq"],
+  ["Necropotence no «roba» cartas, así que Orcish Bowmasters no se dispara con ella.","#rg-motores"],
+  ["Fierce Guardianship es gratis con cualquier comandante que controles, no solo con el tuyo.","#rg-faq"],
+  ["Si ganas el mismo turno en que lanzaste Pact of Negation, nunca llegas a pagarlo.","#rg-counters"],
+  ["Una ficha que copia a tu comandante no es un comandante.","#rg-faq"],
+  ["Vampiric Tutor, Imperial Seal y Mystical Tutor dejan la carta arriba de la biblioteca: no la tienes este turno.","#rg-faq"],
+  ["Drannith Magistrate no detiene a Reanimate: la criatura entra sin ser lanzada.","#rg-cementerio"],
+  ["Null Rod no apaga la habilidad de Magda, Brazen Outlaw: sacrificar Tesoros es un coste, no una habilidad de artefacto.","#magda-hate"],
+  ["En mesa de cuatro, cada trigger de Tivit, Seller of Secrets crea cinco artefactos: justo lo que pide Time Sieve.","#cb-tivit"],
+  ["El último jugador en recibir prioridad antes de que algo se resuelva es la «última línea»: si pasa, se resuelve.","#pol-prioridad"],
+  ["«Fringe» no significa malo: varios mazos poco jugados tienen mejor conversión que los del top.","#mazos"]
+];
+let dykAt = Math.floor(Date.now() / 864e5);
+function renderDyk(){ const ul = $("#dyk"); if (!ul) return; ul.innerHTML = [0,1,2].map(i => DYK[(dykAt + i) % DYK.length]).map(([t,h]) => `<li>${esc(t)} <a href="${h}">Leer más</a></li>`).join(""); decorateCards(ul); }
+function renderPortal(){
+  const f = $("#featured"); if (f) { const pool = QDECKS.filter(d => d.primer); const d = pool[Math.floor(Date.now() / 864e5) % pool.length];
+    f.innerHTML = `<h2>Artículo destacado</h2><a class="featart" href="${deckHref(d)}"><div class="art" data-art="${esc(d.cards.join("|"))}" role="img" aria-label="Ilustración de ${esc(d.cards.join(" y "))}"></div></a><h3><a href="${deckHref(d)}">${esc(d.n)}</a></h3><p class="fmeta">${PLAN_L[d.plan]} · ${pipsOf(d.col)} · ${CX_L[d.cx]}</p><p>${esc(d.txt)}</p><p><b>Gana con:</b> ${esc(d.win)}.</p><p><a class="btn primary" href="${deckHref(d)}">Leer el artículo</a></p>`;
+    decorateMana(f); decorateCards(f); watchArt(f); }
+  const ws = $("#wstats"); if (ws) ws.innerHTML = `<b>${QDECKS.length}</b> mazos · <b>${QDECKS.filter(d => d.primer).length}</b> primers completos · <b>${document.querySelectorAll("#view-glosario tbody tr").length}</b> términos en el glosario · <b>${document.querySelectorAll("#view-combos .line").length}</b> combos paso a paso`;
+  renderDyk();
+}
+{ const b = $("#dyk-more"); if (b) b.addEventListener("click", () => { dykAt += 3; renderDyk(); }); }
+// Buscador: todos los mazos del catálogo
+QDECKS.forEach(d => { if (!d.primer) INDEX.push({deck:"Mazos", sec:d.n, anchor:"m-"+slugOf(d.n), text: d.n + ". " + d.txt + " Gana con: " + d.win + ".", el:null}); });
+wikify(); renderPortal(); renderCatalog(); setTb(); route();
 
 </script>
 
