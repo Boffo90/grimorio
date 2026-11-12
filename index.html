@@ -4027,6 +4027,7 @@ ${d.summary}${flexOf(d.id)?`\nSLOT FLEX QUE JUEGA: ${FLEX[flexOf(d.id)]}`:""}
 
 MI ASIENTO: Seat ${S.seat}. MULLIGANS: ${$("#mm-n").value} (primero gratis: ${+$("#mm-free").value?"sí":"no"}).
 MI MANO (${hand.length}): ${hand.join("; ")}
+${mullFacts(analyze(S.deck, hand, S.seat))}
 RIVALES:
 ${opp}`;
   out.innerHTML = "<p class='small'>Pensando…</p>"; $("#mm-ai").disabled = true;
@@ -4182,7 +4183,9 @@ function analyze(deckId, cards, seat){
   let verdict, why;
   const winSoon = plans.some(p=>/^Win/.test(p));
   if (lands.length===0 && fast.length<2) { verdict="mull"; why="Sin tierras y con poca aceleración: no juegas nada."; }
+  else if (colorSet.size===0) { verdict="mull"; why="Tu mano solo produce maná incoloro: no puedes lanzar ningún hechizo de color ni a tu comandante."; }
   else if (!mana3) { verdict="mull"; why="No llegas a 3 maná en el turno 3."; }
+  else if (!cmdOk && deckId!=="crystal" && !winSoon) { verdict = size<=6 ? "borderline" : "mull"; why=`Sin fuente de ${missingCol.join(" y ")}: no puedes lanzar a tu comandante con esta mano.`; }
   else if (!cmdOk && deckId==="crystal") { verdict = size<=6 ? "borderline" : "mull"; why="No puedes lanzar a Crystal: te falta un color."; }
   else if (winSoon && (prot.length || size<=6)) { verdict="keep"; why="Tienes un win temprano y algo con qué protegerlo."; }
   else if (winSoon) { verdict="keep"; why="Win temprano. Sin protección: elige bien el momento."; }
@@ -4191,7 +4194,20 @@ function analyze(deckId, cards, seat){
   else if (lands.length >= 5) { verdict="mull"; why="Demasiadas tierras y ningún plan."; }
   else { verdict = size<=5 ? "borderline" : "mull"; why="Sin combo, tutor ni motor: dependes de robar bien."; }
   if (verdict==="mull" && size<=5) { verdict="borderline"; why += " Con 5 cartas, quedarse suele ser mejor que bajar a 4."; }
-  return {verdict, why, plans, reasons, risks, t1, t2, t3, cmdTurn};
+  const colors = "WUBRG".split("").filter(x=>colorSet.has(x));
+  const colSrc = cards.filter(c => (lands.includes(c) && !(c==="Gemstone Caverns" && !gem) && (R.anyLand.includes(c) || R.landColors[c])) || (R.colorAccel && R.colorAccel[c]));
+  const onlyPetal = colSrc.length>0 && colSrc.every(c => c==="Lotus Petal");
+  if (onlyPetal) { risks.unshift("Tu único maná de color es Lotus Petal, de un solo uso: lanzas un hechizo de color y nada más."); if (verdict==="keep") { verdict = "mull"; why = "Tu único maná de color es Lotus Petal (un solo uso): no alcanzas a lanzar el resto de la mano."; } }
+  if (!colors.length) { plans.length = 0; risks.unshift("Ninguna fuente de color: Ancient Tomb, Sol Ring, Mana Vault y similares solo dan incoloro."); }
+  return {verdict, why, plans, reasons, risks, t1, t2, t3, cmdTurn, colors, missingCol, onlyPetal, lands:lands.length};
+}
+function mullFacts(a){
+  const cn = {W:"blanco",U:"azul",B:"negro",R:"rojo",G:"verde"};
+  return `CHEQUEO AUTOMÁTICO (hechos calculados por la app, no los contradigas):
+- Tierras en mano: ${a.lands}. Maná estimado: T1 ${a.t1}, T2 ${a.t2}, T3 ${a.t3}.
+- Colores que produce esta mano: ${a.colors.length ? a.colors.map(c=>cn[c]).join(", ") : "NINGUNO (solo incoloro)"}.${a.onlyPetal?" OJO: la única fuente de color es Lotus Petal (un solo maná, una sola vez).":""}${a.missingCol.length ? `\n- Falta ${a.missingCol.map(c=>cn[c]).join(" y ")} para el comandante: no se puede lanzar con esta mano.` : ""}
+- Veredicto de la app: ${({keep:"keep",mull:"mulligan",borderline:"límite"})[a.verdict]}. ${a.why}
+REGLA: un hechizo solo se puede lanzar si la mano produce sus colores. No propongas lanzar cartas de un color que la mano no produce, ni cuentes tutores o piezas que no se pueden pagar. Si la mano no produce ningún color, el veredicto es mulligan.`;
 }
 function suggestBottom(deckId, cards, n){
   const lands = cards.filter(c=>roleOf(deckId,c)==="land");
@@ -4296,6 +4312,7 @@ ${d.summary}${flexOf(d.id)?`\nSLOT FLEX QUE JUEGA: ${FLEX[flexOf(d.id)]}`:""}
 
 ASIENTO: Seat ${H.seat}. MULLIGANS: ${H.mulls} (primero gratis: ${M.free?"sí":"no"}).
 MANO (${cards.length}): ${cards.join("; ")}
+${mullFacts(analyze(M.deck, cards, H.seat))}
 ${H.bottom.size?`AL FONDO: ${[...H.bottom].map(i=>H.cards[i]).join("; ")}`:""}
 El jugador eligió: ${last?last.choice:"keep"}.`;
   try {
