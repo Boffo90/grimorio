@@ -449,6 +449,19 @@ a.deck.sec.feat{border-color:var(--gold);background:var(--gold-soft)}
 @media (max-width:600px){.qres{flex-direction:column}.qres .thumbs.sm .cimg{width:78px}}
 .home h2.grp{font-family:var(--f-display);font-weight:400;font-size:26px;margin:34px 0 0}
 .home h2.grp + .decks{margin-top:14px}
+/* Ilustraciones */
+.art{position:relative;display:flex;overflow:hidden;background:linear-gradient(135deg,var(--lapis-soft),var(--gold-soft));height:150px;border-radius:9px 9px 0 0}
+.art > span{flex:1 1 0;min-width:0;background-size:cover;background-position:center 22%;opacity:0;transition:opacity .4s}
+.art.ok > span{opacity:1}
+.art > span + span{border-left:2px solid var(--paper)}
+.artby{position:absolute;right:6px;bottom:5px;font-size:10px;line-height:1;color:#fff;background:rgba(10,14,28,.62);padding:3px 6px;border-radius:4px;letter-spacing:.02em;max-width:calc(100% - 12px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.deck.has-art{padding-top:0;overflow:hidden}
+.deck.has-art > .art{margin:0 -20px 8px;flex:none}
+a.deck.sec.has-art > .art{height:120px}
+header.hero.has-art > .art.wide{height:clamp(160px,26vw,300px);border-radius:12px;margin-bottom:26px}
+header.hero.has-art > .art.wide > span{background-position:center 28%}
+.qres > .art.side{flex:none;width:210px;height:auto;min-height:150px;border-radius:8px;align-self:stretch}
+@media (max-width:600px){.qres > .art.side{width:auto;height:150px}}
 
 
 /* ---- Mulligan ---- */
@@ -555,16 +568,16 @@ a.deck.sec.feat{border-color:var(--gold);background:var(--gold-soft)}
     <h1>Grimorio <span class="amp">·</span> Wiki cEDH</h1>
     <p class="lede">Commander competitivo explicado en español: qué se juega, cómo se gana, cómo se frena y cómo se conversa una mesa de cuatro. Busca cualquier carta o regla desde la barra de arriba (tecla /).</p>
     <div class="decks">
-      <a class="deck sec feat" href="#elegir"><div class="cmd">¿Eres nuevo?</div><h3>Elige tu mazo</h3><p>Responde seis preguntas sobre cómo te gusta jugar y te recomiendo tres mazos para empezar.</p></a>
-      <a class="deck sec" href="#meta"><div class="cmd">Estado del formato</div><h3>Meta</h3><p>Arquetipos, los 20 mazos más jugados con sus números, staples y cambios en la lista de prohibidas.</p></a>
-      <a class="deck sec" href="#mazos"><div class="cmd">Primers</div><h3>Mazos</h3><p>Guías completas mazo por mazo: plan, líneas, tutores, mulligan, hate y reglas finas.</p></a>
-      <a class="deck sec" href="#combos"><div class="cmd">Líneas de victoria</div><h3>Combos</h3><p>Thassa's Oracle, Underworld Breach, Ad Nauseam y los infinitos, paso a paso y con sus respuestas.</p></a>
-      <a class="deck sec" href="#politica"><div class="cmd">Mesa de cuatro</div><h3>Política</h3><p>Prioridad, amenazas, tratos, kingmaking y cómo comportarse en torneos y por SpellTable.</p></a>
-      <a class="deck sec" href="#glosario"><div class="cmd">Inglés y español</div><h3>Glosario</h3><p>Palabras clave con su nombre en español, acciones del juego, jerga y apodos de cartas.</p></a>
-      <a class="deck sec" href="#reglas"><div class="cmd">Reglas</div><h3>Reglas e interacciones</h3><p>La pila, habilidades de maná, qué detiene qué, piezas de stax y preguntas frecuentes.</p></a>
-      <a class="deck sec" href="#mulligan"><div class="cmd">Práctica</div><h3>Entrenador de mulligan</h3><p>Roba manos de los mazos de la wiki, decide si te quedas y compara con el análisis.</p></a>
+      <a class="deck sec has-art feat" href="#elegir"><div class="art" data-art="Demonic Tutor" role="img" aria-label="Ilustración de Demonic Tutor"></div><div class="cmd">¿Eres nuevo?</div><h3>Elige tu mazo</h3><p>Responde seis preguntas sobre cómo te gusta jugar y te recomiendo tres mazos para empezar.</p></a>
+      <a class="deck sec has-art" href="#meta"><div class="art" data-art="Rhystic Study" role="img" aria-label="Ilustración de Rhystic Study"></div><div class="cmd">Estado del formato</div><h3>Meta</h3><p>Arquetipos, los 20 mazos más jugados con sus números, staples y cambios en la lista de prohibidas.</p></a>
+      <a class="deck sec has-art" href="#mazos"><div class="art" data-art="Command Tower" role="img" aria-label="Ilustración de Command Tower"></div><div class="cmd">Primers</div><h3>Mazos</h3><p>Guías completas mazo por mazo: plan, líneas, tutores, mulligan, hate y reglas finas.</p></a>
+      <a class="deck sec has-art" href="#combos"><div class="art" data-art="Thassa's Oracle" role="img" aria-label="Ilustración de Thassa's Oracle"></div><div class="cmd">Líneas de victoria</div><h3>Combos</h3><p>Thassa's Oracle, Underworld Breach, Ad Nauseam y los infinitos, paso a paso y con sus respuestas.</p></a>
+      <a class="deck sec has-art" href="#politica"><div class="art" data-art="Council's Judgment" role="img" aria-label="Ilustración de Council's Judgment"></div><div class="cmd">Mesa de cuatro</div><h3>Política</h3><p>Prioridad, amenazas, tratos, kingmaking y cómo comportarse en torneos y por SpellTable.</p></a>
+      <a class="deck sec has-art" href="#glosario"><div class="art" data-art="Tome of Legends" role="img" aria-label="Ilustración de Tome of Legends"></div><div class="cmd">Inglés y español</div><h3>Glosario</h3><p>Palabras clave con su nombre en español, acciones del juego, jerga y apodos de cartas.</p></a>
+      <a class="deck sec has-art" href="#reglas"><div class="art" data-art="Stifle" role="img" aria-label="Ilustración de Stifle"></div><div class="cmd">Reglas</div><h3>Reglas e interacciones</h3><p>La pila, habilidades de maná, qué detiene qué, piezas de stax y preguntas frecuentes.</p></a>
+      <a class="deck sec has-art" href="#mulligan"><div class="art" data-art="Serum Powder" role="img" aria-label="Ilustración de Serum Powder"></div><div class="cmd">Práctica</div><h3>Entrenador de mulligan</h3><p>Roba manos de los mazos de la wiki, decide si te quedas y compara con el análisis.</p></a>
     </div>
-    <p class="howto">Sitio hecho por jugadores para la comunidad hispanohablante. Los datos del meta se actualizan con cada versión; revisa la fecha en cada página. Contenido no oficial de fans, permitido bajo la Política de Contenido de Fans de Wizards of the Coast. No está aprobado ni respaldado por Wizards. Los nombres e imágenes de cartas son propiedad de Wizards of the Coast LLC; las imágenes se cargan desde Scryfall.</p>
+    <p class="howto">Sitio hecho por jugadores para la comunidad hispanohablante. Los datos del meta se actualizan con cada versión; revisa la fecha en cada página. Contenido no oficial de fans, permitido bajo la Política de Contenido de Fans de Wizards of the Coast. No está aprobado ni respaldado por Wizards. Los nombres e imágenes de cartas son propiedad de Wizards of the Coast LLC; las imágenes se cargan desde Scryfall, con crédito a cada ilustrador.</p>
   </div>
 </div>
 
@@ -5182,24 +5195,47 @@ function renderQuizOut(){
   const top = QDECKS.map(d => ({d, ...quizScore(d)})).sort((a,b) => b.s - a.s).slice(0,3);
   const colName = c => c.split("").join("");
   out.innerHTML = `<h2>Tus tres mazos</h2>` + top.map(({d,why},i) => `<article class="qres${i===0?" best":""}">
-    <div class="thumbs sm">${d.cards.map(c => `<img class="cimg" alt="" title="${esc(c)}" data-card="${esc(c)}" width="146" height="204">`).join("")}</div>
+    <div class="art side" data-art="${esc(d.cards.join("|"))}" role="img" aria-label="Ilustración de ${esc(d.cards.join(" y "))}"></div>
     <div class="qbody"><div class="cmd">${i===0?"Mejor calce":"Opción "+(i+1)} · ${esc(colName(d.col).replace(/./g, m => "{"+m+"}"))} · ${{t:"Turbo",m:"Midrange",s:"Stax",c:"Control"}[d.plan]}</div>
     <h3>${esc(d.n)}</h3><p>${esc(d.txt)}</p>
     ${why.length?`<p class="qwhy"><b>Por qué:</b> ${esc(why.slice(0,4).join(" · "))}.</p>`:""}
     <div class="acts">${d.primer?`<a class="btn primary" href="#${d.primer}">Leer primer</a>`:`<a class="btn primary" href="#meta-top">Ver en el meta</a>`}<a class="btn" href="${["Etali, Primal Conqueror","Ral, Monsoon Mage"].includes(d.cards[0]) ? "https://edhtop16.com/" : "https://edhtop16.com/commander/"+encodeURIComponent(d.cards.join(" / "))}" target="_blank" rel="noopener">Listas en EDHTop16</a></div></div></article>`).join("")
     + `<p class="small"><button type="button" class="btn" id="quiz-reset">Empezar de nuevo</button></p>`;
-  decorateMana(out); watchImgs(out);
+  decorateMana(out); watchImgs(out); watchArt(out);
   $("#quiz-reset").addEventListener("click", () => { Object.keys(QA).forEach(k => delete QA[k]); renderQuiz(); $("#view-elegir").scrollIntoView(); });
 }
+// Ilustraciones (art crop de Scryfall, con crédito al artista)
+const ART_KEY = "grimorio-art-v1"; let ART = {}; try { ART = JSON.parse(localStorage.getItem(ART_KEY) || "{}") || {}; } catch(e) { ART = {}; }
+const artQ = []; let artBusy = false;
+async function artData(name){
+  if (ART[name]) return ART[name];
+  const r = await fetch("https://api.scryfall.com/cards/named?fuzzy=" + encodeURIComponent(name)); if (!r.ok) throw new Error("scryfall " + r.status);
+  const j = await r.json(); const f = j.image_uris ? j : ((j.card_faces || [])[0] || {});
+  const d = {u: (f.image_uris || {}).art_crop, a: f.artist || j.artist || ""}; if (!d.u) throw new Error("sin arte");
+  ART[name] = d; try { localStorage.setItem(ART_KEY, JSON.stringify(ART)); } catch(e) {}
+  return d;
+}
+function fillArt(el){
+  const names = el.dataset.art.split("|"); let pending = names.length, okN = 0; const by = [];
+  const finish = () => { if (--pending) return; if (!okN) { el.remove(); return; } el.classList.add("ok"); const a = [...new Set(by.filter(Boolean))]; if (a.length) { const c = document.createElement("small"); c.className = "artby"; c.textContent = "Ilus. " + a.join(" · "); el.appendChild(c); } };
+  names.forEach((n, i) => { const sp = el.children[i]; const cached = !!ART[n];
+    const run = () => artData(n).then(d => { const im = new Image(); im.onload = () => { sp.style.backgroundImage = `url("${d.u}")`; okN++; by[i] = d.a; finish(); }; im.onerror = () => { sp.remove(); finish(); }; im.src = d.u; }).catch(() => { sp.remove(); finish(); });
+    if (cached) run(); else artQ.push(run); });
+  pumpArt();
+}
+function pumpArt(){ if (artBusy) return; const job = artQ.shift(); if (!job) return; artBusy = true; job().finally(() => setTimeout(() => { artBusy = false; pumpArt(); }, 120)); }
+const artIO = "IntersectionObserver" in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { artIO.unobserve(e.target); fillArt(e.target); } }), {rootMargin:"400px"}) : null;
+function artEl(cards, cls){ const d = document.createElement("div"); d.className = "art " + (cls||""); d.dataset.art = cards.join("|"); d.setAttribute("role","img"); d.setAttribute("aria-label","Ilustración de " + cards.join(" y ")); cards.forEach(() => d.appendChild(document.createElement("span"))); return d; }
+function watchArt(root){ root.querySelectorAll(".art[data-art]:not([data-w])").forEach(el => { el.dataset.w = "1"; if (!el.children.length) el.dataset.art.split("|").forEach(() => el.appendChild(document.createElement("span"))); if (artIO) artIO.observe(el); else fillArt(el); }); }
 // Comandantes en la página de mazos y en cada primer
 const DECK_CMDRS = {hashaton:["Hashaton, Scarab's Fist"],crystal:["Crystal, Inhuman Princess"],nick:["Nick Fury, Agent of S.H.I.E.L.D."],rocco:["Rocco, Cabaretti Caterer"],rograkh:["Rograkh, Son of Rohgahh","Silas Renn, Seeker Adept"],kraum:["Kraum, Ludevic's Opus","Tymna the Weaver"],kinnan:["Kinnan, Bonder Prodigy"],rogthras:["Rograkh, Son of Rohgahh", "Thrasios, Triton Hero"],sisay:["Sisay, Weatherlight Captain"],tnt:["Thrasios, Triton Hero", "Tymna the Weaver"],magda:["Magda, Brazen Outlaw"],tivit:["Tivit, Seller of Secrets"]};
 const thumbsEl = (cards, cls) => { const d = document.createElement("div"); d.className = "thumbs " + (cls||""); cards.forEach(c => { const im = document.createElement("img"); im.className = "cimg"; im.alt = ""; im.title = c; im.dataset.card = c; im.width = 146; im.height = 204; d.appendChild(im); }); return d; };
 Object.entries(DECK_CMDRS).forEach(([id, cards]) => {
-  const a = document.querySelector(`#view-mazos .deck a.primary[href="#${id}"]`); if (a) { const deck = a.closest(".deck"); deck.classList.add("has-img"); deck.insertBefore(thumbsEl(cards, "sm"), deck.firstChild); }
-  const hero = document.querySelector(`#view-${id} header.hero`); if (hero) hero.appendChild(thumbsEl(cards));
+  const a = document.querySelector(`#view-mazos .deck a.primary[href="#${id}"]`); if (a) { const deck = a.closest(".deck"); deck.classList.add("has-art"); deck.insertBefore(artEl(cards), deck.firstChild); }
+  const hero = document.querySelector(`#view-${id} header.hero`); if (hero) { hero.classList.add("has-art"); hero.insertBefore(artEl(cards, "wide"), hero.firstChild); hero.appendChild(thumbsEl(cards)); }
 });
 ["meta","combos","politica","glosario","reglas","mazos","inicio","elegir"].concat(DECK_VIEWS.map(x=>x[0])).forEach(v => { const el = document.getElementById("view-"+v); if (!el) return; decorateCards(el); decorateMana(el); });
-watchImgs(document);
+watchImgs(document); watchArt(document);
 // Mesa y Mulligan se redibujan: decora los símbolos de maná cada vez
 ["mesa","mulligan"].forEach(v => { const el = document.getElementById("view-"+v); if (!el) return; let raf = 0; decorateMana(el);
   new MutationObserver(() => { if (raf) return; raf = requestAnimationFrame(() => { raf = 0; decorateMana(el); }); }).observe(el, {childList:true, subtree:true}); });
