@@ -2778,11 +2778,14 @@ const FLEX = {
   "Superior Spider-Man": "Superior Spider-Man ({2}{U}{B}): entra como copia de una criatura de cualquier cementerio. Es un segundo Dack si Dack está en un cementerio, o la Thassa/Leveler que falta. No protege."
 };
 const flexOf = deckId => deckId === "hashaton" ? (S.flex && FLEX[S.flex] ? S.flex : "Grand Abolisher") : null;
-const podOn = deckId => { const d = DECKS[deckId], m = ((S.side||{})[deckId])||{}; return (d.side||[]).filter(x => m[x.c] && d.cards[m[x.c]]).map(x => ({in:x.c, out:m[x.c], when:x.when})); };
+const FLEX_WHEN = {"Grand Abolisher":"Mesas con mucha interacción en tu turno: counters, Stifle, Trickbind.","Yuriko, Blade of the Mighty":"Protege el turno del combo.","Teferi, Mage of Zhalfir":"Mesas de counters: los rivales solo lanzan en su turno.","Samut, Tyrant of Naktamun":"Otra criatura para descartar con Hashaton.","Superior Spider-Man":"Segundo Dack desde un cementerio.","Hoarding Broodlord":"Tutor que entra con Dack."};
+// Banca = sideboard del mazo + las cartas flex que no ocupan el slot flex
+const sideList = deckId => { const d = DECKS[deckId], fx = flexOf(deckId); return (d.side||[]).concat(fx ? Object.keys(FLEX).filter(c => c!==fx && d.cards[c]).map(c => ({c, when:FLEX_WHEN[c]||""})) : []); };
+const podOn = deckId => { const d = DECKS[deckId], m = ((S.side||{})[deckId])||{}; return sideList(deckId).filter(x => m[x.c] && d.cards[m[x.c]]).map(x => ({in:x.c, out:m[x.c], when:x.when})); };
 function deckCards(deckId){
   const d = DECKS[deckId], fx = flexOf(deckId), on = podOn(deckId);
-  const podIn = (d.side||[]).map(p=>p.c), onIn = on.map(p=>p.in), onOut = on.map(p=>p.out);
-  return Object.keys(d.cards).filter(c => !(FLEX[c] && c !== fx) && !(podIn.includes(c) && !onIn.includes(c)) && !onOut.includes(c));
+  const podIn = sideList(deckId).map(p=>p.c), onIn = on.map(p=>p.in), onOut = on.map(p=>p.out);
+  return Object.keys(d.cards).filter(c => !(podIn.includes(c) && !onIn.includes(c)) && !onOut.includes(c));
 }
 
 const TUTOR_COST = {
@@ -3175,12 +3178,13 @@ function renderSetupSum(){
 }
 function renderPod(){
   const d = D(), box = $("#pod-row");
-  if (!d.side || !d.side.length) { box.innerHTML = ""; return; }
+  const SL = sideList(d.id);
+  if (!SL.length) { box.innerHTML = ""; return; }
   const m = (S.side = S.side||{})[d.id] = (S.side[d.id]||{});
-  const sideNames = d.side.map(x=>x.c);
-  const main = Object.keys(d.cards).filter(c => !sideNames.includes(c) && !FLEX[c] && c !== d.commander).sort();
+  const sideNames = SL.map(x=>x.c);
+  const main = Object.keys(d.cards).filter(c => !sideNames.includes(c) && c !== d.commander).sort();
   box.innerHTML = `<label style="display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)">Banca: cartas según el pod</label>`
-    + d.side.map(x => `<div class="pd"><span style="flex:1"><b>${esc(x.c)}</b><span>${esc(x.when)}</span>
+    + SL.map(x => `<div class="pd"><span style="flex:1"><b>${esc(x.c)}</b><span>${esc(x.when)}</span>
       <select data-side="${esc(x.c)}" style="margin-top:6px;width:100%"><option value="">No la uso</option>${main.map(c=>`<option value="${esc(c)}" ${m[x.c]===c?"selected":""}>Entra por ${esc(c)}</option>`).join("")}</select></span></div>`).join("");
   box.querySelectorAll("select[data-side]").forEach(x => x.addEventListener("change", () => {
     const k = x.dataset.side; if (x.value) m[k] = x.value; else delete m[k];
@@ -3232,7 +3236,7 @@ function syncGamebar(){
 $("#deck").addEventListener("change", e => { S.deck = e.target.value; selZone = "hand"; landsOpen = false; syncGamebar(); fillDatalist(); renderCards(); renderMana(); renderSteps(); renderOpps(); $("#mesa-eyebrow").textContent = D().short+" · asistente de partida"; convo=[]; update(); });
 $("#sick").addEventListener("change", e => { S.sick = e.target.checked; update(); });
 $("#esc").addEventListener("change", e => { S.escape = e.target.checked; update(); });
-$("#flex").addEventListener("change", e => { S.flex = e.target.value; fillDatalist(); renderCards(); renderSetupSum(); update(); });
+$("#flex").addEventListener("change", e => { S.flex = e.target.value; const m = (S.side||{}).hashaton; if (m) delete m[S.flex]; renderPod(); fillDatalist(); renderCards(); renderSetupSum(); update(); });
 function renderMullSeg(){
   const v = $("#mm-n").value;
   $("#mm-seg").innerHTML = [0,1,2,3].map(n => `<button type="button" data-n="${n}" aria-pressed="${String(n)===v}">${n}</button>`).join("");
