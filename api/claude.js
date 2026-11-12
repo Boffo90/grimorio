@@ -7,6 +7,12 @@ export default async function handler(req, res) {
     return res.status(200).json({ ok: !!process.env.ANTHROPIC_API_KEY, needsPass: !!process.env.APP_PASSWORD });
   }
   if (req.method !== "POST") return res.status(405).json({ error: "Método no permitido" });
+  // Desbloqueo de la sección privada (Mesa): solo valida la clave, no consulta a Claude.
+  if (req.body && req.body.unlock) {
+    if (!process.env.APP_PASSWORD) return res.status(503).json({ error: "Falta configurar APP_PASSWORD en Vercel" });
+    if (req.body.pass !== process.env.APP_PASSWORD) return res.status(401).json({ error: "Clave incorrecta" });
+    return res.status(200).json({ ok: true });
+  }
   if (!process.env.ANTHROPIC_API_KEY) return res.status(500).json({ error: "Falta ANTHROPIC_API_KEY en Vercel" });
 
   const { messages = [], images = [], pass = "" } = req.body || {};

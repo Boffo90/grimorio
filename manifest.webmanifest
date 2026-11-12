@@ -1,7 +1,7 @@
 {
-  "name": "Grimorio",
+  "name": "Grimorio · Wiki cEDH",
   "short_name": "Grimorio",
-  "start_url": "/#mesa",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#0c1224",
   "theme_color": "#131b31",
@@ -12,5 +12,6 @@
       "type": "image/svg+xml",
       "purpose": "any"
     }
-  ]
+  ],
+  "description": "Wiki de cEDH en español"
 }
