@@ -3723,27 +3723,34 @@ NEW_CARDS.cabbage = {
   "Green Sun's Zenith":["s",1],"Finale of Devastation":["s",2],"Nature's Rhythm":["s",2],"Time of Need":["s",2],"Ecological Appreciation":["s",3],"Invasion of Ikoria":["s",2],"Eldritch Evolution":["s",3],
   "Forest":["l",0],"Inventors' Fair":["l",0],"Fomori Vault":["l",0],"The Mycosynth Gardens":["l",0],"Emergence Zone":["l",0],"Geier Reach Sanitarium":["l",0],"Talon Gates of Madara":["l",0],
   "The Tabernacle at Pendrell Vale":["l",0],"Strip Mine":["l",0],"Okina, Temple to the Grandfathers":["l",0],"Yavimaya, Cradle of Growth":["l",0],"Boseiju, Who Endures":["l",0],"Shifting Woodland":["l",0],
-  "Bridgeworks Battle":["l",0],"Turntimber Symbiosis":["l",0],"Gaea's Cradle":["l",0],"Ancient Tomb":["l",0],"Gemstone Caverns":["l",0]
+  "Bridgeworks Battle":["l",0],"Turntimber Symbiosis":["l",0],"Gaea's Cradle":["l",0],"Ancient Tomb":["l",0],"Gemstone Caverns":["l",0],
+  // Opciones populares en listas de torneo
+  "Tamiyo's Safekeeping":["i",1],"Bouncer's Beatdown":["i",3],"The One Ring":["a",4],"Vedalken Orrery":["a",4],"Trinisphere":["a",3],"Damping Sphere":["a",2],"Sphere of Resistance":["a",2],
+  "Mind's Eye":["a",5],"Unwinding Clock":["a",4],"Voyager Staff":["a",1],"Grim Monolith":["a",2],"Mox Opal":["a",0],"Grinning Totem":["a",4],"Sensei's Divining Top":["a",1],"Bag End Banquet":["a",2],"Apple of Eden, Isu Relic":["a",1],
+  "Emrakul, the Promised End":["c",13],"Bilbo, Fellow Conspirator":["c",2],"Stridehangar Automaton":["c",3],"Six":["c",3],"Glaring Fleshraker":["c",3],"Runic Armasaur":["c",3],
+  "Trail of Crumbs":["e",2],"Tezzeret, Cruel Captain":["p",3],
+  "Urza's Saga":["l",0],"Dryad Arbor":["l",0],"Snow-Covered Forest":["l",0],"War Room":["l",0],"Misty Rainforest":["l",0],"Verdant Catacombs":["l",0],"Windswept Heath":["l",0],"Wooded Foothills":["l",0]
 };
-const CAB_GREEN = [TOOK,"Jaheira, Friend of the Forest","Sarinth Steelseeker","Endurance","Allosaurus Shepherd","Delighted Halfling","Seedborn Muse","Sowing Mycospawn","Sylvan Safekeeper","Formidable Speaker","Birds of Paradise","Llanowar Elves","Elvish Mystic","Fyndhorn Elves","Gilded Goose","Elvish Spirit Guide","Chancellor of the Tangle",CABBAGE];
-const CAB_LEGEND = [TOOK,"Jaheira, Friend of the Forest","Liberator, Urza's Battlethopter",CABBAGE];
+const CAB_GREEN = [TOOK,"Jaheira, Friend of the Forest","Sarinth Steelseeker","Endurance","Allosaurus Shepherd","Delighted Halfling","Seedborn Muse","Sowing Mycospawn","Sylvan Safekeeper","Formidable Speaker","Six","Runic Armasaur","Bilbo, Fellow Conspirator","Birds of Paradise","Llanowar Elves","Elvish Mystic","Fyndhorn Elves","Gilded Goose","Elvish Spirit Guide","Chancellor of the Tangle",CABBAGE];
+const CAB_LEGEND = [TOOK,"Jaheira, Friend of the Forest","Liberator, Urza's Battlethopter",CABBAGE,"Six","Bilbo, Fellow Conspirator","Emrakul, the Promised End"];
 const CAB_HUMAN = ["Jaheira, Friend of the Forest",CABBAGE,"Sylvan Safekeeper"];
-const CAB_FLASH = ["Shimmer Myr","Liberator, Urza's Battlethopter","Skittering Cicada","Emergence Zone"];
+const CAB_FLASH = ["Shimmer Myr","Liberator, Urza's Battlethopter","Skittering Cicada","Emergence Zone","Vedalken Orrery"];
 const CAB_OUTLETS = ["Walking Ballista","Grinding Station","Finale of Devastation","Agatha's Soul Cauldron","Geier Reach Sanitarium"];
 const CAB_DORKS = ["Birds of Paradise","Llanowar Elves","Elvish Mystic","Fyndhorn Elves","Gilded Goose","Delighted Halfling"];
-const CAB_ART = c => ["a"].includes((NEW_CARDS.cabbage[c]||[])[0]) || [ACADEMY,"Chrome Dome","Kuldotha Forgemaster","Shimmer Myr","Liberator, Urza's Battlethopter","Walking Ballista","Soulless Jailer","Copper Gnomes","Haywire Mite"].includes(c);
+const CAB_ART = c => ["a"].includes((NEW_CARDS.cabbage[c]||[])[0]) || [ACADEMY,"Chrome Dome","Kuldotha Forgemaster","Shimmer Myr","Liberator, Urza's Battlethopter","Walking Ballista","Soulless Jailer","Copper Gnomes","Haywire Mite","Stridehangar Automaton"].includes(c);
 DECKS.cabbage = {
   id:"cabbage", short:"Cabbage Merchant", commander:CABBAGE, cmdCost:{gen:2,G:1}, colors:"G",
   cards: NEW_CARDS.cabbage,
   aliases: {"cabbage":CABBAGE,"merchant":CABBAGE,"academy":ACADEMY,"manufactor":ACADEMY,"took":TOOK,"peregrin":TOOK,"pippin":TOOK,"nuka":NUKA,"font":FONT,"clock":CLOCK,"kci":KCI,"ironworks":KCI,"grinding":"Grinding Station","station":"Grinding Station","dome":"Chrome Dome","kuldotha":"Kuldotha Forgemaster","forgemaster":"Kuldotha Forgemaster","jaheira":"Jaheira, Friend of the Forest","ballista":"Walking Ballista","cauldron":"Agatha's Soul Cauldron","totem":"Avarice Totem","liberator":"Liberator, Urza's Battlethopter","myr":"Shimmer Myr","cicada":"Skittering Cicada","gsz":"Green Sun's Zenith","finale":"Finale of Devastation","chord":"Chord of Calling","eco":"Ecological Appreciation","geier":"Geier Reach Sanitarium","fomori":"Fomori Vault","fair":"Inventors' Fair","gardens":"The Mycosynth Gardens","grip":"Krosan Grip","sarinth":"Sarinth Steelseeker"},
-  freeProtection: ["Force of Vigor","Summoner's Pact"].slice(0,0), cheapProtection: ["Veil of Summer","Autumn's Veil","Heroic Intervention","Royal Treatment","Defend the Rider","Collective Resistance","Legolas's Quick Reflexes","Savage Summoning","Allosaurus Shepherd","Delighted Halfling","Lightning Greaves","Sylvan Safekeeper"], splitSecond: ["Krosan Grip"],
+  freeProtection: ["Force of Vigor","Summoner's Pact"].slice(0,0), cheapProtection: ["Veil of Summer","Autumn's Veil","Heroic Intervention","Royal Treatment","Defend the Rider","Collective Resistance","Tamiyo's Safekeeping","Legolas's Quick Reflexes","Savage Summoning","Allosaurus Shepherd","Delighted Halfling","Lightning Greaves","Sylvan Safekeeper"], splitSecond: ["Krosan Grip"],
   tutors: {
     "Worldly Tutor":{types:["c"]},"Green Sun's Zenith":{fn:c=>CAB_GREEN.includes(c)},"Finale of Devastation":{types:["c"]},"Chord of Calling":{types:["c"]},
     "Summoner's Pact":{fn:c=>CAB_GREEN.includes(c)},"Shared Summons":{types:["c"]},"Nature's Rhythm":{types:["c"]},"Eldritch Evolution":{types:["c"]},
     "Invasion of Ikoria":{fn:(c,dh)=>dh.type(c)==="c" && !CAB_HUMAN.includes(c)},"Ecological Appreciation":{types:["c"]},"Archdruid's Charm":{types:["c","l"]},
     "Time of Need":{fn:c=>CAB_LEGEND.includes(c)},"Formidable Speaker":{types:["c"]},"Survival of the Fittest":{types:["c"],field:1},
     "Crop Rotation":{types:["l"]},"Expedition Map":{types:["l"],field:1},"Sowing Mycospawn":{types:["l"]},
-    "Kuldotha Forgemaster":{fn:c=>CAB_ART(c),field:1},[FONT]:{fn:c=>CAB_ART(c),field:1},"Inventors' Fair":{fn:c=>CAB_ART(c),field:1}
+    "Kuldotha Forgemaster":{fn:c=>CAB_ART(c),field:1},[FONT]:{fn:c=>CAB_ART(c),field:1},"Inventors' Fair":{fn:c=>CAB_ART(c),field:1},
+    "Tezzeret, Cruel Captain":{fn:(c,dh)=>CAB_ART(c) && dh.mv(c)<=1,field:1},"Urza's Saga":{fn:(c,dh)=>dh.type(c)==="a" && dh.mv(c)<=1,field:1}
   },
   hate: [
     ["null rod","Null Rod: apaga Font, Clock, Nuka-Cola, KCI, Grinding Station, Kuldotha y Chrome Dome. El maná de Comidas del Merchant sí funciona (es habilidad del comandante). Krosan Grip, Nature's Claim, Force of Vigor."],
@@ -3777,7 +3784,8 @@ COMBOS: (1) Academy + Transmutation Font + Clock of Omens: Font crea ficha, Acad
 SALIDAS: Walking Ballista (daño), Grinding Station (mill), Finale of Devastation (combate, velocidad de conjuro), Agatha's Soul Cauldron + Ballista en cementerio, Geier Reach Sanitarium (robo forzado; mata al que vació su biblioteca con Demonic Consultation), loops de Endurance + Beast Within, Avarice Totem (doble activación: roba un permanente rival y le deja una Comida), Fomori Vault para encontrar la salida.
 TUTORES: criatura → Academy > Peregrin > Jaheira > Chrome Dome o Kuldotha. Solo verdes (Green Sun's Zenith, Summoner's Pact) → Peregrin. Time of Need → Peregrin, Jaheira o Liberator. Tierra (Crop Rotation, Expedition Map, Sowing Mycospawn, Archdruid's Charm) → Inventors' Fair (artefacto), Fomori Vault, The Mycosynth Gardens (copia Academy), Emergence Zone (flash), Geier Reach Sanitarium (contra Thassa's Oracle), Talon Gates, Tabernacle, Strip Mine.
 FLASH: Shimmer Myr, Liberator, Skittering Cicada (hechizos incoloros), Emergence Zone, Savage Summoning.
-PROTECCIÓN: Veil of Summer, Autumn's Veil, Heroic Intervention, Royal Treatment, Defend the Rider, Collective Resistance, Legolas's Quick Reflexes, Lightning Greaves. Allosaurus Shepherd y Delighted Halfling NO protegen a Academy (incolora, no legendaria); sí a Peregrin, Jaheira y el Merchant.
+OPCIONES POPULARES QUE PUEDEN ESTAR EN LA LISTA: The One Ring, Vedalken Orrery (flash para todo), Unwinding Clock y Seedborn Muse (enderezan en turnos ajenos), Mind's Eye, Trail of Crumbs, Six, Bilbo, Tezzeret, Cruel Captain, Urza's Saga, y stax como Trinisphere, Damping Sphere y Sphere of Resistance.
+PROTECCIÓN: Veil of Summer, Autumn's Veil, Heroic Intervention, Royal Treatment, Defend the Rider, Tamiyo's Safekeeping, Collective Resistance, Legolas's Quick Reflexes, Lightning Greaves. Allosaurus Shepherd y Delighted Halfling NO protegen a Academy (incolora, no legendaria); sí a Peregrin, Jaheira y el Merchant.
 INTERACCIÓN: Krosan Grip (split second), Nature's Claim, Force of Vigor, Beast Within, Boseiju, Endurance, Soulless Jailer, Vexing Bauble, Disruptor Flute. Regla: no interactúes antes de tiempo si puedes esperar y generar más Comidas; si al resolverse pierdes, interactúa ahora.
 SI ACADEMY NO ESTÁ: en cementerio → Noxious Revival, Peerless Recycling, Endurance o Shifting Woodland. Exiliada → pivotea a Peregrin + Nuka-Cola.
 NOTA DE MESA: las fichas (Comidas, Pistas, Tesoros) no se anotan como cartas; su maná se suma con los botones de maná.`,
@@ -3828,6 +3836,11 @@ NOTA DE MESA: las fichas (Comidas, Pistas, Tesoros) no se anotan como cartas; su
     if (on("Geier Reach Sanitarium") || inZ("hand","Crop Rotation")) flags.push(["info",`Contra Thassa's Oracle + Demonic Consultation: con el trigger de Oracle en la pila y su biblioteca vacía, activa Geier Reach Sanitarium${inZ("field","Geier Reach Sanitarium")?"":" (Crop Rotation la busca a velocidad de instantáneo)"}. Roba de la biblioteca vacía y pierde antes de ganar.`]);
     if (inZ("hand","Krosan Grip")) flags.push(["info","Krosan Grip tiene split second: espera hasta la última ventana (Underworld Breach con el combo armado) sin entrar en una guerra de counters."]);
     if (inZ("hand","Endurance") && inZ("hand","Beast Within")) flags.push(["info","Endurance + Beast Within: con el trigger de Endurance en la pila, destruye a Endurance. Baraja tu cementerio con ella adentro. Con maná y robo infinitos es un loop que repite cualquier hechizo."]);
+    const untap = ["Seedborn Muse","Unwinding Clock"].filter(c=>inZ("field",c));
+    if (untap.length) flags.push(["okf",`${untap.join(" y ")} en mesa: ${untap.includes("Unwinding Clock")?"tus artefactos (fichas incluidas) se enderezan":"todo se endereza"} en el turno de cada rival. Las Comidas giradas por maná vuelven a estar disponibles.`]);
+    const sph = ["Trinisphere","Sphere of Resistance","Damping Sphere"].filter(c=>inZ("field",c));
+    if (sph.length) flags.push(["info",`${sph.join(", ")} en mesa: también te cobra a ti. Las líneas de Font, Kuldotha y Nuka-Cola no lanzan hechizos y no se encarecen.`]);
+    if (on("The One Ring")) flags.push(["info","The One Ring: protección por un turno y robo creciente. Con Seedborn Muse, Unwinding Clock o Clock of Omens se gira varias veces por vuelta."]);
     if (on("Sarinth Steelseeker")) flags.push(["info","Sarinth Steelseeker se dispara por cada artefacto que entra: con Academy, cada Comida son tres triggers."]);
     if ((on("Allosaurus Shepherd") || on("Delighted Halfling")) && inZ("hand",ACADEMY)) flags.push(["info","Allosaurus Shepherd y Delighted Halfling no protegen a Academy Manufactor: es incolora y no es legendaria."]);
     if (inZ("field","Gaea's Cradle")) flags.push(["okf",`Gaea's Cradle: ${st.field.filter(c=>(this.cards[c]||[])[0]==="c").length} maná verde por tus criaturas.`]);
@@ -5092,7 +5105,7 @@ const REMOVAL = {
   rograkh:["Deadly Rollick","Into the Flood Maw","Chain of Vapor","Snapback","Otawara, Soaring City","Imposter Mech"],
   kraum:["Into the Flood Maw","Chain of Vapor","Snapback","Otawara, Soaring City"],
   rocco:["Fury","Pyrokinesis","Collateral Damage","Seal of Fire","Thunderclap","Boseiju, Who Endures"],
-  cabbage:["Krosan Grip","Nature's Claim","Force of Vigor","Beast Within","Boseiju, Who Endures","Walking Ballista","Talon Gates of Madara","Haywire Mite","Strip Mine"]
+  cabbage:["Krosan Grip","Nature's Claim","Force of Vigor","Beast Within","Bouncer's Beatdown","Boseiju, Who Endures","Walking Ballista","Talon Gates of Madara","Haywire Mite","Strip Mine"]
 };
 function readTable(){
   const seats = oppSeats();
@@ -5246,12 +5259,12 @@ ROLES.rocco = {accelFast:["Lotus Petal", "Chrome Mox", "Mox Diamond", "Mana Vaul
   landColors:Object.assign({}, LAND_COLORS, Object.fromEntries(Object.keys(COLORLESS_LANDS).map(k=>[k,""]))), anyLand:Object.keys(NEW_CARDS.rocco).filter(c=>NEW_CARDS.rocco[c][0]==="l" && !LAND_COLORS[c] && !COLORLESS_LANDS[c] && c!=="Gaea's Cradle"),
   colorAccel:Object.fromEntries(["Lotus Petal","Lion's Eye Diamond","Manamorphose","Birds of Paradise","Arcane Signet","Fellwar Stone","Dark Ritual","Cabal Ritual","Rite of Flame","Simian Spirit Guide","Elvish Spirit Guide","Culling the Weak","Rain of Filth","Seething Song","Pyretic Ritual","Delighted Halfling","Utopia Sprawl"].filter(c=>NEW_CARDS.rocco[c]).map(c=>[c,({"Dark Ritual":"B","Cabal Ritual":"B","Culling the Weak":"B","Rain of Filth":"B","Rite of Flame":"R","Simian Spirit Guide":"R","Seething Song":"R","Pyretic Ritual":"R","Elvish Spirit Guide":"G"})[c]||"RGW"])),
   cmdColors:"RGW", cmdCost:6};
-ROLES.cabbage = {accelFast:["Lotus Petal","Chrome Mox","Mox Diamond","Mana Vault","Sol Ring","Elvish Spirit Guide"],accelSlow:["Birds of Paradise","Llanowar Elves","Elvish Mystic","Fyndhorn Elves","Gilded Goose","Delighted Halfling","Wild Growth"],
+ROLES.cabbage = {accelFast:["Lotus Petal","Chrome Mox","Mox Diamond","Mox Opal","Mana Vault","Grim Monolith","Sol Ring","Elvish Spirit Guide"],accelSlow:["Birds of Paradise","Llanowar Elves","Elvish Mystic","Fyndhorn Elves","Gilded Goose","Delighted Halfling","Wild Growth","Dryad Arbor"],
   piece:[ACADEMY,TOOK,NUKA,FONT,CLOCK,KCI,"Grinding Station","Chrome Dome","Kuldotha Forgemaster","Walking Ballista"],
-  tutor:["Worldly Tutor","Green Sun's Zenith","Finale of Devastation","Chord of Calling","Summoner's Pact","Shared Summons","Nature's Rhythm","Eldritch Evolution","Invasion of Ikoria","Ecological Appreciation","Archdruid's Charm","Time of Need","Formidable Speaker","Survival of the Fittest","Crop Rotation","Expedition Map","Sowing Mycospawn"],
-  engine:["Jaheira, Friend of the Forest","Sarinth Steelseeker","Shimmer Myr","Liberator, Urza's Battlethopter","Skittering Cicada","Seedborn Muse","Mirage Mirror","Sculpting Steel","Second Harvest","Avarice Totem","Agatha's Soul Cauldron"],
-  landColors:Object.assign({}, Object.fromEntries(Object.keys(NEW_CARDS.cabbage).filter(c=>NEW_CARDS.cabbage[c][0]==="l").map(c=>[c,"G"])), Object.fromEntries(["Inventors' Fair","Fomori Vault","The Mycosynth Gardens","Emergence Zone","Geier Reach Sanitarium","Talon Gates of Madara","Strip Mine","The Tabernacle at Pendrell Vale","Ancient Tomb","Gaea's Cradle"].map(k=>[k,""])), {"Gemstone Caverns":"G"}), anyLand:[],
-  colorAccel:{"Lotus Petal":"G","Chrome Mox":"G","Mox Diamond":"G","Elvish Spirit Guide":"G","Birds of Paradise":"G","Llanowar Elves":"G","Elvish Mystic":"G","Fyndhorn Elves":"G","Gilded Goose":"G","Delighted Halfling":"G","Wild Growth":"G"},
+  tutor:["Worldly Tutor","Green Sun's Zenith","Finale of Devastation","Chord of Calling","Summoner's Pact","Shared Summons","Nature's Rhythm","Eldritch Evolution","Invasion of Ikoria","Ecological Appreciation","Archdruid's Charm","Time of Need","Formidable Speaker","Survival of the Fittest","Crop Rotation","Expedition Map","Sowing Mycospawn","Tezzeret, Cruel Captain","Urza's Saga"],
+  engine:["Jaheira, Friend of the Forest","Sarinth Steelseeker","Shimmer Myr","Liberator, Urza's Battlethopter","Skittering Cicada","Seedborn Muse","Mirage Mirror","Sculpting Steel","Second Harvest","Avarice Totem","Agatha's Soul Cauldron","The One Ring","Mind's Eye","Unwinding Clock","Vedalken Orrery","Trail of Crumbs","Six","Bilbo, Fellow Conspirator","Glaring Fleshraker","Runic Armasaur","Sensei's Divining Top","Stridehangar Automaton"],
+  landColors:Object.assign({}, Object.fromEntries(Object.keys(NEW_CARDS.cabbage).filter(c=>NEW_CARDS.cabbage[c][0]==="l").map(c=>[c,"G"])), Object.fromEntries(["Inventors' Fair","Fomori Vault","The Mycosynth Gardens","Emergence Zone","Geier Reach Sanitarium","Talon Gates of Madara","Strip Mine","The Tabernacle at Pendrell Vale","Ancient Tomb","Gaea's Cradle","Urza's Saga","War Room"].map(k=>[k,""])), {"Gemstone Caverns":"G"}), anyLand:[],
+  colorAccel:{"Lotus Petal":"G","Chrome Mox":"G","Mox Diamond":"G","Elvish Spirit Guide":"G","Birds of Paradise":"G","Llanowar Elves":"G","Elvish Mystic":"G","Fyndhorn Elves":"G","Gilded Goose":"G","Delighted Halfling":"G","Wild Growth":"G","Mox Opal":"G","Dryad Arbor":"G"},
   cmdColors:"G", cmdCost:3};
 ROLES.hashaton.colorAccel = {"Lotus Petal":"WUB","Dark Ritual":"B","Cabal Ritual":"B","Lion's Eye Diamond":"WUB","Arcane Signet":"WUB","Fellwar Stone":"WUB"};
 
