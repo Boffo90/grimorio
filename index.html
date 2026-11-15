@@ -2940,7 +2940,7 @@ main .thesis,main .line,main .note,main .warn,main .tip,main .hand,main .piece{d
       <summary><span class="eyebrow" id="mesa-eyebrow">Asistente de partida</span><span class="setup-sum" id="setup-sum"></span></summary>
       <div class="setup-body">
         <div class="row">
-          <div class="fld"><label for="deck">Mazo</label><select id="deck"><option value="hashaton">Hashaton</option><option value="crystal">Crystal</option><option value="nick">Nick Fury</option><option value="rocco">Rocco</option><option value="rograkh">Rograkh + Silas</option><option value="kraum">Kraum + Tymna</option></select></div>
+          <div class="fld"><label for="deck">Mazo</label><select id="deck"><option value="hashaton">Hashaton</option><option value="crystal">Crystal</option><option value="nick">Nick Fury</option><option value="rocco">Rocco</option><option value="rograkh">Rograkh + Silas</option><option value="kraum">Kraum + Tymna</option><option value="cabbage">Cabbage Merchant</option></select></div>
           <div class="fld"><label>Tu asiento</label><div class="seg" id="seat-seg" role="group" aria-label="Tu asiento"></div></div>
         </div>
         <div class="row" id="flex-row-wrap">
@@ -3053,7 +3053,7 @@ main .thesis,main .line,main .note,main .warn,main .tip,main .hand,main .piece{d
       <div class="mstats" id="m-stats"></div>
     </div>
     <div class="gamebar">
-      <div class="fld"><label for="m-deck">Mazo</label><select id="m-deck"><option value="hashaton">Hashaton</option><option value="crystal">Crystal</option><option value="nick">Nick Fury</option><option value="rocco">Rocco</option><option value="rograkh">Rograkh + Silas</option><option value="kraum">Kraum + Tymna</option></select></div>
+      <div class="fld"><label for="m-deck">Mazo</label><select id="m-deck"><option value="hashaton">Hashaton</option><option value="crystal">Crystal</option><option value="nick">Nick Fury</option><option value="rocco">Rocco</option><option value="rograkh">Rograkh + Silas</option><option value="kraum">Kraum + Tymna</option><option value="cabbage">Cabbage Merchant</option></select></div>
       <div class="fld"><label for="m-seat">Asiento</label><select id="m-seat"><option value="r">Al azar</option><option value="1">Seat 1</option><option value="2">Seat 2</option><option value="3">Seat 3</option><option value="4">Seat 4</option></select></div>
       <div class="fld"><label for="m-free">Mulligan gratis</label><select id="m-free"><option value="1">Sí, el primero</option><option value="0">No</option></select></div>
       <button class="btn primary" id="m-new" type="button">Nueva mano</button>
@@ -3707,12 +3707,151 @@ PROTECCIÓN: Grand Abolisher, Jennifer Walters, Voice of Victory, Silence, Hexin
   },
   mullGuide: `<ul><li>Un dork o aceleración en turno 1 y verde para Rocco.</li><li>Llegar a 6–8 maná en turno 3 (Rocco X=3 a 5).</li><li>Una pieza de combo (Kiki, Felidar, Bell-Ringer, Recruiter, Jolly, Food Chain, Squee) o un tutor de criatura.</li><li>Grand Abolisher, Jennifer, Voice o Silence suben mucho la mano.</li><li>Sin verde ni dorks es mulligan aunque tengas piezas.</li></ul>`
 };
+/* ===================== The Cabbage Merchant ===================== */
+const CABBAGE = "The Cabbage Merchant", ACADEMY = "Academy Manufactor", TOOK = "Peregrin Took", NUKA = "Nuka-Cola Vending Machine", FONT = "Transmutation Font", CLOCK = "Clock of Omens", KCI = "Krark-Clan Ironworks";
+NEW_CARDS.cabbage = {
+  [CABBAGE]:["c",3],[ACADEMY]:["c",3],[TOOK]:["c",3],"Jaheira, Friend of the Forest":["c",3],"Chrome Dome":["c",2],"Kuldotha Forgemaster":["c",5],"Sarinth Steelseeker":["c",2],
+  "Shimmer Myr":["c",3],"Liberator, Urza's Battlethopter":["c",3],"Skittering Cicada":["c",3],"Walking Ballista":["c",0],"Endurance":["c",3],"Soulless Jailer":["c",2],"Formidable Speaker":["c",3],
+  "Allosaurus Shepherd":["c",1],"Delighted Halfling":["c",2],"Seedborn Muse":["c",5],"Wandering Archaic":["c",5],"Sowing Mycospawn":["c",4],"Sylvan Safekeeper":["c",1],"Copper Gnomes":["c",2],"Haywire Mite":["c",1],
+  "Birds of Paradise":["c",1],"Llanowar Elves":["c",1],"Elvish Mystic":["c",1],"Fyndhorn Elves":["c",1],"Gilded Goose":["c",1],"Elvish Spirit Guide":["c",3],"Chancellor of the Tangle":["c",7],
+  [NUKA]:["a",3],[CLOCK]:["a",4],[KCI]:["a",4],"Grinding Station":["a",2],[FONT]:["a",5],"Avarice Totem":["a",1],"Agatha's Soul Cauldron":["a",2],"Mirage Mirror":["a",3],"Sculpting Steel":["a",3],
+  "Lightning Greaves":["a",2],"Vexing Bauble":["a",1],"Disruptor Flute":["a",2],"Expedition Map":["a",1],"Sol Ring":["a",1],"Mana Vault":["a",1],"Lotus Petal":["a",0],"Chrome Mox":["a",0],"Mox Diamond":["a",0],
+  "Wild Growth":["e",1],"Survival of the Fittest":["e",2],
+  "Worldly Tutor":["i",1],"Chord of Calling":["i",3],"Summoner's Pact":["i",0],"Shared Summons":["i",5],"Archdruid's Charm":["i",3],"Crop Rotation":["i",1],"Veil of Summer":["i",1],"Autumn's Veil":["i",1],
+  "Heroic Intervention":["i",2],"Royal Treatment":["i",1],"Defend the Rider":["i",1],"Collective Resistance":["i",2],"Legolas's Quick Reflexes":["i",1],"Savage Summoning":["i",1],"Krosan Grip":["i",3],
+  "Nature's Claim":["i",1],"Force of Vigor":["i",4],"Beast Within":["i",3],"Noxious Revival":["i",1],"Second Harvest":["i",4],"Peerless Recycling":["i",2],
+  "Green Sun's Zenith":["s",1],"Finale of Devastation":["s",2],"Nature's Rhythm":["s",2],"Time of Need":["s",2],"Ecological Appreciation":["s",3],"Invasion of Ikoria":["s",2],"Eldritch Evolution":["s",3],
+  "Forest":["l",0],"Inventors' Fair":["l",0],"Fomori Vault":["l",0],"The Mycosynth Gardens":["l",0],"Emergence Zone":["l",0],"Geier Reach Sanitarium":["l",0],"Talon Gates of Madara":["l",0],
+  "The Tabernacle at Pendrell Vale":["l",0],"Strip Mine":["l",0],"Okina, Temple to the Grandfathers":["l",0],"Yavimaya, Cradle of Growth":["l",0],"Boseiju, Who Endures":["l",0],"Shifting Woodland":["l",0],
+  "Bridgeworks Battle":["l",0],"Turntimber Symbiosis":["l",0],"Gaea's Cradle":["l",0],"Ancient Tomb":["l",0],"Gemstone Caverns":["l",0]
+};
+const CAB_GREEN = [TOOK,"Jaheira, Friend of the Forest","Sarinth Steelseeker","Endurance","Allosaurus Shepherd","Delighted Halfling","Seedborn Muse","Sowing Mycospawn","Sylvan Safekeeper","Formidable Speaker","Birds of Paradise","Llanowar Elves","Elvish Mystic","Fyndhorn Elves","Gilded Goose","Elvish Spirit Guide","Chancellor of the Tangle",CABBAGE];
+const CAB_LEGEND = [TOOK,"Jaheira, Friend of the Forest","Liberator, Urza's Battlethopter",CABBAGE];
+const CAB_HUMAN = ["Jaheira, Friend of the Forest",CABBAGE,"Sylvan Safekeeper"];
+const CAB_FLASH = ["Shimmer Myr","Liberator, Urza's Battlethopter","Skittering Cicada","Emergence Zone"];
+const CAB_OUTLETS = ["Walking Ballista","Grinding Station","Finale of Devastation","Agatha's Soul Cauldron","Geier Reach Sanitarium"];
+const CAB_DORKS = ["Birds of Paradise","Llanowar Elves","Elvish Mystic","Fyndhorn Elves","Gilded Goose","Delighted Halfling"];
+const CAB_ART = c => ["a"].includes((NEW_CARDS.cabbage[c]||[])[0]) || [ACADEMY,"Chrome Dome","Kuldotha Forgemaster","Shimmer Myr","Liberator, Urza's Battlethopter","Walking Ballista","Soulless Jailer","Copper Gnomes","Haywire Mite"].includes(c);
+DECKS.cabbage = {
+  id:"cabbage", short:"Cabbage Merchant", commander:CABBAGE, cmdCost:{gen:2,G:1}, colors:"G",
+  cards: NEW_CARDS.cabbage,
+  aliases: {"cabbage":CABBAGE,"merchant":CABBAGE,"academy":ACADEMY,"manufactor":ACADEMY,"took":TOOK,"peregrin":TOOK,"pippin":TOOK,"nuka":NUKA,"font":FONT,"clock":CLOCK,"kci":KCI,"ironworks":KCI,"grinding":"Grinding Station","station":"Grinding Station","dome":"Chrome Dome","kuldotha":"Kuldotha Forgemaster","forgemaster":"Kuldotha Forgemaster","jaheira":"Jaheira, Friend of the Forest","ballista":"Walking Ballista","cauldron":"Agatha's Soul Cauldron","totem":"Avarice Totem","liberator":"Liberator, Urza's Battlethopter","myr":"Shimmer Myr","cicada":"Skittering Cicada","gsz":"Green Sun's Zenith","finale":"Finale of Devastation","chord":"Chord of Calling","eco":"Ecological Appreciation","geier":"Geier Reach Sanitarium","fomori":"Fomori Vault","fair":"Inventors' Fair","gardens":"The Mycosynth Gardens","grip":"Krosan Grip","sarinth":"Sarinth Steelseeker"},
+  freeProtection: ["Force of Vigor","Summoner's Pact"].slice(0,0), cheapProtection: ["Veil of Summer","Autumn's Veil","Heroic Intervention","Royal Treatment","Defend the Rider","Collective Resistance","Legolas's Quick Reflexes","Savage Summoning","Allosaurus Shepherd","Delighted Halfling","Lightning Greaves","Sylvan Safekeeper"], splitSecond: ["Krosan Grip"],
+  tutors: {
+    "Worldly Tutor":{types:["c"]},"Green Sun's Zenith":{fn:c=>CAB_GREEN.includes(c)},"Finale of Devastation":{types:["c"]},"Chord of Calling":{types:["c"]},
+    "Summoner's Pact":{fn:c=>CAB_GREEN.includes(c)},"Shared Summons":{types:["c"]},"Nature's Rhythm":{types:["c"]},"Eldritch Evolution":{types:["c"]},
+    "Invasion of Ikoria":{fn:(c,dh)=>dh.type(c)==="c" && !CAB_HUMAN.includes(c)},"Ecological Appreciation":{types:["c"]},"Archdruid's Charm":{types:["c","l"]},
+    "Time of Need":{fn:c=>CAB_LEGEND.includes(c)},"Formidable Speaker":{types:["c"]},"Survival of the Fittest":{types:["c"],field:1},
+    "Crop Rotation":{types:["l"]},"Expedition Map":{types:["l"],field:1},"Sowing Mycospawn":{types:["l"]},
+    "Kuldotha Forgemaster":{fn:c=>CAB_ART(c),field:1},[FONT]:{fn:c=>CAB_ART(c),field:1},"Inventors' Fair":{fn:c=>CAB_ART(c),field:1}
+  },
+  hate: [
+    ["null rod","Null Rod: apaga Font, Clock, Nuka-Cola, KCI, Grinding Station, Kuldotha y Chrome Dome. El maná de Comidas del Merchant sí funciona (es habilidad del comandante). Krosan Grip, Nature's Claim, Force of Vigor."],
+    ["stony silence","Stony Silence: apaga todas tus habilidades activadas de artefactos. Nature's Claim, Force of Vigor, Krosan Grip."],
+    ["collector ouphe","Collector Ouphe: apaga tus artefactos. Beast Within, Walking Ballista o Talon Gates."],
+    ["cursed totem","Cursed Totem: apaga al Merchant (maná de Comidas), Peregrin Took, Kuldotha, Chrome Dome, Jaheira y los dorks. Font + Clock + Academy sigue funcionando."],
+    ["torpor orb","Torpor Orb: no te afecta casi nada (Academy y Took son efectos de reemplazo). Solo apaga a Endurance y Sowing Mycospawn."],
+    ["rest in peace","Rest in Peace: sin Shifting Woodland, Noxious Revival, Peerless Recycling ni loops de Endurance. Tus combos principales siguen."],
+    ["grafdigger","Grafdigger's Cage: Finale, Chord y Green Sun's Zenith no ponen criaturas desde la biblioteca. Tutorea a la mano (Worldly Tutor, Summoner's Pact, Shared Summons)."],
+    ["drannith","Drannith Magistrate: no lanzas al Merchant desde la zona de mando. Beast Within, Ballista, Talon Gates."],
+    ["opposition agent","Opposition Agent: se queda con lo que busques (tutores, Kuldotha, Font, Crop Rotation). Mátalo antes."],
+    ["aven mindcensor","Aven Mindcensor: tus tutores solo ven cuatro cartas."],
+    ["rule of law","Rule of Law: un hechizo por turno. Las líneas de Font y Kuldotha no lanzan hechizos: siguen funcionando."],
+    ["bowmasters","Orcish Bowmasters: mata dorks y castiga el robo con Pistas y Peregrin Took. Okina o mátalo primero."],
+    ["toxic deluge","Toxic Deluge: barre al Merchant, Academy y Took. Heroic Intervention no salva de -X/-X."],
+    ["vandalblast","Vandalblast sobrecargado: pierdes todos los artefactos y fichas. Heroic Intervention."],["farewell","Farewell: exilia artefactos y fichas."],
+    ["stifle","Stifle / Trickbind: detienen una activación de Font, Kuldotha o Nuka-Cola. Guarda una segunda activación o Veil of Summer."],
+    ["tidebinder","Tishana's Tidebinder: contrarresta una activación y apaga ese permanente."],
+    ["grand abolisher","Grand Abolisher rival: en su turno no puedes lanzar ni activar artefactos, criaturas o encantamientos. El maná del Merchant tampoco."],
+    ["voice of victory","Voice of Victory rival: no lanzas hechizos en su turno. Las líneas sin hechizos (Font, Kuldotha) sí."],
+    ["teferi, time raveler","Teferi, Time Raveler: solo lanzas a velocidad de conjuro; tus enablers de flash no sirven. Activar habilidades sí."],
+    ["winota","Mesa de criaturas (Winota): lanzan pocos hechizos no criatura y te dan pocas Comidas. Sé proactivo: Tabernacle, Talon Gates, Ballista."],
+    ["magda","Magda: pocas Comidas para ti. Sé proactivo y guarda remoción para Clock of Omens."],
+    ["tayam","Tayam: pocas Comidas para ti. Soulless Jailer y Agatha's Soul Cauldron la frenan."]
+  ],
+  example: {zones:{hand:[CLOCK,"Veil of Summer","Chord of Calling","Forest"],field:[CABBAGE,ACADEMY,FONT,"Forest","Inventors' Fair","Sol Ring","Liberator, Urza's Battlethopter"],grave:[],exile:[]}},
+  summary: `MAZO: The Cabbage Merchant ({2}{G}, 2/2 legendario). Cada vez que un rival lanza un hechizo no criatura, crea una Comida (Food). Cada vez que una criatura le hace daño de combate al jugador, sacrifica una Comida. Girar dos Comidas enderezadas: agrega un maná de cualquier color. Mono verde de artefactos y fichas: midrange que gana a velocidad de instantáneo encima del intento de otro.
+PLAN: T1 dork o piedra, T2 Merchant, T3 Academy Manufactor (o Peregrin Took), T4 ganar o dejar la victoria lista a flash. Las Comidas llegan en turnos ajenos: sin un enabler de flash ese maná se pierde.
+MOTORES: Academy Manufactor (efecto de reemplazo: cada Comida, Pista o Tesoro que crearías pasa a ser uno de cada; con 2 Academy son 3 de cada, con 3 son 9, con 4 son 27). Peregrin Took (cada vez que crearías fichas, una Comida extra; sacrificar tres Comidas: roba una carta). Jaheira (tus fichas se giran por {G}). Sarinth Steelseeker (se dispara por cada artefacto que entra).
+COMBOS: (1) Academy + Transmutation Font + Clock of Omens: Font crea ficha, Academy la vuelve tres, dos se giran con Clock para enderezar Font: maná, robo y vida infinitos. (2) Academy + Nuka-Cola Vending Machine + Krark-Clan Ironworks: maná infinito. (3) Academy + Nuka-Cola + Grinding Station: mill infinito. (4) Peregrin Took + Nuka-Cola con 3 Comidas: robo infinito. (5) Peregrin + Nuka-Cola + KCI (maná) o Grinding Station (mill), sin Academy. (6) Peregrin + Font + Clock: Comidas infinitas y robo. (7) Academy + Chrome Dome ({5}: copia otro artefacto, con prisa, hasta el final del turno): dos copias de Academy y luego copiar una ficha da 9 de cada; los Tesoros pagan la siguiente. (8) Kuldotha Forgemaster sin mareo y 9+ artefactos: busca Clock → Academy → Font. (9) Font sola con dos tríos de fichas distintas: busca Clock y Academy sin lanzar hechizos. Shifting Woodland con delirium copia a Academy desde el cementerio.
+SALIDAS: Walking Ballista (daño), Grinding Station (mill), Finale of Devastation (combate, velocidad de conjuro), Agatha's Soul Cauldron + Ballista en cementerio, Geier Reach Sanitarium (robo forzado; mata al que vació su biblioteca con Demonic Consultation), loops de Endurance + Beast Within, Avarice Totem (doble activación: roba un permanente rival y le deja una Comida), Fomori Vault para encontrar la salida.
+TUTORES: criatura → Academy > Peregrin > Jaheira > Chrome Dome o Kuldotha. Solo verdes (Green Sun's Zenith, Summoner's Pact) → Peregrin. Time of Need → Peregrin, Jaheira o Liberator. Tierra (Crop Rotation, Expedition Map, Sowing Mycospawn, Archdruid's Charm) → Inventors' Fair (artefacto), Fomori Vault, The Mycosynth Gardens (copia Academy), Emergence Zone (flash), Geier Reach Sanitarium (contra Thassa's Oracle), Talon Gates, Tabernacle, Strip Mine.
+FLASH: Shimmer Myr, Liberator, Skittering Cicada (hechizos incoloros), Emergence Zone, Savage Summoning.
+PROTECCIÓN: Veil of Summer, Autumn's Veil, Heroic Intervention, Royal Treatment, Defend the Rider, Collective Resistance, Legolas's Quick Reflexes, Lightning Greaves. Allosaurus Shepherd y Delighted Halfling NO protegen a Academy (incolora, no legendaria); sí a Peregrin, Jaheira y el Merchant.
+INTERACCIÓN: Krosan Grip (split second), Nature's Claim, Force of Vigor, Beast Within, Boseiju, Endurance, Soulless Jailer, Vexing Bauble, Disruptor Flute. Regla: no interactúes antes de tiempo si puedes esperar y generar más Comidas; si al resolverse pierdes, interactúa ahora.
+SI ACADEMY NO ESTÁ: en cementerio → Noxious Revival, Peerless Recycling, Endurance o Shifting Woodland. Exiliada → pivotea a Peregrin + Nuka-Cola.
+NOTA DE MESA: las fichas (Comidas, Pistas, Tesoros) no se anotan como cartas; su maná se suma con los botones de maná.`,
+  evaluate(st, h){
+    const {inZ, line, P, cmdr} = h;
+    const on = c => inZ("field",c)||inZ("hand",c);
+    const hc = (c, cost) => inZ("hand",c) ? cost : {};
+    const cA = hc(ACADEMY,{gen:3}), cT = hc(TOOK,{gen:2,G:1}), cN = hc(NUKA,{gen:3}), cF = hc(FONT,{gen:5}), cC = hc(CLOCK,{gen:4}), cK = hc(KCI,{gen:4}), cG = hc("Grinding Station",{gen:2});
+    const need = "en campo o mano";
+    line("1","Academy + Font + Clock",[P(ACADEMY,on(ACADEMY),need),P(FONT,on(FONT),need),P(CLOCK,on(CLOCK),need)], add(cA,cF,cC), "Gira Font: crea una ficha y Academy la vuelve Comida + Pista + Tesoro. Gira dos con Clock para enderezar Font. Maná, robo y vida infinitos.");
+    line("2","Academy + Nuka-Cola + KCI",[P(ACADEMY,on(ACADEMY),need),P(NUKA,on(NUKA),need),P(KCI,on(KCI),need)], add(cA,cN,cK), "Necesitas una Comida. Sacrifícala a KCI: Nuka-Cola crea un Tesoro girado y Academy lo vuelve tres fichas. Maná infinito.");
+    line("3","Academy + Nuka-Cola + Grinding Station",[P(ACADEMY,on(ACADEMY),need),P(NUKA,on(NUKA),need),P("Grinding Station",on("Grinding Station"),need)], add(cA,cN,cG), "Necesitas una Comida. Sacrifícala a Grinding Station; cada artefacto que entra la endereza. Mill infinito a cada rival.");
+    line("4","Peregrin Took + Nuka-Cola",[P(TOOK,on(TOOK),need),P(NUKA,on(NUKA),need)], add(cT,cN), "Necesitas 3 Comidas. Sacrifica tres con Peregrin: robas una, Nuka-Cola crea tres Tesoros girados y Peregrin tres Comidas. Robo infinito.");
+    const out2 = on(KCI) ? KCI : (on("Grinding Station") ? "Grinding Station" : KCI);
+    line("5","Peregrin + Nuka-Cola + "+(out2===KCI?"KCI":"Grinding Station"),[P(TOOK,on(TOOK),need),P(NUKA,on(NUKA),need),P(out2,on(out2),need+" (o "+(out2===KCI?"Grinding Station":"Krark-Clan Ironworks")+")")], add(cT,cN,out2===KCI?cK:cG), out2===KCI ? "Sin Academy. Sacrifica una Comida a KCI: Nuka-Cola crea Tesoro y Peregrin una Comida. Maná incoloro infinito." : "Sin Academy. Cada Comida sacrificada vuelve con Peregrin y endereza la Station. Mill infinito.");
+    line("6","Peregrin + Font + Clock",[P(TOOK,on(TOOK),need),P(FONT,on(FONT),need),P(CLOCK,on(CLOCK),need)], add(cT,cF,cC), "Font crea una Comida y Peregrin otra; las dos se giran con Clock para enderezar Font. Comidas infinitas: sacrifica de a tres para robar. Con KCI, además maná infinito.");
+    line("7","Academy + Chrome Dome",[P(ACADEMY,on(ACADEMY),need),P("Chrome Dome",on("Chrome Dome"),need),P("Una Comida, Pista o Tesoro",true,"",0)], add(cA,hc("Chrome Dome",{gen:2}),{gen:15}), "Tres activaciones de {5}: copia Academy dos veces y luego una ficha: 9 Comidas, 9 Pistas y 9 Tesoros. Cinco Tesoros pagan la siguiente. Las copias duran hasta el paso final.");
+    const flags = [];
+    const cmdOn = inZ("field",CABBAGE);
+    const anyInf = [[ACADEMY,FONT,CLOCK],[ACADEMY,NUKA,KCI],[ACADEMY,NUKA,"Grinding Station"],[TOOK,NUKA],[TOOK,FONT,CLOCK],[ACADEMY,"Chrome Dome"]].some(l => l.every(on));
+    if (!cmdOn && cmdr.zone) flags.push(["info","Sin el Merchant no generas Comidas en turnos ajenos. El plan es bajarlo en el turno 2."]);
+    // Motores
+    if (!on(ACADEMY) && !on(TOOK)) flags.push(["bad","Sin Academy Manufactor ni Peregrin Took. Prioridad de tutor: Academy > Peregrin > Jaheira. Con tutor solo verde (Green Sun's Zenith, Summoner's Pact) o con Nuka-Cola en mesa, busca a Peregrin."]);
+    if (inZ("grave",ACADEMY)) { const rec = ["Noxious Revival","Peerless Recycling","Endurance"].filter(c=>inZ("hand",c)).concat(on("Shifting Woodland")?["Shifting Woodland (con delirium copia a Academy este turno)"]:[]);
+      flags.push([rec.length?"okf":"info", rec.length ? `Academy está en el cementerio: recupérala con ${rec.join(" o ")}.` : "Academy está en el cementerio: Noxious Revival, Peerless Recycling, Endurance o Shifting Woodland la recuperan. Si no, pivotea a Peregrin + Nuka-Cola."]); }
+    if (inZ("exile",ACADEMY)) flags.push(["bad","Academy está exiliada: no vuelve. Pivotea a Peregrin Took + Nuka-Cola (con KCI, Grinding Station o Font + Clock)."]);
+    if (inZ("field",NUKA) && !on(TOOK) && !on(ACADEMY)) flags.push(["info","Nuka-Cola en mesa: el tutor va por Peregrin Took (combo de dos cartas con 3 Comidas)."]);
+    // Clones de Academy
+    if (inZ("field",ACADEMY)) { const cl = ["Mirage Mirror","Sculpting Steel","The Mycosynth Gardens","Chrome Dome"].filter(on);
+      if (cl.length) flags.push(["okf",`Copia a Academy con ${cl.join(", ")}: con 2 Academy cada ficha son 3 de cada tipo; con 3 son 9; con 4 son 27.`]);
+      if (inZ("hand","Second Harvest")) flags.push(["okf","Second Harvest con Academy en mesa: cada ficha que tengas se copia y cada copia se vuelve Comida + Pista + Tesoro."]);
+      if (!on("Jaheira, Friend of the Forest") && !anyInf) flags.push(["info","Ya tienes Academy: el siguiente tutor puede ir por Jaheira (tus fichas se giran por {G}) o por la pieza de combo que falte."]); }
+    if (inZ("field","Jaheira, Friend of the Forest")) flags.push(["okf","Jaheira en mesa: cada Comida, Pista y Tesoro se gira por {G}. Súmalo con los botones de maná."]);
+    // Kuldotha y Font sin lanzar hechizos
+    if (inZ("field","Kuldotha Forgemaster")) flags.push([st.sick?"info":"okf", (st.sick ? "Kuldotha con mareo de invocación: necesita prisa (Lightning Greaves, copia de Chrome Dome) o esperar un turno. " : "") + "Kuldotha Forgemaster con 9 o más artefactos: sacrifica tres → Clock of Omens; endereza con Clock → Academy Manufactor → Transmutation Font. Ganas sin lanzar hechizos."]);
+    if (inZ("field",FONT) && !(on(ACADEMY) && on(CLOCK))) flags.push(["okf","Transmutation Font con dos tríos de fichas de nombres distintos (Comida + Pista + Tesoro, dos veces): {3}, girar → busca Clock of Omens; endereza Font → busca Academy. No lanza hechizos: funciona bajo Silence o Rule of Law."]);
+    // Flash
+    const fl = CAB_FLASH.filter(c=>inZ("field",c));
+    if (fl.length) flags.push(["okf",`Flash activo (${fl.join(", ")}): puedes armar el combo en el turno de un rival, con el maná de las Comidas que te den.${fl.length===1 && fl[0]==="Skittering Cicada" ? " Cicada solo da flash a hechizos incoloros." : ""}`]);
+    else if (!st.mine || anyInf) flags.push(["info","Sin enabler de flash en mesa (Shimmer Myr, Liberator, Skittering Cicada, Emergence Zone): solo puedes lanzar tus piezas en tu turno. Las líneas de Font y Kuldotha sí se activan en cualquier momento."]);
+    // Salidas
+    if (anyInf) { const outs = CAB_OUTLETS.filter(on);
+      flags.push([outs.length?"okf":"bad", outs.length ? `Salida disponible: ${outs.join(", ")}.` : "Tienes un infinito pero ninguna salida a la vista. Búscala: Walking Ballista (cualquier tutor de criatura), Grinding Station (Inventors' Fair, Kuldotha, Font) o roba el mazo con las Pistas."]);
+      if (inZ("hand","Finale of Devastation")) flags.push(["info","Finale of Devastation es conjuro: como salida solo sirve en tu turno."]); }
+    if (inZ("grave","Walking Ballista") && on("Agatha's Soul Cauldron")) flags.push(["okf","Walking Ballista en el cementerio: exíliala con Agatha's Soul Cauldron y una criatura con contador +1/+1 gana su habilidad."]);
+    // Interacción
+    if (on("Avarice Totem")) flags.push(["okf","Avarice Totem ({5}): actívalo apuntando a una Comida tuya, mantén prioridad y actívalo otra vez apuntando al permanente rival. Te quedas con el permanente y el Totem; el rival, con una Comida."]);
+    if (on("Geier Reach Sanitarium") || inZ("hand","Crop Rotation")) flags.push(["info",`Contra Thassa's Oracle + Demonic Consultation: con el trigger de Oracle en la pila y su biblioteca vacía, activa Geier Reach Sanitarium${inZ("field","Geier Reach Sanitarium")?"":" (Crop Rotation la busca a velocidad de instantáneo)"}. Roba de la biblioteca vacía y pierde antes de ganar.`]);
+    if (inZ("hand","Krosan Grip")) flags.push(["info","Krosan Grip tiene split second: espera hasta la última ventana (Underworld Breach con el combo armado) sin entrar en una guerra de counters."]);
+    if (inZ("hand","Endurance") && inZ("hand","Beast Within")) flags.push(["info","Endurance + Beast Within: con el trigger de Endurance en la pila, destruye a Endurance. Baraja tu cementerio con ella adentro. Con maná y robo infinitos es un loop que repite cualquier hechizo."]);
+    if (on("Sarinth Steelseeker")) flags.push(["info","Sarinth Steelseeker se dispara por cada artefacto que entra: con Academy, cada Comida son tres triggers."]);
+    if ((on("Allosaurus Shepherd") || on("Delighted Halfling")) && inZ("hand",ACADEMY)) flags.push(["info","Allosaurus Shepherd y Delighted Halfling no protegen a Academy Manufactor: es incolora y no es legendaria."]);
+    if (inZ("field","Gaea's Cradle")) flags.push(["okf",`Gaea's Cradle: ${st.field.filter(c=>(this.cards[c]||[])[0]==="c").length} maná verde por tus criaturas.`]);
+    flags.push(["info","Las fichas no se anotan como cartas: suma el maná de Comidas (dos giradas = 1), Tesoros y Jaheira con los botones de maná."]);
+    return flags;
+  },
+  mullPlans(has, m){
+    const p = [];
+    const creatTutor = ["Worldly Tutor","Green Sun's Zenith","Finale of Devastation","Chord of Calling","Summoner's Pact","Nature's Rhythm","Eldritch Evolution","Invasion of Ikoria","Time of Need","Ecological Appreciation","Archdruid's Charm","Formidable Speaker","Survival of the Fittest","Shared Summons"].some(has);
+    if (m.t2 >= 3 && (has(ACADEMY) || has(TOOK))) p.push("Merchant en turno 2 y motor (Academy o Peregrin) en mano.");
+    else if (m.t2 >= 3 && creatTutor) p.push("Merchant en turno 2 y tutor para Academy o Peregrin.");
+    if (has(NUKA) && (has(TOOK) || creatTutor)) p.push("Nuka-Cola + Peregrin Took (o tutor): combo de dos cartas con 3 Comidas.");
+    if (m.t1 >= 3) p.push("Win temprano: Merchant en turno 1.");
+    return p;
+  },
+  mullGuide: `<ul><li><b>Merchant en el turno 2</b>: verde y tres manás. No hace falta buscarlo en el turno 1.</li><li>Un tutor de criatura, o Academy Manufactor o Peregrin Took en la mano.</li><li>Protección o interacción, sobre todo contra mesas turbo (Soulless Jailer, Vexing Bauble, Disruptor Flute, Endurance).</li><li>Merchant en turno 3: solo con interacción, un enabler de flash o un motor fuerte.</li><li>Mulligan: sin Merchant en turno 2 y sin tutor ni motor; piezas de combo sueltas sin tutor; maná sin motor.</li></ul>`
+};
 /* Fuentes de maná genéricas para los mazos nuevos */
 const LAND_COLORS = {"Underground Sea":"UB","Scrubland":"WB","Tundra":"WU","Badlands":"BR","Plateau":"RW","Savannah":"GW","Taiga":"RG","Tropical Island":"GU","Volcanic Island":"UR","Bayou":"BG","Watery Grave":"UB","Blood Crypt":"BR","Sacred Foundry":"RW","Stomping Ground":"RG","Temple Garden":"GW","Breeding Pool":"GU","Godless Shrine":"WB","Hallowed Fountain":"WU","Otawara, Soaring City":"U","Boseiju, Who Endures":"G"};
 const COLORLESS_LANDS = {"Ancient Tomb":2,"City of Traitors":2,"Cavern of Souls":1,"Gemstone Caverns":1,"High Market":1,"Lazotep Quarry":1,"Phyrexian Tower":1,"Urza's Saga":1};
 const ROCKS = {"Sol Ring":["",2],"Mana Vault":["",3],"Grim Monolith":["",3],"Arcane Signet":["*",1],"Fellwar Stone":["*",1],"Chrome Mox":["*",1],"Mox Diamond":["*",1],"Mox Opal":["*",1],"Lotus Petal":["*",1],"Relic of Legends":["*",1],
   "Birds of Paradise":["*",1],"Avacyn's Pilgrim":["W",1],"Elvish Mystic":["G",1],"Fyndhorn Elves":["G",1],"Llanowar Elves":["G",1],"Delighted Halfling":["*",1],"Bloom Tender":["G",1],"Faeburrow Elder":["GW",2],"Ruby, Daring Tracker":["RG",1],
   "Utopia Sprawl":["*",1],"Wild Growth":["G",1],"Somberwald Sage":["*",3],"Shaman of Forgotten Ways":["*",2],"Badgermole Cub":["",0]};
+Object.assign(COLORLESS_LANDS, {"Inventors' Fair":1,"Fomori Vault":1,"The Mycosynth Gardens":1,"Emergence Zone":1,"Geier Reach Sanitarium":1,"Talon Gates of Madara":1,"Strip Mine":1});
 function genericSource(deckId, c){
   const d = DECKS[deckId]; if (!d || !d.colors) return null;
   const t = (d.cards[c]||[])[0], all = d.colors;
@@ -3752,8 +3891,9 @@ const TUTOR_COST = {
   "Diabolic Intent":{gen:1,B:1},"Beseech the Mirror":{gen:1,B:3},"Imperial Recruiter":{gen:2,R:1},"Eldritch Evolution":{gen:1,G:2},"Summoner's Pact":{},
   "Formidable Speaker":{gen:2,G:1},"Pia, Aether Ascetic":{gen:2,G:1}
 };
+Object.assign(TUTOR_COST, {"Worldly Tutor":{G:1},"Green Sun's Zenith":{G:1,gen:3},"Chord of Calling":{G:3,gen:3},"Shared Summons":{gen:3,G:2},"Nature's Rhythm":{G:2,gen:3},"Invasion of Ikoria":{G:2,gen:3},"Ecological Appreciation":{gen:5,G:1},"Archdruid's Charm":{G:3},"Time of Need":{gen:1,G:1},"Survival of the Fittest":{G:1},"Crop Rotation":{G:1},"Expedition Map":{gen:2},"Sowing Mycospawn":{gen:3,G:1},"Kuldotha Forgemaster":{},"Transmutation Font":{gen:3},"Inventors' Fair":{gen:4}});
 // Tutores que dejan la carta arriba de la biblioteca: no la tienes este turno salvo que robes
-const TOP_TUTORS = ["Vampiric Tutor","Imperial Seal","Scheming Symmetry","Mystical Tutor","Enlightened Tutor","Lim-Dûl's Vault"];
+const TOP_TUTORS = ["Vampiric Tutor","Imperial Seal","Scheming Symmetry","Mystical Tutor","Enlightened Tutor","Lim-Dûl's Vault","Worldly Tutor"];
 function tutorCost(t, onField, mv){
   if (t === "Wishclaw Talisman") return onField ? {gen:1} : {gen:2};
   if (t === "Finale of Devastation") return {G:2, gen: mv||0};
@@ -4020,7 +4160,8 @@ const QUICK_HATE = {
   nick:["grafdigger","rule of law","opposition agent","bowmasters","null rod","drannith","tidebinder","rest in peace","grand abolisher","esper sentinel"],
   rograkh:["grafdigger","rule of law","opposition agent","bowmasters","null rod","rest in peace","tidebinder","drannith","grand abolisher","esper sentinel"],
   kraum:["grafdigger","rule of law","opposition agent","bowmasters","null rod","rest in peace","tidebinder","drannith","grand abolisher","esper sentinel"],
-  rocco:["grafdigger","torpor orb","cursed totem","drannith","opposition agent","toxic deluge","tidebinder","hushbringer","bowmasters","null rod"]
+  rocco:["grafdigger","torpor orb","cursed totem","drannith","opposition agent","toxic deluge","tidebinder","hushbringer","bowmasters","null rod"],
+  cabbage:["null rod","cursed totem","stony silence","collector ouphe","opposition agent","drannith","grand abolisher","bowmasters","toxic deluge","stifle"]
 };
 const hateLabel = (d,k) => { const h = d.hate.find(x=>x[0]===k); return h ? h[1].split(":")[0].replace(/ rival$/,"") : k; };
 function countCards(list){ return list.split("\n").filter(l=>/^\s*\d+\s+\S/.test(l)).length; }
@@ -4665,6 +4806,13 @@ const DEFAULT_PLAN = {
     if (!dorks) return ["Baja dorks", "Rocco necesita 6–8 maná: Birds, elfos, Delighted Halfling o Utopia Sprawl primero."];
     return ["Prepara a Rocco", "Rocco con X=3 trae Bell-Ringer o Jolly, X=4 Felidar, X=5 Kiki-Jiki. Junta una pareja en mano y baja protección (Abolisher, Jennifer, Voice) antes."];
   },
+  cabbage(z){
+    const f = z.field;
+    if (!f.includes(CABBAGE)) return ["Baja al Merchant", "Turno 2 es el objetivo: cada hechizo no criatura rival te da una Comida, y dos Comidas giradas son un maná."];
+    if (!f.includes(ACADEMY) && !f.includes(TOOK)) return ["Busca Academy Manufactor", "Prioridad de tutor: Academy > Peregrin Took > Jaheira. Con tutor solo verde o con Nuka-Cola en mesa, Peregrin."];
+    if (!f.some(c=>CAB_FLASH.includes(c))) return ["Consigue flash y arma el combo", "Shimmer Myr, Liberator, Skittering Cicada o Emergence Zone te dejan usar el maná de Comidas en turnos ajenos. Después: Font + Clock, o Nuka-Cola + KCI o Grinding Station."];
+    return ["Espera la ventana y gana encima", "Deja que la mesa lance hechizos y te llene de Comidas. Arma Font + Clock o Nuka-Cola + salida a velocidad de instantáneo cuando otro intente ganar o gaste sus counters."];
+  },
   crystal(z){
     const f = z.field;
     if (!f.includes("Crystal, Inhuman Princess")) return ["Baja a Crystal", "Es tu motor y tu fuente de daño. Si puedes, protégela con maná abierto para Fierce Guardianship o Deflecting Swat (gratis con ella en mesa)."];
@@ -4943,7 +5091,8 @@ const REMOVAL = {
   nick:["Deadly Rollick","Into the Flood Maw","Chain of Vapor","Snapback","Culling Ritual","Otawara, Soaring City","Praetor's Grasp"],
   rograkh:["Deadly Rollick","Into the Flood Maw","Chain of Vapor","Snapback","Otawara, Soaring City","Imposter Mech"],
   kraum:["Into the Flood Maw","Chain of Vapor","Snapback","Otawara, Soaring City"],
-  rocco:["Fury","Pyrokinesis","Collateral Damage","Seal of Fire","Thunderclap","Boseiju, Who Endures"]
+  rocco:["Fury","Pyrokinesis","Collateral Damage","Seal of Fire","Thunderclap","Boseiju, Who Endures"],
+  cabbage:["Krosan Grip","Nature's Claim","Force of Vigor","Beast Within","Boseiju, Who Endures","Walking Ballista","Talon Gates of Madara","Haywire Mite","Strip Mine"]
 };
 function readTable(){
   const seats = oppSeats();
@@ -5097,6 +5246,13 @@ ROLES.rocco = {accelFast:["Lotus Petal", "Chrome Mox", "Mox Diamond", "Mana Vaul
   landColors:Object.assign({}, LAND_COLORS, Object.fromEntries(Object.keys(COLORLESS_LANDS).map(k=>[k,""]))), anyLand:Object.keys(NEW_CARDS.rocco).filter(c=>NEW_CARDS.rocco[c][0]==="l" && !LAND_COLORS[c] && !COLORLESS_LANDS[c] && c!=="Gaea's Cradle"),
   colorAccel:Object.fromEntries(["Lotus Petal","Lion's Eye Diamond","Manamorphose","Birds of Paradise","Arcane Signet","Fellwar Stone","Dark Ritual","Cabal Ritual","Rite of Flame","Simian Spirit Guide","Elvish Spirit Guide","Culling the Weak","Rain of Filth","Seething Song","Pyretic Ritual","Delighted Halfling","Utopia Sprawl"].filter(c=>NEW_CARDS.rocco[c]).map(c=>[c,({"Dark Ritual":"B","Cabal Ritual":"B","Culling the Weak":"B","Rain of Filth":"B","Rite of Flame":"R","Simian Spirit Guide":"R","Seething Song":"R","Pyretic Ritual":"R","Elvish Spirit Guide":"G"})[c]||"RGW"])),
   cmdColors:"RGW", cmdCost:6};
+ROLES.cabbage = {accelFast:["Lotus Petal","Chrome Mox","Mox Diamond","Mana Vault","Sol Ring","Elvish Spirit Guide"],accelSlow:["Birds of Paradise","Llanowar Elves","Elvish Mystic","Fyndhorn Elves","Gilded Goose","Delighted Halfling","Wild Growth"],
+  piece:[ACADEMY,TOOK,NUKA,FONT,CLOCK,KCI,"Grinding Station","Chrome Dome","Kuldotha Forgemaster","Walking Ballista"],
+  tutor:["Worldly Tutor","Green Sun's Zenith","Finale of Devastation","Chord of Calling","Summoner's Pact","Shared Summons","Nature's Rhythm","Eldritch Evolution","Invasion of Ikoria","Ecological Appreciation","Archdruid's Charm","Time of Need","Formidable Speaker","Survival of the Fittest","Crop Rotation","Expedition Map","Sowing Mycospawn"],
+  engine:["Jaheira, Friend of the Forest","Sarinth Steelseeker","Shimmer Myr","Liberator, Urza's Battlethopter","Skittering Cicada","Seedborn Muse","Mirage Mirror","Sculpting Steel","Second Harvest","Avarice Totem","Agatha's Soul Cauldron"],
+  landColors:Object.assign({}, Object.fromEntries(Object.keys(NEW_CARDS.cabbage).filter(c=>NEW_CARDS.cabbage[c][0]==="l").map(c=>[c,"G"])), Object.fromEntries(["Inventors' Fair","Fomori Vault","The Mycosynth Gardens","Emergence Zone","Geier Reach Sanitarium","Talon Gates of Madara","Strip Mine","The Tabernacle at Pendrell Vale","Ancient Tomb","Gaea's Cradle"].map(k=>[k,""])), {"Gemstone Caverns":"G"}), anyLand:[],
+  colorAccel:{"Lotus Petal":"G","Chrome Mox":"G","Mox Diamond":"G","Elvish Spirit Guide":"G","Birds of Paradise":"G","Llanowar Elves":"G","Elvish Mystic":"G","Fyndhorn Elves":"G","Gilded Goose":"G","Delighted Halfling":"G","Wild Growth":"G"},
+  cmdColors:"G", cmdCost:3};
 ROLES.hashaton.colorAccel = {"Lotus Petal":"WUB","Dark Ritual":"B","Cabal Ritual":"B","Lion's Eye Diamond":"WUB","Arcane Signet":"WUB","Fellwar Stone":"WUB"};
 
 const MKEY = "grimorio-mulligan-v1";
