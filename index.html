@@ -3287,6 +3287,10 @@ DECKS.hashaton = {
     ["witch enchanter","Witch Enchanter (tierra): destruye un artefacto o encantamiento tuyo: Cursed Totem, Damping Sphere, Necropotence."],
     ["force of vigor","Force of Vigor: destruye gratis dos de tus artefactos o encantamientos (Cursed Totem, Damping Sphere, Rhystic Study)."],
     ["archivist","Archivist of Oghma: roba una carta cada vez que buscas en tu biblioteca (tutores, Entomb). Dack revela, no busca."],
+    ["loran","Loran of the Third Path: al entrar destruye un artefacto o encantamiento (LED, Cursed Totem, Necropotence). Con Hashaton en mesa, activa LED en respuesta si vas a ganar."],
+    ["hexing squelcher","Hexing Squelcher: los hechizos de su controlador no se pueden contrarrestar. Tus counters no frenan a ese jugador: sácalo (Swords paga 2 vidas por ward) o usa Trickbind sobre su Thassa."],
+    ["veil of summer","Veil of Summer: ese turno sus hechizos no se pueden contrarrestar y tiene antimaleficio contra azul y negro. Contrarresta el Veil mismo."],
+    ["mayhem devil","Mayhem Devil: 1 de daño cada vez que alguien sacrifica un permanente (LED, Lotus Petal, fetches)."],
     ["arcum activo","Arcum listo para activar: en respuesta a Dack busca Grafdigger's Cage o Torpor Orb. Mátalo, baja Cursed Totem o ve con Angel's Grace."]
   ],
   escape(st, h, fx){
@@ -3407,6 +3411,7 @@ Lista base: Taiga Watanabe, ganador del 16th God of Commander (Hareruya).`,
       if (fxLib) flags.push(["info","Spider-Man no protege el combo: cuando Dack la revela y la regala, no frena a nadie. Busca protección aparte (split second, Silence, counters)."]);
     }
     const podTxt = norm(S.opps.filter(o=>o.alive).map(o=>o.name+" "+(o.text||"")).join(" "));
+    if (hashF && dackH && /kraum|blue farm/.test(podTxt)) flags.push(["okf","Si un rival lanza Wheel of Fortune, descartas a Dack: paga {2}{U} con el trigger de Hashaton y ganas. Deja ese maná abierto."]);
     if (/brigid/.test(podTxt)) {
       if (inZ("hand","Cursed Totem")) flags.push(["okf","Cursed Totem contra Brigid: apaga a Doun's Mind, sus dorks, Seedcradle Witch, Umbral Mantle y Walking Ballista. A ti no te afecta."]);
       if (inZ("hand","Toxic Deluge")) flags.push(["okf","Toxic Deluge contra Brigid: con X=2 barre dorks, Mother of Runes y Giver of Runes. Lánzalo antes de que arme el combo."]);
@@ -4444,9 +4449,9 @@ $("#mm-free-chk").addEventListener("change", e => { $("#mm-free").value = e.targ
 
 /* ===================== Guía de pod y semáforo (Hashaton) ===================== */
 const KIT = {
-  "Brigid, Clachan's Heart":["collector ouphe","drannith","deafening silence","grand abolisher","voice of victory","kutzil","endurance","solitude","witch enchanter","force of vigor"],
-  "Kraum, Ludevic's Opus":["bowmasters","grand abolisher","tidebinder","stifle","opposition agent","vexing bauble"],
-  "Tymna the Weaver":["bowmasters","grand abolisher","tidebinder","stifle","opposition agent","vexing bauble"],
+  "Brigid, Clachan's Heart":["vexing bauble","grand abolisher","voice of victory","solitude","loran","veil of summer","witch enchanter","force of vigor","collector ouphe","drannith","deafening silence","kutzil","endurance"],
+  "Kraum, Ludevic's Opus":["grand abolisher","voice of victory","bowmasters","hexing squelcher","mayhem devil"],
+  "Tymna the Weaver":["grand abolisher","voice of victory","bowmasters","hexing squelcher","mayhem devil"],
   "Tivit, Seller of Secrets":["trickbind","grafdigger","drannith","opposition agent","teferi, time raveler","voice of victory","vexing bauble","bowmasters"],
   "Avatar Aang":["opposition agent","grand abolisher","voice of victory","bowmasters","tidebinder"],
   "Arcum Dagsson":["arcum activo","grafdigger","torpor orb","stifle"]
@@ -4454,12 +4459,12 @@ const KIT = {
 const MATCHUP = { hashaton: {
   "Kraum, Ludevic's Opus": {
     peligro:"Blue Farm (Kraum + Tymna): midrange con la mejor interacción gratis del formato. Gana con Thassa's Oracle + Demonic Consultation o Tainted Pact, Underworld Breach + LED + Brain Freeze, o Ad Nauseam.",
-    frena:"Counters gratis contra Hashaton al lanzarlo (Force of Will, Pact of Negation, Mindbreak Trap) y contra Silence u Orim's Chant (Mental Misstep, Fierce Guardianship). Pyroblast o Red Elemental Blast contra tus hechizos azules. Si juega Stifle o Tishana's Tidebinder, contra tus triggers. Orcish Bowmasters castiga Brainstorm, Frantic Search y Careful Study. Kraum roba cada vez que lanzas tu segundo hechizo del turno.",
+    frena:"Las listas de Zuki y Dalibor no juegan Stifle, Trickbind ni Tishana's Tidebinder: con Hashaton y LED en mesa no pueden detener tu trigger, solo ganar en respuesta (Borne Upon a Wind, Valley Floodcaller, Ad Nauseam). A Hashaton solo lo contrarrestan Force of Will, Pact of Negation y Mindbreak Trap; a LED además Force of Negation, Fierce Guardianship y An Offer You Can't Refuse. Grand Abolisher y Voice of Victory: en su turno no lanzas hechizos (con Abolisher tampoco activas LED). Ranger-Captain of Eos: sin hechizos no criatura ese turno. Hexing Squelcher (Zuki): sus hechizos no se pueden contrarrestar. Orcish Bowmasters castiga Brainstorm, Frantic Search y Careful Study. Kraum roba cada vez que lanzas tu segundo hechizo del turno.",
     resp:"Mental Misstep contra Demonic Consultation (vale 1). Trickbind al trigger de su Thassa cuando ya exilió su biblioteca: pierde al robar. Swan Song, Force of Negation o Spell Snare contra Underworld Breach. Snuff Out mata a Kraum (Tymna es negra). Deadly Rollick o Swords to Plowshares para Tymna.",
-    ventana:"Tu línea de LED no lanza hechizos: sus counters no la tocan. Lanza poco por turno para no darle cartas a Kraum. Con dos Blue Farm, deja que se frenen entre ellos y gana encima cuando gasten respuestas. Angel's Grace + LED es lo único que no pueden responder."},
+    ventana:"Tu turno es la ventana: en el suyo te frenan Abolisher y Voice. Lo que pelean es que Hashaton y LED lleguen a la mesa; después ganas cuando quieras. Angel's Grace además impide que ganen en respuesta. Ojo: Wheel of Fortune te hace descartar a Dack; con Hashaton en mesa y {2}{U} abiertos, eso te da la partida. Lanza poco por turno para no darle cartas a Kraum."},
   "Brigid, Clachan's Heart": {
     peligro:"Turbo de criaturas Selesnya. Brigid ({2}{W}) entra en el turno 2 con una ficha y en su siguiente fase principal se transforma pagando {G} en Brigid, Doun's Mind, que da maná. Maná infinito con Doun's Mind + Seedcradle Witch y 6 criaturas, + Umbral Mantle y 5, o + Emiel the Blessed y un enderezador (Village Bell-Ringer, Hyrax Tower Scout, Flash Thompson). Cierra con Walking Ballista, Finale of Devastation, Recruitment Officer o atacando. Gaea's Cradle (y Badgermole Cub o Destiny Spinner) reemplaza a Brigid en los combos.",
-    frena:"Collector Ouphe apaga LED, Cookbook y tus piedras. Drannith Magistrate no te deja lanzar a Hashaton desde la zona de mando. Deafening Silence: un hechizo no criatura por turno. Grand Abolisher, Voice of Victory y Kutzil, Malamet Exemplar: en su turno no lanzas hechizos (con Abolisher tampoco activas LED). Endurance con destello (la buscan Chord of Calling y Eladamri's Call) baraja tu cementerio en respuesta a Reanimate. Solitude exilia a Hashaton. Force of Vigor, Boseiju y Witch Enchanter destruyen tu Cursed Totem o Damping Sphere. Archivist of Oghma roba cuando tutoreas.",
+    frena:"La lista de Ignacio juega Vexing Bauble (contrarresta LED, moxes, Lotus Petal y tus counters gratis), Loran of the Third Path, Force of Vigor y Witch Enchanter (destruyen LED o Cursed Totem), Swords to Plowshares y Solitude (Hashaton), Veil of Summer, Grand Abolisher, Voice of Victory, Silence y Ranger-Captain of Eos. No juega Collector Ouphe, Drannith ni Deafening Silence. En listas genéricas: Collector Ouphe apaga LED, Cookbook y tus piedras. Drannith Magistrate no te deja lanzar a Hashaton desde la zona de mando. Deafening Silence: un hechizo no criatura por turno. Grand Abolisher, Voice of Victory y Kutzil, Malamet Exemplar: en su turno no lanzas hechizos (con Abolisher tampoco activas LED). Endurance con destello (la buscan Chord of Calling y Eladamri's Call) baraja tu cementerio en respuesta a Reanimate. Solitude exilia a Hashaton. Force of Vigor, Boseiju y Witch Enchanter destruyen tu Cursed Totem o Damping Sphere. Archivist of Oghma roba cuando tutoreas.",
     resp:"Cursed Totem: apaga a Doun's Mind, los dorks, Seedcradle Witch, Umbral Mantle, Walking Ballista y Survival of the Fittest, y a ti no te afecta. Toxic Deluge barre dorks, Mother of Runes y Giver of Runes. Damping Sphere: Gaea's Cradle y Growing Rites of Itlimoc dan un solo incoloro. Trickbind a la activación de Seedcradle Witch o Umbral Mantle: no la puede repetir ese turno. Contra criaturas tus counters son Force of Will, Pact of Negation, Mindbreak Trap, Daze, Strix Serenade y Spell Snare (Drannith, Ouphe, Abolisher, Voice). Snuff Out mata cualquiera de sus criaturas (ninguna es negra).",
     ventana:"Su hate de criaturas tiene que morir antes de que empiece su turno (paso final del jugador anterior a ella). No dejes tu combo para su paso final: con Abolisher, Voice o Kutzil no puedes responder. Si baja Collector Ouphe, tu descarte es Frantic Search o Careful Study; si baja Drannith, ve por Entomb + Reanimate o Goryo's Vengeance. Los counters de Blue Farm casi no la frenan (Fierce Guardianship y Force of Negation no tocan criaturas): guarda tu interacción para ella."},
   "Arcum Dagsson": {
