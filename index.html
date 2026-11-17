@@ -548,6 +548,23 @@ main .thesis,main .line,main .note,main .warn,main .tip,main .hand,main .piece{d
 @media (max-width:600px){.welcome .logo.big{width:68px;height:68px;border-radius:15px}.welcome{padding:20px}}
 @media (min-width:1180px){.brand{align-items:center;padding:0 6px}.brand .logo{width:44px;height:44px;border-radius:10px}.brand .bname{line-height:1.15}}
 .brand .bname{color:var(--ink)}.brand .bname > span{color:var(--gold)}
+/* Fichas */
+.toks{display:flex;flex-wrap:wrap;gap:6px 14px}
+.tk{display:inline-flex;align-items:center;gap:6px}
+.tkl{font-size:13px;font-weight:600;color:var(--ink);min-width:62px}
+.tk .step button{min-width:36px;min-height:36px}
+.tk .step output{min-width:26px;font-size:15px}
+/* Mulligan */
+#mm-seg button{white-space:nowrap}
+.mmb{display:flex;flex-wrap:wrap;gap:6px}
+.mmc{font:inherit;font-size:13.5px;padding:7px 11px;border-radius:999px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;min-height:36px}
+.mmc.on{background:var(--rust,#b0563c);border-color:var(--rust,#b0563c);color:#fff;text-decoration:line-through}
+.toks{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:8px 10px;flex:1 1 260px}
+.tk{flex-direction:column;align-items:flex-start;gap:2px}
+.tkl{font-size:12px;min-width:0;color:var(--muted)}
+.tk .step{gap:2px}
+.tk .step button{min-width:34px;min-height:34px;font-size:13px}
+.tk .step output{min-width:24px;font-size:15px}
 
 
 /* ---- Mulligan ---- */
@@ -3032,10 +3049,11 @@ main .thesis,main .line,main .note,main .warn,main .tip,main .hand,main .piece{d
         <details class="panel" id="p-mull">
           <summary><h3>Mano inicial · ¿keep o mulligan?</h3></summary>
           <div class="row" style="margin-top:8px">
-            <div class="fld"><label>Mulligans hechos</label><div class="seg" id="mm-seg"></div><select id="mm-n" hidden><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div>
-            <div class="fld"><label class="chk" style="margin-top:20px"><input type="checkbox" id="mm-free-chk" checked> Primero gratis</label><select id="mm-free" hidden><option value="1">Sí</option><option value="0">No</option></select></div>
+            <div class="fld"><label>¿Qué mano es?</label><div class="seg" id="mm-seg"></div><select id="mm-n" hidden><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select><select id="mm-free" hidden><option value="1">Sí</option></select></div>
           </div>
+          <p class="small" id="mm-size" style="margin:8px 0 0"></p>
           <div id="mm-out" style="margin-top:12px"></div>
+          <div id="mm-bottom"></div>
           <div class="ai-actions"><button class="btn" id="mm-ai" type="button">Preguntar a Claude: ¿keep?</button></div>
           <div class="ai-out" id="mm-ai-out"></div>
         </details>
@@ -3053,7 +3071,8 @@ main .thesis,main .line,main .note,main .warn,main .tip,main .hand,main .piece{d
           <div class="quick">
             <div class="qrow"><span class="ql">Maná</span><div class="msum" id="mana-sum"></div><button class="btn sm" id="untap" type="button">Enderezar todo</button></div>
             <div class="qrow"><span class="ql">Extra</span><div class="mana" id="mana-btns"></div><button class="btn sm" id="mana-clr" type="button">Vaciar</button></div>
-            <p class="small" style="margin:-2px 0 0">Las tierras y rocas del Campo se cuentan solas: una Underground Sea es U o B. Toca una fuente cuando la uses. Extra es para rituales, Treasures o maná flotante; se vacía al pasar turno.</p>
+            <div class="qrow"><span class="ql">Fichas</span><div class="toks" id="tok-row"></div></div>
+            <p class="small" style="margin:-2px 0 0">Las tierras y rocas del Campo se cuentan solas: una Underground Sea es U o B. Toca una fuente cuando la uses. Cada Tesoro suma un maná de cualquier color; bájalo cuando lo sacrifiques. Las fichas no se borran al pasar turno. Extra es para rituales y maná flotante, y se vacía al pasar turno.</p>
             <div class="qrow"><span class="ql">Vida</span><div class="step" id="life-step"></div></div>
             <div class="qrow" id="tax-row"><span class="ql">Impuesto</span><div class="step" id="tax-step"></div>
               <label class="chk"><input type="checkbox" id="sick"> Entró este turno</label></div>
@@ -3126,7 +3145,7 @@ main .thesis,main .line,main .note,main .warn,main .tip,main .hand,main .piece{d
     <div class="gamebar">
       <div class="fld"><label for="m-deck">Mazo</label><select id="m-deck"><option value="hashaton">Hashaton</option><option value="crystal">Crystal</option><option value="nick">Nick Fury</option><option value="rocco">Rocco</option><option value="rograkh">Rograkh + Silas</option><option value="kraum">Kraum + Tymna</option><option value="cabbage">Cabbage Merchant</option></select></div>
       <div class="fld"><label for="m-seat">Asiento</label><select id="m-seat"><option value="r">Al azar</option><option value="1">Seat 1</option><option value="2">Seat 2</option><option value="3">Seat 3</option><option value="4">Seat 4</option></select></div>
-      <div class="fld"><label for="m-free">Mulligan gratis</label><select id="m-free"><option value="1">Sí, el primero</option><option value="0">No</option></select></div>
+      <select id="m-free" hidden><option value="1">Sí</option></select>
       <button class="btn primary" id="m-new" type="button">Nueva mano</button>
       <div class="now"><b id="m-status">Seat 1 · mano inicial</b><div class="small" id="m-sub">Decide antes de ver el análisis.</div></div>
     </div>
@@ -3961,7 +3980,7 @@ Object.assign(COLORLESS_LANDS, {"Inventors' Fair":1,"Fomori Vault":1,"The Mycosy
 function genericSource(deckId, c){
   const d = DECKS[deckId]; if (!d || !d.colors) return null;
   const t = (d.cards[c]||[])[0], all = d.colors;
-  if (c === "Gaea's Cradle") { const n = ((S.zones[deckId]||{}).field||[]).filter(x=>(d.cards[x]||[])[0]==="c").length; return n ? ["G", n] : null; }
+  if (c === "Gaea's Cradle") { const zz = S.zones[deckId]||{}; const n = (zz.field||[]).filter(x=>(d.cards[x]||[])[0]==="c").length + ((zz.tokens||{}).creature||0); return n ? ["G", n] : null; }
   if (LAND_COLORS[c]) return [LAND_COLORS[c],1];
   if (COLORLESS_LANDS[c]) return ["",COLORLESS_LANDS[c]];
   if (t === "l") return [all,1];
@@ -4214,8 +4233,23 @@ const tappedL = () => (Z().tapped = Z().tapped || []);
 function fieldSources(){
   return Z().field.map(c => ({c, src:sourceOf(S.deck, c), tapped:tappedL().includes(c)})).filter(x => x.src);
 }
+const TOKENS = [["treasure","Tesoros"],["food","Comidas"],["clue","Pistas"],["creature","Criaturas"],["other","Otras"]];
+const TK = () => { const z = Z(); z.tokens = z.tokens || {}; return z.tokens; };
+function tokenMana(){
+  const t = TK(), any = "WUBRG", u = [];
+  for (let i=0;i<(t.treasure||0);i++) u.push(any);
+  if (S.deck === "cabbage" && Z().field.includes("The Cabbage Merchant")) for (let i=0;i<Math.floor((t.food||0)/2);i++) u.push(any);
+  if (S.deck === "cabbage" && Z().field.includes("Jaheira, Friend of the Forest")) for (let i=0;i<(t.food||0)+(t.clue||0)+(t.treasure||0);i++) u.push("G");
+  return u;
+}
+function tokenText(){ const t = TK(); return TOKENS.filter(([k]) => t[k]).map(([k,l]) => `${t[k]} ${l.toLowerCase()}`).join(", "); }
+function renderTokens(){
+  const box = $("#tok-row"); if (!box) return;
+  box.innerHTML = TOKENS.map(([k,l]) => `<span class="tk"><span class="tkl">${l}</span><span class="step" id="tk-${k}"></span></span>`).join("");
+  TOKENS.forEach(([k]) => stepper($("#tk-"+k), () => TK()[k]||0, v => { TK()[k] = Math.max(0, v); save(); renderManaSum(); }, [-1,1]));
+}
 function manaUnits(){
-  const u = [];
+  const u = tokenMana();
   fieldSources().filter(x=>!x.tapped).forEach(x => { for (let i=0;i<x.src[1];i++) u.push(x.src[0]); });
   const m = parseMana(S.mana);
   COLORS.forEach(c => { for (let i=0;i<m[c];i++) u.push(c); });
@@ -4224,8 +4258,8 @@ function manaUnits(){
 }
 const srcLabel = src => (src[0] ? src[0].split("").join("/") : "C") + (src[1]>1 ? ` ×${src[1]}` : "");
 function renderManaSum(){
-  const fs = fieldSources(), up = fs.filter(x=>!x.tapped), n = manaUnits().length;
-  $("#mana-sum").innerHTML = `<b style="width:100%">${n} maná disponible</b>` + (fs.length
+  const fs = fieldSources(), up = fs.filter(x=>!x.tapped), n = manaUnits().length, tm = tokenMana().length;
+  $("#mana-sum").innerHTML = `<b style="width:100%">${n} maná disponible${tm ? ` (${tm} de fichas)` : ""}</b>` + (fs.length
     ? `${fs.map(x => `<button type="button" class="ms${x.tapped?" off":""}" data-c="${esc(x.c)}" title="${x.tapped?"Girada: toca para enderezar":"Toca si ya la usaste"}">${esc(x.c.split(",")[0])} <i>${esc(srcLabel(x.src))}</i></button>`).join("")}`
     : `<span class="small">Pon tus tierras y rocas en Campo y se cuentan solas.</span>`);
 }
@@ -4255,6 +4289,7 @@ function stepper(el, get, set, steps){
   el.onclick = e => { const b = e.target.closest("button[data-s]"); if (!b) return; set(get() + (+b.dataset.s)); el.querySelector("output").textContent = get(); update(); };
 }
 function renderSteps(){
+  renderTokens();
   stepper($("#life-step"), () => S.life, v => { S.life = v; $("#life").value = v; }, [-5,-1,1]);
   stepper($("#tax-step"), () => ((S.tax||{})[S.deck])||0, v => { S.tax = S.tax||{}; S.tax[S.deck] = Math.max(0,v); }, [-1,1]);
 }
@@ -4441,12 +4476,16 @@ $("#deck").addEventListener("change", e => { S.deck = e.target.value; selZone = 
 $("#sick").addEventListener("change", e => { S.sick = e.target.checked; update(); });
 $("#esc").addEventListener("change", e => { S.escape = e.target.checked; update(); });
 $("#flex").addEventListener("change", e => { S.flex = e.target.value; const m = (S.side||{}).hashaton; if (m) delete m[S.flex]; renderPod(); fillDatalist(); renderCards(); renderSetupSum(); update(); });
+// El primer mulligan siempre es gratis: mano n (0 = inicial) manda max(0, n-1) cartas al fondo
+const MM_LABEL = ["Inicial","Mull 1 · gratis","Mull 2 · 1 al fondo","Mull 3 · 2 al fondo","Mull 4 · 3 al fondo"];
+const mmBottom = n => Math.max(0, n - 1);
+function resetMull(){ $("#mm-n").value = "0"; mmPick = null; renderMullSeg(); }
 function renderMullSeg(){
   const v = $("#mm-n").value;
-  $("#mm-seg").innerHTML = [0,1,2,3].map(n => `<button type="button" data-n="${n}" aria-pressed="${String(n)===v}">${n}</button>`).join("");
+  $("#mm-seg").innerHTML = MM_LABEL.map((l,n) => `<button type="button" data-n="${n}" aria-pressed="${String(n)===v}">${l}</button>`).join("");
 }
 $("#mm-seg").addEventListener("click", e => { const b = e.target.closest("button[data-n]"); if (!b) return; $("#mm-n").value = b.dataset.n; renderMullSeg(); renderMesaMull(); });
-$("#mm-free-chk").addEventListener("change", e => { $("#mm-free").value = e.target.checked ? "1" : "0"; renderMesaMull(); });
+
 
 /* ===================== Guía de pod y semáforo (Hashaton) ===================== */
 const KIT = {
@@ -4704,7 +4743,7 @@ function update(){
   $("#flags").innerHTML = flags.map(([k,m]) => `<div class="flag ${k==="okf"?"okf":(k==="info"?"info":"")}">${esc(m)}</div>`).join("");
 }
 function loadAll(){
-  syncGamebar(); $("#mana").value = S.mana||""; $("#life").value = S.life; renderMana(); renderSteps(); renderMullSeg(); $("#mm-free-chk").checked = $("#mm-free").value==="1";
+  syncGamebar(); $("#mana").value = S.mana||""; $("#life").value = S.life; renderMana(); renderSteps(); renderMullSeg();
   $("#p-setup").open = S.round===1 && !ZONES.some(z=>Z()[z].length) && !S.opps.some(o=>o.name);
   $("#p-mull").open = S.round===1;
   $("#mesa-eyebrow").textContent = D().short+" · asistente de partida";
@@ -4724,15 +4763,15 @@ function loadSavedPod(i){
   S.opps = P.opps.map(o => Object.assign(blankOpp(), {name:o.name, list:o.list}));
   P.opps.forEach(o => cmdrLookup(o.name).forEach(h => pushRecent(h.n)));
   shots.fill(null); $("#ai-out").innerHTML=""; $("#ai-meta").textContent=""; convo=[]; loadAll();
-  $("#p-setup").open = false; const pm = $("#p-mull"); if (pm) pm.open = true;
+  resetMull(); $("#p-setup").open = false; const pm = $("#p-mull"); if (pm) pm.open = true;
 }
 document.querySelectorAll("[data-pod]").forEach(b => b.addEventListener("click", () => loadSavedPod(+b.dataset.pod)));
 $("#btn-rematch").addEventListener("click", () => {
   const keep = {deck:S.deck, seat:S.seat, flex:S.flex, side:S.side, listV:S.listV, opps:S.opps.map(o=>({name:o.name, list:o.list||"", text:"", life:40, alive:true, tags:[], open:null}))};
   S = Object.assign(blank(), keep); S.active = 1; shots.fill(null); $("#ai-out").innerHTML=""; $("#ai-meta").textContent=""; convo=[]; loadAll();
-  $("#p-setup").open = false; $("#p-mull").open = true;
+  resetMull(); $("#p-setup").open = false; $("#p-mull").open = true;
 });
-$("#btn-clear").addEventListener("click", () => { const deck=S.deck, seat=S.seat; S = blank(); S.deck=deck; S.seat=seat; S.active=1; shots.fill(null); $("#ai-out").innerHTML=""; $("#ai-meta").textContent=""; convo=[]; loadAll(); });
+$("#btn-clear").addEventListener("click", () => { const deck=S.deck, seat=S.seat; S = blank(); S.deck=deck; S.seat=seat; S.active=1; shots.fill(null); $("#ai-out").innerHTML=""; $("#ai-meta").textContent=""; convo=[]; loadAll(); resetMull(); });
 $("#btn-example").addEventListener("click", () => {
   const d = D(); const ex = JSON.parse(JSON.stringify(d.example));
   S.zones[S.deck] = Object.assign({tapped:[]}, ex.zones); S.mana = ""; S.seat = 2; S.round = 3; S.active = 2; S.life = 34; S.sick = false;
@@ -4817,6 +4856,7 @@ function stateText(){
     zl("MANO",z.hand), zl("CAMPO",z.field), zl("CEMENTERIO",z.grave), zl("EXILIO",z.exile),
     ...(S.escape && S.deck==="hashaton" ? ["SITUACIÓN: me contrarrestaron el trigger de Thassa's Oracle y Leveler ya exilió mi biblioteca. Necesito ganar antes de mi próximo paso de robo."] : []),
     cmdLine(d, z),
+    ...(tokenText() ? [`FICHAS EN MI CAMPO: ${tokenText()} (cada Tesoro es un maná de cualquier color)`] : []),
     `MANÁ DISPONIBLE (sin LED): ${manaUnits().length} — ${fieldSources().filter(x=>!x.tapped).map(x=>x.c+" ("+srcLabel(x.src)+")").join(", ")||"nada en el campo"}${S.mana?"; extra: "+S.mana:""}${fieldSources().some(x=>x.tapped)?"; giradas: "+fieldSources().filter(x=>x.tapped).map(x=>x.c).join(", "):""}`, `MI VIDA: ${S.life}`, `MI COMANDANTE ENTRÓ ESTE TURNO: ${S.sick?"sí":"no"}`,
     "RIVALES:\n"+opp, "BITÁCORA:\n"+(log||"(vacía)"),
     "CHEQUEO AUTOMÁTICO (lo que falta NO está en mano ni campo; está en la biblioteca salvo que diga otra zona):\n"+evaluate().lines.map(l=>`${l.id} ${l.name}: ${l.n===0?"lista (piezas y maná)":(l.missing.length?`faltan ${l.missing.length} carta${l.missing.length>1?"s":""}`:"piezas listas")+(l.short>0?` y ${l.short} maná`:"")}${l.missing&&l.missing.length?" — falta: "+l.missing.map(m=>m.card+(m.tutorsAll&&m.tutorsAll.length?` (tutores disponibles: ${m.tutorsAll.map(t=>t.label+(t.ok?"":" sin maná")).join(", ")})`:" (sin tutor disponible ahora)")).join("; "):""}`).join("\n"),
@@ -5112,7 +5152,7 @@ const CMDR_DB = [
    plan:"Storm mono negro pagando vida por el negro: Ad Nauseam, Bolas's Citadel, rituales y Aetherflux Reservoir o Tendrils of Agony para cerrar.",
    stop:"Remoción a K'rrik o a Citadel. Rule of Law lo frena. Mindbreak Trap contra la cadena.",
    s:"No."},
-  {k:["brigid"], n:"Brigid, Clachan's Heart", c:"GW", t:"combo", top:26,
+  {k:["brigid"], n:"Brigid, Clachan's Heart", c:"GW", t:"turbo", top:26,
    plan:"Turbo de criaturas: Brigid ({2}{W}) en turno 2, se transforma en Brigid, Doun's Mind pagando {G} en su siguiente fase principal y da maná. Maná infinito con Seedcradle Witch (6 criaturas), Umbral Mantle (5) o Emiel the Blessed + Village Bell-Ringer, Hyrax Tower Scout o Flash Thompson (5). Cierra con Walking Ballista, Finale of Devastation, Recruitment Officer o combate. Gaea's Cradle reemplaza a Brigid en los combos.",
    stop:"Cursed Totem la apaga casi entera. Toxic Deluge o Pyrokinesis contra los dorks. Damping Sphere contra Gaea's Cradle. Trickbind a la activación de Seedcradle Witch o Umbral Mantle. Sus combos son de criaturas y habilidades: Fierce Guardianship y Force of Negation no sirven.",
    s:"Mucho: Collector Ouphe, Drannith Magistrate, Deafening Silence, Grand Abolisher, Voice of Victory, Kutzil, Silence, Ranger-Captain of Eos, Esper Sentinel, Endurance, Solitude, Force of Vigor."},
@@ -5269,14 +5309,31 @@ function mesaMullAnalysis(){
   if (winSoon && fast) notes.push("Tienes un win temprano: compite en velocidad, intenta antes que los turbos.");
   if (S.seat === 4 && fast) notes.push("Juegas último contra turbo: los primeros turnos de ellos llegan antes que los tuyos.");
   if (S.seat === 1 && winSoon) notes.push("Seat 1 con win temprano: nadie tendrá maná abierto en tu primer turno.");
-  const mulls = +$("#mm-n").value, free = +$("#mm-free").value;
-  const bottom = Math.max(0, mulls - (free?1:0));
-  if (hand.length > 7 - bottom) notes.push(`Con ${mulls} mulligan${mulls===1?"":"s"} tienes que mandar ${bottom} al fondo. Yo mandaría: ${suggestBottom(S.deck, hand, bottom).join(", ")}.`);
+  const mulls = +$("#mm-n").value;
+  const bottom = mmBottom(mulls);
   if (verdict === "mull" && hand.length - bottom <= 5) { verdict = "borderline"; why += " Con 5 cartas o menos, quedarse suele ser mejor."; }
   return {a, verdict, why, notes, tbl, inter};
 }
+let mmPick = null;
+function renderMullSize(){
+  const n = +$("#mm-n").value, b = mmBottom(n), h = Z().hand.length;
+  $("#mm-size").innerHTML = n === 0 ? `Mano inicial: 7 cartas. Si haces mulligan, el primero es gratis (vuelves a robar 7 sin mandar nada al fondo).`
+    : `Robas 7${b ? ` y mandas <b>${b}</b> al fondo: te quedas con <b>${7-b}</b>` : ` y no mandas nada al fondo (gratis)`}.${h && h !== 7 && !(b && h === 7-b) ? ` Tienes ${h} cartas en Mano.` : ""}`;
+}
+function renderMullBottom(){
+  const box = $("#mm-bottom"); if (!box) return;
+  const n = +$("#mm-n").value, b = mmBottom(n), hand = Z().hand;
+  if (!b || hand.length !== 7) { box.innerHTML = ""; mmPick = null; return; }
+  if (!mmPick || mmPick.some(c => !hand.includes(c))) mmPick = suggestBottom(S.deck, hand, b);
+  box.innerHTML = `<h4>Al fondo (${mmPick.length}/${b})</h4><p class="small">Marqué lo que yo mandaría. Toca para cambiar.</p>
+    <div class="mmb">${hand.map(c => `<button type="button" class="mmc${mmPick.includes(c)?" on":""}" data-c="${esc(c)}">${esc(c)}</button>`).join("")}</div>
+    <div class="row" style="margin-top:8px"><button type="button" class="btn primary" id="mm-keep" ${mmPick.length===b?"":"disabled"}>Keep: mandar ${b} al fondo</button></div>`;
+  box.querySelectorAll(".mmc").forEach(x => x.addEventListener("click", () => { const c = x.dataset.c, k = mmPick.indexOf(c); if (k>=0) mmPick.splice(k,1); else if (mmPick.length < b) mmPick.push(c); renderMullBottom(); }));
+  const kb = $("#mm-keep"); if (kb) kb.addEventListener("click", () => { Z().hand = hand.filter(c => !mmPick.includes(c)); mmPick = null; save(); renderCards(); update(); renderMesaMull(); });
+}
 function renderMesaMull(){
   const box = $("#mm-out"); if (!box) return;
+  renderMullSize(); renderMullBottom();
   const r = mesaMullAnalysis();
   if (!r) { box.innerHTML = `<p class="small">Carga al menos 5 cartas en Mano para evaluar.</p>`; return; }
   const v = {keep:["keep","Keep"],mull:["mull","Mulligan"],borderline:["ok","Límite"]}[r.verdict];
@@ -5287,7 +5344,9 @@ function renderMesaMull(){
     ${r.a.plans.length?`<h4>Plan</h4><ul>${r.a.plans.map(p=>`<li>${esc(p)}</li>`).join("")}</ul>`:""}
     <h4>Tu mano</h4><ul>${r.a.reasons.map(p=>`<li>${esc(p)}</li>`).join("")}${r.a.risks.map(p=>`<li>${esc(p)}</li>`).join("")}</ul>
     <h4>La mesa</h4><div>${cmd||'<span class="small">Escribe el comandante de cada rival en la sección Rivales.</span>'}</div>
-    ${tnotes.length||r.notes.length?`<ul>${r.notes.map(p=>`<li><b>${esc(p)}</b></li>`).join("")}${tnotes.map(p=>`<li>${esc(p)}</li>`).join("")}</ul>`:""}`;
+    ${tnotes.length||r.notes.length?`<ul>${r.notes.map(p=>`<li><b>${esc(p)}</b></li>`).join("")}${tnotes.map(p=>`<li>${esc(p)}</li>`).join("")}</ul>`:""}
+    ${+$("#mm-n").value < 4 ? `<div class="row" style="margin-top:10px"><button type="button" class="btn" id="mm-next">Mulligan: vaciar la mano (siguiente: ${MM_LABEL[+$("#mm-n").value+1]})</button></div>` : ""}`;
+  const nb = $("#mm-next"); if (nb) nb.addEventListener("click", () => { $("#mm-n").value = String(+$("#mm-n").value + 1); Z().hand = []; mmPick = null; save(); renderMullSeg(); renderCards(); update(); renderMesaMull(); });
 }
 ["mm-n","mm-free"].forEach(id => $("#"+id).addEventListener("change", renderMesaMull));
 $("#mm-ai").addEventListener("click", async () => {
@@ -5300,7 +5359,7 @@ $("#mm-ai").addEventListener("click", async () => {
 
 ${d.summary}${flexOf(d.id)?`\nSLOT FLEX QUE JUEGA: ${FLEX[flexOf(d.id)]}`:""}
 
-MI ASIENTO: Seat ${S.seat}. MULLIGANS: ${$("#mm-n").value} (primero gratis: ${+$("#mm-free").value?"sí":"no"}).
+MI ASIENTO: Seat ${S.seat}. MULLIGANS: ${$("#mm-n").value} (el primero es gratis: manda ${mmBottom(+$("#mm-n").value)} al fondo).
 MI MANO (${hand.length}): ${hand.join("; ")}
 ${mullFacts(analyze(S.deck, hand, S.seat))}
 RIVALES:
@@ -5404,7 +5463,7 @@ ROLES.cabbage = {accelFast:["Lotus Petal","Chrome Mox","Mox Diamond","Mox Opal",
 ROLES.hashaton.colorAccel = {"Lotus Petal":"WUB","Dark Ritual":"B","Cabal Ritual":"B","Lion's Eye Diamond":"WUB","Arcane Signet":"WUB","Fellwar Stone":"WUB"};
 
 const MKEY = "grimorio-mulligan-v1";
-let M = {deck:"crystal", seatMode:"r", free:1, stats:{}};
+let M = {deck:"crystal", seatMode:"r", free:1, stats:{}}; // el primer mulligan siempre es gratis
 try { const s = JSON.parse(localStorage.getItem(MKEY)||"null"); if (s) M = Object.assign(M, s); } catch(e) {}
 const msave = () => { try { localStorage.setItem(MKEY, JSON.stringify({deck:M.deck,seatMode:M.seatMode,free:M.free,stats:M.stats})); } catch(e) {} };
 let H = null; // {seat, mulls, cards:[...7], bottom:Set, phase:"decide"|"bottom"|"done", choice}
@@ -5562,7 +5621,7 @@ function mStats(){
   $("#m-stats").innerHTML = `<span class="chip"><b>Manos:</b> ${s.hands}</span> <span class="chip"><b>Coincidencia:</b> ${s.hands?Math.round(100*s.agree/s.hands):0}%</span> <span class="chip"><b>Keeps:</b> ${s.keeps}</span>`;
 }
 function mNew(){
-  M.deck = $("#m-deck").value; M.seatMode = $("#m-seat").value; M.free = +$("#m-free").value; msave();
+  M.deck = $("#m-deck").value; M.seatMode = $("#m-seat").value; M.free = 1; msave();
   const seat = M.seatMode==="r" ? 1+Math.floor(Math.random()*4) : +M.seatMode;
   H = {seat, mulls:0, cards: shuffle(libraryOf(M.deck)).slice(0,7), bottom:new Set(), phase:"decide", choices:[]};
   $("#m-result").innerHTML = `<p class="small">Elige "Me quedo" o "Mulligan" y te muestro qué haría yo con esta mano y por qué.</p>`;
@@ -5630,7 +5689,7 @@ El jugador eligió: ${last?last.choice:"keep"}.`;
     out.innerHTML = e && e.code==="not_granted" ? "<p>No diste permiso para que la página me consulte.</p>" : (e && e.code==="rate_limited" ? "<p>Demasiadas consultas. Espera un momento.</p>" : "<p>No pude obtener respuesta. Vuelve a intentar.</p>");
   } finally { $("#m-ai").disabled = false; }
 });
-$("#m-deck").value = M.deck; $("#m-seat").value = M.seatMode; $("#m-free").value = String(M.free);
+M.free = 1; $("#m-deck").value = M.deck; $("#m-seat").value = M.seatMode;
 mNew();
 
 applyPreset(); loadAll(); route();
