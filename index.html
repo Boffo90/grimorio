@@ -3018,6 +3018,7 @@ main .thesis,main .line,main .note,main .warn,main .tip,main .hand,main .piece{d
         </div>
         <div id="pod-row" class="podbox"></div>
         <div class="row" style="margin-top:10px">
+          <button class="btn primary" data-pod="0" type="button">Mesa de hoy: Zuki · Ignacio · Dalibor</button>
           <button class="btn primary" id="btn-rematch" type="button">Revancha (misma mesa)</button>
           <button class="btn" id="btn-clear" type="button">Nueva partida</button>
           <button class="btn" id="btn-example" type="button">Cargar ejemplo</button>
@@ -4709,6 +4710,23 @@ function loadAll(){
   $("#mesa-eyebrow").textContent = D().short+" · asistente de partida";
   fillDatalist(); fillCmdrList(); renderCards(); renderOpps(); renderSeatline(); fillWho(); renderQlog(); renderLog(); update();
 }
+// Mesas guardadas: funcionan también dentro del artifact, sin enlace ni clave
+const SAVED_PODS = [
+  {label:"Mesa de hoy: Zuki · Ignacio · Dalibor", deck:"hashaton", seat:3, opps:[
+    {name:"Kraum, Ludevic's Opus + Tymna (Dalibor)", list:"Delney, Streetwise Lookout\nEsper Sentinel\nFaerie Mastermind\nGrand Abolisher\nLotho, Corrupt Shirriff\nMayhem Devil\nMockingbird\nOrcish Bowmasters\nProfessional Face-Breaker\nRagavan, Nimble Pilferer\nRanger-Captain of Eos\nSimian Spirit Guide\nTataru Taru\nThassa's Oracle\nValley Floodcaller\nVoice of Victory\nAd Nauseam\nAn Offer You Can't Refuse\nBorne Upon a Wind\nBrain Freeze\nCabal Ritual\nChain of Vapor\nCulling the Weak\nDark Ritual\nDeflecting Swat\nDemonic Consultation\nEnlightened Tutor\nFierce Guardianship\nFinal Fortune\nFlusterstorm\nForce of Negation\nForce of Will\nInto the Flood Maw\nIntuition\nMental Misstep\nMindbreak Trap\nMystical Tutor\nOrim's Chant\nPact of Negation\nPyroblast\nRain of Filth\nRed Elemental Blast\nSilence\nSnapback\nSwan Song\nTainted Pact\nVampiric Tutor\nBeseech the Mirror\nDemonic Tutor\nDiabolic Intent\nGamble\nImperial Seal\nMnemonic Betrayal\nRite of Flame\nSevinne's Reclamation\nWheel of Fortune\nArcane Signet\nChrome Mox\nFellwar Stone\nLion's Eye Diamond\nLotus Petal\nMana Vault\nMox Amber\nMox Diamond\nMox Opal\nSol Ring\nWishclaw Talisman\nMystic Remora\nNecropotence\nRhystic Study\nSmothering Tithe\nUnderworld Breach\nGemstone Caverns\nOtawara, Soaring City"},
+    {name:"Kraum, Ludevic's Opus + Tymna (Zuki)", list:"Ad Nauseam\nAn Offer You Can't Refuse\nAncient Tomb\nArcane Signet\nBirgi, God of Storytelling\nBorne Upon a Wind\nBrain Freeze\nCabal Ritual\nChain of Vapor\nChrome Mox\nCulling the Weak\nDark Ritual\nDeflecting Swat\nDemonic Consultation\nDemonic Tutor\nDiabolic Intent\nDragon's Rage Channeler\nEnlightened Tutor\nEsper Sentinel\nFaerie Mastermind\nFellwar Stone\nFierce Guardianship\nFinal Fortune\nFlusterstorm\nForce of Negation\nForce of Will\nGamble\nGemstone Caverns\nGitaxian Probe\nGrand Abolisher\nHexing Squelcher\nImperial Seal\nInto the Flood Maw\nIntuition\nJeska's Will\nLion's Eye Diamond\nLotho, Corrupt Shirriff\nLotus Petal\nMana Vault\nMental Misstep\nMindbreak Trap\nMisdirection\nMockingbird\nMox Amber\nMox Diamond\nMox Opal\nMystic Remora\nMystical Tutor\nNecropotence\nOrcish Bowmasters\nOrim's Chant\nOtawara, Soaring City\nPact of Negation\nPyroblast\nRagavan, Nimble Pilferer\nRain of Filth\nRanger-Captain of Eos\nRed Elemental Blast\nRhystic Study\nRite of Flame\nSevinne's Reclamation\nSilence\nSimian Spirit Guide\nSmothering Tithe\nSol Ring\nSwan Song\nTainted Pact\nTataru Taru\nThassa's Oracle\nUnderworld Breach\nValley Floodcaller\nVampiric Tutor\nVoice of Victory\nWheel of Fortune\nWishclaw Talisman"},
+    {name:"Brigid, Clachan's Heart (Ignacio)", list:"Allosaurus Shepherd\nArchdruid's Charm\nArchivist of Oghma\nAshaya, Soul of the Wild\nAvacyn's Pilgrim\nBadgermole Cub\nBirds of Paradise\nBloom Tender\nBoseiju, Who Endures\nBrightglass Gearhulk\nChord of Calling\nChrome Mox\nCrop Rotation\nDelighted Halfling\nDestiny Spinner\nDisciple of Freyalise\nDuskwatch Recruiter\nEladamri's Call\nEldritch Evolution\nElite Interceptor\nElvish Mystic\nEmerald Charm\nEnduring Vitality\nEnlightened Tutor\nEsper Sentinel\nEternal Witness\nFelidar Guardian\nFinale of Devastation\nFlash Thompson, Spider-Fan\nForce of Vigor\nFormidable Speaker\nFyndhorn Elves\nGaea's Cradle\nGemstone Caverns\nGrand Abolisher\nGreen Sun's Zenith\nHyrax Tower Scout\nInvasion of Ikoria\nJennifer Walters\nLegolas's Quick Reflexes\nLlanowar Elves\nLoran of the Third Path\nLotus Petal\nMox Diamond\nNatural Order\nNature's Rhythm\nPriest of Titania\nQuirion Ranger\nRanger-Captain of Eos\nRecruiter of the Guard\nRecruitment Officer\nScryb Ranger\nSeedcradle Witch\nShang-Chi, Master of Kung Fu\nShifting Woodland\nSilence\nSol Ring\nSolitude\nSowing Mycospawn\nStaff of Domination\nSummoner's Pact\nSurvival of the Fittest\nSwords to Plowshares\nSylvan Library\nToski, Bearer of Secrets\nUmbral Mantle\nVeil of Summer\nVexing Bauble\nVigorbloom Charm\nVillage Bell-Ringer\nVoice of Victory\nWalking Ballista\nWitch Enchanter\nWoodland Bellower\nWorldly Tutor\nYavimaya, Cradle of Growth"}]}
+];
+function loadSavedPod(i){
+  const P = SAVED_PODS[i]; if (!P) return;
+  const keepFlex = S.flex, keepSide = S.side;
+  S = blank(); S.flex = keepFlex; S.side = keepSide; S.deck = P.deck; S.seat = P.seat; S.round = 1; S.active = 1;
+  S.opps = P.opps.map(o => Object.assign(blankOpp(), {name:o.name, list:o.list}));
+  P.opps.forEach(o => cmdrLookup(o.name).forEach(h => pushRecent(h.n)));
+  shots.fill(null); $("#ai-out").innerHTML=""; $("#ai-meta").textContent=""; convo=[]; loadAll();
+  $("#p-setup").open = false; const pm = $("#p-mull"); if (pm) pm.open = true;
+}
+document.querySelectorAll("[data-pod]").forEach(b => b.addEventListener("click", () => loadSavedPod(+b.dataset.pod)));
 $("#btn-rematch").addEventListener("click", () => {
   const keep = {deck:S.deck, seat:S.seat, flex:S.flex, side:S.side, listV:S.listV, opps:S.opps.map(o=>({name:o.name, list:o.list||"", text:"", life:40, alive:true, tags:[], open:null}))};
   S = Object.assign(blank(), keep); S.active = 1; shots.fill(null); $("#ai-out").innerHTML=""; $("#ai-meta").textContent=""; convo=[]; loadAll();
