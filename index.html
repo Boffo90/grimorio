@@ -3278,6 +3278,7 @@ const SOURCES = {
 // Mox Amber: solo da maná de los colores de tus criaturas legendarias y planeswalkers en campo
 const LEGEND_COLORS = {"Nick Fury, Agent of S.H.I.E.L.D.":"W","Rograkh, Son of Rohgahh":"R","Silas Renn, Seeker Adept":"UB","Tymna the Weaver":"WB","Kraum, Ludevic's Opus":"UR","Lotho, Corrupt Shirriff":"WB","Tataru Taru":"W","Jennifer Walters":"W","Birgi, God of Storytelling":"R","Fblthp, Impossibly Lost":"U","Ragavan, Nimble Pilferer":"R","Rocco, Cabaretti Caterer":"RGW","Squee, the Immortal":"R","The Jolly Balloon Man":"RW","Kiki-Jiki, Mirror Breaker":"R","Pia, Aether Ascetic":"G","Ruby, Daring Tracker":"RG","Hashaton, Scarab's Fist":"WB","Dack Fayden, Helping Hand":"W","Yuriko, Blade of the Mighty":"W","Teferi, Mage of Zhalfir":"U","Samut, Tyrant of Naktamun":"U"};
 function sourceOf(deckId, c){
+  if (c === "Gemstone Caverns" && ((S.zones[deckId]||{}).luck)) { const d = DECKS[deckId]; return [d.colors || ({hashaton:"WUB",crystal:"WURG"})[deckId] || "WUBRG", 1]; }
   if (c === "Mox Amber") {
     const cols = [...new Set(((S.zones[deckId]||{}).field||[]).flatMap(x => (LEGEND_COLORS[x]||"").split("")).filter(Boolean))].join("");
     return cols ? [cols,1] : null;
@@ -3602,7 +3603,7 @@ HATE: Cursed Totem, Null Rod/Collector Ouphe, Rule of Law/Archon/Eidolon/Deafeni
     else if (crF) flags.push(["info","Crystal sin Curiosity: busca una con Enlightened o Birthright Boon (Kellan)."]);
     if (crF && sick) flags.push(["bad","Crystal entró este turno: pega, pero no puede girarse ni rebotar. El combo 1 espera al próximo turno."]);
     if (viviF) flags.push(["okf","Vivi en mesa: 1 de daño extra a cada rival por hechizo y {0}: maná U/R igual a su fuerza (una vez, en tu turno)."]);
-    if (inZ("hand","Gemstone Caverns") && st.seat>1 && st.round<=1) flags.push(["info","No eres Seat 1: puedes empezar con Gemstone Caverns en mesa."]);
+    if (inZ("hand","Gemstone Caverns") && st.seat>1 && st.round<=1) flags.push(["info","No eres Seat 1: puedes empezar con Gemstone Caverns en mesa. Ponla en el campo y tócala → «Ponerle luck counter» para que dé cualquier color."]);
     if (st.hand.includes("Fierce Guardianship")||st.hand.includes("Deflecting Swat")) flags.push([crF?"okf":"info",crF?"Crystal en mesa: Fierce Guardianship y Deflecting Swat son gratis.":"Fierce / Swat solo son gratis con Crystal en mesa."]);
     if (st.hand.includes("Final Fortune")) flags.push(["info","Final Fortune: úsalo solo si ganas en el turno extra."]);
     if (!st.mine) flags.push(["info","Turno ajeno: Cam tiene flash y Helix/Knack son instantáneos, pero Crystal tiene que estar enderezada. Ophidian Eye se baja ahora."]);
@@ -4284,6 +4285,7 @@ function moveCard(c, to){
   const from = zoneOf(c);
   if (from) Z()[from].splice(Z()[from].indexOf(c),1);
   if (from==="field" && to!=="field") { const t = tappedL(), k = t.indexOf(c); if (k>=0) t.splice(k,1); }
+  if (from==="field" && to!=="field" && c==="Gemstone Caverns") Z().luck = false;
   if (to) Z()[to].push(c);
   renderCards(); update();
 }
@@ -4292,7 +4294,7 @@ function renderZSeg(){
 }
 function renderZones(){
   $("#zones").innerHTML = ZONES.map(z => `<div class="zrow${z===selZone?" sel":""}" data-z="${z}"><button type="button" class="zl" data-z="${z}">${ZLABEL[z]} ${Z()[z].length}</button>${
-    Z()[z].length ? Z()[z].map(c => `<button type="button" class="cchip${z==="field"&&tappedL().includes(c)?" tapped":""}" data-c="${esc(c)}">${z==="field"&&tappedL().includes(c)?"↷ ":""}${esc(c)}</button>`).join("") : `<span class="zempty">${z===selZone?"Toca o arrastra cartas aquí":"—"}</span>`}</div>`).join("");
+    Z()[z].length ? Z()[z].map(c => `<button type="button" class="cchip${z==="field"&&tappedL().includes(c)?" tapped":""}" data-c="${esc(c)}">${z==="field"&&tappedL().includes(c)?"↷ ":""}${esc(c)}${z==="field"&&c==="Gemstone Caverns"&&Z().luck?" 🍀":""}</button>`).join("") : `<span class="zempty">${z===selZone?"Toca o arrastra cartas aquí":"—"}</span>`}</div>`).join("");
 }
 const PAL_ORDER = [["piece","Combo"],["prot","Protección"],["tutor","Tutores"],["accel","Maná"],["engine","Motores"],["other","Otras"],["land","Tierras"]];
 let landsOpen = false;
@@ -4351,7 +4353,8 @@ $("#zones").addEventListener("click", e => {
   const c = chip.dataset.c, from = zoneOf(c), d = D(), isCmd = c === d.commander || (d.partner && c === d.partner.name);
   menu = document.createElement("div"); menu.className = "chipmenu";
   const tapOpt = from==="field" && sourceOf(S.deck,c) ? `<button type="button" data-tap="1">${tappedL().includes(c)?"Enderezar":"Girar (ya la usé)"}</button>` : "";
-  menu.innerHTML = `<div class="cm-t">${esc(c)}</div>` + tapOpt + ZONES.filter(z=>z!==from).map(z => `<button type="button" data-to="${z}">→ ${ZLABEL[z]}</button>`).join("")
+  const luckOpt = from==="field" && c==="Gemstone Caverns" ? `<button type="button" data-luck="1">${Z().luck?"Quitar luck counter (solo incoloro)":"🍀 Ponerle luck counter (cualquier color)"}</button>` : "";
+  menu.innerHTML = `<div class="cm-t">${esc(c)}</div>` + tapOpt + luckOpt + ZONES.filter(z=>z!==from).map(z => `<button type="button" data-to="${z}">→ ${ZLABEL[z]}</button>`).join("")
     + (isCmd ? `<button type="button" data-to="cmd">→ Zona de mando (+1 impuesto)</button>` : "")
     + `<button type="button" class="del" data-to="">Quitar (vuelve a la biblioteca)</button>`;
   document.body.appendChild(menu);
@@ -4360,6 +4363,7 @@ $("#zones").addEventListener("click", e => {
   menu.style.left = Math.max(8, Math.min(window.scrollX + r.left, window.scrollX + document.documentElement.clientWidth - menu.offsetWidth - 8)) + "px";
   menu.addEventListener("click", ev => {
     if (ev.target.closest("button[data-tap]")) { closeMenu(); toggleTap(c); return; }
+    if (ev.target.closest("button[data-luck]")) { closeMenu(); Z().luck = !Z().luck; renderCards(); update(); return; }
     const b = ev.target.closest("button[data-to]"); if (!b) return;
     const to = b.dataset.to;
     if (to === "cmd") { S.tax = S.tax||{}; S.tax[S.deck] = (S.tax[S.deck]||0) + 1; renderSteps(); moveCard(c, null); }
