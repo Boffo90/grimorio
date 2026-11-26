@@ -571,6 +571,7 @@ main .thesis,main .line,main .note,main .warn,main .tip,main .hand,main .piece{d
 .adj-row{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-bottom:1px solid var(--line,rgba(127,127,127,.2));font-size:14px}
 .adj-row small{color:var(--muted)}.adj-row s{opacity:.7}
 .adj-weak{margin:0;padding-left:18px;font-size:13px}
+.aj-ai{margin:8px 0;font-size:14px;line-height:1.5}.aj-ai:empty{display:none}
 
 
 /* ---- Mulligan ---- */
@@ -666,6 +667,7 @@ main .thesis,main .line,main .note,main .warn,main .tip,main .hand,main .piece{d
       <span class="navh">Herramientas</span>
       <a href="#mulligan" data-tab="mulligan">Mulligan</a>
       <a href="#mesa" data-tab="mesa" class="owner-only" hidden>Mesa</a>
+      <a href="#ajuste" data-tab="ajuste" class="owner-only" hidden>Ajustar lista</a>
     </nav>
     <div class="search">
       <label class="sr" for="q">Buscar en la wiki</label>
@@ -3127,11 +3129,6 @@ main .thesis,main .line,main .note,main .warn,main .tip,main .hand,main .piece{d
 
     <div class="mesa-grid">
       <div>
-        <details class="panel" id="p-adj">
-          <summary><h3>Ajustar mi lista a este pod</h3></summary>
-          <p class="hint" style="margin-top:6px">Lee los comandantes rivales y tu asiento, y te propone qué entra y qué sale. Al aplicar, la Mesa usa la lista nueva y te da el decklist para copiar.</p>
-          <div id="adj-box"></div>
-        </details>
         <details class="panel" id="p-mull">
           <summary><h3>Mano inicial · ¿keep o mulligan?</h3></summary>
           <div class="row" style="margin-top:8px">
@@ -3216,6 +3213,21 @@ main .thesis,main .line,main .note,main .warn,main .tip,main .hand,main .piece{d
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="view" id="view-ajuste" hidden>
+  <div class="mesa">
+    <div class="mesa-head"><div><div class="eyebrow">Herramienta privada</div><h1>Ajustar mi lista al pod</h1>
+      <p class="hint">Elige tu mazo, tu asiento y los comandantes rivales. Te propongo qué entra y qué sale según lo que trae la mesa, y te dejo el decklist para copiar o llevar a la Mesa.</p></div></div>
+    <section class="panel">
+      <div class="row">
+        <div class="fld"><label for="aj-deck">Mazo</label><select id="aj-deck"></select></div>
+        <div class="fld"><label>Tu asiento</label><div class="seg" id="aj-seat" role="group" aria-label="Tu asiento"></div></div>
+      </div>
+      <div class="row" id="aj-opps"></div>
+    </section>
+    <section class="panel" id="aj-out"></section>
   </div>
 </div>
 
@@ -4739,12 +4751,22 @@ const ADJUST = {
   }
 };
 let ADJ = null;
-function computeAdjust(){
-  const d = D(), A = ADJUST[d.id]; if (!A) return null;
-  const seats = oppSeats(), per = [], cnt = {};
-  S.opps.forEach((o,i) => { if (!o.name) return; const t = podTags(o.name); per.push({seat:seats[i], name:o.name, tags:t}); t.forEach(x => cnt[x] = (cnt[x]||0)+1); });
+const AJ = (() => { let v = null; try { v = JSON.parse(localStorage.getItem("grimorio-ajuste")||"null"); } catch(e) {} return v || {deck:"hashaton", seat:2, opps:{}}; })();
+const ajSave = () => { try { localStorage.setItem("grimorio-ajuste", JSON.stringify(AJ)); } catch(e) {} };
+const ajOppSeats = seat => [1,2,3].map(k => ((seat-1+k)%4)+1);
+function ajFlexDefault(deckId){ return deckId==="hashaton" ? "Grand Abolisher" : null; }
+// Lista de un mazo con un flex y unos cambios, sin tocar la Mesa
+function listFor(deckId, flex, swaps){
+  const d = DECKS[deckId], sideNames = (d.side||[]).map(x=>x.c), flexNames = deckId==="hashaton" ? Object.keys(FLEX) : [];
+  const ins = Object.keys(swaps||{}), outs = Object.values(swaps||{});
+  return Object.keys(d.cards).filter(c => c!==d.commander && ((!sideNames.includes(c) && !flexNames.includes(c)) || c===flex || ins.includes(c)) && !outs.includes(c));
+}
+function computeAdjust(deckId, seat, names){
+  const d = DECKS[deckId], A = ADJUST[deckId]; if (!A) return null;
+  const per = [], cnt = {};
+  names.forEach(({seat:st, name}) => { if (!name) return; const t = podTags(name); per.push({seat:st, name, tags:t}); t.forEach(x => cnt[x] = (cnt[x]||0)+1); });
   const all = new Set(Object.keys(cnt));
-  const base = Object.keys(d.cards).filter(c => !sideList(d.id).map(x=>x.c).includes(c) && c!==d.commander);
+  const base = listFor(deckId, ajFlexDefault(deckId), {});
   const used = new Set(), sw = [];
   const fx = A.flex(all, cnt);
   A.swaps.forEach(r => {
@@ -4757,51 +4779,84 @@ function computeAdjust(){
     sw.push({in:r.in, out, why:r.why, who, score});
   });
   sw.sort((a,b) => b.score-a.score);
-  const st = A.seat && A.seat(S.seat); if (st && base.includes(st.out)) sw.push(Object.assign({who:[`tu asiento (S${S.seat})`], score:1}, st));
+  const st = A.seat && A.seat(seat); if (st && base.includes(st.out)) sw.push(Object.assign({who:[`tu asiento (S${seat})`], score:1}, st));
   const weak = Object.entries(A.weak||{}).filter(([c,[,f]]) => base.includes(c) && !used.has(c) && f(all)).map(([c,[t]]) => ({c, t}));
   return {per, cnt, sw, flex:fx, weak};
 }
-function adjDecklist(){
-  const d = D(); const list = deckCards(d.id).filter(c => c !== d.commander).sort((a,b)=>a.localeCompare(b));
-  return [`1 ${d.commander}`, ...list.map(c => `1 ${c}`)].join("\n");
+function ajChosen(){
+  const box = $("#aj-out"); const sw = {}; let flex = ajFlexDefault(AJ.deck);
+  if (ADJ && box) {
+    box.querySelectorAll("[data-adj]").forEach(x => { if (x.checked) { const s = ADJ.sw[+x.dataset.adj]; sw[s.in] = s.out; } });
+    const f = box.querySelector("[data-adjflex]"); if (f && f.checked) flex = ADJ.flex[0];
+  }
+  return {sw, flex};
 }
-function renderAdjust(){
-  const box = $("#adj-box"); if (!box) return;
-  const d = D(), A = ADJUST[d.id];
-  const named = S.opps.filter(o => o.name).length;
-  if (!named) { box.innerHTML = `<p class="hint">Escribe los comandantes rivales en sus asientos (arriba en la mesa) y vuelve aquí.</p>`; return; }
-  if (!A) { box.innerHTML = `<p class="hint">Para ${esc(d.short||d.id)} todavía no hay reglas automáticas. Usa «Afinar con Claude».</p><div class="row"><button class="btn" id="adj-ai" type="button">Afinar con Claude</button></div>`; bindAdjAI(); return; }
-  ADJ = computeAdjust();
-  const cur = (S.side||{})[d.id]||{};
-  box.innerHTML = `<div class="adj-pod">${ADJ.per.map(p => `<div><b>S${p.seat} ${esc(p.name.split(",")[0])}</b> <span>${p.tags.map(t=>TAG_ES[t]||t).join(" · ")||"sin datos"}</span></div>`).join("")}</div>
-    <h4 class="adj-h">Slot flex</h4><label class="adj-row"><input type="checkbox" data-adjflex checked> <span><b>${esc(ADJ.flex[0])}</b>${ADJ.flex[0]===flexOf(d.id)?" (ya lo juegas)":""} — ${esc(ADJ.flex[1])}</span></label>
-    <h4 class="adj-h">Cambios sugeridos</h4>${ADJ.sw.length ? ADJ.sw.map((x,i) => `<label class="adj-row"><input type="checkbox" data-adj="${i}" checked> <span><b>+ ${esc(x.in)}</b> / <s>${esc(x.out)}</s>${cur[x.in]===x.out?" (ya aplicado)":""}<br><small>${esc(x.why)} · ${esc(x.who.join(", "))}</small></span></label>`).join("") : `<p class="hint">Tu lista base ya sirve para este pod.</p>`}
-    ${ADJ.weak.length ? `<h4 class="adj-h">Rinden poco en este pod</h4><ul class="adj-weak">${ADJ.weak.map(w => `<li><b>${esc(w.c)}</b>: ${esc(w.t)}</li>`).join("")}</ul>` : ""}
-    <div class="row"><button class="btn primary" id="adj-apply" type="button">Aplicar a mi lista</button><button class="btn" id="adj-reset" type="button">Volver a la lista base</button><button class="btn" id="adj-ai" type="button">Afinar con Claude</button></div>
-    <h4 class="adj-h">Decklist actual (${deckCards(d.id).length + (deckCards(d.id).includes(d.commander)?0:1)} cartas)</h4>
-    <textarea id="adj-list" readonly rows="8" style="width:100%;font-family:ui-monospace,monospace;font-size:12px">${esc(adjDecklist())}</textarea>
-    <div class="row"><button class="btn" id="adj-copy" type="button">Copiar decklist</button><span class="hint" id="adj-msg"></span></div>`;
-  $("#adj-apply").onclick = () => {
-    const m = (S.side = S.side||{})[d.id] = {};
-    box.querySelectorAll("[data-adj]").forEach(x => { if (x.checked) { const s = ADJ.sw[+x.dataset.adj]; m[s.in] = s.out; } });
-    if (box.querySelector("[data-adjflex]").checked && FLEX[ADJ.flex[0]]) { S.flex = ADJ.flex[0]; const f = $("#flex"); if (f) f.value = S.flex; delete m[S.flex]; }
-    renderPod(); fillDatalist(); renderCards(); renderSetupSum(); update(); renderAdjust(); $("#adj-msg").textContent = "Lista actualizada.";
+function ajRenderList(){
+  const d = DECKS[AJ.deck], {sw, flex} = ajChosen();
+  const list = listFor(AJ.deck, flex, sw).sort((a,b)=>a.localeCompare(b));
+  const t = $("#aj-list"); if (t) t.value = [`1 ${d.commander}`, ...list.map(c => `1 ${c}`)].join("\n");
+  const h = $("#aj-count"); if (h) h.textContent = `${list.length+1} cartas`;
+}
+function renderAjuste(){
+  const v = $("#view-ajuste"); if (!v) return;
+  const deckSel = $("#aj-deck");
+  if (!deckSel.options.length) { const src = $("#deck"); deckSel.innerHTML = src ? src.innerHTML : ""; }
+  deckSel.value = AJ.deck; if (!DECKS[deckSel.value]) { AJ.deck = deckSel.value = "hashaton"; }
+  $("#aj-seat").innerHTML = [1,2,3,4].map(n => `<button type="button" aria-pressed="${n===AJ.seat}" data-ajseat="${n}">${n}</button>`).join("");
+  const seats = ajOppSeats(AJ.seat);
+  $("#aj-opps").innerHTML = seats.map(n => `<div class="fld"><label for="aj-o${n}">Seat ${n}</label><input id="aj-o${n}" data-ajopp="${n}" list="cmdrs" autocomplete="off" placeholder="Comandante" value="${esc(AJ.opps[n]||"")}"></div>`).join("");
+  ajCompute();
+}
+function ajCompute(){
+  const out = $("#aj-out"); const d = DECKS[AJ.deck], A = ADJUST[AJ.deck];
+  const names = ajOppSeats(AJ.seat).map(n => ({seat:n, name:AJ.opps[n]||""}));
+  const named = names.filter(x=>x.name).length;
+  if (!named) { ADJ = null; out.innerHTML = `<p class="hint">Escribe al menos un comandante rival.</p>`; return; }
+  ADJ = A ? computeAdjust(AJ.deck, AJ.seat, names) : null;
+  const podHtml = `<div class="adj-pod">${names.filter(x=>x.name).map(p => `<div><b>S${p.seat} ${esc(p.name.split(",")[0])}</b> <span>${podTags(p.name).map(t=>TAG_ES[t]||t).join(" · ")||"sin datos"}</span></div>`).join("")}</div>`;
+  out.innerHTML = podHtml + (ADJ ? `
+    ${ADJ.flex && FLEX[ADJ.flex[0]] ? `<h4 class="adj-h">Slot flex</h4><label class="adj-row"><input type="checkbox" data-adjflex checked> <span><b>${esc(ADJ.flex[0])}</b> — ${esc(ADJ.flex[1])}</span></label>` : ""}
+    <h4 class="adj-h">Cambios sugeridos</h4>${ADJ.sw.length ? ADJ.sw.map((x,i) => `<label class="adj-row"><input type="checkbox" data-adj="${i}" checked> <span><b>+ ${esc(x.in)}</b> / <s>${esc(x.out)}</s><br><small>${esc(x.why)} · ${esc(x.who.join(", "))}</small></span></label>`).join("") : `<p class="hint">Tu lista base ya sirve para este pod.</p>`}
+    ${ADJ.weak.length ? `<h4 class="adj-h">Rinden poco en este pod</h4><ul class="adj-weak">${ADJ.weak.map(w => `<li><b>${esc(w.c)}</b>: ${esc(w.t)}</li>`).join("")}</ul>` : ""}`
+    : `<p class="hint">Para ${esc(d.short||AJ.deck)} todavía no hay reglas automáticas: usa «Afinar con Claude». El decklist de abajo es tu lista base.</p>`) + `
+    <div class="row"><button class="btn primary" id="aj-mesa" type="button">Llevar a la Mesa</button><button class="btn" id="aj-ai" type="button">Afinar con Claude</button></div>
+    <div id="aj-ai-out" class="aj-ai"></div>
+    <h4 class="adj-h">Decklist · <span id="aj-count"></span></h4>
+    <textarea id="aj-list" readonly rows="10" style="width:100%;font-family:ui-monospace,monospace;font-size:12px"></textarea>
+    <div class="row"><button class="btn" id="aj-copy" type="button">Copiar decklist</button><span class="hint" id="aj-msg"></span></div>`;
+  ajRenderList();
+  out.querySelectorAll("[data-adj],[data-adjflex]").forEach(x => x.addEventListener("change", ajRenderList));
+  $("#aj-copy").onclick = async () => { const t = $("#aj-list"); try { await navigator.clipboard.writeText(t.value); } catch(e) { t.select(); document.execCommand("copy"); } $("#aj-msg").textContent = "Copiada."; };
+  $("#aj-mesa").onclick = () => {
+    const {sw, flex} = ajChosen(); const seats = ajOppSeats(AJ.seat);
+    loadPod({deck:AJ.deck, seat:AJ.seat, flex: flex || S.flex, side:sw, opps: seats.map(n => ({name:AJ.opps[n]||"", list:""}))});
+    location.hash = "#mesa";
   };
-  $("#adj-reset").onclick = () => { (S.side = S.side||{})[d.id] = {}; S.flex = "Grand Abolisher"; const f = $("#flex"); if (f) f.value = S.flex; renderPod(); fillDatalist(); renderCards(); renderSetupSum(); update(); renderAdjust(); };
-  $("#adj-copy").onclick = async () => { const t = $("#adj-list"); try { await navigator.clipboard.writeText(t.value); } catch(e) { t.select(); document.execCommand("copy"); } $("#adj-msg").textContent = "Copiada."; };
-  bindAdjAI();
-}
-function bindAdjAI(){
-  const b = $("#adj-ai"); if (!b) return;
-  b.onclick = () => {
-    const seats = oppSeats();
-    const pod = S.opps.map((o,i) => o.name ? `Seat ${seats[i]}: ${o.name}${o.list?` (lista conocida)`:""}` : "").filter(Boolean).join("; ");
-    const sug = ADJ && ADJ.sw.length ? ` Sugerencias automáticas: ${ADJ.sw.map(x=>`+${x.in} / -${x.out}`).join(", ")}.` : "";
-    ask(`Ajusta mi lista para este pod. Yo voy Seat ${S.seat}. Rivales: ${pod}.${sug} Con las cartas de mi banca o cartas nuevas que no rompan el combo (no agregues criaturas: Dack debe revelar las mismas), dime: 1) qué entra y qué sale, con el motivo por rival; 2) qué cartas de mi lista rinden poco aquí; 3) cómo jugar el pod en 3 líneas.`);
-    const ai = $("#p-ai") || $("#ai-out"); if (ai && ai.scrollIntoView) ai.scrollIntoView({behavior:"smooth"});
+  $("#aj-ai").onclick = async () => {
+    const box = $("#aj-ai-out");
+    if (!aiReady()) { box.innerHTML = `<p class="hint">Claude no está disponible aquí. Copia el pod y el decklist al chat.</p>`; return; }
+    const {sw, flex} = ajChosen();
+    const pod = names.filter(x=>x.name).map(x => `Seat ${x.seat}: ${x.name}`).join("; ");
+    const list = $("#aj-list").value.replace(/^1 /gm,"").split("\n").join("; ");
+    box.innerHTML = `<p class="hint">Pensando…</p>`;
+    const prompt = `Eres un coach experto de cEDH. Responde en español de Chile, directo, con nombres Oracle de las cartas en inglés.
+MAZO: ${d.commander}. ${(d.summary||"").slice(0,2500)}
+LISTA ACTUAL: ${list}
+BANCA DISPONIBLE: ${(d.side||[]).map(x=>x.c).join(", ")||"(ninguna)"}${flex?`\nSLOT FLEX: ${flex}`:""}
+POD: voy Seat ${AJ.seat}. Rivales: ${pod}.${Object.keys(sw).length?` Cambios que ya elegí: ${Object.entries(sw).map(([a,b])=>`+${a} / -${b}`).join(", ")}.`:""}
+Tarea: 1) qué entra y qué sale (máximo 6 cambios, de la banca o cartas nuevas), con el motivo por rival. No agregues criaturas si el mazo depende de cuántas criaturas revela Dack. 2) Qué cartas de la lista rinden poco en este pod. 3) Cómo jugar el pod en 3 líneas.`;
+    try { const r = await askClaude(prompt); box.innerHTML = md(r.text||""); }
+    catch(e) { box.innerHTML = `<p class="hint">No se pudo consultar a Claude (${esc(e.code||"error")}).</p>`; }
   };
 }
-document.addEventListener("toggle", e => { if (e.target && e.target.id==="p-adj" && e.target.open) renderAdjust(); }, true);
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-ajseat]"); if (!b) return;
+  AJ.seat = +b.dataset.ajseat; ajSave(); renderAjuste();
+});
+document.addEventListener("change", e => {
+  if (e.target.id === "aj-deck") { AJ.deck = e.target.value; ajSave(); ajCompute(); }
+  if (e.target.dataset && e.target.dataset.ajopp) { AJ.opps[e.target.dataset.ajopp] = e.target.value.trim(); ajSave(); ajCompute(); }
+});
 function fillWho(){
   const sel = $("#log-who"); const cur = sel.value;
   sel.innerHTML = [1,2,3,4].map(s => `<option value="${s}">S${s} ${esc(seatName(s).split(",")[0])}</option>`).join("");
@@ -5145,8 +5200,8 @@ const SAVED_PODS = [
    side:{"Blind Obedience":"Copy Enchantment","Spell Snare":"Praetor's Grasp","Extirpate":"Scheming Symmetry","Pithing Needle":"Damping Sphere"},
    opps:[{name:"Magda, Brazen Outlaw",list:""},{name:"Urza, Prince of Kroog",list:""},{name:"Dihada, Binder of Wills",list:""}]}
 ];
-function loadSavedPod(i){
-  const P = SAVED_PODS[i]; if (!P) return;
+function loadSavedPod(i){ if (SAVED_PODS[i]) loadPod(SAVED_PODS[i]); }
+function loadPod(P){
   const keepFlex = S.flex, keepSide = S.side;
   S = blank(); S.flex = keepFlex; S.side = keepSide; S.deck = P.deck; S.seat = P.seat; S.round = 1; S.active = 1;
   if (P.flex) S.flex = P.flex; if (P.side) { S.side = S.side||{}; S.side[P.deck] = Object.assign({}, P.side); }
@@ -5784,7 +5839,7 @@ ${opp}`;
 });
 
 /* ===================== Router ===================== */
-const VIEWS = ["inicio","elegir","mazos","mazo","meta","combos","politica","glosario","reglas","mesa","mulligan","lock"].concat(DECK_VIEWS.map(x=>x[0]));
+const VIEWS = ["inicio","elegir","mazos","mazo","meta","combos","politica","glosario","reglas","mesa","ajuste","mulligan","lock"].concat(DECK_VIEWS.map(x=>x[0]));
 function route(){
   const h = (location.hash||"#inicio").slice(1);
   let view = VIEWS.includes(h) ? h : null, target = null, stubName = "";
@@ -5792,11 +5847,12 @@ function route(){
   if (view === "mazo" && !stubName) view = "mazos";
   if (!view) { target = document.getElementById(h); const v = target && target.closest(".view"); view = v ? v.id.replace("view-","") : "inicio"; }
   if (view === "lock") view = "mesa";
-  if (view === "mesa" && !isOwner()) view = "lock";
+  if ((view === "mesa" || view === "ajuste") && !isOwner()) view = "lock";
+  if (view === "ajuste") renderAjuste();
   VIEWS.forEach(v => document.getElementById("view-"+v).hidden = v !== view);
   const tab = (view === "mazo" || DECK_VIEWS.some(x=>x[0]===view)) ? "mazos" : view;
   document.querySelectorAll(".tabs a").forEach(a => { if (a.dataset.tab===tab) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
-  const names = {inicio:"",elegir:"Elige tu mazo",mazos:"Mazos",meta:"Meta",combos:"Combos",politica:"Política",glosario:"Glosario",reglas:"Reglas e interacciones",mulligan:"Mulligan",mesa:"Mesa",lock:"Mesa"};
+  const names = {inicio:"",elegir:"Elige tu mazo",mazos:"Mazos",meta:"Meta",combos:"Combos",politica:"Política",glosario:"Glosario",reglas:"Reglas e interacciones",mulligan:"Mulligan",mesa:"Mesa",ajuste:"Ajustar lista",lock:"Mesa"};
   const dv = DECK_VIEWS.find(x=>x[0]===view); const nm = stubName || (dv ? dv[1] : names[view]);
   document.title = (nm ? nm+" · " : "") + "Grimorio · Wiki cEDH en español";
   if (target) target.scrollIntoView(); else window.scrollTo(0,0);
