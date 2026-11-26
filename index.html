@@ -566,6 +566,12 @@ main .thesis,main .line,main .note,main .warn,main .tip,main .hand,main .piece{d
 .tk .step button{min-width:34px;min-height:34px;font-size:13px}
 .tk .step output{min-width:24px;font-size:15px}
 
+.adj-pod{display:grid;gap:4px;margin:8px 0;font-size:13px}.adj-pod span{color:var(--muted)}
+.adj-h{margin:12px 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.adj-row{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-bottom:1px solid var(--line,rgba(127,127,127,.2));font-size:14px}
+.adj-row small{color:var(--muted)}.adj-row s{opacity:.7}
+.adj-weak{margin:0;padding-left:18px;font-size:13px}
+
 
 /* ---- Mulligan ---- */
 .mstats{display:flex;gap:6px;flex-wrap:wrap}
@@ -3121,6 +3127,11 @@ main .thesis,main .line,main .note,main .warn,main .tip,main .hand,main .piece{d
 
     <div class="mesa-grid">
       <div>
+        <details class="panel" id="p-adj">
+          <summary><h3>Ajustar mi lista a este pod</h3></summary>
+          <p class="hint" style="margin-top:6px">Lee los comandantes rivales y tu asiento, y te propone qué entra y qué sale. Al aplicar, la Mesa usa la lista nueva y te da el decklist para copiar.</p>
+          <div id="adj-box"></div>
+        </details>
         <details class="panel" id="p-mull">
           <summary><h3>Mano inicial · ¿keep o mulligan?</h3></summary>
           <div class="row" style="margin-top:8px">
@@ -4669,6 +4680,128 @@ function renderPod(){
     fillDatalist(); renderCards(); renderSetupSum(); update();
   }));
 }
+/* ===================== Ajustar la lista al pod ===================== */
+// Rasgos de cada comandante rival que importan para elegir cartas
+const POD_TAGS = {
+  "Magda, Brazen Outlaw":["artefactos","tesoros","activadas","stax","criaturas"],
+  "Dihada, Binder of Wills":["tesoros","breach","silence","activadas","rapido"],
+  "Urza, Prince of Kroog":["artefactos","activadas","counters"],
+  "Urza, Lord High Artificer":["artefactos","activadas","counters"],
+  "Kraum, Ludevic's Opus":["counters","breach","thassa"],"Tymna the Weaver":["counters","breach","thassa"],
+  "Thrasios, Triton Hero":["counters","thassa","activadas","criaturas"],"Kinnan, Bonder Prodigy":["counters","activadas","artefactos","criaturas","rapido"],
+  "Rograkh, Son of Rohgahh":["rapido"],"Silas Renn, Seeker Adept":["artefactos","rapido","thassa"],
+  "Sisay, Weatherlight Captain":["activadas","criaturas","stax"],"Tivit, Seller of Secrets":["tesoros","artefactos","counters","stifle"],
+  "Arcum Dagsson":["artefactos","activadas","counters"],"Brigid, Clachan's Heart":["criaturas","activadas","stax","rapido"],
+  "Winota, Joiner of Forces":["criaturas","stax"],"Etali, Primal Conqueror":["rapido"],"Dargo, the Shipwrecker":["rapido","tesoros"],
+  "Ral, Monsoon Mage":["rapido","counters","breach"],"Vivi Ornitier":["counters","rapido"],"Kenrith, the Returned King":["counters","breach","thassa"],
+  "Crystal, Inhuman Princess":["rapido","breach"],"Rocco, Cabaretti Caterer":["criaturas","activadas"],"The Cabbage Merchant":["criaturas","artefactos"],
+  "Avatar Aang":["tesoros","counters"],"Aang, at the Crossroads":["counters","criaturas"],"Najeela, the Blade-Blossom":["criaturas","rapido"],
+  "Yoshimaru, Ever Faithful":["stax","criaturas"],"Derevi, Empyrial Tactician":["stax","criaturas"],"Lavinia, Azorius Renegade":["stax","counters"],
+  "Grand Arbiter Augustin IV":["stax","counters"],"Zur the Enchanter":["counters"],"The Gitrog Monster":["breach","activadas"],
+  "Korvold, Fae-Cursed King":["tesoros","activadas"],"Tayam, Luminous Enigma":["activadas","criaturas"],"Inalla, Archmage Ritualist":["counters","criaturas"],
+  "Malcolm, Keen-Eyed Navigator":["tesoros","counters","rapido"],"Vial Smasher the Fierce":["rapido"],"Ob Nixilis, Captive Kingpin":["criaturas"],
+  "Kefka, Court Mage":["counters","breach"],"Sakashima of a Thousand Faces":["counters","criaturas"],"Atraxa, Grand Unifier":["counters"]
+};
+const TAG_ES = {artefactos:"artefactos",tesoros:"Tesoros",activadas:"habilidades activadas",stax:"stax",criaturas:"criaturas",breach:"Underworld Breach / cementerio",silence:"Silence",rapido:"turbo",counters:"counters",thassa:"Thassa's Oracle",stifle:"Stifle/Trickbind"};
+function podTags(name){
+  const out = new Set();
+  cmdrLookup(name).forEach(h => {
+    (POD_TAGS[h.n]||[]).forEach(t => out.add(t));
+    if (!POD_TAGS[h.n]) { if ((h.c||"").includes("U")) out.add("counters"); if (h.t==="turbo") out.add("rapido"); if (h.t==="stax") out.add("stax"); }
+  });
+  return [...out];
+}
+// Reglas por mazo: in, out preferidos (el primero que esté en tu lista), etiquetas que la piden y peso por etiqueta
+const ADJUST = {
+  hashaton: {
+    swaps: [
+      {in:"Blind Obedience", out:["Copy Enchantment","Lim-Dûl's Vault"], w:{tesoros:2,artefactos:1}, min:3, why:"sus Tesoros y artefactos entran girados: no dan maná ese turno"},
+      {in:"Pithing Needle", out:["Damping Sphere","Copy Enchantment","Lim-Dûl's Vault"], w:{activadas:1}, min:2, why:"nombra al comandante con habilidad activada más peligroso"},
+      {in:"Aura of Silence", out:["Lim-Dûl's Vault","Copy Enchantment","Damping Sphere"], w:{artefactos:1,stax:1}, min:3, why:"sus artefactos cuestan {2} más y la sacrificas para destruir Torpor Orb, Cage o Bauble"},
+      {in:"Spell Snare", out:["Praetor's Grasp","Lim-Dûl's Vault"], w:{breach:1,thassa:1,criaturas:1}, min:2, why:"por {U} contrarresta Breach, Thassa's Oracle y piezas de 2 (Magda, Abolisher, Squelcher)"},
+      {in:"Extirpate", out:["Scheming Symmetry","Praetor's Grasp"], w:{breach:2}, min:2, why:"corta el loop de cementerio rival en respuesta; split second"},
+      {in:"Flicker of Fate", out:["Wishclaw Talisman","Scheming Symmetry"], w:{stifle:2}, min:2, why:"repite el trigger de Thassa si se lo stiflean"},
+      {in:"Black Market Connections", out:["Lim-Dûl's Vault","Scheming Symmetry"], w:{}, min:99, slow:1, why:"mesa lenta: valor en tu turno"}
+    ],
+    weak: {
+      "Damping Sphere":["Sin rivales de storm ni de tierras que den mucho maná rinde poco.", t => !t.has("rapido")],
+      "Copy Enchantment":["Solo copia encantamientos: en mesas sin encantamientos clave es una carta muerta.", t => true],
+      "Praetor's Grasp":["Tutorea de la biblioteca rival: lenta contra mesas rápidas.", t => t.has("rapido")],
+      "Scheming Symmetry":["Le regala un tutor a un rival: peligrosa contra mesas rápidas.", t => t.has("rapido")],
+      "Wishclaw Talisman":["Termina tutoreando para un rival.", t => t.has("rapido")]
+    },
+    flex(tags, cnt){
+      if ((cnt.counters||0) >= 2 && !(cnt.activadas >= 2)) return ["Teferi, Mage of Zhalfir","dos o más rivales con counters: solo lanzan a velocidad de conjuro"];
+      if (!(cnt.rapido) && !(cnt.counters >= 2) && !(cnt.activadas >= 2)) return ["Hoarding Broodlord","mesa lenta: tutor que entra con Dack"];
+      return ["Grand Abolisher","en tu turno nadie lanza ni activa artefactos o criaturas (Silence, Swat, Magda, Urza)"];
+    },
+    seat(seat){ return seat===1 ? {in:"Tarnished Citadel", out:"Gemstone Caverns", why:"en Seat 1 Gemstone Caverns no empieza en mesa"} : null; }
+  }
+};
+let ADJ = null;
+function computeAdjust(){
+  const d = D(), A = ADJUST[d.id]; if (!A) return null;
+  const seats = oppSeats(), per = [], cnt = {};
+  S.opps.forEach((o,i) => { if (!o.name) return; const t = podTags(o.name); per.push({seat:seats[i], name:o.name, tags:t}); t.forEach(x => cnt[x] = (cnt[x]||0)+1); });
+  const all = new Set(Object.keys(cnt));
+  const base = Object.keys(d.cards).filter(c => !sideList(d.id).map(x=>x.c).includes(c) && c!==d.commander);
+  const used = new Set(), sw = [];
+  const fx = A.flex(all, cnt);
+  A.swaps.forEach(r => {
+    let score = 0; Object.entries(r.w).forEach(([t,w]) => score += (cnt[t]||0)*w);
+    if (r.slow && !cnt.rapido && per.length) score = 99;
+    if (score < r.min) return;
+    const out = r.out.find(c => base.includes(c) && !used.has(c)); if (!out) return;
+    used.add(out);
+    const who = per.filter(p => Object.keys(r.w).some(t => p.tags.includes(t))).map(p => `S${p.seat} ${p.name.split(",")[0]}`);
+    sw.push({in:r.in, out, why:r.why, who, score});
+  });
+  sw.sort((a,b) => b.score-a.score);
+  const st = A.seat && A.seat(S.seat); if (st && base.includes(st.out)) sw.push(Object.assign({who:[`tu asiento (S${S.seat})`], score:1}, st));
+  const weak = Object.entries(A.weak||{}).filter(([c,[,f]]) => base.includes(c) && !used.has(c) && f(all)).map(([c,[t]]) => ({c, t}));
+  return {per, cnt, sw, flex:fx, weak};
+}
+function adjDecklist(){
+  const d = D(); const list = deckCards(d.id).filter(c => c !== d.commander).sort((a,b)=>a.localeCompare(b));
+  return [`1 ${d.commander}`, ...list.map(c => `1 ${c}`)].join("\n");
+}
+function renderAdjust(){
+  const box = $("#adj-box"); if (!box) return;
+  const d = D(), A = ADJUST[d.id];
+  const named = S.opps.filter(o => o.name).length;
+  if (!named) { box.innerHTML = `<p class="hint">Escribe los comandantes rivales en sus asientos (arriba en la mesa) y vuelve aquí.</p>`; return; }
+  if (!A) { box.innerHTML = `<p class="hint">Para ${esc(d.short||d.id)} todavía no hay reglas automáticas. Usa «Afinar con Claude».</p><div class="row"><button class="btn" id="adj-ai" type="button">Afinar con Claude</button></div>`; bindAdjAI(); return; }
+  ADJ = computeAdjust();
+  const cur = (S.side||{})[d.id]||{};
+  box.innerHTML = `<div class="adj-pod">${ADJ.per.map(p => `<div><b>S${p.seat} ${esc(p.name.split(",")[0])}</b> <span>${p.tags.map(t=>TAG_ES[t]||t).join(" · ")||"sin datos"}</span></div>`).join("")}</div>
+    <h4 class="adj-h">Slot flex</h4><label class="adj-row"><input type="checkbox" data-adjflex checked> <span><b>${esc(ADJ.flex[0])}</b>${ADJ.flex[0]===flexOf(d.id)?" (ya lo juegas)":""} — ${esc(ADJ.flex[1])}</span></label>
+    <h4 class="adj-h">Cambios sugeridos</h4>${ADJ.sw.length ? ADJ.sw.map((x,i) => `<label class="adj-row"><input type="checkbox" data-adj="${i}" checked> <span><b>+ ${esc(x.in)}</b> / <s>${esc(x.out)}</s>${cur[x.in]===x.out?" (ya aplicado)":""}<br><small>${esc(x.why)} · ${esc(x.who.join(", "))}</small></span></label>`).join("") : `<p class="hint">Tu lista base ya sirve para este pod.</p>`}
+    ${ADJ.weak.length ? `<h4 class="adj-h">Rinden poco en este pod</h4><ul class="adj-weak">${ADJ.weak.map(w => `<li><b>${esc(w.c)}</b>: ${esc(w.t)}</li>`).join("")}</ul>` : ""}
+    <div class="row"><button class="btn primary" id="adj-apply" type="button">Aplicar a mi lista</button><button class="btn" id="adj-reset" type="button">Volver a la lista base</button><button class="btn" id="adj-ai" type="button">Afinar con Claude</button></div>
+    <h4 class="adj-h">Decklist actual (${deckCards(d.id).length + (deckCards(d.id).includes(d.commander)?0:1)} cartas)</h4>
+    <textarea id="adj-list" readonly rows="8" style="width:100%;font-family:ui-monospace,monospace;font-size:12px">${esc(adjDecklist())}</textarea>
+    <div class="row"><button class="btn" id="adj-copy" type="button">Copiar decklist</button><span class="hint" id="adj-msg"></span></div>`;
+  $("#adj-apply").onclick = () => {
+    const m = (S.side = S.side||{})[d.id] = {};
+    box.querySelectorAll("[data-adj]").forEach(x => { if (x.checked) { const s = ADJ.sw[+x.dataset.adj]; m[s.in] = s.out; } });
+    if (box.querySelector("[data-adjflex]").checked && FLEX[ADJ.flex[0]]) { S.flex = ADJ.flex[0]; const f = $("#flex"); if (f) f.value = S.flex; delete m[S.flex]; }
+    renderPod(); fillDatalist(); renderCards(); renderSetupSum(); update(); renderAdjust(); $("#adj-msg").textContent = "Lista actualizada.";
+  };
+  $("#adj-reset").onclick = () => { (S.side = S.side||{})[d.id] = {}; S.flex = "Grand Abolisher"; const f = $("#flex"); if (f) f.value = S.flex; renderPod(); fillDatalist(); renderCards(); renderSetupSum(); update(); renderAdjust(); };
+  $("#adj-copy").onclick = async () => { const t = $("#adj-list"); try { await navigator.clipboard.writeText(t.value); } catch(e) { t.select(); document.execCommand("copy"); } $("#adj-msg").textContent = "Copiada."; };
+  bindAdjAI();
+}
+function bindAdjAI(){
+  const b = $("#adj-ai"); if (!b) return;
+  b.onclick = () => {
+    const seats = oppSeats();
+    const pod = S.opps.map((o,i) => o.name ? `Seat ${seats[i]}: ${o.name}${o.list?` (lista conocida)`:""}` : "").filter(Boolean).join("; ");
+    const sug = ADJ && ADJ.sw.length ? ` Sugerencias automáticas: ${ADJ.sw.map(x=>`+${x.in} / -${x.out}`).join(", ")}.` : "";
+    ask(`Ajusta mi lista para este pod. Yo voy Seat ${S.seat}. Rivales: ${pod}.${sug} Con las cartas de mi banca o cartas nuevas que no rompan el combo (no agregues criaturas: Dack debe revelar las mismas), dime: 1) qué entra y qué sale, con el motivo por rival; 2) qué cartas de mi lista rinden poco aquí; 3) cómo jugar el pod en 3 líneas.`);
+    const ai = $("#p-ai") || $("#ai-out"); if (ai && ai.scrollIntoView) ai.scrollIntoView({behavior:"smooth"});
+  };
+}
+document.addEventListener("toggle", e => { if (e.target && e.target.id==="p-adj" && e.target.open) renderAdjust(); }, true);
 function fillWho(){
   const sel = $("#log-who"); const cur = sel.value;
   sel.innerHTML = [1,2,3,4].map(s => `<option value="${s}">S${s} ${esc(seatName(s).split(",")[0])}</option>`).join("");
