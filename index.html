@@ -3332,7 +3332,7 @@ DECKS.hashaton = {
     "Morphic Pool":["l",0],"Sea of Clouds":["l",0],"Vault of Champions":["l",0],"Arid Mesa":["l",0],"Bloodstained Mire":["l",0],"Flooded Strand":["l",0],"Marsh Flats":["l",0],"Misty Rainforest":["l",0],
     "Polluted Delta":["l",0],"Scalding Tarn":["l",0],"Verdant Catacombs":["l",0],
     "Gleaming Splendor":["e",2],"Flicker of Fate":["i",2],
-    "Blind Obedience":["e",2],"Daze":["i",2],"Frantic Search":["i",3],"Goryo's Vengeance":["i",2],"Tarnished Citadel":["l",0]
+    "Pithing Needle":["a",1],"Aura of Silence":["e",3],"Blind Obedience":["e",2],"Daze":["i",2],"Frantic Search":["i",3],"Goryo's Vengeance":["i",2],"Tarnished Citadel":["l",0]
   },
   // Banca: el jugador elige qué carta de la lista sale
   side: [
@@ -3342,9 +3342,11 @@ DECKS.hashaton = {
     {c:"Blind Obedience", when:"Mesas de Treasures y artefactos (Tivit, Aang, Arcum). Contra dorks rinde poco: ya entran con mareo."},
     {c:"Black Market Connections", when:"Mesas lentas que roban poco: valor garantizado en tu turno (cuesta vida)."},
     {c:"Twincast", when:"Copiar un tutor, Entomb o Reanimate, o el tutor de un rival."},
-    {c:"Tarnished Citadel", when:"Si quieres una tierra de cualquier color más."}
+    {c:"Tarnished Citadel", when:"Si quieres una tierra de cualquier color más."},
+    {c:"Pithing Needle", when:"Comandantes con habilidades activadas: nombra Magda, Dihada o Urza. No nombres Treasure (las habilidades de maná siguen). Enlightened Tutor lo encuentra."},
+    {c:"Aura of Silence", when:"Mesas de artefactos: los suyos cuestan {2} más, y la sacrificas para destruir Torpor Orb, Grafdigger's Cage o Vexing Bauble."}
   ],
-  aliases: {"splendor":"Gleaming Splendor","flicker":"Flicker of Fate","goryo":"Goryo's Vengeance","goryos":"Goryo's Vengeance","frantic":"Frantic Search","blind":"Blind Obedience","obedience":"Blind Obedience","citadel":"Tarnished Citadel","daze":"Daze","broodlord":"Hoarding Broodlord","led":"Lion's Eye Diamond","cookbook":"The Underworld Cookbook","thassa":"Thassa's Oracle","thoracle":"Thassa's Oracle","dack":"Dack Fayden, Helping Hand","hashaton":"Hashaton, Scarab's Fist","abolisher":"Grand Abolisher","consult":"Demonic Consultation","consultation":"Demonic Consultation","pact":"Tainted Pact","fow":"Force of Will","fon":"Force of Negation","fierce":"Fierce Guardianship","stp":"Swords to Plowshares","swords":"Swords to Plowshares","dt":"Demonic Tutor","vamp":"Vampiric Tutor","necro":"Necropotence","rhystic":"Rhystic Study","remora":"Mystic Remora","tezz":"Tezzeret, Cruel Captain","saga":"Urza's Saga","tomb":"Ancient Tomb","vault":"Mana Vault","petal":"Lotus Petal","grace":"Angel's Grace","trickbind":"Trickbind","teferi":"Teferi, Mage of Zhalfir","yuriko":"Yuriko, Blade of the Mighty","samut":"Samut, Tyrant of Naktamun","spider":"Superior Spider-Man","spiderman":"Superior Spider-Man","spider-man":"Superior Spider-Man","broodlord":"Hoarding Broodlord","hoarding":"Hoarding Broodlord","slimed":"Trickbind","unseat":"Praetor's Grasp","grasp":"Praetor's Grasp"},
+  aliases: {"splendor":"Gleaming Splendor","flicker":"Flicker of Fate","goryo":"Goryo's Vengeance","goryos":"Goryo's Vengeance","frantic":"Frantic Search","blind":"Blind Obedience","obedience":"Blind Obedience","citadel":"Tarnished Citadel","daze":"Daze","needle":"Pithing Needle","pithing":"Pithing Needle","aura":"Aura of Silence","broodlord":"Hoarding Broodlord","led":"Lion's Eye Diamond","cookbook":"The Underworld Cookbook","thassa":"Thassa's Oracle","thoracle":"Thassa's Oracle","dack":"Dack Fayden, Helping Hand","hashaton":"Hashaton, Scarab's Fist","abolisher":"Grand Abolisher","consult":"Demonic Consultation","consultation":"Demonic Consultation","pact":"Tainted Pact","fow":"Force of Will","fon":"Force of Negation","fierce":"Fierce Guardianship","stp":"Swords to Plowshares","swords":"Swords to Plowshares","dt":"Demonic Tutor","vamp":"Vampiric Tutor","necro":"Necropotence","rhystic":"Rhystic Study","remora":"Mystic Remora","tezz":"Tezzeret, Cruel Captain","saga":"Urza's Saga","tomb":"Ancient Tomb","vault":"Mana Vault","petal":"Lotus Petal","grace":"Angel's Grace","trickbind":"Trickbind","teferi":"Teferi, Mage of Zhalfir","yuriko":"Yuriko, Blade of the Mighty","samut":"Samut, Tyrant of Naktamun","spider":"Superior Spider-Man","spiderman":"Superior Spider-Man","spider-man":"Superior Spider-Man","broodlord":"Hoarding Broodlord","hoarding":"Hoarding Broodlord","slimed":"Trickbind","unseat":"Praetor's Grasp","grasp":"Praetor's Grasp"},
   freeProtection: ["Force of Will","Force of Negation","Pact of Negation","Fierce Guardianship","Mindbreak Trap","Misdirection","Commandeer","Snapback","Deadly Rollick"],
   cheapProtection: ["Mental Misstep","Flusterstorm","Swan Song","Dispel","Spell Snare","Strix Serenade","An Offer You Can't Refuse","Silence","Orim's Chant","Grand Abolisher","Teferi, Mage of Zhalfir","Yuriko, Blade of the Mighty","Samut, Tyrant of Naktamun"],
   splitSecond: ["Angel's Grace","Trickbind","Extirpate"],
@@ -5007,7 +5009,7 @@ function loadAll(){
 // Mesas guardadas: funcionan también dentro del artifact, sin enlace ni clave
 const SAVED_PODS = [
   {label:"Mesa: Dihada · Magda · Urza", deck:"hashaton", seat:2, flex:"Grand Abolisher",
-   side:{"Blind Obedience":"Copy Enchantment","Spell Snare":"Praetor's Grasp","Extirpate":"Scheming Symmetry"},
+   side:{"Blind Obedience":"Copy Enchantment","Spell Snare":"Praetor's Grasp","Extirpate":"Scheming Symmetry","Pithing Needle":"Damping Sphere"},
    opps:[{name:"Magda, Brazen Outlaw",list:""},{name:"Urza, Prince of Kroog",list:""},{name:"Dihada, Binder of Wills",list:""}]}
 ];
 function loadSavedPod(i){
