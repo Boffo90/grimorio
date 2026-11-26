@@ -3110,6 +3110,7 @@ main .thesis,main .line,main .note,main .warn,main .tip,main .hand,main .piece{d
         </div>
         <div id="pod-row" class="podbox"></div>
         <div class="row" style="margin-top:10px">
+          <button class="btn primary" data-pod="0" type="button">Mesa: Dihada · Magda · Urza</button>
           <button class="btn primary" id="btn-rematch" type="button">Revancha (misma mesa)</button>
           <button class="btn" id="btn-clear" type="button">Nueva partida</button>
           <button class="btn" id="btn-example" type="button">Cargar ejemplo</button>
@@ -3369,6 +3370,8 @@ DECKS.hashaton = {
     ["strict proctor","Strict Proctor: pagas {2} por cada trigger de entrada (Dack, Leveler, Thassa) o se contrarresta."],
     ["grand abolisher","Grand Abolisher rival: en su turno no puedes lanzar hechizos ni activar habilidades. Sácalo antes de que intente ganar."],
     ["bowmasters","Orcish Bowmasters: cada robo extra (Brainstorm, Careful Study, Rhystic) te hace daño y le da ejército."],
+    ["magda tesoros","Magda con 5 Tesoros: sacrifica cinco y pone cualquier artefacto en el campo a velocidad de instantáneo (Torpor Orb o Grafdigger's Cage en respuesta a tu combo). Cursed Totem le apaga la habilidad; en tu turno Grand Abolisher también. Ve cuando tenga menos de 5."],
+    ["silence rival","Silence o Orim's Chant rival: ese turno no lanzas hechizos. Si LED ya está en mesa, activarlo y el trigger de Hashaton no son hechizos: el combo sigue. Grand Abolisher lo impide en tu turno; Mental Misstep, Dispel o Flusterstorm lo contrarrestan."],
     ["vexing bauble","Vexing Bauble: contrarresta lo que lanzas sin pagar maná: Force of Will, Pact of Negation, Fierce Guardianship y también LED, Lotus Petal y los moxes. LED tiene que estar ya en mesa."],
     ["teferi, time raveler","Teferi, Time Raveler: solo lanzas a velocidad de conjuro. Pierdes la ventana de split second en turno rival."],
     ["voice of victory","Voice of Victory: no puedes lanzar hechizos en el turno de su controlador."],
@@ -4728,7 +4731,10 @@ const KIT = {
   "Tymna the Weaver":["grand abolisher","voice of victory","bowmasters","hexing squelcher","mayhem devil"],
   "Tivit, Seller of Secrets":["trickbind","grafdigger","drannith","opposition agent","teferi, time raveler","voice of victory","vexing bauble","bowmasters"],
   "Avatar Aang":["opposition agent","grand abolisher","voice of victory","bowmasters","tidebinder"],
-  "Arcum Dagsson":["arcum activo","grafdigger","torpor orb","stifle"]
+  "Arcum Dagsson":["arcum activo","grafdigger","torpor orb","stifle"],
+  "Magda, Brazen Outlaw":["magda tesoros","torpor orb","grafdigger","vexing bauble","damping sphere","cursed totem"],
+  "Dihada, Binder of Wills":["silence rival","hexing squelcher","grand abolisher","mayhem devil","archivist","veil of summer"],
+  "Urza, Prince of Kroog":["stifle","grafdigger","torpor orb","null rod"]
 };
 const MATCHUP = { hashaton: {
   "Kraum, Ludevic's Opus": {
@@ -4741,6 +4747,21 @@ const MATCHUP = { hashaton: {
     frena:"Suele jugar Vexing Bauble (contrarresta LED, moxes, Lotus Petal y tus counters gratis), Loran of the Third Path, Force of Vigor y Witch Enchanter (destruyen LED o Cursed Totem), Swords to Plowshares y Solitude (Hashaton), Veil of Summer, Grand Abolisher, Voice of Victory, Silence y Ranger-Captain of Eos. Otras listas: Collector Ouphe apaga LED, Cookbook y tus piedras. Drannith Magistrate no te deja lanzar a Hashaton desde la zona de mando. Deafening Silence: un hechizo no criatura por turno. Grand Abolisher, Voice of Victory y Kutzil, Malamet Exemplar: en su turno no lanzas hechizos (con Abolisher tampoco activas LED). Endurance con destello (la buscan Chord of Calling y Eladamri's Call) baraja tu cementerio en respuesta a Reanimate. Solitude exilia a Hashaton. Force of Vigor, Boseiju y Witch Enchanter destruyen tu Cursed Totem o Damping Sphere. Archivist of Oghma roba cuando tutoreas.",
     resp:"Cursed Totem: apaga a Doun's Mind, los dorks, Seedcradle Witch, Umbral Mantle, Walking Ballista y Survival of the Fittest, y a ti no te afecta. Toxic Deluge barre dorks, Mother of Runes y Giver of Runes. Damping Sphere: Gaea's Cradle y Growing Rites of Itlimoc dan un solo incoloro. Trickbind a la activación de Seedcradle Witch o Umbral Mantle: no la puede repetir ese turno. Contra criaturas tus counters son Force of Will, Pact of Negation, Mindbreak Trap, Daze, Strix Serenade y Spell Snare (Drannith, Ouphe, Abolisher, Voice). Snuff Out mata cualquiera de sus criaturas (ninguna es negra).",
     ventana:"Su hate de criaturas tiene que morir antes de que empiece su turno (paso final del jugador anterior a ella). No dejes tu combo para su paso final: con Abolisher, Voice o Kutzil no puedes responder. Si baja Collector Ouphe, tu descarte es Frantic Search o Careful Study; si baja Drannith, ve por Entomb + Reanimate o Goryo's Vengeance. Los counters de Blue Farm casi no la frenan (Fierce Guardianship y Force of Negation no tocan criaturas): guarda tu interacción para ella."},
+  "Magda, Brazen Outlaw": {
+    peligro:"Mono rojo de Enanos y Tesoros. Cada Enano que se gira crea un Tesoro; cinco Tesoros buscan cualquier artefacto y lo ponen en el campo. Gana con Clock of Omens + un Enano artefacto.",
+    frena:"Con 5 Tesoros baja Torpor Orb (sin triggers de entrada: Dack, Leveler y Thassa no hacen nada) o Grafdigger's Cage en respuesta a tu combo, a velocidad de instantáneo. Vexing Bauble contrarresta LED, Lotus Petal y tus counters gratis (Force of Will, Pact, Fierce Guardianship). Pyroblast y REB contra tus hechizos azules; Deflecting Swat redirige tu Swords.",
+    resp:"Cursed Totem es la mejor carta: apaga la habilidad de Magda y a ti no te afecta (Enlightened Tutor). Snuff Out gratis (Magda no es negra), Swords to Plowshares, Toxic Deluge barre sus Enanos de 1 de resistencia. Spell Snare contra Magda. Blind Obedience: sus Tesoros entran girados y no dan maná ese turno.",
+    ventana:"Ve cuando tenga menos de 5 Tesoros, o con Grand Abolisher o Cursed Totem en mesa. Con Vexing Bauble, descarta a Dack con Careful Study, The Underworld Cookbook o Necropotence, o ve por Entomb + Reanimate."},
+  "Dihada, Binder of Wills": {
+    peligro:"Mardu de Underworld Breach. El −3 de Dihada llena el cementerio y crea Tesoros; con Breach se relanza con escape (Mayhem Devil hace daño con cada Tesoro, o Flicker repite el −3). Wishclaw Talisman y Praetor's Grasp buscan piezas.",
+    frena:"Silence en tu upkeep: ese turno no lanzas hechizos. Hexing Squelcher: sus hechizos no se pueden contrarrestar. Grand Abolisher en su turno. Redirect Lightning y Deflecting Swat cambian el objetivo de tu remoción.",
+    resp:"Spell Snare, Swan Song o Force of Negation contra Underworld Breach. Extirpate en respuesta al loop (exilia a Dihada o la pieza que relanzan desde el cementerio). Mata Hexing Squelcher antes de su turno de combo. Mental Misstep, Dispel o Flusterstorm contra Silence. Blind Obedience: sus Tesoros entran girados.",
+    ventana:"Su paso final es tu mejor ventana fuera de tu turno (suele quedar sin maná). En tu turno, Grand Abolisher impide Silence. Si LED ya está en mesa, Silence no te frena: activar LED y el trigger de Hashaton no son hechizos."},
+  "Urza, Prince of Kroog": {
+    peligro:"Azorius de artefactos: criaturas artefacto con +2/+2 y {6} para copiar un artefacto propio. Con maná infinito copia lo que quiera.",
+    frena:"Counters azules. Revisa si juega Stifle, Tishana's Tidebinder, Grafdigger's Cage o Torpor Orb: si aparece Stifle, Flicker of Fate entra.",
+    resp:"Cursed Totem le apaga la habilidad. Strix Serenade y Spell Snare contra sus artefactos baratos. Blind Obedience: sus artefactos entran girados.",
+    ventana:"Es el rival menos peligroso de la mesa: guarda tu interacción para Dihada y Magda."},
   "Arcum Dagsson": {
     peligro:"Combo de artefactos. Cuando Arcum puede girarse (sin mareo, o con Lightning Greaves) y tiene una criatura artefacto, busca cualquier artefacto no criatura a velocidad de instantáneo.",
     frena:"En respuesta al trigger de Dack puede buscar Grafdigger's Cage o Torpor Orb. Es azul: espera counters gratis y quizás Stifle.",
@@ -4984,11 +5005,16 @@ function loadAll(){
   fillDatalist(); fillCmdrList(); renderCards(); renderOpps(); renderSeatline(); fillWho(); renderQlog(); renderLog(); update();
 }
 // Mesas guardadas: funcionan también dentro del artifact, sin enlace ni clave
-const SAVED_PODS = [];
+const SAVED_PODS = [
+  {label:"Mesa: Dihada · Magda · Urza", deck:"hashaton", seat:2, flex:"Grand Abolisher",
+   side:{"Blind Obedience":"Copy Enchantment","Spell Snare":"Praetor's Grasp","Extirpate":"Scheming Symmetry"},
+   opps:[{name:"Magda, Brazen Outlaw",list:""},{name:"Urza, Prince of Kroog",list:""},{name:"Dihada, Binder of Wills",list:""}]}
+];
 function loadSavedPod(i){
   const P = SAVED_PODS[i]; if (!P) return;
   const keepFlex = S.flex, keepSide = S.side;
   S = blank(); S.flex = keepFlex; S.side = keepSide; S.deck = P.deck; S.seat = P.seat; S.round = 1; S.active = 1;
+  if (P.flex) S.flex = P.flex; if (P.side) { S.side = S.side||{}; S.side[P.deck] = Object.assign({}, P.side); }
   S.opps = P.opps.map(o => Object.assign(blankOpp(), {name:o.name, list:o.list}));
   P.opps.forEach(o => cmdrLookup(o.name).forEach(h => pushRecent(h.n)));
   shots.fill(null); $("#ai-out").innerHTML=""; $("#ai-meta").textContent=""; convo=[]; loadAll();
@@ -5334,10 +5360,18 @@ const CMDR_DB = [
    plan:"Rampa a 7 y lanza Etali: lanza gratis lo que exilia del tope de cada biblioteca. Food Chain + Squee da maná para Etali; Dualcaster Mage + Heat Shimmer/Molten Duplication da tokens infinitos con prisa.",
    stop:"Counter a Etali o a Food Chain. Rule of Law lo frena. Sin azul: depende de Deflecting Swat y Pyroblast.",
    s:"No."},
-  {k:["magda"], n:"Magda, Brazen Outlaw", c:"RW", t:"turbo", top:12,
-   plan:"Tesoros al girar Dwarves; combos de maná y combate rápido.",
-   stop:"Remoción a Magda y a sus dwarves clave.",
-   s:"Poco: algún Silence o pieza blanca."},
+  {k:["magda"], n:"Magda, Brazen Outlaw", c:"R", t:"stax", top:12,
+   plan:"Mono rojo. Cada Enano que se gira crea un Tesoro; cinco Tesoros buscan un artefacto o Dragón y lo ponen en el campo. Gana con Clock of Omens + un Enano artefacto. Stax: Vexing Bauble, Torpor Orb, Grafdigger's Cage, Damping Sphere.",
+   stop:"Cursed Totem le apaga la habilidad; Snuff Out, Swords o Toxic Deluge a Magda y sus Enanos (1 de resistencia).",
+   s:"Busca Torpor Orb o Grafdigger's Cage con 5 Tesoros en respuesta; Pyroblast, REB y Deflecting Swat."},
+  {k:["dihada"], n:"Dihada, Binder of Wills", c:"WBR", t:"combo", top:48,
+   plan:"Mardu de Underworld Breach. El −3 de Dihada revela 4, los que no son legendarios van al cementerio y crean Tesoros; con Breach, Flicker o Mayhem Devil se repite. Wishclaw Talisman y Praetor's Grasp buscan piezas.",
+   stop:"Counters a Underworld Breach; Extirpate o hate de cementerio en respuesta; matar Hexing Squelcher antes de su turno; remoción a Dihada (planeswalker).",
+   s:"Silence en tu turno, Hexing Squelcher (sus hechizos no se contrarrestan), Grand Abolisher, Redirect Lightning, Deflecting Swat."},
+  {k:["prince of kroog","urza prince"], n:"Urza, Prince of Kroog", c:"WU", t:"midrange", top:99,
+   plan:"Azorius de artefactos. Sus criaturas artefacto tienen +2/+2; {6}: copia un artefacto propio como criatura 1/1. Con maná infinito copia artefactos sin límite.",
+   stop:"Cursed Totem le apaga la habilidad; counters a sus piezas de maná infinito.",
+   s:"Counters azules; quizás Stifle, Grafdigger's Cage o Torpor Orb."},
   {k:["yoshimaru"], n:"Yoshimaru, Ever Faithful", c:"W", t:"midrange", top:13,
    plan:"Partner blanco de Thrasios: midrange Bant con Thoracle, Breach y mucho counter.",
    stop:"Igual que Thrasios: interacción para Thoracle.",
